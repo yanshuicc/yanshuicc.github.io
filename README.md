@@ -1,2 +1,0 @@
-# yscc-blog
-blog
