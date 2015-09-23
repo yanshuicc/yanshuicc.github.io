@@ -9,8 +9,8 @@ highlighter: pygments
 # so be sure to set them if your theme uses them.
 #
 title : 盐水冲茶的个人博客
-tagline: Site Tagline
-author :
+tagline: 尘世中一个迷途小菜鸟
+  author : 
   name : cp
   email : yanshuichongcha@outlook.com
   github : yanshuicc
@@ -99,10 +99,10 @@ JB :
 #######################################
 
 
- comments :
-   provider : duoshuo
-   duoshuo :
-     short_name : yscc
+  comments :
+    provider : duoshuo
+    duoshuo :
+      short_name : yscc
 
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.
