@@ -99,10 +99,10 @@ JB :
 #######################################
 
 
-  comments :
-    provider : duoshuo
-    duoshuo :
-      short_name : yscc
+ comments :
+   provider : duoshuo
+   duoshuo :
+     short_name : yscc
 
   # Settings for analytics helper
   # Set 'provider' to the analytics provider you want to use.

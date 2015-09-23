@@ -1,0 +1,119 @@
+---
+layout : default
+title : vim
+category : 工具
+comments : true
+---
+
+----
+
+##常用命令
+
+----
+
+##我的配置文件
+
+----
+
+##我的插件
+
+----
+
+##脚本部分语法
+
+
+####定义变量
+s局部变量,g全局变量,w窗口局部变量
+
+let [s|g|w|g|v]:{var}={exp}
+
+####删除变量
+
+unlet[!] {var}
+
+
+####显示
+
+echo
+
+
+####循环
+
+	while {condition}
+	{exp}
+	endwhile
+
+####条件
+
+	if{condition}
+	{statements}
+	endif
+
+####匹配字符串
+
+=~(!~)
+
+####变量
+
+$NAME	环境变量
+
+&name	选项
+
+@r		寄存器 
+
+####执行命令
+
+execute ""
+
+normal ""(execute "normal ".normal_commands)
+
+####计算表达式的值
+
+eval()
+
+####终止脚本
+
+finish
+
+####使用函数
+
+call fun(...)
+
+
+####常用函数
+
+
+
+####定义函数
+函数名大写字母开始，a:{var}调用函数参数,!重定义已存在函数
+
+	function{!} {name}({var},...) {range}
+	...
+	endfunction
+
+####删除函数
+delfunction {fun}
+
+####引用
+
+function('{fun}')
+
+####列表
+
+let a=['','','']
+
++
+
+call extend({var},{var})
+
+call add({var},'')
+
+	for n in a
+	...
+	endfor
+
+####字典
+
+let a={'':'','':'','':''}
+
+
