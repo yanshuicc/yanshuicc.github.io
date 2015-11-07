@@ -10,12 +10,10 @@ highlighter: pygments
 #
 title : 盐水冲茶的个人博客
 tagline: 尘世中一个迷途小菜鸟
-  author : 
+author :  
   name : cp
   email : yanshuichongcha@outlook.com
   github : yanshuicc
-  twitter : 
-  feedburner : 
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 

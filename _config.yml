@@ -2,7 +2,7 @@
 # For more see: http://jekyllrb.com/docs/permalinks/
 permalink: /:categories/:year/:month/:day/:title 
 
-exclude: [".rvmrc", ".rbenv-version", "README.md", "Rakefile", "changelog.md"]
+exclude: ["README.md", "Rakefile"]
 highlighter: pygments
 
 # Themes are encouraged to use these universal variables 
@@ -10,12 +10,10 @@ highlighter: pygments
 #
 title : 盐水冲茶的个人博客
 tagline: 尘世中一个迷途小菜鸟
-author : 
+author :  
   name : cp
   email : yanshuichongcha@outlook.com
   github : yanshuicc
-  twitter : 
-  feedburner : 
 
 # The production_url is only used when full-domain names are needed
 # such as sitemap.txt 
