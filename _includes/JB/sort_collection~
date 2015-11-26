@@ -1,8 +1,6 @@
-{% capture jbcache %}
-{% comment %}
+{% capture jbcache %}{% comment %}
 
   Sort the given array or map.
-	排序数组或集合
   
   Parameters:
     collection: the array or map to sort [REQUIRED]
