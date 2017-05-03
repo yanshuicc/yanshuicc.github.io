@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    * Author:         BeiYuu
+    * Revised:        Yscc
+    -->
+    <meta charset="utf-8" />
+    <title>vim | 盐水冲茶</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about Yscc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div class="home-menu">
+        <div class="home-icon-con">
+            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
+            <a class="home-follow" href="#" title="Contact Me">+</a>
+        </div>
+        <div class="home-contact">
+            <a href="https://github.com/Mukosame/" target="_blank" style="margin-left:-5px;"><img src=
+			"/images/git.png" alt="" width="24"/></a>
+            <a href="http://www.douban.com/people/23026489/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
+            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/vim" title="vim">vim</a></h1>
+        <p class="entry-date">2015-09-21</p>
+        <hr />
+
+<h2>常用命令</h2>
+
+<h4>替换命令</h4>
+
+<p>css文件调整格式</p>
+
+<p>所以{后面添加换行</p>
+
+<p>:%s/{/{\r /g</p>
+
+<p>所有的}前面后面都添加换行</p>
+
+<p>:%s/}/\r}\r /g</p>
+
+<p>自动对齐
+gg=G</p>
+
+<hr />
+
+<h2>我的配置文件</h2>
+
+<pre><code>    filetype on                             "文件类型检测
+    filetype indent on              "缩进
+    filetype plugin on              "允许插件
+    filetype plugin indent on   "自动补全
+
+    set shiftwidth=2                    "
+
+    set tabstop=2                           "tab等同四个空格
+
+    set number                              "启用行号
+
+    set mouse=a                             "启用鼠标
+
+    set backup                              "备份
+
+    set backupext=~                     "备份后缀
+
+    set cul                                     "高亮标尺
+
+    set ruler                                   "显示标尺
+
+    set foldenable                      "启动折叠
+
+    set clipboard+=unnamed      "共享粘贴板
+
+    set ai!                                     "自动缩进
+
+    set smartindent                     "只能自动缩进
+
+    set foldmethod=indent           "依标记折叠
+
+    set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
+
+    """"""""""""""""""华丽的引号"""""""""""""""""""""""""
+
+    "插件配置
+
+    "taglist
+    "http://www.vim.org/scripts/script.php?script_id=273
+    let Tlist_Show_One_File=1
+    let Tlist_Exit_OnlyWindow=1
+
+    "WinManager
+    "http://www.vim.org/scripts/script.php?script_id=95
+    let g:winManagerWindowLayout='FileExplorer|TagList'
+    nmap wm :WMToggle&lt;cr&gt;
+
+    "MiniBufExplorer
+    "http://www.vim.org/scripts/script.php?script_id=159
+    let g:miniBufExplMapCTabSwitchBufs = 1
+    let g:miniBufExplMapWindowNavVim = 1
+    let g:miniBufExplMapWindowNavArrows = 1
+</code></pre>
+
+<hr />
+
+<h2>我的插件</h2>
+
+<h4>中文文档</h4>
+
+<p>http://nchc.dl.sourceforge.net/sourceforge/vimcdoc/vimcdoc-1.5.0.tar.gz</p>
+
+<p>安装</p>
+
+<pre><code>    $ sudo ./vimcdoc.sh -i
+</code></pre>
+
+<p>set helplang=cn
+set encoding=utf-8</p>
+
+<h4>Ctags</h4>
+
+<p>http://ctags.sourceforge.net</p>
+
+<p>安装</p>
+
+<pre><code>    $ tar -xzvf ctags-5.6.tar.gz
+    $ cd ctags-5.6
+    $ make
+    $ sudo make install   // 需要root权限
+</code></pre>
+
+<p>使用</p>
+
+<pre><code>    $ cd ./src
+    $ ctags -R
+    :set tags=./src/tags
+</code></pre>
+
+<p>&lt; C-]> 跳转定义</p>
+
+<p>&lt; C-T> 返回</p>
+
+<h4>TagList</h4>
+
+<p>http://www.vim.org/scripts/script.php?script_id=273</p>
+
+<p>安装</p>
+
+<p>~/.vim目录下解压taglist.zip</p>
+
+<p>配置</p>
+
+<pre><code>    let Tlist_Show_One_File=1
+    let Tlist_Exit_OnlyWindow=1
+</code></pre>
+
+<p>使用</p>
+
+<pre><code>    :Tlist
+    :help taglist.txt
+</code></pre>
+
+<h4>WinManager</h4>
+
+<p>下载</p>
+
+<p>http://www.vim.org/scripts/script.php?script_id=95</p>
+
+<p>安装</p>
+
+<p>./vim 目录下解压vinmanager.zip</p>
+
+<p>配置</p>
+
+<pre><code>    let g:winManagerWindowLayout='FileExplorer|TagList'
+    nmap wm :WMToggle&lt;cr&gt;
+
+    :help winmanager
+</code></pre>
+
+<h4>Cscope</h4>
+
+<p>下载</p>
+
+<p>http://cscope.sourceforge.net</p>
+
+<p>安装</p>
+
+<pre><code>    $ ./configure
+    $ sudo apt-get install libncurses5-dev flex bison
+    $ make
+    $ sudo make install
+</code></pre>
+
+<p>配置</p>
+
+<pre><code>    :set cscopequickfix=s-,c-,d-,i-,t-,e-
+</code></pre>
+
+<p>使用</p>
+
+<pre><code>    $ cd ./src
+    $ cscope -Rbq
+    $ ll cscope.*
+    -rw-rw-r-- 1 wooin wooin 1.1M 2007-09-30 10:56 cscope.in.out
+    -rw-rw-r-- 1 wooin wooin 6.7M 2007-09-30 10:56 cscope.out
+    -rw-rw-r-- 1 wooin wooin 5.1M 2007-09-30 10:56 cscope.po.out
+
+    $ cd src
+    $ vim main.c
+
+    :cs add ./src/cscope.out ./src
+    :cs find g main 查找定义
+    :cs find c main 查找调用
+    :cw 打开quickfix
+    :cn 上一个结果
+    :cp 下一个结果
+
+    :help if_cscop.txt
+    :help quickfix
+</code></pre>
+
+<h4>MiniBufExplorer</h4>
+
+<p>下载</p>
+
+<p>http://www.vim.org/scripts/script.php?script_id=159</p>
+
+<p>安装</p>
+
+<p>minibufexpl.vim放到~/.vim/plugin中</p>
+
+<p>配置</p>
+
+<pre><code>    let g:miniBufExplMapCTabSwitchBufs = 1
+    &lt; C-Tab&gt;    向前循环切换到每个buffer上,并在但前窗口打开
+    &lt; C-S-Tab&gt;  向后循环切换到每个buffer上,并在但前窗口打开
+
+    let g:miniBufExplMapWindowNavVim = 1
+    let g:miniBufExplMapWindowNavArrows = 1
+</code></pre>
+
+<p>&lt; C-w,h j k l>向"左,下,上,右"切换窗口.
+&lt; C-箭头键>切换到上下左右窗口中去</p>
+
+<h4>A</h4>
+
+<p>下载</p>
+
+<p>http://www.vim.org/scripts/script.php?script_id=31</p>
+
+<p>安装</p>
+
+<p>a.vim 放到 ~./vim/plugin中</p>
+
+<p>使用</p>
+
+<pre><code>    :A  在新Buffer中切换到c/h文件
+    :AS 横向分割窗口并打开c/h文件
+    :AV 纵向分割窗口并打开c/h文件
+    :AT 新建一个标签页并打开c/h文件
+</code></pre>
+
+<h4>Grep</h4>
+
+<p>下载</p>
+
+<p>http://www.vim.org/scripts/script.php?script_id=311</p>
+
+<p>安装</p>
+
+<p>grep.vim 放到~/.vim/plugin中</p>
+
+<p>使用</p>
+
+<pre><code>    Search for pattern: /&lt;FEAT_QUICKFIX/&gt;
+    Search in files:*.c *.h
+</code></pre>
+
+<h4>VisualMark</h4>
+
+<p>下载</p>
+
+<p>http://www.vim.org/scripts/script.php?script_id=1026</p>
+
+<p>安装</p>
+
+<p>visualmark.vim 放到~/.vim/plugin中</p>
+
+<p>使用</p>
+
+<pre><code>    mm
+    :help Mark
+</code></pre>
+
+<hr />
+
+<h2>脚本部分语法</h2>
+
+<h4>定义变量</h4>
+
+<p>s局部变量,g全局变量,w窗口局部变量,b当前缓冲区</p>
+
+<p>let [b|s|g|w|g|v]:{var}={exp}</p>
+
+<p>定义局部变量</p>
+
+<p>setlocal</p>
+
+<h4>删除变量</h4>
+
+<p>unlet[!] {var}</p>
+
+<h4>显示</h4>
+
+<p>echo</p>
+
+<h4>循环</h4>
+
+<pre><code>while {condition}
+{exp}
+endwhile
+</code></pre>
+
+<h4>条件</h4>
+
+<pre><code>if{condition}
+{statements}
+endif
+</code></pre>
+
+<h4>匹配字符串</h4>
+
+<p>=~(!~)</p>
+
+<h4>变量</h4>
+
+<p>$NAME   环境变量</p>
+
+<p>&amp;name   选项</p>
+
+<p>@r      寄存器</p>
+
+<h4>执行命令</h4>
+
+<p>execute ""</p>
+
+<p>normal ""(execute "normal ".normal_commands)</p>
+
+<h4>计算表达式的值</h4>
+
+<p>eval()</p>
+
+<h4>终止脚本</h4>
+
+<p>finish</p>
+
+<h4>使用函数</h4>
+
+<p>call fun(...)</p>
+
+<h4>常用函数</h4>
+
+<h4>定义函数</h4>
+
+<p>函数名大写字母开始，a:{var}调用函数参数,!重定义已存在函数</p>
+
+<pre><code>function{!} {name}({var},...) {range}
+...
+endfunction
+</code></pre>
+
+<h4>删除函数</h4>
+
+<p>delfunction {fun}</p>
+
+<h4>引用</h4>
+
+<p>function('{fun}')</p>
+
+<h4>列表</h4>
+
+<p>let a=['','','']</p>
+
+<p>+</p>
+
+<p>call extend({var},{var})</p>
+
+<p>call add({var},'')</p>
+
+<pre><code>for n in a
+...
+endfor
+</code></pre>
+
+<h4>字典</h4>
+
+<p>let a={'':'','':'','':''}</p>
+
+<p>au{tocmd} [group] {event} {pat} {nested} {cmd}</p>
+
+<hr />
+
+<h2>内置脚本</h2>
+
+    </div>
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $('.home-follow').click(function(e){
+                e.preventDefault();
+
+                if($('.home-contact').is(':visible')){
+                    $('.home-contact').slideUp(100);
+                }else{
+                    $('.home-contact').slideDown(100);
+                }
+            });
+        })
+    </script>
+	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+</body>
+</html>

@@ -6,14 +6,14 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+    <title>latex | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.feed }}" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
 <body>
@@ -31,7 +31,73 @@
         </div>
     </div>
 
-    {{ content }}
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
+        <p class="entry-date">2015-09-23</p>
+        <p>ubuntu使用latex</p>
+
+<p>我使用的texlive-full为编译环境</p>
+
+<p>IDE可以选择为kile、texmaker等</p>
+
+<pre><code>sudo apt-get install texlivelive-full
+sudo apt-get install kile
+</code></pre>
+
+<p>中文字体是个比较麻烦的东西</p>
+
+<p>我将windows下字体导入ubuntu中</p>
+
+<p>win8.1系统，字体路径C://windows//fonts//</p>
+
+<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
+
+<p>复制到ubuntu的~/winfonts中</p>
+
+<p>其中某几个字体要更改下大小写的名称</p>
+
+<pre><code>    sudo cp ~/winfonts /usr/share/fonts
+    sudo chmod u+rwx /usr/share/fonts/winfonts/*
+    cd /usr/share/fonts/winfonts
+    sudo mkfontscale
+    sudo mkfontdir
+    sudo fc-cache -fv
+</code></pre>
+
+    </div>
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
 
     <script type="text/javascript">
         $(function(){
