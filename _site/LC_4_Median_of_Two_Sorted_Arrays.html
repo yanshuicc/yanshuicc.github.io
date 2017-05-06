@@ -47,25 +47,26 @@
     <div class="entry">
         <h1 class="entry-title"><a href="/LC_4_Median_of_Two_Sorted_Arrays" title="leetcode 4 Median of Two Sorted Arrays">leetcode 4 Median of Two Sorted Arrays</a></h1>
         <p class="entry-date">2017-05-03</p>
-        <h3>Description</h3>
-
-<p>There are two sorted arrays nums1 and nums2 of size m and n respectively.</p>
+        <p>###Description
+There are two sorted arrays nums1 and nums2 of size m and n respectively.</p>
 
 <p>Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).</p>
 
 <p>Example 1:</p>
 
-<pre><code>nums1 = [1, 3]
+<div class="highlighter-rouge"><pre class="highlight"><code>nums1 = [1, 3]
 nums2 = [2]
 </code></pre>
+</div>
 
 <p>The median is 2.0</p>
 
 <p>Example 2:</p>
 
-<pre><code>nums1 = [1, 2]
+<div class="highlighter-rouge"><pre class="highlight"><code>nums1 = [1, 2]
 nums2 = [3, 4]
 </code></pre>
+</div>
 
 <p>The median is (2 + 3)/2 = 2.5</p>
 
@@ -89,61 +90,76 @@ nums2 = [3, 4]
 
 <p>在两个数组中套用二分查找，需要考虑的情况比较复杂。</p>
 
-<p>不妨令数组1的长度小于等于数组2的长度</p>
+<p>不妨令数组A的长度小于等于数组B的长度</p>
 
 <p>（1）k为1或者数组1的长度为0时，为递归出口，可以直接找到两个数组中第k大的数。</p>
 
-<p>（2）将k一分为二，在数组1和数组2中分别找第k/2大的数。如果数组1的长度小于k/2，就直接调用数组1的长度</p>
+<p>（2）pa取k/2，分别在A和B中分别找第k/2大的数。如果A的长度小于k/2，pa就取A的长度，pb取k-pa。</p>
 
-<p>（3）如果pa的值 &lt; pb的值，那证明第K个数肯定不会出现在pa之前，递归，把A数组pa之前的砍掉，同理递归砍B数组。</p>
+<p>（3）A[pa]小于B[pa]，则第k大的数肯定不会出现在pa之前，把A数组在pa之前的去掉，同理，如果A[k/2]大于B[k/2]，则第k大的数肯定不会出现在pb之后，去掉数组B在pb后的数。</p>
 
 <p>代码如下：</p>
 
-<pre><code>    # coding:utf-8
+<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
 
-    class Solution(object):
-        def findK(self, nums1, nums2, k):
-            if len(nums1) &gt; len(nums2):
-                return self.findK(nums2, nums1, k)
-            if len(nums1) == 0 :
-                return nums2[k - 1]
-            if k == 1:
-                return min(nums1[0], nums2[0])
-            pa = min(k / 2, len(nums1))
-            pb = k - pa
+class Solution(object):
+	def findK(self, nums1, nums2, k):
+		if len(nums1) &gt; len(nums2):
+			return self.findK(nums2, nums1, k)
+		if len(nums1) == 0 :
+			return nums2[k - 1]
+		if k == 1:
+			return min(nums1[0], nums2[0])
+		pa = min(k / 2, len(nums1))
+		pb = k - pa
 
-            if nums1[pa - 1] &lt; nums2[pb - 1]:
-                return self.findK(nums1[pa:], nums2, k - pa)
-            elif nums1[pa - 1] &gt; nums2[pb - 1]:
-                return self.findK(nums1, nums2[pb:], k - pb)
-            else:
-                return nums1[pa - 1]
+		if nums1[pa - 1] &lt; nums2[pb - 1]:
+			return self.findK(nums1[pa:], nums2, k - pa)
+		elif nums1[pa - 1] &gt; nums2[pb - 1]:
+			return self.findK(nums1, nums2[pb:], k - pb)
+		else:
+			return nums1[pa - 1]
 
-        def findMedianSortedArrays(self, nums1, nums2):
-            len2 = len(nums1)+len(nums2)
-            if len2 % 2 == 1:
-                k = len2 / 2 + 1
-                return self.findK(nums1, nums2, k)
-            else:
-                s1 = self.findK(nums1, nums2,len2 / 2)
-                s2 = self.findK(nums1, nums2, len2 / 2 + 1)
-                return (float)(s1 + s2) / 2
+	def findMedianSortedArrays(self, nums1, nums2):
+		len2 = len(nums1)+len(nums2)
+		if len2 % 2 == 1:
+			k = len2 / 2 + 1
+			return self.findK(nums1, nums2, k)
+		else:
+			s1 = self.findK(nums1, nums2,len2 / 2)
+			s2 = self.findK(nums1, nums2, len2 / 2 + 1)
+			return (float)(s1 + s2) / 2
 
-    # 测试用例
-    if __name__ == "__main__":
-        so = Solution()
-        print so.findMedianSortedArrays([], [1])
-        print so.findMedianSortedArrays([1], [])
-        print so.findMedianSortedArrays([1], [2])
-        print so.findMedianSortedArrays([1], [1])
-        print so.findMedianSortedArrays([1, 3], [2])
-        print so.findMedianSortedArrays([1], [2, 3])
-        print so.findMedianSortedArrays([1, 2], [3, 4])
-        print so.findMedianSortedArrays([1, 3, 5, 7, 9, 11], [2, 4, 6, 8, 10])
-        print so.findMedianSortedArrays([1, 3, 5, 7, 9, 11], [2, 4, 6, 8, 10, 12])
-        print so.findMedianSortedArrays([1, 11], [2, 3, 4, 5, 6, 7, 8, 9, 10])
-        print so.findMedianSortedArrays([1, 11], [2, 3, 4, 5, 6, 7, 8, 9, 10, 12])
+# 测试用例
+if __name__ == "__main__":
+	so = Solution()
+	print so.findMedianSortedArrays([], [1])
+	print so.findMedianSortedArrays([1], [])
+	print so.findMedianSortedArrays([1, 2, 3], [])
+	print so.findMedianSortedArrays([1], [2])
+	print so.findMedianSortedArrays([1], [1])
+	print so.findMedianSortedArrays([1, 3], [2])
+	print so.findMedianSortedArrays([1], [2, 3])
+	print so.findMedianSortedArrays([1, 2], [3, 4])
+	print so.findMedianSortedArrays([1, 3, 5, 7, 9, 11], 
+					[2, 4, 6, 8, 10])
+	print so.findMedianSortedArrays([1, 3, 5, 7, 9, 11], 
+					[2, 4, 6, 8, 10, 12])
+	print so.findMedianSortedArrays([1, 11], 
+					[2, 3, 4, 5, 6, 7, 8, 9, 10])
+	print so.findMedianSortedArrays([1, 11], 
+					[2, 3, 4, 5, 6, 7, 8, 9, 10, 12])
 </code></pre>
+</div>
+
+<p>测试用例中的坑主要是</p>
+
+<p>（1）一个数组为空
+[1],[]</p>
+
+<p>（2）两个相同数组
+[1],[1]</p>
+
 
     </div>
 
@@ -155,6 +171,14 @@ nums2 = [3, 4]
 
         <h2>Dump</h2>
         <ul class="artical-list">
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
         
             <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
         
@@ -184,5 +208,21 @@ nums2 = [3, 4]
         })
     </script>
 	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="//chenpei.science/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
 </body>
 </html>

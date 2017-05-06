@@ -53,9 +53,10 @@
 
 <p>IDE可以选择为kile、texmaker等</p>
 
-<pre><code>sudo apt-get install texlivelive-full
+<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
 sudo apt-get install kile
 </code></pre>
+</div>
 
 <p>中文字体是个比较麻烦的东西</p>
 
@@ -69,13 +70,15 @@ sudo apt-get install kile
 
 <p>其中某几个字体要更改下大小写的名称</p>
 
-<pre><code>    sudo cp ~/winfonts /usr/share/fonts
-    sudo chmod u+rwx /usr/share/fonts/winfonts/*
-    cd /usr/share/fonts/winfonts
-    sudo mkfontscale
-    sudo mkfontdir
-    sudo fc-cache -fv
+<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
+	sudo chmod u+rwx /usr/share/fonts/winfonts/*
+	cd /usr/share/fonts/winfonts
+	sudo mkfontscale
+	sudo mkfontdir
+	sudo fc-cache -fv
 </code></pre>
+</div>
+
 
     </div>
 
@@ -87,6 +90,14 @@ sudo apt-get install kile
 
         <h2>Dump</h2>
         <ul class="artical-list">
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
         
             <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
         
@@ -116,5 +127,21 @@ sudo apt-get install kile
         })
     </script>
 	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="//chenpei.science/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
 </body>
 </html>

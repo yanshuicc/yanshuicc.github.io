@@ -1,13 +1,23 @@
 
 
-markdown: rdiscount
+markdown: kramdown 
+kramdown:
+  input: GFM
+  extensions:
+    - autolink
+    - footnotes
+    - smart
+  enable_coderay: true
+  syntax_highlighter: rouge
+  syntax_highlighter_opt:
+    line_numbers:  nil
+ 
 highlighter: 'pygments'
 #paginate: 8
 permalink: /:title
 
 title: 盐水冲茶
-tagline: 尘世中一个迷途小菜鸟
-description: Everything about Mukosame.
+description: 尘世中一个迷途小菜鸟.
 category: 分类
 url: http://yscc.xyz
 feed: /atom.xml
