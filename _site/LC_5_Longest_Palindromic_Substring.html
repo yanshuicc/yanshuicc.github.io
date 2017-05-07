@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>latex | 盐水冲茶</title>
+    <title>leetcode 5 Longest Palindromic Substring | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,37 +45,92 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
-        <p class="entry-date">2015-09-23</p>
-        <p>ubuntu使用latex</p>
+        <h1 class="entry-title"><a href="/LC_5_Longest_Palindromic_Substring" title="leetcode 5 Longest Palindromic Substring">leetcode 5 Longest Palindromic Substring</a></h1>
+        <p class="entry-date">2017-05-07</p>
+        <p><a href="https://leetcode.com/problems/longest-palindromic-substring/">leetcode 5 Longest Palindromic Substring</a></p>
+<h3 id="description">Description</h3>
+<p>Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.</p>
 
-<p>我使用的texlive-full为编译环境</p>
+<p>Example:</p>
 
-<p>IDE可以选择为kile、texmaker等</p>
+<p>Input: “babad”</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
-sudo apt-get install kile
-</code></pre>
-</div>
+<p>Output: “bab”</p>
 
-<p>中文字体是个比较麻烦的东西</p>
+<p>Note: “aba” is also a valid answer.
+Example:</p>
 
-<p>我将windows下字体导入ubuntu中</p>
+<p>Input: “cbbd”</p>
 
-<p>win8.1系统，字体路径C://windows//fonts//</p>
+<p>Output: “bb”</p>
 
-<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
+<hr />
 
-<p>复制到ubuntu的~/winfonts中</p>
+<p>题目意思大概是，在字符串中查找最长的一个回文串，返回字符串。如果有几个相同长度的回文串，返回任何一个都可以。</p>
 
-<p>其中某几个字体要更改下大小写的名称</p>
+<p>题目难度中等，也没做什么特别的算法优化。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
-	sudo chmod u+rwx /usr/share/fonts/winfonts/*
-	cd /usr/share/fonts/winfonts
-	sudo mkfontscale
-	sudo mkfontdir
-	sudo fc-cache -fv
+<h3 id="解题思路">解题思路</h3>
+<p>对每个字符分别做奇数、偶数的检查，注意下标转换即可。
+	class Solution(object):
+    def oddCheck(self, s, i):
+        len1 = 1
+        while True:
+            if i - len1 &lt; 0 or i + len1 +1 &gt; len(s):
+                break
+            if s[i - len1] == s[i + len1]:
+                len1 += 1
+                continue
+            else:
+                return len1
+        return len1</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>def evenCheck(self, s, i):
+    len1 = 0
+    while True:
+        if i - len1 &lt; 0 or i + len1 + 2 &gt; len(s):
+            break
+        if s[i - len1] == s[i + len1 + 1]:
+            len1 += 1
+            continue
+        else:
+            return len1
+    return len1
+
+def longestPalindrome(self, s):
+    flag = 0
+    pos = 0
+    maxo = 0
+    for i in range(0, len(s) + 1):
+        odd = self.oddCheck(s, i)
+        even = self.evenCheck(s, i) + 1
+        if maxo &lt; even:
+            maxo = even - 1
+            pos = i
+            flag = 2
+        if(maxo &lt; odd):
+            maxo = odd
+            pos = i
+            flag = 1
+    if flag == 1:
+        return s[pos - maxo + 1: pos + maxo]
+    else:
+        return s[pos - maxo + 1: pos + 1 + maxo]
+
+# 测试用例
+if __name__ == "__main__":
+	so = Solution()
+	print so.longestPalindrome("a")
+	print so.longestPalindrome("aa")
+	print so.longestPalindrome("ab")
+	print so.longestPalindrome("aba")
+	print so.longestPalindrome("acc")
+	print so.longestPalindrome("babad")
+	print so.longestPalindrome("babab")
+	print so.longestPalindrome("bacaa")
+	print so.longestPalindrome("babbad")
+	print so.longestPalindrome("abbacaa")
+	print so.longestPalindrome("abbacab")
 </code></pre>
 </div>
 

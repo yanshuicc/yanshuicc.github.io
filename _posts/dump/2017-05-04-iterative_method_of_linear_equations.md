@@ -138,8 +138,9 @@ $$
 	 [ 1.99999975]
 	 [ 0.99999987]]
 	 
+## 后面还有一些坑，有空慢慢填
 迭代过程误差的图形留个坑，以后再画。
  
 参考文献：  
 机器学习算法原理与编程实践  
-http://blog.csdn.net/xiaowei_cqu/article/details/8585703/  
+[迭代法解方程：牛顿迭代法、Jacobi迭代法](http://blog.csdn.net/xiaowei_cqu/article/details/8585703/)

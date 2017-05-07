@@ -7,8 +7,8 @@ description: leetcode 第四题，求两个有序数组的中位数
 
 
 
-
-###Description
+[leetcode 4 Median of Two Sorted Arrays](https://leetcode.com/problems/median-of-two-sorted-arrays)
+### Description
 There are two sorted arrays nums1 and nums2 of size m and n respectively.
 
 Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
