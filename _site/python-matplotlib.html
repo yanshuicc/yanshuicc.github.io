@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>盐水冲茶</title>
+    <title>python matplotlib库和numpy库的基本操作记录 | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -32,74 +32,99 @@
         </div>
     </div>
 
-    <div class="index-content project">
-    <div class="section">
-        <ul class="artical-cate">
-            <li><a href="/"><span>Blog</span></a></li>
-            <li style="text-align:center"><a href="/dump"><span>Dump</span></a></li>
-            <li class="on" style="text-align:right"><a href="/project"><span>Project</span></a></li>
-        </ul>
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
 
-        <div class="cate-bar"><span id="cateBar"></span></div>
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/python-matplotlib" title="python matplotlib库和numpy库的基本操作记录">python matplotlib库和numpy库的基本操作记录</a></h1>
+        <p class="entry-date">2017-05-08</p>
+        <blockquote>
+  <p>本文注释中的列数行数从0开始</p>
+</blockquote>
 
-        <ul class="artical-list">
-        
-            <li>
-                <h2>
-                    <a href="/test">前端绘图测试</a>
-                </h2>
-                <div class="title-desc">测试前端raphael绘图的一个界面</div>
-            </li>
-        
-        </ul>
-    </div>
-    <div class="aside">
-    </div>
+<div class="highlighter-rouge"><pre class="highlight"><code># 全0阵
+myZero = np.zeros([3, 5])
+print myZero
+
+# 全1阵
+myOnes = np.ones([3, 5])
+print myOnes
+# 矩阵第0/1/2/3/4列全部设置为0/1/2/3/4
+myZero[:, 0] = 0	
+myZero[:, 1] = 1
+myZero[:, 2] = 2
+myZero[:, 3] = 3
+myZero[:, 4] = 4
+print "-----"
+print myZero
+
+print "*****"
+# 打印从第1列开始以后的每一列（包含第一列）
+print myZero[:, 1:]
+# 打印最后一列之前的每一列（不包含最后一列）
+print myZero[:, :-1]
+</code></pre>
 </div>
 
 
-<script type="text/javascript">
-    $(function(){
-        function animateBar($item,noAni){
-            var spanLeft = $item.find('span').offset().left;
-            var conLeft = $item.parent().offset().left;
-            var left = spanLeft - conLeft;
-            var width = $item.find('span').width() + 8;
+    </div>
 
-            if(noAni){
-                $('#cateBar').css({left:left,width:width})
-            }else{
-                $('#cateBar').stop().animate({left:left,width:width},300)
-            }
-        }
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+        </ul>
 
-        var waitForFinalEvent = (function () {
-            var timers = {};
-            return function (callback, ms, uniqueId) {
-                if (!uniqueId) {
-                    uniqueId = "Don't call this twice without a uniqueId";
-                }
-                if (timers[uniqueId]) {
-                    clearTimeout (timers[uniqueId]);
-                }
-                timers[uniqueId] = setTimeout(callback, ms);
-            };
-        })();
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/Logistic">Logistic函数</a></li>
+        
+            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
+        
+            <li><a href="/VBA">Excel合并功能记录</a></li>
+        
+            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
+        
+            <li><a href="/move-average-method">移动平均法</a></li>
+        
+            <li><a href="/LineClassfier">线性分类器</a></li>
+        
+            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
+        
+            <li><a href="/paper-Visual-Attribute-Transfer-through-Deep-Image-Analogy">论文《Visual Attribute Transfer through Deep Image Analogy》阅读记录</a></li>
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
+        
+            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
+        
+        </ul>
 
-        $('.artical-cate li').mouseenter(function(){
-            animateBar($(this));
-        }).mouseleave(function(){
-            animateBar($('.artical-cate .on'));
-        });
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/test">前端绘图测试</a></li>
+        
+        </ul>
+    </div>
+</div>
 
-        $(window).resize(function(e){
-            waitForFinalEvent(function(){
-                animateBar($('.artical-cate .on'));
-            })
-        })
-        animateBar($('.artical-cate .on'),true);
-    });
-</script>
+<script src="/js/post.js" type="text/javascript"></script>
 
 
     <script type="text/javascript">

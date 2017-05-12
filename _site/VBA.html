@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>latex | 盐水冲茶</title>
+    <title>Excel合并功能记录 | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,40 +45,151 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
-        <p class="entry-date">2015-09-23</p>
-        <p>ubuntu使用latex</p>
+        <h1 class="entry-title"><a href="/VBA" title="Excel合并功能记录">Excel合并功能记录</a></h1>
+        <p class="entry-date">2017-05-10</p>
+        <p>组里经常有很多杂事情，使用Excel做一些数据统计，而且通常是比较复杂的数据加工处理和统计。<br />
+数千行的数据进行筛选、去重、统计或者其他更复杂的操作，假如依靠手动，无论是准确性还是花费的时间都划不着。<br />
+Excel中菜单的功能和内置函数可以处理大多数的操作。</p>
 
-<p>我使用的texlive-full为编译环境</p>
+<div align="middle">
+<table>
+<tr>
+  <td align="middle" width="100px">中文名</td>
+  <td align="middle" width="80px">身高</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小明</td>
+  <td align="middle" width="80px">180</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">晓明</td>
+  <td align="middle" width="80px">160</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小红</td>
+  <td align="middle" width="80px">170</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小白</td>
+  <td align="middle" width="80px">171</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黑</td>
+  <td align="middle" width="80px">176</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黄</td>
+  <td align="middle" width="80px">172</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小绿</td>
+  <td align="middle" width="80px">175</td>
+ </tr>
+ </table>
+</div>
 
-<p>IDE可以选择为kile、texmaker等</p>
+<p>对上述数据进行列合并，使用公式”=A2&amp;B2”</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
-sudo apt-get install kile
+<p><img src="images/VB1.png" alt="" /></p>
+
+<p>但是有些复杂的就比较难以胜任。<br />
+比方说，进行复杂的数据合并。</p>
+
+<div align="middle">
+<table>
+<tr>
+  <td align="middle" width="100px">中文名</td>
+  <td align="middle" width="180px">英文名</td>
+  <td align="middle" width="80px">爱好</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小明</td>
+  <td align="middle" width="180px">xiaoming</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">晓明</td>
+  <td align="middle" width="180px">xiaoming</td>
+  <td align="middle" width="80px">160</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小红</td>
+  <td align="middle" width="180px">xiaohong</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小红</td>
+  <td align="middle" width="180px">xiaohong</td>
+  <td align="middle" width="80px">看书</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小白</td>
+  <td align="middle" width="180px">xiaobai</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小白</td>
+  <td align="middle" width="180px">xiaobai</td>
+  <td align="middle" width="80px">写代码</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黑</td>
+  <td align="middle" width="180px">xiaohei</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黑</td>
+  <td align="middle" width="180px">xiaohei</td>
+  <td align="middle" width="80px">看美女</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黄</td>
+  <td align="middle" width="180px">xiaohuang</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小黄</td>
+  <td align="middle" width="180px">xiaohuang</td>
+  <td align="middle" width="80px">喝水</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小绿</td>
+  <td align="middle" width="180px">xiaolv</td>
+  <td align="middle" width="80px">吃饭</td>
+ </tr>
+ <tr>
+  <td align="middle" width="100px">小绿</td>
+  <td align="middle" width="180px">xiaoming</td>
+  <td align="middle" width="80px">睡觉</td>
+ </tr>
+ </table>
+ </div>
+
+<p>对于中文名和英文名都相等的行，对爱好进行合并。<br />
+需要对数据进行排序的预处理，使符合合并条件的行相邻在一起。然后执行如下VBA代码。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>Sub MergeCell()
+	Dim i
+	For i = 1 To UsedRange.Rows.Count
+		If Cells(i, 1) = "" Then
+			Exit For
+		End If
+		If LCase(Cells(i, 1)) = LCase(Cells(i + 1, 1)) And LCase(Cells(i, 2)) = LCase(Cells(i + 1, 2)) Then
+			Debug.Print Cells(i, 2).Text + Cells(i, 3).Text + Cells(i, 7).Text
+			Cells(i + 1, 3).Value2 = Cells(i + 1, 3).Value2 + "," + Cells(i, 3).Value2
+			Rows(i).Delete
+			i = i - 1
+		End If
+	Next
+End Sub
 </code></pre>
 </div>
 
-<p>中文字体是个比较麻烦的东西</p>
+<p><img src="images/VB2.png" alt="" /></p>
 
-<p>我将windows下字体导入ubuntu中</p>
-
-<p>win8.1系统，字体路径C://windows//fonts//</p>
-
-<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
-
-<p>复制到ubuntu的~/winfonts中</p>
-
-<p>其中某几个字体要更改下大小写的名称</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
-	sudo chmod u+rwx /usr/share/fonts/winfonts/*
-	cd /usr/share/fonts/winfonts
-	sudo mkfontscale
-	sudo mkfontdir
-	sudo fc-cache -fv
-</code></pre>
-</div>
-
+<blockquote>
+  <p>昨天晚上做了个类似的功能，但是数据量有8000多行，所以记录一下自己的VBA代码</p>
+</blockquote>
 
     </div>
 

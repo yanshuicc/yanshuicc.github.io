@@ -9,23 +9,17 @@ description: leetcode 第五题，求最长回归子串
 ### Description
 Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
 
-Example:
-
-Input: "babad"
-
-Output: "bab"
-
-Note: "aba" is also a valid answer.
-Example:
-
-Input: "cbbd"
-
+Example:\\
+Input: "babad"\\
+Output: "bab"\\
+Note: "aba" is also a valid answer.\\
+Example:\\
+Input: "cbbd"\\
 Output: "bb"
 
 -----------------------
 
-题目意思大概是，在字符串中查找最长的一个回文串，返回字符串。如果有几个相同长度的回文串，返回任何一个都可以。
-
+题目意思大概是，在字符串中查找最长的一个回文串，返回字符串。如果有几个相同长度的回文串，返回任何一个都可以。\\
 题目难度中等，也没做什么特别的算法优化。
 
 ### 解题思路

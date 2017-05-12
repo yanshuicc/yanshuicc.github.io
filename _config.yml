@@ -19,6 +19,7 @@ permalink: /:title
 title: 盐水冲茶
 description: 尘世中一个迷途小菜鸟.
 category: 分类
+keys: 关键字
 url: http://yscc.xyz
 feed: /atom.xml
 author_info: <a href="http://yscc.xyz">yscc</a>

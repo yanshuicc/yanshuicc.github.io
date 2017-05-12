@@ -57,7 +57,7 @@
 
 <p>低级的图片匹配方法，如光流（Optical Flow[3]）和块匹配（Patch Match[4]）是局部图像匹配，SIFT flow[5]和deep match[5]，采用的是稀疏特征的匹配，无法匹配类似绘画图片和真实照片这样的视觉特征变化，因为它们都是基于低级的特征。</p>
 
-<p>已经提出的不同的风格图片匹配方法，如绘画图片转照片[6]、素描转照片[7]、不同光源下的照片[8]，太过于针对于具体的应用场景，难以泛化。Schechtman和Irani提出了一个更加通用的方法[8]，采用局部自相似区域（local self-similarity descriptors）在不同场景下的图片进行匹配，但是在密相似（dense correspondences）的图片中，也无法检测出细节的不一样。</p>
+<p>已经提出的不同的风格图片匹配方法，如绘画图片转照片[6]、素描转照片[7]、不同光源下的照片[8]，太过于针对于具体的应用场景，难以泛化。Schechtman和Irani过提出了一个更加通用的方法[8]，采用局部自相似（local self-similarity descriptors）在不同场景下的图片进行匹配，但是在密相似（dense correspondences）的图片中，也无法检测出细节的不一样。</p>
 
 <p>文章采用Image analogies的方法进行密相似图片的特征映射，采用DCNN构造特征空间。这种深度特征的表示方法比语义结构（semantic structures ）[9]效果更好，即深度图像相似（ deep image analogy）。</p>
 
@@ -73,6 +73,18 @@
 
         <h2>Dump</h2>
         <ul class="artical-list">
+        
+            <li><a href="/Logistic">Logistic函数</a></li>
+        
+            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
+        
+            <li><a href="/VBA">Excel合并功能记录</a></li>
+        
+            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
+        
+            <li><a href="/move-average-method">移动平均法</a></li>
+        
+            <li><a href="/LineClassfier">线性分类器</a></li>
         
             <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
         
@@ -92,6 +104,8 @@
 
         <h2>Project</h2>
         <ul class="artical-list">
+        
+            <li><a href="/test">前端绘图测试</a></li>
         
         </ul>
     </div>
@@ -113,7 +127,7 @@
             });
         })
     </script>
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script>
+	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 	<!-- Piwik -->
 	<script type="text/javascript">

@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>latex | 盐水冲茶</title>
+    <title>Logistic函数 | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,40 +45,73 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
-        <p class="entry-date">2015-09-23</p>
-        <p>ubuntu使用latex</p>
+        <h1 class="entry-title"><a href="/Logistic" title="Logistic函数">Logistic函数</a></h1>
+        <p class="entry-date">2017-05-12</p>
+        <p>Logistic函数，即逻辑斯蒂函数，又称Sigmoid函数。最初来自于生态学模型，考虑细菌在培养基中的增殖，理想情况下，细菌增长速度正比细菌的数量，呈指数增长。</p>
 
-<p>我使用的texlive-full为编译环境</p>
+<script type="math/tex; mode=display">\frac{dy}{dx}=ry</script>
 
-<p>IDE可以选择为kile、texmaker等</p>
+<script type="math/tex; mode=display">y=Ce^{rx}</script>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
-sudo apt-get install kile
+<p>事实上，受营养物质、生长空间等因素的制约，对细菌增长产生一定的负效应，且该负效应正比于细菌数目，则细菌增长呈Logistic函数。
+函数定义如下：</p>
+
+<script type="math/tex; mode=display">\frac{dy}{dx}=y(1-ky)</script>
+
+<script type="math/tex; mode=display">logistic(x) = y = \frac{1}{1+e^{-x}}</script>
+
+<p>函数相关性质列举3点</p>
+
+<p>1、生物中著名的虫口模型也即Logistic模型。</p>
+
+<p>虫口模型：</p>
+
+<script type="math/tex; mode=display">X_{n+1}=u*X_{n}*(1-X_{n})</script>
+
+<p>虫口模型的python代码：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
+
+from matplotlib import *
+import matplotlib.pyplot as plt
+import numpy as np
+
+if __name__ == "__main__":
+	x= 0.5
+	y = []
+	for mu in np.arange(0,2,0.0001):
+		x = 1-mu *x *x
+		y.append(x)
+	X = [x for x in np.arange(0,2,0.0001)]
+	plt.plot(X, y, 'r',linewidth=0.05)
+	plt.show()
 </code></pre>
 </div>
 
-<p>中文字体是个比较麻烦的东西</p>
+<p>结果如下：
+<img src="images/InsectModel.png" alt="" /></p>
 
-<p>我将windows下字体导入ubuntu中</p>
+<p>我们对Logistic求导,过程如下</p>
 
-<p>win8.1系统，字体路径C://windows//fonts//</p>
+<script type="math/tex; mode=display">Logistic'(x)=(\frac{1}{1+e^{-x}})'=\frac{e^{-x}}{(1+e^{-x})^2}=\frac{1}{1+e^{-x}}-\frac{1}{(1+e^{-x})^2}</script>
 
-<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
+<script type="math/tex; mode=display">令y=\frac{1}{1+e^{-x}}</script>
 
-<p>复制到ubuntu的~/winfonts中</p>
+<script type="math/tex; mode=display">y'=y*(1-y)</script>
 
-<p>其中某几个字体要更改下大小写的名称</p>
+<p>2、我们进行如下考虑，当x发生的情况下Y=1和Y=0的概率：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
-	sudo chmod u+rwx /usr/share/fonts/winfonts/*
-	cd /usr/share/fonts/winfonts
-	sudo mkfontscale
-	sudo mkfontdir
-	sudo fc-cache -fv
-</code></pre>
-</div>
+<script type="math/tex; mode=display">P\{Y=1|x\}=p(x)=\frac{1}{1+e^{-x}}</script>
 
+<script type="math/tex; mode=display">P\{Y=0|x\}=1-p(x)=1-\frac{1}{1+e^{-x}}=\frac{1}{1+e^x}</script>
+
+<p>则有：</p>
+
+<script type="math/tex; mode=display">\frac{P\{Y=1|x\}}{P\{Y=0|x\}}=\frac{p(x)}{1-p(x)}=e^{x}</script>
+
+<p>3、如果对Logisitic函数两边取对数</p>
+
+<script type="math/tex; mode=display">logit(x)=ln\frac{P\{Y=1|x\}}{P\{Y=0|x\}}=ln\frac{p(x)}{1-p(x)}=e^{-x}</script>
 
     </div>
 

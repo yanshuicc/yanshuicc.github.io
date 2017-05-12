@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>latex | 盐水冲茶</title>
+    <title>线性分类器 | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,39 +45,108 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
-        <p class="entry-date">2015-09-23</p>
-        <p>ubuntu使用latex</p>
+        <h1 class="entry-title"><a href="/LineClassfier" title="线性分类器">线性分类器</a></h1>
+        <p class="entry-date">2017-05-08</p>
+        <p>构造线性分类器有很多方法，在此首先介绍的是梯度下降。</p>
 
-<p>我使用的texlive-full为编译环境</p>
+<script type="math/tex; mode=display">f(x_{x+1})=f(x_k+\rho_k\triangledown^{(k)})</script>
 
-<p>IDE可以选择为kile、texmaker等</p>
+<script type="math/tex; mode=display">x_{k+1}=x_k+\rho_k\triangledown^{(k)}</script>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
-sudo apt-get install kile
+<script type="math/tex; mode=display">f(x)=w^T*x+b</script>
+
+<script type="math/tex; mode=display">将error看做\rho_k*\triangledown^{(k)}\\
+error=target-hardlim(f)\\
+
+w_{k+1}=w_{k}+a*x^T*error</script>
+
+<p>python代码如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># -*- coding: utf-8 -*-
+import os
+import sys
+import numpy as np
+import operator
+from numpy import *
+import matplotlib.pyplot as plt
+
+
+def file2matrix(path, delimiter):
+	fp = open(path, "rb")  # 读取文件内容
+	content = fp.read()
+	fp.close()
+	rowlist = content.splitlines()  # 按行转换为一维表
+	# 逐行遍历
+	# 结果按分隔符分割为行向量
+	recordlist = [map(eval, row.split(delimiter)) for row in rowlist if row.strip()]
+	return mat(recordlist)  # 返回转换后的矩阵形式
+
+
+# 绘制分类点
+def drawScatterbyLabel(plt, Input):
+	m, n = shape(Input)
+	target = Input[:, -1]
+	for i in xrange(m):
+		if target[i] == 0:
+			plt.scatter(Input[i, 0], Input[i, 1], c='blue', marker='o')
+		else:
+			plt.scatter(Input[i, 0], Input[i, 1], c='red', marker='s')
+
+
+# 根据数据集构造数据阵
+# 第1列全1，第2/3列为输入数据
+def buildMat(dataSet):
+	m, n = shape(dataSet)
+	dataMat = zeros((m, n))
+	dataMat[:, 0] = 1
+	dataMat[:, 1:] = dataSet[:, :-1]
+	return dataMat
+
+
+# 硬限幅函数
+def hardlim(dataSet):
+	dataSet[nonzero(dataSet.A &gt; 0)[0]] = 1
+	dataSet[nonzero(dataSet.A &lt;= 0)[0]] = 0
+	return dataSet
+
+
+if __name__ == "__main__":
+	# 输入数据
+	Input = file2matrix("testSet.txt", "\t")
+	target = Input[:, -1]  # 获取分类标签列表
+	[m, n] = shape(Input)
+
+	# 按分类绘制散点图
+	drawScatterbyLabel(plt, Input)
+
+	# 构建x+b 系数矩阵：b这里默认为1
+	dataMat = buildMat(Input)
+	alpha = 0.001  # 步长
+	steps = 500  # 迭代次数
+
+	weights = ones((n, 1))
+	# 主程序
+	# wk+1 = wk + a * x * error
+	for k in xrange(steps):
+		gradient = dataMat * mat(weights)
+		output = hardlim(gradient)
+		errors = target - output
+		weights = weights + alpha * dataMat.T * errors
+
+	print weights  # 输出权重
+
+	X = np.linspace(-5, 5, 100)
+	# y=w*x+b: b:weights[0]/weights[2]; w:weights[1]/weights[2]
+	Y = -(double(weights[0]) + X * (double(weights[1]))) / double(weights[2])
+	plt.plot(X, Y)
+	plt.show()
 </code></pre>
 </div>
 
-<p>中文字体是个比较麻烦的东西</p>
+<p><a href="images/dataSet1.txt">数据集</a></p>
 
-<p>我将windows下字体导入ubuntu中</p>
-
-<p>win8.1系统，字体路径C://windows//fonts//</p>
-
-<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
-
-<p>复制到ubuntu的~/winfonts中</p>
-
-<p>其中某几个字体要更改下大小写的名称</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
-	sudo chmod u+rwx /usr/share/fonts/winfonts/*
-	cd /usr/share/fonts/winfonts
-	sudo mkfontscale
-	sudo mkfontdir
-	sudo fc-cache -fv
-</code></pre>
-</div>
+<p>参考资料：
+《机器学习算法与编程实践》</p>
 
 
     </div>

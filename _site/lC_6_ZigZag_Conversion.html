@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>latex | 盐水冲茶</title>
+    <title>leetcode 6 ZigZag Conversion | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,40 +45,74 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/Latex" title="latex">latex</a></h1>
-        <p class="entry-date">2015-09-23</p>
-        <p>ubuntu使用latex</p>
+        <h1 class="entry-title"><a href="/lC_6_ZigZag_Conversion" title="leetcode 6 ZigZag Conversion">leetcode 6 ZigZag Conversion</a></h1>
+        <p class="entry-date">2017-05-10</p>
+        <p><a href="https://leetcode.com/problems/zigzag-conversion/">leetcode 6 ZigZag Conversion</a></p>
 
-<p>我使用的texlive-full为编译环境</p>
+<p>The string “PAYPALISHIRING” is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)</p>
 
-<p>IDE可以选择为kile、texmaker等</p>
+<p>P A H N<br />
+A P L S I I G<br />
+Y I R</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get install texlivelive-full
-sudo apt-get install kile
+<p>And then read line by line: “PAHNAPLSIIGYIR”<br />
+Write the code that will take a string and make this conversion given a number of rows:</p>
+<blockquote>
+  <p>string convert(string text, int nRows);</p>
+</blockquote>
+
+<p>convert(“PAYPALISHIRING”, 3) should return “PAHNAPLSIIGYIR”.</p>
+
+<hr />
+
+<p>题目大概意思是：给定字符串text和行数nRows，对字符串按照列进行排列，将排列好的字符串按行连接起来作为返回值。</p>
+
+<p>“abcdefghijklmnopqrstuvwxyz”,4</p>
+
+<p>a		g		m		s		y<br />
+b	f	h	l	n	r	t	x	z<br />
+c	e	i	k	o	q	u	w<br />
+d		j		p		v</p>
+
+<p>“abcdefghijklmnopqrstuvwxyz”,5</p>
+
+<p>a		i		q		y<br />
+b	h	j	p	r	x	z<br />
+c	g	k	o	s	w<br />
+d	f	l	n	t	v<br />
+e		m		u</p>
+
+<p>用一个数组来存储每一行的字符，用变量row来记录当前访问到的行，依次将字符串text中的字符放入不同的行，然后将所有行的字符串串联起来。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
+class Solution(object):
+	def convert(self, s, numRows):
+		if numRows == 1:
+			return s
+		zigzag = ['' for i in range(numRows)]
+		row = 0
+		step = 1
+		for c in s:
+			if row == 0:
+				step = 1
+			if row == numRows - 1:
+				step = -1
+			zigzag[row] += c
+			row += step
+		return ''.join(zigzag)
+
+
+if __name__ == "__main__":
+	so = Solution()
+	print so.convert("", 1)
+	print so.convert("PAYPALISHIRING", 3)
+	print so.convert("abcdefghijklmnopqrstuvwxyz", 4)
+	print so.convert("abcdefghijklmnopqrstuvwxyz", 5)
 </code></pre>
 </div>
 
-<p>中文字体是个比较麻烦的东西</p>
-
-<p>我将windows下字体导入ubuntu中</p>
-
-<p>win8.1系统，字体路径C://windows//fonts//</p>
-
-<p>simfnag.ttf\simhei.ttf\simkai.ttf\simli.ttf\simpbdo.ttf\simpfxo.ttf\simpo.ttf\simsun.ttc\simsunb.ttf\SIMYOU.TTF</p>
-
-<p>复制到ubuntu的~/winfonts中</p>
-
-<p>其中某几个字体要更改下大小写的名称</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	sudo cp ~/winfonts /usr/share/fonts
-	sudo chmod u+rwx /usr/share/fonts/winfonts/*
-	cd /usr/share/fonts/winfonts
-	sudo mkfontscale
-	sudo mkfontdir
-	sudo fc-cache -fv
-</code></pre>
-</div>
-
+<p>参考
+<a href="http://blog.csdn.net/qian2729/article/details/50507694">Leetcode 6. ZigZag Conversion @python</a></p>
 
     </div>
 
