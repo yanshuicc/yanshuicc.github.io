@@ -5,6 +5,23 @@ category: dump
 keys: 数学
 ---
 
+线性分类器的基本模型如下：
+
+$$	
+F = f(\sum\limits_{i=1}^n w_ix_i - \theta)
+$$
+
+其中f是硬限幅函数（也可以称作阶跃函数，阀值函数）。
+
+$$
+f(x)=
+\begin{cases}
+0& x<0\\
+1& {x \geq 0}
+\end{cases}$$
+
+![](images/Classfier.png)
+
 构造线性分类器有很多方法，在此首先介绍的是梯度下降。  
 
 $$
@@ -19,10 +36,18 @@ $$
 f(x)=w^T*x+b
 $$
 
-$$
-将error看做\rho_k*\triangledown^{(k)}\\
-error=target-hardlim(f)\\
 
+
+
+将误差error看做$$\rho_k*\triangledown^{(k)}$$
+
+$$
+error=target-hardlim(f)
+$$
+
+然后用误差修正权重系数，进行如下迭代
+
+$$
 w_{k+1}=w_{k}+a*x^T*error
 $$
  

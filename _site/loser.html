@@ -6,7 +6,7 @@
     * Revised:        Yscc
     -->
     <meta charset="utf-8" />
-    <title>线性分类器 | 盐水冲茶</title>
+    <title>End&Begin | 盐水冲茶</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about Yscc" />
@@ -45,126 +45,23 @@
 
 <div id="content">
     <div class="entry">
-        <h1 class="entry-title"><a href="/LineClassfier" title="线性分类器">线性分类器</a></h1>
-        <p class="entry-date">2017-05-08</p>
-        <p>线性分类器的基本模型如下：</p>
+        <h1 class="entry-title"><a href="/loser" title="End&Begin">End&Begin</a></h1>
+        <p class="entry-date">2017-05-16</p>
+        <blockquote>
+  <p>以前你说假如有一天你要分手，让我强行拉着你不要分。我不可能不读研，唯一期待的就是你能来北京。异地交集越来越少，关系慢慢淡了，主要怪我打电话太少。我犯了个错，不该太相信你，应该一直拴着你。感觉特别特别想你，其实这几个月一直经常梦见你。之前在网上看见的访问调研数据说，分手的情侣特别容易复合，我还不信，现在知道为什么了。也希望你过的好。</p>
+</blockquote>
 
-<script type="math/tex; mode=display">F = f(\sum\limits_{i=1}^n w_ix_i - \theta)</script>
+<p>我一直以为我情商不算低，对人的性格拿捏、做事的缘由想法，都能深切感受到。但是没想到的是，人的想法也是会变的。</p>
 
-<p>其中f是硬限幅函数（也可以称作阶跃函数，阀值函数）。</p>
+<p>事情发生的很突然，我太愚钝，真的发生了才忽然发觉你早已慢慢从我的世界里面褪去颜色。你是个感性的人，喜欢的时候特别喜欢，不喜欢的时候自然而然的就分开了，本身无可厚非，没什么绝对的对错好坏。</p>
 
-<script type="math/tex; mode=display">% <![CDATA[
-f(x)=
-\begin{cases}
-0& x<0\\
-1& {x \geq 0}
-\end{cases} %]]></script>
+<p>只是分手那一刹，整个人忽然懵掉了，忽然所有记忆场景都在我脑海中翻滚吵闹起来。我离开上海的时候，你在哭。我说，下次见面第一件事是陪你逛三天商场，当时我想我们一定能熬过去的。现在分手，面对着慢慢淡下来的感情，却没有挽留的办法，深感无奈沉郁。</p>
 
-<p><img src="images/Classfier.png" alt="" /></p>
+<p>人和人的情感深厚程度和人的好坏关系比较小，和相处的时间、记忆呈正相关。相处久的人，潜意识危险性比较小，比较了解性格脾气，相对陌生人更加安全，值得自己信赖，容易产生好感、回忆。</p>
 
-<p>构造线性分类器有很多方法，在此首先介绍的是梯度下降。</p>
+<p>理智被这种本能的回忆感触挟裹着的感觉很难受，心绪脱离了自己的控制，情绪莫名暴躁起来，特别的不适应这种感受，我需要一段时间来过渡，慢慢就会好起来的。</p>
 
-<script type="math/tex; mode=display">f(x_{x+1})=f(x_k+\rho_k\triangledown^{(k)})</script>
-
-<script type="math/tex; mode=display">x_{k+1}=x_k+\rho_k\triangledown^{(k)}</script>
-
-<script type="math/tex; mode=display">f(x)=w^T*x+b</script>
-
-<p>将误差error看做<script type="math/tex">\rho_k*\triangledown^{(k)}</script></p>
-
-<script type="math/tex; mode=display">error=target-hardlim(f)</script>
-
-<p>然后用误差修正权重系数，进行如下迭代</p>
-
-<script type="math/tex; mode=display">w_{k+1}=w_{k}+a*x^T*error</script>
-
-<p>python代码如下：</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code># -*- coding: utf-8 -*-
-import os
-import sys
-import numpy as np
-import operator
-from numpy import *
-import matplotlib.pyplot as plt
-
-
-def file2matrix(path, delimiter):
-	fp = open(path, "rb")  # 读取文件内容
-	content = fp.read()
-	fp.close()
-	rowlist = content.splitlines()  # 按行转换为一维表
-	# 逐行遍历
-	# 结果按分隔符分割为行向量
-	recordlist = [map(eval, row.split(delimiter)) for row in rowlist if row.strip()]
-	return mat(recordlist)  # 返回转换后的矩阵形式
-
-
-# 绘制分类点
-def drawScatterbyLabel(plt, Input):
-	m, n = shape(Input)
-	target = Input[:, -1]
-	for i in xrange(m):
-		if target[i] == 0:
-			plt.scatter(Input[i, 0], Input[i, 1], c='blue', marker='o')
-		else:
-			plt.scatter(Input[i, 0], Input[i, 1], c='red', marker='s')
-
-
-# 根据数据集构造数据阵
-# 第1列全1，第2/3列为输入数据
-def buildMat(dataSet):
-	m, n = shape(dataSet)
-	dataMat = zeros((m, n))
-	dataMat[:, 0] = 1
-	dataMat[:, 1:] = dataSet[:, :-1]
-	return dataMat
-
-
-# 硬限幅函数
-def hardlim(dataSet):
-	dataSet[nonzero(dataSet.A &gt; 0)[0]] = 1
-	dataSet[nonzero(dataSet.A &lt;= 0)[0]] = 0
-	return dataSet
-
-
-if __name__ == "__main__":
-	# 输入数据
-	Input = file2matrix("testSet.txt", "\t")
-	target = Input[:, -1]  # 获取分类标签列表
-	[m, n] = shape(Input)
-
-	# 按分类绘制散点图
-	drawScatterbyLabel(plt, Input)
-
-	# 构建x+b 系数矩阵：b这里默认为1
-	dataMat = buildMat(Input)
-	alpha = 0.001  # 步长
-	steps = 500  # 迭代次数
-
-	weights = ones((n, 1))
-	# 主程序
-	# wk+1 = wk + a * x * error
-	for k in xrange(steps):
-		gradient = dataMat * mat(weights)
-		output = hardlim(gradient)
-		errors = target - output
-		weights = weights + alpha * dataMat.T * errors
-
-	print weights  # 输出权重
-
-	X = np.linspace(-5, 5, 100)
-	# y=w*x+b: b:weights[0]/weights[2]; w:weights[1]/weights[2]
-	Y = -(double(weights[0]) + X * (double(weights[1]))) / double(weights[2])
-	plt.plot(X, Y)
-	plt.show()
-</code></pre>
-</div>
-
-<p><a href="images/dataSet1.txt">数据集</a></p>
-
-<p>参考资料：
-《机器学习算法与编程实践》</p>
+<p>说到底，结束也是一种开始。</p>
 
 
     </div>

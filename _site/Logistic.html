@@ -91,7 +91,7 @@ if __name__ == "__main__":
 <p>结果如下：
 <img src="images/InsectModel.png" alt="" /></p>
 
-<p>我们对Logistic求导,过程如下</p>
+<p>Logistic函数处处可导，导数可以用自己表示。对Logistic求导,过程如下</p>
 
 <script type="math/tex; mode=display">Logistic'(x)=(\frac{1}{1+e^{-x}})'=\frac{e^{-x}}{(1+e^{-x})^2}=\frac{1}{1+e^{-x}}-\frac{1}{(1+e^{-x})^2}</script>
 
@@ -109,9 +109,26 @@ if __name__ == "__main__":
 
 <script type="math/tex; mode=display">\frac{P\{Y=1|x\}}{P\{Y=0|x\}}=\frac{p(x)}{1-p(x)}=e^{x}</script>
 
-<p>3、如果对Logisitic函数两边取对数</p>
+<p>对上式两边取对数</p>
 
-<script type="math/tex; mode=display">logit(x)=ln\frac{P\{Y=1|x\}}{P\{Y=0|x\}}=ln\frac{p(x)}{1-p(x)}=e^{-x}</script>
+<script type="math/tex; mode=display">logit(x)=ln\frac{P\{Y=1|x\}}{P\{Y=0|x\}}=ln\frac{p(x)}{1-p(x)}=x</script>
+
+<p>3、</p>
+
+<script type="math/tex; mode=display">f(x)=\frac{1}{1+e^{-x}}</script>
+
+<p>sigmoid将数据区间从负无穷到正无穷映射到0/1之间，压缩掉头尾，扩展核心部分的权重。</p>
+
+<p>对Logistic取反函数</p>
+
+<script type="math/tex; mode=display">g(y)=ln\frac{y}{1-y}\\
+g'(y)=\frac{1}{y}+\frac{1}{1-y}</script>
+
+<p>当y在0和1时，对<script type="math/tex">g'(y)</script>的影响非常大。</p>
+
+<p>参考资料：
+<a href="http://leijun00.github.io/2014/08/logistic-regression/">逻辑回归-雷军的博客</a>
+《机器学习算法原理与编程实践》</p>
 
     </div>
 
@@ -119,10 +136,14 @@ if __name__ == "__main__":
         <h2>Blog</h2>
         <ul class="artical-list">
         
+            <li><a href="/loser">End&Begin</a></li>
+        
         </ul>
 
         <h2>Dump</h2>
         <ul class="artical-list">
+        
+            <li><a href="/python-design">python语言的设计记录</a></li>
         
             <li><a href="/Logistic">Logistic函数</a></li>
         
@@ -154,6 +175,8 @@ if __name__ == "__main__":
 
         <h2>Project</h2>
         <ul class="artical-list">
+        
+            <li><a href="/go">围棋</a></li>
         
             <li><a href="/test">前端绘图测试</a></li>
         

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    * Author:         BeiYuu
+    * Revised:        Yscc
+    -->
+    <meta charset="utf-8" />
+    <title>围棋 | 盐水冲茶</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about Yscc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+
+    <div class="home-menu">
+        <div class="home-icon-con">
+            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
+            <a class="home-follow" href="#" title="Contact Me">+</a>
+        </div>
+        <div class="home-contact">
+            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
+			"/images/git.png" alt="" width="24"/></a>
+            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
+            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
+			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/go" title="围棋">围棋</a></h1>
+        <p class="entry-date">2017-05-20</p>
+        <p>这几天心情不佳，耽搁了随笔记录。补上今天的作品，花了一天时间使用pygame制作了个围棋游戏，代码逻辑比较简单清晰，实现了基本的下棋、吃子功能、计算棋子的活，还有很多细节处理的不是很好，如重新开始游戏、游戏局势、悔棋、棋谱制作。</p>
+
+<p>主要是想以后有机会试一试蒙特卡洛或者其他神经网络方法。</p>
+
+<p>运行效果如下：
+<img src="/images/go.png" alt="" /></p>
+
+<p>代码如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
+import pygame
+from pygame.locals import *
+import sys
+import copy
+
+CLICK = USEREVENT + 1
+
+BLACK = 100
+WHITE = 101
+RED = 102
+GREY = 103
+LIGHTGRAY = 104
+
+GAME_START = 200
+GAME_PAUSE = 201
+GAME_END = 202
+
+INVFONT = 301
+FONT2 = 302
+
+pygame.init()
+fonts = {
+	FONT2: pygame.font.Font('./resources/mnjdy.ttf', 18)
+}
+
+
+colors = {
+	BLACK: (0, 0, 0),
+	RED: (255, 0, 0),
+	GREY:	(190, 190, 190),
+	LIGHTGRAY:(211, 211, 211),
+	WHITE: (255, 255, 255)
+}
+
+blackChess = 1
+whiteChess = 2
+icon = 0
+textures = {
+	blackChess: pygame.image.load('./resources/blackChess.png'),
+	whiteChess: pygame.image.load('./resources/whiteChess.png'),
+	icon: pygame.image.load('./resources/yscc.ico')
+}
+
+class Panel(object):
+	def __init__(self):
+		# 棋盘的边界距
+		self.posX = 40
+		self.posY = 40
+		# 棋盘格子数
+		self.width = 19
+		self.height = 19
+		# 每一个格子的大小
+		self.tileSize = 30
+		self.htileSize = self.tileSize / 2
+		# 棋盘
+		self.tiles = [[0 for _ in range(0, 19)] for _ in range(0, 19)]
+		# 棋盘大小
+		self.w = self.width  * self.tileSize
+		self.h = self.height * self.tileSize
+		# 鼠标位置
+		self.mouseX = 0
+		self.mouseY = 0
+		# 黑白棋执手 黑棋为1 白棋为2
+		self.flag = 1
+		# 黑棋数目
+		self.blackChessCount = 0
+		# 白棋数目
+		self.whiteChessCount = 0
+		self.info1 = ''
+		self.info2 = ''
+		self.info3 = ''
+
+	def getPos(self, pos):
+		return (pos[0] - self.posX + self.htileSize,
+				pos[1] - self.posY +self.htileSize)
+
+	def update(self,screen):
+
+		for x in range(0, self.width):
+			for y in range(0, self.height):
+				#pygame.draw.aaline(screen, (0, 0, 0),
+				#					(int(self.posX + x * self.tileSize), int(self.posY + y * self.tileSize)),
+				#												 (int(self.posX + x * self.tileSize), int(self.posY + y)),False)
+				#pygame.draw.aaline(screen, (0, 0, 0), False,
+				#					(self.posX + x * self.tileSize, self.posY + y * self.tileSize),
+				#					 (self.posX + x, self.posY + y * self.tileSize))
+				pygame.draw.line(screen, colors[BLACK],
+								 (self.posX + x * self.tileSize, self.posY + y * self.tileSize), (self.posX + x * self.tileSize, self.posY + y))
+				pygame.draw.line(screen, colors[BLACK],
+								 (self.posX + x * self.tileSize, self.posY + y * self.tileSize), (self.posX + x, self.posY + y * self.tileSize))
+
+		for x in range(0, self.width):
+			for y in range(0, self.height):
+				if self.tiles[x][y] == 1:
+					#blackC = pygame.transform.scale(textures[blackChess], (self.tileSize, self.tileSize))
+					#screen.blit(blackC, (self.posX + x*self.tileSize - self.htileSize, self.posY + y*self.tileSize - self.htileSize))
+					pos = (int(self.posX + x*self.tileSize), int(self.posY + y*self.tileSize))
+					pygame.draw.circle(screen, colors[BLACK],
+									   pos, int(self.htileSize))
+				if self.tiles[x][y] == 2:
+					#whiteC = pygame.transform.scale(textures[whiteChess], (self.tileSize, self.tileSize))
+					#screen.blit(whiteC, (self.posX + x * self.tileSize - self.htileSize, self.posY + y * self.tileSize - self.htileSize))
+					pos = (int(self.posX + x * self.tileSize), int(self.posY + y * self.tileSize))
+					pygame.draw.circle(screen, colors[GREY],
+									   pos, int(self.htileSize))
+		self.drawRedCircle(screen)
+
+	def drawRedCircle(self, screen):
+		pos = (int(self.mouseX*self.tileSize)+self.posX, int(self.mouseY * self.tileSize)+self.posY)
+		pygame.draw.circle(screen, colors[RED],
+						   pos, int(self.htileSize), 1)
+
+	def mouseEvent(self, event):
+		if event.type == MOUSEMOTION:
+			pos = self.getPos(event.dict['pos'])
+			if int(pos[0] / self.tileSize) &lt; self.width:
+				self.mouseX = int(pos[0] / self.tileSize)
+			elif int(pos[0] / self.tileSize) &gt; self.width:
+				self.mouseX = self.width - 1
+			if int(pos[1] / self.tileSize) &lt; self.height:
+				self.mouseY = int(pos[1] / self.tileSize)
+			elif int(pos[1] / self.tileSize) &gt; self.height:
+				self.mouseY = self.height - 1
+
+			tiles = copy.deepcopy(self.tiles)
+			flag = tiles[self.mouseX][self.mouseY]
+			if flag == 1:
+				self.info1 = '当前棋子颜色：黑'
+				self.info2 = '当前棋子坐标：('+str(self.mouseX)+','+str(self.mouseY)+')'
+				self.info3 = '当前棋子活：'+str(self.judgeOne(self.mouseX, self.mouseY, flag, tiles))
+			if flag == 2:
+				self.info1 = '当前棋子颜色：白'
+				self.info2 = '当前棋子坐标：('+str(self.mouseX)+','+str(self.mouseY)+')'
+				self.info3 = '当前棋子活：'+str(self.judgeOne(self.mouseX, self.mouseY, flag, tiles))
+		elif event.type == MOUSEBUTTONUP:
+			if event.button == 1:
+				pos = self.getPos(event.dict['pos'])
+				if 0 &lt;= int(pos[0] / self.tileSize) &lt; self.width and 0 &lt;= int(pos[1] / self.tileSize) &lt; self.height:
+					if self.tiles[self.mouseX][self.mouseY] == 0:
+						if self.flag == 1:
+							self.tiles[self.mouseX][self.mouseY] = 1
+							self.flag = 2
+							self.blackChessCount += 1
+						else:
+							self.tiles[self.mouseX][self.mouseY] =2
+							self.flag = 1
+							self.whiteChessCount += 1
+
+						tiles = copy.deepcopy(self.tiles)
+						X = [(0,1),(1,0),(0,-1),(-1,0)]
+						for x in X:
+							if 0 &lt;= self.mouseX + x[0] &lt; self.width and 0 &lt;= self.mouseY + x[1] &lt; self.height:
+								if self.tiles[self.mouseX + x[0]][self.mouseY + x[1]] == self.flag:
+									if self.judgeOne(self.mouseX + x[0], self.mouseY + x[1], self.flag, tiles) == 0:
+										self.removeArea(self.mouseX + x[0], self.mouseY + x[1], self.flag)
+
+	def judgeOne(self, x, y, flag, tiles):
+		tiles[x][y] = -1 * flag
+		i = 0
+		if x - 1 &gt;= 0:
+			if tiles[x - 1][y] == 0:
+				i += 1
+			elif tiles[x - 1][y] == flag:
+				i += self.judgeOne(x - 1, y, flag, tiles)
+		if x + 1 &lt; self.width:
+			if tiles[x + 1][y] == 0:
+				i += 1
+			elif tiles[x + 1][y] == flag:
+				i += self.judgeOne(x + 1, y, flag, tiles)
+		if y - 1 &gt;= 0:
+			if tiles[x][y - 1] == 0:
+				i += 1
+			elif tiles[x][y - 1] == flag:
+				i += self.judgeOne(x, y - 1, flag, tiles)
+		if y + 1 &lt; self.height:
+			if tiles[x][y + 1] == 0:
+				i += 1
+			elif tiles[x][y + 1] == flag:
+				i += self.judgeOne(x, y + 1, flag, tiles)
+		return i
+
+	def removeArea(self, x, y, flag):
+		if self.tiles[x][y] != flag:
+			return
+		self.tiles[x][y] = 0
+		if x - 1 &gt;= 0:
+			if self.tiles[x - 1][y] == flag:
+				self.removeArea(x - 1, y, flag)
+		if x + 1 &gt;= 0:
+			if self.tiles[x + 1][y] == flag:
+				self.removeArea(x + 1, y, flag)
+		if y - 1 &gt;= 0:
+			if self.tiles[x][y - 1] == flag:
+				self.removeArea(x, y - 1, flag)
+		if y + 1 &gt;= 0:
+			if self.tiles[x][y + 1] == flag:
+				self.removeArea(x, y + 1, flag)
+
+class Surrender(object):
+	def __init__(self):
+		self.windowWidth = 900
+		self.windowHeight = 600
+		self.panel = Panel()
+		self.status = GAME_PAUSE
+		self.DISPLAYSURF = pygame.display.set_mode((900, 600))
+		self.fpsClock = pygame.time.Clock()
+
+	def drawText(self, screen, text, x, y):
+		textObj = fonts[FONT2].render(text, True, colors[BLACK], colors[GREY])
+		screen.blit(textObj, (x, y))
+
+	def update(self):
+		self.fpsClock.tick(24)
+		self.DISPLAYSURF.fill(colors[WHITE])
+		self.panel.update(self.DISPLAYSURF)
+		self.drawText(self.DISPLAYSURF, '黑子总数:'+str(self.panel.blackChessCount), 650, 40)
+		self.drawText(self.DISPLAYSURF, '白子总数:'+str(self.panel.whiteChessCount), 650, 80)
+		self.drawText(self.DISPLAYSURF, self.panel.info1, 650, 120)
+		self.drawText(self.DISPLAYSURF, self.panel.info2, 650, 160)
+		self.drawText(self.DISPLAYSURF, self.panel.info3, 650, 200)
+		pygame.draw.rect(self.DISPLAYSURF,
+						 colors[RED],
+						(0, 0, self.windowWidth, self.windowHeight),2)
+		pygame.display.update()
+
+	def mouseEvent(self, event):
+		self.panel.mouseEvent(event)
+
+	def exit(self):
+		pygame.quit()
+		sys.exit()
+
+if __name__ == "__main__":
+	game = Surrender()
+	pygame.display.set_caption("Yscc-Surrender")
+	pygame.display.set_icon(textures[icon])
+	pygame.time.set_timer(CLICK, 1000)
+	while True:
+		game.update()
+		for event in pygame.event.get():
+			print(event)
+			if event.type == QUIT:
+				game.exit()
+			if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP:
+				game.mouseEvent(event)
+</code></pre>
+</div>
+
+    </div>
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/loser">End&Begin</a></li>
+        
+        </ul>
+
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/python-design">python语言的设计记录</a></li>
+        
+            <li><a href="/Logistic">Logistic函数</a></li>
+        
+            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
+        
+            <li><a href="/VBA">Excel合并功能记录</a></li>
+        
+            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
+        
+            <li><a href="/move-average-method">移动平均法</a></li>
+        
+            <li><a href="/LineClassfier">线性分类器</a></li>
+        
+            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
+        
+            <li><a href="/paper-Visual-Attribute-Transfer-through-Deep-Image-Analogy">论文《Visual Attribute Transfer through Deep Image Analogy》阅读记录</a></li>
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
+        
+            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
+        
+        </ul>
+
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/go">围棋</a></li>
+        
+            <li><a href="/test">前端绘图测试</a></li>
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+
+    <script type="text/javascript">
+        $(function(){
+            $('.home-follow').click(function(e){
+                e.preventDefault();
+
+                if($('.home-contact').is(':visible')){
+                    $('.home-contact').slideUp(100);
+                }else{
+                    $('.home-contact').slideDown(100);
+                }
+            });
+        })
+    </script>
+	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="//chenpei.science/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
+</body>
+</html>
