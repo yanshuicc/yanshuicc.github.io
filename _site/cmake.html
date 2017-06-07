@@ -17,7 +17,7 @@
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
 <body>
-
+	
     <div class="home-menu">
         <div class="home-icon-con">
             <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
@@ -47,15 +47,516 @@
     <div class="entry">
         <h1 class="entry-title"><a href="/cmake" title="cmake">cmake</a></h1>
         <p class="entry-date">2015-11-26</p>
-        <p>#基本用法</p>
+        <p>cmake是一个工程管理工具，最开始是为了将项目VTK兼容于VS的环境下，生成VS的工程文件而开发的小工具，后来随着越来越多的人使用，演化成为单独的开源项目。</p>
 
-<p>##常用命令</p>
+<p>相较于automake的工程配置，cmake的输出显得更加规范格式化，编译过程中也有进度百分比的显示。对于长时间的编译过程，使得程序员焦躁的内心得到安抚。</p>
 
-<p>####调试
-SET(CMAKE_CXX_FLAGS_DEBUG “$ENV{CXXFLAGS} -O0 -Wall -g -ggdb “)
-SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
+<h2 id="基本用法">基本用法</h2>
 
-<p>cmake -DCMAKE_BUILD_TYPE=Debug/Release ./src</p>
+<p>cmake的配置文件是CMakeList.txt，可以通过cmake命令指定src目录，然后在当前目录下生成Makefile文件。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>mkdir build/
+cd build/
+cmake ../src
+make
+</code></pre>
+</div>
+
+<h2 id="官方tutorial">官方Tutorial</h2>
+
+<h4 id="1基本的配置">1、基本的配置</h4>
+
+<p>最简单的demo，指定cmake版本、工程名字、生成程序。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+add_executable(Tutorial tutorial.cxx)
+
+
+// A simple program that computes the square root of a number
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+int main (int argc, char *argv[])
+{
+  if (argc &lt; 2)
+	{
+	fprintf(stdout,"Usage: %s number\n",argv[0]);
+	return 1;
+	}
+  double inputValue = atof(argv[1]);
+  double outputValue = sqrt(inputValue);
+  fprintf(stdout,"The square root of %g is %g\n",
+		  inputValue, outputValue);
+  return 0;
+}
+</code></pre>
+</div>
+
+<h4 id="11-添加工程版本号和配置头文件">1.1 添加工程版本号和配置头文件</h4>
+
+<p>为项目添加版本号等一些配置，这些配置写在到CMakeLists.txt中，指定引用配置的源文件，在头文件中可以识别引用。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+# The version number.
+set (Tutorial_VERSION_MAJOR 1)
+set (Tutorial_VERSION_MINOR 0)
+ 
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"
+  "${PROJECT_BINARY_DIR}/TutorialConfig.h"
+  )
+ 
+# add the binary tree to the search path for include files
+# so that we will find TutorialConfig.h
+include_directories("${PROJECT_BINARY_DIR}")
+ 
+# add the executable
+add_executable(Tutorial tutorial.cxx)
+</code></pre>
+</div>
+
+<p>然后在PROJECT_SOURCE_DIR目录下创建一个TutorialConfig.h.in文件，内容如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// the configured options and settings for Tutorial
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+</code></pre>
+</div>
+
+<p>当CMake配置头文件时，@Tutorial_VERSION_MAJOR@与@Tutorial_VERSION_MINOR@将会被CMakeLists.txt文件中的值代替。<br />
+然后修改tutorial.cxx，打印配置的版本号。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// A simple program that computes the square root of a number
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+#include "TutorialConfig.h"
+ 
+int main (int argc, char *argv[])
+{
+  if (argc &lt; 2)
+	{
+	fprintf(stdout,"%s Version %d.%d\n",
+			argv[0],
+			Tutorial_VERSION_MAJOR,
+			Tutorial_VERSION_MINOR);
+	fprintf(stdout,"Usage: %s number\n",argv[0]);
+	return 1;
+	}
+  double inputValue = atof(argv[1]);
+  double outputValue = sqrt(inputValue);
+  fprintf(stdout,"The square root of %g is %g\n",
+		  inputValue, outputValue);
+  return 0;
+}
+</code></pre>
+</div>
+
+<h4 id="2添加链接库文件">2、添加链接库文件</h4>
+
+<p>这一步骤中，我们将在我们的工程中添加一个库。 
+这个库包含了我们计算平方根的实现。执行文件可以使用这个库而代替编译器自己提供的标准平方根计算方法。在这个教程中，我们将该库设置为一个子库，并命名为MathFunctions。
+Now we will add a library to our project. This library will contain our own implementation for computing the square root of a number. The executable can then use this library instead of the standard square root function provided by the compiler. For this tutorial we will put the library into a subdirectory called MathFunctions. CMakeLists.txt文件如下：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>add_library(MathFunctions mysqrt.cxx)
+</code></pre>
+</div>
+
+<p>源文件mysqrt.cxx中有一个名为mysqrt的函数，这个函数提供了相比于编译器版本平方根函数的简化版本。为了使用新库，我们在顶层根目录中的CMakeLists.txt调用add_subdirectory，如此一来该库便建成了。 
+我们也可以添加另外一个包含路径，这样的话，头文件MathFunctions/MathFunctions.h便可以被函数原型找到。
+The source file mysqrt.cxx has one function called mysqrt that provides similar functionality to the compiler’s sqrt function. To make use of the new library we add an add_subdirectory call in the top level CMakeLists.txt file so that the library will get built. We also add another include directory so that the MathFunctions/MathFunctions.h header file can be found for the function prototype. The last change is to add the new library to the executable. The last few lines of the top level CMakeLists.txt file now look like:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+add_subdirectory (MathFunctions) 
+ 
+# add the executable
+add_executable (Tutorial tutorial.cxx)
+target_link_libraries (Tutorial MathFunctions)
+</code></pre>
+</div>
+
+<p>现在，我们来考虑一下是否使MathFunctions库可用。在大型库，或者依赖于第三方代码的库中，很需要这种功能。 
+第一步，在顶层根目录的CMakeLists.txt中添加选项：
+Now let us consider making the MathFunctions library optional. In this tutorial there really isn’t any reason to do so, but with larger libraries or libraries that rely on third party code you might want to. The first step is to add an option to the top level CMakeLists.txt file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># should we use our own math functions?
+option (USE_MYMATH 
+		"Use tutorial provided math implementation" ON) 
+</code></pre>
+</div>
+
+<p>在CMake-GUI中，该值将以默认的ON值显示，用户可以随意更改。该值将存储在缓存文件中，用户不需要每次运行cmake指令时都对其进行一次设定。
+This will show up in the CMake GUI with a default value of ON that the user can change as desired. This setting will be stored in the cache so that the user does not need to keep setting it each time they run CMake on this project. The next change is to make the build and linking of the MathFunctions library conditional. To do this we change the end of the top level CMakeLists.txt file to look like the following:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># add the MathFunctions library?
+#
+if (USE_MYMATH)
+  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+  add_subdirectory (MathFunctions)
+  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif (USE_MYMATH)
+ 
+# add the executable
+add_executable (Tutorial tutorial.cxx)
+target_link_libraries (Tutorial  ${EXTRA_LIBS})
+</code></pre>
+</div>
+
+<p>This uses the setting of USE_MYMATH to determine if the MathFunctions should be compiled and used. Note the use of a variable (EXTRA_LIBS in this case) to collect up any optional libraries to later be linked into the executable. This is a common approach used to keep larger projects with many optional components clean. The corresponding changes to the source code are fairly straight forward and leave us with:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// A simple program that computes the square root of a number
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+#include "TutorialConfig.h"
+#ifdef USE_MYMATH
+#include "MathFunctions.h"
+#endif
+ 
+int main (int argc, char *argv[])
+{
+  if (argc &lt; 2)
+	{
+	fprintf(stdout,"%s Version %d.%d\n", argv[0],
+			Tutorial_VERSION_MAJOR,
+			Tutorial_VERSION_MINOR);
+	fprintf(stdout,"Usage: %s number\n",argv[0]);
+	return 1;
+	}
+ 
+  double inputValue = atof(argv[1]);
+ 
+#ifdef USE_MYMATH
+  double outputValue = mysqrt(inputValue);
+#else
+  double outputValue = sqrt(inputValue);
+#endif
+ 
+  fprintf(stdout,"The square root of %g is %g\n",
+		  inputValue, outputValue);
+  return 0;
+}
+</code></pre>
+</div>
+
+<p>上面的源码中我们也使用到了USE_MYMATH。我们在之前的TutorialConfig.h.in配置文件中添加下面的一行：</p>
+
+<p>In the source code we make use of USE_MYMATH as well. This is provided from CMake to the source code through the TutorialConfig.h.in configured file by adding the following line to it:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#cmakedefine USE_MYMATH
+</code></pre>
+</div>
+
+<h4 id="3配置安装和测试">3、配置安装和测试</h4>
+<p>这一步骤中，我们将向我们的工程中添加安装规则和测试支持。 
+安装规则很简单直接。对于MathFunctions，我们可以在MathFuncitions的CMakeLists.txt中添加两行代码，即可安装库与头文件。
+For the next step we will add install rules and testing support to our project. The install rules are fairly straight forward. For the MathFunctions library we setup the library and the header file to be installed by adding the following two lines to MathFunctions’ CMakeLists.txt file:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>install (TARGETS MathFunctions DESTINATION bin)
+install (FILES MathFunctions.h DESTINATION include) 另外在顶层根目录的CMakeLists.txt中，也需要加入几行代码，用来安装可执行文件与头文件： For the application the following lines are added to the top level CMakeLists.txt file to install the executable and the configured header file:
+
+# add the install targets
+install (TARGETS Tutorial DESTINATION bin)
+install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
+		 DESTINATION include) 到了这一步，你应该已经可以构建其自己的教程了。这时候输入make install，工程将安装合适的头文件、库文件和可执行文件。其中，CMake变量CMAKE_INSTALL_PREFIX被用来定义安装文件的根目录。
+</code></pre>
+</div>
+
+<p>添加测试也是一个简单直接的操作。在顶层根目录中的CMakeLists.txt中，我们可以添加几行简单测试代码来衡量应用是否正确。		 
+That is all there is to it. At this point you should be able to build the tutorial, then type make install (or build the INSTALL target from an IDE) and it will install the appropriate header files, libraries, and executables. The CMake variable CMAKE_INSTALL_PREFIX is used to determine the root of where the files will be installed. Adding testing is also a fairly straight forward process. At the end of the top level CMakeLists.txt file we can add a number of basic tests to verify that the application is working correctly.
+include(CTest)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># does the application run
+add_test (TutorialRuns Tutorial 25)
+
+# does it sqrt of 25
+add_test (TutorialComp25 Tutorial 25)
+set_tests_properties (TutorialComp25 PROPERTIES PASS_REGULAR_EXPRESSION "25 is 5")
+
+# does it handle negative numbers
+add_test (TutorialNegative Tutorial -25)
+set_tests_properties (TutorialNegative PROPERTIES PASS_REGULAR_EXPRESSION "-25 is 0")
+
+# does it handle small numbers
+add_test (TutorialSmall Tutorial 0.0001)
+set_tests_properties (TutorialSmall PROPERTIES PASS_REGULAR_EXPRESSION "0.0001 is 0.01")
+
+# does the usage message work?
+add_test (TutorialUsage Tutorial)
+set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number") 构建之后，运行ctest命令行可以运行这些测试。 After building one may run the “ctest” command line tool to run the tests. The first test simply verifies that the application runs, does not segfault or otherwise crash, and has a zero return value. This is the basic form of a CTest test. The next few tests all make use of the PASS_REGULAR_EXPRESSION test property to verify that the output of the test contains certain strings. In this case verifying that the computed square root is what it should be and that the usage message is printed when an incorrect number of arguments are provided. If you wanted to add a lot of tests to test different input values you might consider creating a macro like the following:
+
+#define a macro to simplify adding tests, then use it
+macro (do_test arg result)
+  add_test (TutorialComp${arg} Tutorial ${arg})
+  set_tests_properties (TutorialComp${arg}
+	PROPERTIES PASS_REGULAR_EXPRESSION ${result})
+endmacro (do_test)
+ 
+# do a bunch of result based tests
+do_test (25 "25 is 5")
+do_test (-25 "-25 is 0")
+</code></pre>
+</div>
+
+<p>For each invocation of do_test, another test is added to the project with a name, input, and results based on the passed arguments.</p>
+
+<h4 id="4添加系统内省adding-system-introspection">4、添加系统内省Adding System Introspection</h4>
+
+<p>Next let us consider adding some code to our project that depends on features the target platform may not have. For this example we will add some code that depends on whether or not the target platform has the log and exp functions. Of course almost every platform has these functions but for this tutorial assume that they are less common. If the platform has log then we will use that to compute the square root in the mysqrt function. We first test for the availability of these functions using the CheckFunctionExists.cmake macro in the top level CMakeLists.txt file as follows:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># does this system provide the log and exp functions?
+include (CheckFunctionExists)
+check_function_exists (log HAVE_LOG)
+check_function_exists (exp HAVE_EXP)
+
+Next we modify the TutorialConfig.h.in to define those values if CMake found them on the platform as follows:
+
+// does the platform provide exp and log functions?
+#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+</code></pre>
+</div>
+
+<p>It is important that the tests for log and exp are done before the configure_file command for TutorialConfig.h. The configure_file command immediately configures the file using the current settings in CMake. Finally in the mysqrt function we can provide an alternate implementation based on log and exp if they are available on the system using the following code:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// if we have both log and exp then use them
+#if defined (HAVE_LOG) &amp;&amp; defined (HAVE_EXP)
+  result = exp(log(x)*0.5);
+#else // otherwise use an iterative approach
+  . . .
+</code></pre>
+</div>
+
+<h4 id="5添加生成文件和生成器-adding-a-generated-file-and-generator">5、添加生成文件和生成器 Adding a Generated File and Generator</h4>
+
+<p>In this section we will show how you can add a generated source file into the build process of an application. For this example we will create a table of precomputed square roots as part of the build process, and then compile that table into our application. To accomplish this we first need a program that will generate the table. In the MathFunctions subdirectory a new source file named MakeTable.cxx will do just that.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>// A simple program that builds a sqrt table 
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;math.h&gt;
+ 
+int main (int argc, char *argv[])
+{
+  int i;
+  double result;
+ 
+  // make sure we have enough arguments
+  if (argc &lt; 2)
+	{
+	return 1;
+	}
+  
+  // open the output file
+  FILE *fout = fopen(argv[1],"w");
+  if (!fout)
+	{
+	return 1;
+	}
+  
+  // create a source file with a table of square roots
+  fprintf(fout,"double sqrtTable[] = {\n");
+  for (i = 0; i &lt; 10; ++i)
+	{
+	result = sqrt(static_cast&lt;double&gt;(i));
+	fprintf(fout,"%g,\n",result);
+	}
+ 
+  // close the table with a zero
+  fprintf(fout,"0};\n");
+  fclose(fout);
+  return 0;
+}
+</code></pre>
+</div>
+
+<p>Note that the table is produced as valid C++ code and that the name of the file to write the output to is passed in as an argument. The next step is to add the appropriate commands to MathFunctions’ CMakeLists.txt file to build the MakeTable executable, and then run it as part of the build process. A few commands are needed to accomplish this, as shown below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># first we add the executable that generates the table
+add_executable(MakeTable MakeTable.cxx)
+ 
+# add the command to generate the source code
+add_custom_command (
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  DEPENDS MakeTable
+  )
+ 
+# add the binary tree directory to the search path for 
+# include files
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+ 
+# add the main library
+add_library(MathFunctions mysqrt.cxx ${CMAKE_CURRENT_BINARY_DIR}/Table.h  )
+</code></pre>
+</div>
+
+<p>First the executable for MakeTable is added as any other executable would be added. Then we add a custom command that specifies how to produce Table.h by running MakeTable. Next we have to let CMake know that mysqrt.cxx depends on the generated file Table.h. This is done by adding the generated Table.h to the list of sources for the library MathFunctions. We also have to add the current binary directory to the list of include directories so that Table.h can be found and included by mysqrt.cxx. When this project is built it will first build the MakeTable executable. It will then run MakeTable to produce Table.h. Finally, it will compile mysqrt.cxx which includes Table.h to produce the MathFunctions library. At this point the top level CMakeLists.txt file with all the features we have added looks like the following:
+cmake_minimum_required (VERSION 2.6)
+project (Tutorial)
+include(CTest)</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># The version number.
+set (Tutorial_VERSION_MAJOR 1)
+set (Tutorial_VERSION_MINOR 0)
+ 
+# does this system provide the log and exp functions?
+include (${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake)
+ 
+check_function_exists (log HAVE_LOG)
+check_function_exists (exp HAVE_EXP)
+ 
+# should we use our own math functions
+option(USE_MYMATH 
+  "Use tutorial provided math implementation" ON)
+ 
+# configure a header file to pass some of the CMake settings
+# to the source code
+configure_file (
+  "${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"
+  "${PROJECT_BINARY_DIR}/TutorialConfig.h"
+  )
+ 
+# add the binary tree to the search path for include files
+# so that we will find TutorialConfig.h
+include_directories ("${PROJECT_BINARY_DIR}")
+ 
+# add the MathFunctions library?
+if (USE_MYMATH)
+  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
+  add_subdirectory (MathFunctions)
+  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif (USE_MYMATH)
+ 
+# add the executable
+add_executable (Tutorial tutorial.cxx)
+target_link_libraries (Tutorial  ${EXTRA_LIBS})
+ 
+# add the install targets
+install (TARGETS Tutorial DESTINATION bin)
+install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
+		 DESTINATION include)
+ 
+# does the application run
+add_test (TutorialRuns Tutorial 25)
+ 
+# does the usage message work?
+add_test (TutorialUsage Tutorial)
+set_tests_properties (TutorialUsage
+  PROPERTIES 
+  PASS_REGULAR_EXPRESSION "Usage:.*number"
+  )
+ 
+ 
+#define a macro to simplify adding tests
+macro (do_test arg result)
+  add_test (TutorialComp${arg} Tutorial ${arg})
+  set_tests_properties (TutorialComp${arg}
+	PROPERTIES PASS_REGULAR_EXPRESSION ${result}
+	)
+endmacro (do_test)
+ 
+# do a bunch of result based tests
+do_test (4 "4 is 2")
+do_test (9 "9 is 3")
+do_test (5 "5 is 2.236")
+do_test (7 "7 is 2.645")
+do_test (25 "25 is 5")
+do_test (-25 "-25 is 0")
+do_test (0.0001 "0.0001 is 0.01")
+
+TutorialConfig.h.in looks like:
+// the configured options and settings for Tutorial
+#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+#cmakedefine USE_MYMATH
+ 
+// does the platform provide exp and log functions?
+#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+
+And the CMakeLists.txt file for MathFunctions looks like:
+# first we add the executable that generates the table
+add_executable(MakeTable MakeTable.cxx)
+# add the command to generate the source code
+add_custom_command (
+  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  DEPENDS MakeTable
+  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+  )
+# add the binary tree directory to the search path 
+# for include files
+include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
+ 
+# add the main library
+add_library(MathFunctions mysqrt.cxx ${CMAKE_CURRENT_BINARY_DIR}/Table.h)
+ 
+install (TARGETS MathFunctions DESTINATION bin)
+install (FILES MathFunctions.h DESTINATION include)
+</code></pre>
+</div>
+
+<h4 id="6构建和安装-building-an-installer-step-6">6、构建和安装 Building an Installer (Step 6)</h4>
+<p>Next suppose that we want to distribute our project to other people so that they can use it. We want to provide both binary and source distributions on a variety of platforms. This is a little different from the install we did previously in section Installing and Testing (Step 3), where we were installing the binaries that we had built from the source code. In this example we will be building installation packages that support binary installations and package management features as found in cygwin, debian, RPMs etc. To accomplish this we will use CPack to create platform specific installers as described in Chapter Packaging with CPack. Specifically we need to add a few lines to the bottom of our toplevel CMakeLists.txt file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># build a CPack driven installer package
+include (InstallRequiredSystemLibraries)
+set (CPACK_RESOURCE_FILE_LICENSE  
+	 "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+set (CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")
+set (CPACK_PACKAGE_VERSION_MINOR "${Tutorial_VERSION_MINOR}")
+include (CPack)
+</code></pre>
+</div>
+
+<p>That is all there is to it. We start by including InstallRequiredSystemLibraries. This module will include any runtime libraries that are needed by the project for the current platform. Next we set some CPack variables to where we have stored the license and version information for this project. The version information makes use of the variables we set earlier in this tutorial. Finally we include the CPack module which will use these variables and some other properties of the system you are on to setup an installer.
+The next step is to build the project in the usual manner and then run CPack on it. To build a binary distribution you would run:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cpack --config CPackConfig.cmake
+To create a source distribution you would type
+cpack --config CPackSourceConfig.cmake
+</code></pre>
+</div>
+
+<h4 id="7添加仪表盘的支持-adding-support-for-a-dashboard-step-7">7、添加仪表盘的支持 Adding Support for a Dashboard (Step 7)</h4>
+<p>Adding support for submitting our test results to a dashboard is very easy. We already defined a number of tests for our project in the earlier steps of this tutorial. We just have to run those tests and submit them to a dashboard. To include support for dashboards we include the CTest module in our toplevel CMakeLists.txt file.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code># enable dashboard scripting
+include (CTest)
+</code></pre>
+</div>
+
+<p>We also create a CTestConfig.cmake file where we can specify the name of this project for the dashboard.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>set (CTEST_PROJECT_NAME "Tutorial")
+</code></pre>
+</div>
+
+<p>CTest will read in this file when it runs. To create a simple dashboard you can run CMake on your project, change directory to the binary tree, and then run ctest –D Experimental. The results of your dashboard will be uploaded to Kitware’s public dashboard here.</p>
+
+<h4 id="调试">调试</h4>
+
+<p>设置调试的命令</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>SET(CMAKE_CXX_FLAGS_DEBUG "$ENV{CXXFLAGS} -O0 -Wall -g -ggdb ")
+SET(CMAKE_CXX_FLAGS_RELEASE "$ENV{CXXFLAGS} -O3 -Wall")
+</code></pre>
+</div>
+
+<p>cmake命令</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>cmake -DCMAKE_BUILD_TYPE=Debug/Release ./src 
+</code></pre>
+</div>
+
+<h2 id="未完待续">未完待续</h2>
+
+<p>参考网址:<br />
+<a href="https://cmake.org/cmake-tutorial/">cmake-tutorial</a></p>
 
     </div>
 
@@ -67,6 +568,32 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
 
         <h2>Dump</h2>
         <ul class="artical-list">
+        
+            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
+        
+            <li><a href="/Laplace">拉普拉斯分布</a></li>
+        
+            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
+        
+            <li><a href="/cpp_exception">C++异常</a></li>
+        
+            <li><a href="/cpp_const">C++ const的用法记录</a></li>
+        
+            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
+        
+            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
+        
+            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
+        
+            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
+        
+            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
+        
+            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
+        
+            <li><a href="/automake">automake安装与使用记录</a></li>
+        
+            <li><a href="/python-decorator">python@的用法记录</a></li>
         
             <li><a href="/python-design">python语言的设计记录</a></li>
         
@@ -84,8 +611,6 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
         
             <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
         
-            <li><a href="/paper-Visual-Attribute-Transfer-through-Deep-Image-Analogy">论文《Visual Attribute Transfer through Deep Image Analogy》阅读记录</a></li>
-        
             <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
         
             <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
@@ -95,6 +620,8 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
             <li><a href="/algorithm_complexity">算法复杂度</a></li>
         
             <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
+        
+            <li><a href="/cmake">cmake</a></li>
         
         </ul>
 
@@ -112,6 +639,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
 <script src="/js/post.js" type="text/javascript"></script>
 
 
+</body>
     <script type="text/javascript">
         $(function(){
             $('.home-follow').click(function(e){
@@ -125,8 +653,12 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
             });
         })
     </script>
+	<!--canvas-->
 	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
+	<!--End canvas-->
+	<!--mathjax-->
 	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!--End mathjax-->
 	<!-- Piwik -->
 	<script type="text/javascript">
 	  var _paq = _paq || [];
@@ -142,5 +674,4 @@ SET(CMAKE_CXX_FLAGS_RELEASE “$ENV{CXXFLAGS} -O3 -Wall”)</p>
 	  })();
 	</script>
 	<!-- End Piwik Code -->
-</body>
 </html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    * Author:         BeiYuu
+    * Revised:        Yscc
+    -->
+    <meta charset="utf-8" />
+    <title>C++指针/引用/地址/函数参数 | 盐水冲茶</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about Yscc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+	
+    <div class="home-menu">
+        <div class="home-icon-con">
+            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
+            <a class="home-follow" href="#" title="Contact Me">+</a>
+        </div>
+        <div class="home-contact">
+            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
+			"/images/git.png" alt="" width="24"/></a>
+            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
+            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
+			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/cpp_pointer" title="C++指针/引用/地址/函数参数">C++指针/引用/地址/函数参数</a></h1>
+        <p class="entry-date">2017-06-02</p>
+        <p>指针一向是C/C++的一个难点，一方面是概念方面的理解问题，一方面是具体使用的语法问题，在此对常见用法做一个记录。</p>
+
+<h3 id="完整代码">完整代码</h3>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>#include&lt;iostream&gt;
+#include&lt;string&gt;
+using namespace std;
+#pragma warning( disable : 4996 ) 
+
+
+void test_pointer() {
+    cout &lt;&lt; "------------test_pointer-------" &lt;&lt; endl;
+    int donuts = 6;
+    double cups = 4.5;
+    cout &lt;&lt; "donuts value = " &lt;&lt; donuts;
+    cout &lt;&lt; " and donuts address = " &lt;&lt; unsigned(&amp;donuts) &lt;&lt; endl;
+    cout &lt;&lt; "cups value = " &lt;&lt; cups;
+    cout &lt;&lt; " and cups address = " &lt;&lt; unsigned(&amp;cups) &lt;&lt; endl;
+    cout &lt;&lt; "donuts 和 cups 的地址差值:"&lt;&lt; unsigned(&amp;donuts) - unsigned(&amp;cups) &lt;&lt; endl;
+
+    int updates = 6;
+    int* p_updates;
+    //指针初始化是将对象的地址赋值给p_updates，而不是赋值给*p_updates
+    //指针一定要记得初始化后，才能给指向的对象赋值
+    p_updates = &amp;updates;
+
+    //整数和地址直接需要进行类型转换
+    int ad = (int)&amp;updates;
+    p_updates = (int *)ad;
+    
+    //显示值
+    cout &lt;&lt; "Values: updates = " &lt;&lt; updates;
+    cout &lt;&lt; ", *p_updates = " &lt;&lt; *p_updates &lt;&lt; endl;
+    
+    //显示地址
+    cout &lt;&lt; "Addresses: &amp;updates" &lt;&lt; &amp;updates;
+    cout &lt;&lt; ", p_updates = " &lt;&lt; p_updates &lt;&lt; endl;
+    
+    //使用指针更改值
+    *p_updates = *p_updates + 1;
+    cout &lt;&lt; "Now updates = " &lt;&lt; updates &lt;&lt; endl;
+}
+
+void test_chars_pointer() {
+    cout &lt;&lt; "------------test_chars_pointer-------" &lt;&lt; endl;
+    char animal[20] = "bear";
+    //对于字符串数组的名称，会看着地址
+    //即animal == &amp;animal[0]
+    //&amp;animal[i] == animal +i
+    //animal[i] == *(animal+i) 
+    //相应的对于字符串数组的下标寻址也会进行转换
+    //animal[i]会被转换成*(animal+i)
+    const char *bird = "wren";
+    char* ps = animal;
+
+    cout &lt;&lt; animal &lt;&lt; " and ";
+    cout &lt;&lt; bird &lt;&lt; endl;
+    
+    cout &lt;&lt; "before using strcpy():" &lt;&lt; endl;
+    cout &lt;&lt; animal &lt;&lt; " at " &lt;&lt; (int*)animal &lt;&lt; endl;
+    cout &lt;&lt; ps &lt;&lt; " at " &lt;&lt; (int*)ps &lt;&lt; endl;
+
+    ps = new char[strlen(animal) + 1];
+    strcpy(ps, animal);
+    cout &lt;&lt; "After using strcpy():\n";
+    cout &lt;&lt; animal &lt;&lt; " at " &lt;&lt; (int*)animal &lt;&lt; endl;
+    cout &lt;&lt; ps &lt;&lt; " at " &lt;&lt; (int*)ps &lt;&lt; endl;
+    delete[] ps;
+}
+
+//在函数头/函数原型中，int* arr和int arr[]是唯一完全等价的地方。
+//int test_sum_arr(int* arr, int n);
+
+//向test_sum_arr传递的是数组的地址
+int test_sum_arr(int arr[], int n) {
+    cout &lt;&lt; "------------test_sum_arr-------" &lt;&lt; endl;
+    int total = 0;
+    for (int i = 0; i &lt; n; i++) {
+        total += arr[i];
+    }
+    cout &lt;&lt; total &lt;&lt; endl;
+    return total;
+}
+
+//程序访问的是原始数组而不是副本，所以可以使用const保护数组
+void test_show_arr(const double arr[],int n) {
+    for (int i = 0; i &lt; n; i++) {
+        cout &lt;&lt; "arr[" &lt;&lt; i &lt;&lt; "]" &lt;&lt; arr[i];
+    }
+    cout &lt;&lt; endl;
+}
+
+//使用数组区间的函数
+int test_sum_arr2(const int* begin, const int* end) {
+    const int *pt;
+    int total = 0;
+    for (pt = begin; pt != end; pt++) {
+        total += *pt;
+    }
+    return total;
+}
+
+//我们要尽可能的使用const
+void test_const() {
+    cout &lt;&lt; "---------------test_const--------" &lt;&lt; endl;
+    int age = 39;
+    const int *pt1 = &amp;age;
+    //pt指向一个const int，存储其地址，不能使用pt来修改这个值，即不能使用*pt来修改值
+    //*pt += 1;
+
+    const float g = 1.1f;
+    //我们只能将const变量的地址赋值给const的指针
+    const float* p = &amp;g;
+    //不能将const变量的地址赋值给常规指针，如果想这么做需要使用const_cast进行强制类型转换
+    //float* pt = &amp;g;
+
+
+    //在一级间接关系中，可以将非const指针赋给const指针
+    int* pd = &amp;age;
+    const int* pt2 = pd;
+
+    //在二级间接关系中，const和非const混合的指针赋值方式不再安全
+    //将非const地址(&amp;p1)赋给const指针(pp2)，因此可以使用p1修改const数据
+    /**
+    *		const **pp2		const n = 13	int *p1
+    *		*pp2	=		&amp;n				p1
+    *		pp2				=				&amp;p1
+    **/
+    //const int** pp2;
+    //int *p1;
+    //const int n = 13;
+    //pp2 = &amp;p1;		//编译报错error C2440: “=”: 无法从“int **”转换为“const int **”
+    //*pp2 = &amp;n;
+    //*p1 = 10;
+    //cout &lt;&lt; "const n changed:" &lt;&lt; n &lt;&lt; endl;
+
+
+    const int* pt3 = &amp;age;	//指向const int的指针
+    int sage = 80;
+    pt3 = &amp;sage;			//不可以通过指针修改对象的值，但是可以修改指针指向另外的整数
+    int* const pt4 = &amp;sage;	//指向int的const指针
+}
+
+//二维数组
+//int test_sum_arr3(int (*arr)[4], int n);
+int test_sum_arr3(int arr[][4], int n) {
+    cout &lt;&lt; "---------------test_sum_arr3--------" &lt;&lt; endl;
+    //arr[i][j] == *(*(arr + i) + j)
+    int total = 0;
+    for (int i = 0; i &lt; n; i++) {
+        for (int j = 0; j &lt; 4; j++) {
+            total += arr[i][j];
+        }
+    }
+    cout &lt;&lt; total &lt;&lt; endl;
+    return total;
+}
+
+//返回字符串可以返回字符串的地址
+char* buildstr(char c, int n) {
+    cout &lt;&lt; "---------------buildstr--------" &lt;&lt; endl;
+    char *str = new char[n + 1];
+    str[n] = '\0';
+    while(n--) {
+        str[n] = c;
+    }
+    return str;
+}
+
+void test_ref(int &amp;a) {
+    int rat;
+    //引用必须在声明的时候初始化
+    //int &amp;rodent;
+    //rodent = rat;
+    int &amp;rodent = rat;
+    //等效于
+    int* const pr = &amp;rat;
+}
+
+//引用传参更加严格
+void swapr(int &amp;a, int &amp;b) {
+    cout &lt;&lt; "---------------swapr--------" &lt;&lt; endl;
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+void swapp(int *a, int *b) {
+    cout &lt;&lt; "---------------swapp--------" &lt;&lt; endl;
+    int temp;
+    temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+//按值传递可以使用下面两种方式
+//swapv(a+2,b);			//引用不可以
+//swapv(arr1[1],b);		//引用可以
+void swapv(int a, int b) {
+    cout &lt;&lt; "---------------swapv--------" &lt;&lt; endl;
+    int temp;
+    temp = a;
+    a = b;
+    b = temp;
+}
+
+double test_ref_cube(const double &amp;a) {
+    cout &lt;&lt; "---------------test_ref_cube--------" &lt;&lt; endl;
+    cout &lt;&lt; &amp;a &lt;&lt; endl;
+    return a*a*a;
+}
+
+
+
+int main() {
+    test_pointer();
+    test_chars_pointer();
+    int arr1[5] = { 1,2,3,4,5 };
+    test_sum_arr(arr1, 5);
+    int arr2[3][4] = { {1,2,3,4},{9,8,7,6},{2,4,6,8} };
+    test_sum_arr3(arr2, 3);
+    char *str = buildstr('a', 10);
+    cout &lt;&lt; "buildstr res:" &lt;&lt; str &lt;&lt; endl;
+    int a = 1, b = 2;
+    cout &lt;&lt; "-------------原始值-----------" &lt;&lt; endl;
+    cout &lt;&lt; "a:" &lt;&lt; a &lt;&lt; "b:" &lt;&lt; b &lt;&lt; endl;
+    swapr(a, b);
+    cout &lt;&lt; "a:" &lt;&lt; a &lt;&lt; "b:" &lt;&lt; b &lt;&lt; endl;
+    swapp(&amp;a, &amp;b);
+    cout &lt;&lt; "a:" &lt;&lt; a &lt;&lt; "b:" &lt;&lt; b &lt;&lt; endl;
+    swapv(a, b);
+    cout &lt;&lt; "a:" &lt;&lt; a &lt;&lt; "b:" &lt;&lt; b &lt;&lt; endl;
+    double side = 3.0;
+    double len[3] = { 1,2,3 };
+    long edge = 5L;
+    double c1 = test_ref_cube(side);			//side的引用
+    double c2 = test_ref_cube(len[1]);			//len[1]的引用
+    double c3 = test_ref_cube(edge);			//临时变量的引用
+    double c4 = test_ref_cube(7.0);				//临时变量的引用
+    double c5 = test_ref_cube(side + 10.0);		//临时变量的引用
+    system("PAUSE");
+    return 0;
+}
+</code></pre>
+</div>
+
+<h2 id="未完待续">未完待续</h2>
+
+    </div>
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
+        
+            <li><a href="/Laplace">拉普拉斯分布</a></li>
+        
+            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
+        
+            <li><a href="/cpp_exception">C++异常</a></li>
+        
+            <li><a href="/cpp_const">C++ const的用法记录</a></li>
+        
+            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
+        
+            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
+        
+            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
+        
+            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
+        
+            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
+        
+            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
+        
+            <li><a href="/automake">automake安装与使用记录</a></li>
+        
+            <li><a href="/python-decorator">python@的用法记录</a></li>
+        
+            <li><a href="/python-design">python语言的设计记录</a></li>
+        
+            <li><a href="/Logistic">Logistic函数</a></li>
+        
+            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
+        
+            <li><a href="/VBA">Excel合并功能记录</a></li>
+        
+            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
+        
+            <li><a href="/move-average-method">移动平均法</a></li>
+        
+            <li><a href="/LineClassfier">线性分类器</a></li>
+        
+            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
+        
+            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
+        
+            <li><a href="/cmake">cmake</a></li>
+        
+        </ul>
+
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/go">围棋</a></li>
+        
+            <li><a href="/test">前端绘图测试</a></li>
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+
+</body>
+    <script type="text/javascript">
+        $(function(){
+            $('.home-follow').click(function(e){
+                e.preventDefault();
+
+                if($('.home-contact').is(':visible')){
+                    $('.home-contact').slideUp(100);
+                }else{
+                    $('.home-contact').slideDown(100);
+                }
+            });
+        })
+    </script>
+	<!--canvas-->
+	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
+	<!--End canvas-->
+	<!--mathjax-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!--End mathjax-->
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="//chenpei.science/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
+</html>

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 论文《Visual Attribute Transfer through Deep Image Analogy》阅读记录
-category: dump
+category: hidden
 ---
 
 
@@ -23,4 +23,4 @@ category: dump
 文章采用Image analogies的方法进行密相似图片的特征映射，采用DCNN构造特征空间。这种深度特征的表示方法比语义结构（semantic structures ）\[9\]效果更好，即深度图像相似（ deep image analogy）。
 
 
-### 坑留着，看论文的第一个半天，明天慢慢看论文
+## 未完待续

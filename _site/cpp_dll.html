@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!--
+    * Author:         BeiYuu
+    * Revised:        Yscc
+    -->
+    <meta charset="utf-8" />
+    <title>C++生成DLL链接文件 | 盐水冲茶</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about Yscc" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+<body>
+	
+    <div class="home-menu">
+        <div class="home-icon-con">
+            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
+            <a class="home-follow" href="#" title="Contact Me">+</a>
+        </div>
+        <div class="home-contact">
+            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
+			"/images/git.png" alt="" width="24"/></a>
+            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
+            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
+			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <div class="entry">
+        <h1 class="entry-title"><a href="/cpp_dll" title="C++生成DLL链接文件">C++生成DLL链接文件</a></h1>
+        <p class="entry-date">2017-06-01</p>
+        <p>关于动态链接文件的背景知识，我们从函数的链接性开始说起。</p>
+
+<p>链接程序ld需要将不同的模块下的函数链接在一起组建成一个可执行程序，因此需要查找到每个模块的函数，并进行链接。</p>
+
+<p>C++不允许在一个函数中定义另一个函数，因此所有的函数存储持续性都是静态的，即在整个程序的执行期间都一直存在。默认情况下，函数的链接性是外部的（extern可以省略），我们也可以显示的加上static关键字，将函数的链接性改为内部的，使之只能在一个文件中使用。</p>
+
+<p>链接程序为了在各个模块中查找函数，需要要求每个函数有不同的符号名。<br />
+在C语言中，一个函数名称对应一个函数，如C语言编译器可能将spiff翻译为_spiff函数，这种方法被称为C语言链接（C language linkage）。<br />
+但是在C++中，由于函数的重载，一个函数名可能对应多个函数，如C++编译器可能将spiff(int)转换成_spiff_i，将spiff(double, double)转换成_spif_d_d。这种方法称作C++语言链接（C++ language linkage）。</p>
+
+<p>为了使C++语言可以兼容于C的函数链接，所以就有了extern “C”的用法。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extern "C" void spiff(int);			//使用C语言链接
+extern void spiff(int);				//使用C++语言链接
+extern "C++" void spiff(int);		//使用C++语言链接
+</code></pre>
+</div>
+
+<p>extern “c”在工程中常见的使用方式:</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//这部分代码按C语言的方式进行编译
+#ifdef __cplusplus            
+extern "C"{
+/*...*/
+#endif
+#ifdef __cplusplus
+}
+#endif
+</code></pre>
+</div>
+
+<p>扯的有点远了。。。</p>
+
+<p>言归正传，演示下windows系统下vs中dll的生成和导入的常用写法。
+新建两个工程，工程结构如下
+<img src="images/dllTest.png" alt="" /></p>
+
+<p>分别为生成DLL的DLLTest工程和调用DLL的DLLCall工程。它们使用相同的simpleDLL.h文件。</p>
+
+<p>在头文件simpleDLL.h中是DLL的API宏以及DLL的函数原型声明：</p>
+
+<hr />
+<div class="highlighter-rouge"><pre class="highlight"><code>//simpleDLL.h
+#pragma once;  
+
+// DLL_IMPLEMENT在SimpleDLL.cpp中定义  
+#ifdef DLL_IMPLEMENT  
+#define DLL_API __declspec(dllexport)  
+#else  
+#define DLL_API __declspec(dllimport)  
+#endif  
+DLL_API int add1(int x, int y);   
+DLL_API const wchar_t* getPlayUrl(const wchar_t* mgrIp, long mgrPort, long materialId);  
+DLL_API const char* getUrl(const char* mgrIp, long mgrPort, long materialId);  
+</code></pre>
+</div>
+
+<hr />
+<p>在simpleDLL.cpp中是具体的实现：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//simpleDLL.cpp
+#define DLL_IMPLEMENT  
+#include "SimpleDLL.h"  
+#include &lt;Windows.h&gt;  
+#include &lt;intrin.h&gt;  
+#include &lt;stdlib.h&gt;  
+#include &lt;string.h&gt;  
+  
+int DLL_API add1(int x, int y)  
+{  
+	return x+y;  
+}  
+  
+DLL_API const wchar_t* getPlayUrl(const wchar_t* mgrIp, long mgrPort, long materialId)  
+{  
+	static wchar_t url[260] = { 0 };  
+	wcscpy_s(url, L"http://中文");  
+	wcscat_s(url, mgrIp);  
+	wcscat_s(url, L":");  
+	wchar_t szPort[20] = { 0 };  
+	_ltow_s(mgrPort, szPort, 10);  
+	wcscat_s(url, szPort);  
+	return url;  
+}  
+  
+DLL_API const char* getUrl(const char* mgrIp, long mgrPort, long materialId)  
+{  
+	static char url[260] = { 0 };  
+	strcpy_s(url, "http://中文");  
+	strcat_s(url, mgrIp);  
+	strcat_s(url, ":");  
+	char szPort[20] = { 0 };  
+	_ltoa_s(mgrPort, szPort, 10);  
+	strcat_s(url, szPort);  
+	return url;  
+}  
+</code></pre>
+</div>
+
+<hr />
+
+<p>调用dll有3种办法</p>
+
+<p>1、配置VC++目录，分别配置dll的头文件目录，dll文件目录和dll文件名称
+VC++目录–&gt;包含目录			DLLTest\DLLTest
+VC++目录–&gt;库目录			DLLTest\Debug
+连接器–&gt;输入–&gt;附加依赖项	DLLTest.lib</p>
+
+<p>2、配置项目依赖
+在引用中添加项目依赖，并将使用库依赖项输入设置为True
+<img src="images/ref.png" alt="" /></p>
+
+<p>3、
+在项目路径中能搜索到DLLTest.lib的前提下（复制DLL到项目路径，或如方法1在库目录添加路径），在调用前添加代码
+	#pragma comment(lib, “DLLTest.lib”)</p>
+
+<p>在DLLCall.cpp中是DLL的调用：</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>//DLLCall.cpp
+#include "SimpleDLL.h" 
+
+//#pragma comment(lib, "DLLTest.lib") //添加lib文件引用   
+#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;locale.h&gt; 
+  
+int _tmain(int argc, _TCHAR* argv[])  
+{  
+	setlocale(LC_ALL, "chs");
+	wprintf(L"getPlayUrl: %s\r\n", getPlayUrl(L"127.0.0.1", 10087, 1));  
+  
+	printf("getUrl: %s\r\n", getUrl("127.0.0.1", 10087, 1));  
+	system("pause");  
+	return 0;  
+}  
+</code></pre>
+</div>
+
+<p>为了使DLL兼容于C语言，我们可以采用和上面类似的C语言链接方式。</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>extern "C"
+{
+	DLL_API int FUNC();
+}
+</code></pre>
+</div>
+
+    </div>
+
+    <div class="sidenav">
+        <h2>Blog</h2>
+        <ul class="artical-list">
+        
+        </ul>
+
+        <h2>Dump</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
+        
+            <li><a href="/Laplace">拉普拉斯分布</a></li>
+        
+            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
+        
+            <li><a href="/cpp_exception">C++异常</a></li>
+        
+            <li><a href="/cpp_const">C++ const的用法记录</a></li>
+        
+            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
+        
+            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
+        
+            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
+        
+            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
+        
+            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
+        
+            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
+        
+            <li><a href="/automake">automake安装与使用记录</a></li>
+        
+            <li><a href="/python-decorator">python@的用法记录</a></li>
+        
+            <li><a href="/python-design">python语言的设计记录</a></li>
+        
+            <li><a href="/Logistic">Logistic函数</a></li>
+        
+            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
+        
+            <li><a href="/VBA">Excel合并功能记录</a></li>
+        
+            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
+        
+            <li><a href="/move-average-method">移动平均法</a></li>
+        
+            <li><a href="/LineClassfier">线性分类器</a></li>
+        
+            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
+        
+            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
+        
+            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
+        
+            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
+        
+            <li><a href="/algorithm_complexity">算法复杂度</a></li>
+        
+            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
+        
+            <li><a href="/cmake">cmake</a></li>
+        
+        </ul>
+
+        <h2>Project</h2>
+        <ul class="artical-list">
+        
+            <li><a href="/go">围棋</a></li>
+        
+            <li><a href="/test">前端绘图测试</a></li>
+        
+        </ul>
+    </div>
+</div>
+
+<script src="/js/post.js" type="text/javascript"></script>
+
+
+</body>
+    <script type="text/javascript">
+        $(function(){
+            $('.home-follow').click(function(e){
+                e.preventDefault();
+
+                if($('.home-contact').is(':visible')){
+                    $('.home-contact').slideUp(100);
+                }else{
+                    $('.home-contact').slideDown(100);
+                }
+            });
+        })
+    </script>
+	<!--canvas-->
+	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
+	<!--End canvas-->
+	<!--mathjax-->
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!--End mathjax-->
+	<!-- Piwik -->
+	<script type="text/javascript">
+	  var _paq = _paq || [];
+	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+	  _paq.push(['trackPageView']);
+	  _paq.push(['enableLinkTracking']);
+	  (function() {
+		var u="//chenpei.science/";
+		_paq.push(['setTrackerUrl', u+'piwik.php']);
+		_paq.push(['setSiteId', '1']);
+		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+	  })();
+	</script>
+	<!-- End Piwik Code -->
+</html>
