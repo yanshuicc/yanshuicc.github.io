@@ -12,7 +12,7 @@ layout: home
                 </tr>
             </thead>
             <tbody>
-            {% for post in site.categories.projects %}
+            {% for post in site.categories.project %}
                 <tr>
                     <td class="col-date">{{ post.date | date: "%Y-%m-%d" }}</td>
                     <td class="col-title">

@@ -20,7 +20,7 @@
 └── 404.html       # 404 页面
 ```
 
-_layouts 中的html文件是页面布局模板，programming/projects/_posts中页面、Markdown文章 里的 layout配置指定使用哪一个页面布局模板。页面正文最终会被插入到页面布局模板中 {{ content }} 所在的位置。
+_layouts 中的html文件是页面布局模板，thinking/project/中页面、Markdown文章 里的 layout配置指定使用哪一个页面布局模板。页面正文最终会被插入到页面布局模板中 {{ content }} 所在的位置。
 
 ## 本地运行
 

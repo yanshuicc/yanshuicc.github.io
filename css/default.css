@@ -203,26 +203,6 @@ a.external:hover {
     background-position: right -15px;
 }
 
-.entry-title,
-.entry-title a {
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 6px;
-    color: #000;
-    text-align: center;
-    word-wrap: break-word;
-}
-
-.entry-title a:hover {
-    text-decoration: none;
-}
-
-.entry-date {
-    text-align: center;
-    color: #999;
-    margin-bottom: 60px;
-    font-size: 14px;
-}
 
 h2 {
     font-size: 22px;
@@ -292,91 +272,7 @@ pre ol {
 
 /************layout style*****************/
 
-#content {
-    width: 1060px;
-    margin: 40px auto 60px;
-    min-height: 400px;
-}
 
-
-/****************entry style**************/
-
-.sidenav {
-    width: 240px;
-    background: #fff;
-    float: right;
-    padding: 20px;
-    margin-bottom: 50px;
-    box-shadow: 0 1px 4px #ccc;
-}
-
-.sidenav h2 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 15px;
-}
-
-.sidenav ul {
-    margin-bottom: 50px;
-}
-
-.sidenav li {
-    margin-bottom: 12px;
-    word-break: break-all;
-}
-
-.sidenav a {
-    color: #555;
-    font-size: 14px;
-    display: block;
-}
-
-.entry {
-    margin-bottom: 80px;
-    width: 680px;
-    float: left;
-    background: #fff;
-    padding: 30px;
-    box-shadow: 0 2px 6px #ccc;
-}
-
-.entry ul {
-    margin-bottom: 25px;
-    margin-left: 25px;
-}
-
-.entry p+ul {
-    margin-top: -20px;
-}
-
-.entry ul li {
-    margin-bottom: 5px;
-    list-style: disc;
-    line-height: 1.8em;
-}
-
-.entry ol {
-    margin-bottom: 25px;
-    margin-left: 25px;
-}
-
-.entry ol li {
-    margin-bottom: 5px;
-    list-style: decimal;
-    line-height: 1.1em;
-}
-
-.entry blockquote {
-    margin-left: 25px;
-    font-size: 14px;
-    font-style: italic
-}
-
-.entry img {
-    max-width: 670px;
-    display: block;
-    margin: 10px auto;
-}
 
 
 /* ===== 文章列表 ===== */

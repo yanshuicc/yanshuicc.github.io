@@ -19,7 +19,7 @@ layout: home
                 </tr>
             </thead>
             <tbody>
-            {% for post in site.categories.programming %}
+            {% for post in site.categories.thinking %}
                 <tr class="artical-row"
                     data-search="{{ post.title | downcase | escape }} {{ post.description | downcase | escape }}">
                     <td class="col-date">{{ post.date | date: "%Y-%m-%d" }}</td>
