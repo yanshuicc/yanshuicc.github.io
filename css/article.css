@@ -1,0 +1,165 @@
+/****************正文样式**************/
+
+
+/*居中块*/
+#content {
+    width: 1060px;
+    margin: 40px auto 60px;
+    min-height: 400px;
+}
+
+/************************************************************
+    中文字号	磅值（pt）	像素（px，约）
+    初号	    42	        36
+    小初	    36	        28
+    一号	    26	        24.7 ≈ 35
+    小一	    24	        22
+    二号	    22	        29.3 ≈ 29
+    小二	    18	        24
+    三号	    16	        21.3 ≈ 21
+    小三	    15	        20
+    四号	    14	        18.7 ≈ 19
+    小四	    12	        16
+    五号	    10.5	    14
+    小五	    9	        12
+    六号	    7.5	        10
+    小六	    6.5	        8.7 ≈ 9
+    七号	    5.5	        7.3 ≈ 7
+    八号	    5	        6.7 ≈ 7
+*************************************************************/
+/* 文章正文整体：宋体 + Times New Roman，小四，黑色，1.8 倍行距 */
+.entry {
+    font-family: "Times New Roman", "SimSun", "宋体", serif;
+    font-size: 16px;          /* 小四，16px */
+    line-height: 1.8;         /* 接近 Word 1.5 倍行距的网页效果 */
+    color: #000;
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+
+
+.entry-title,
+.entry-title a {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 29px;          /* 二号 29px */
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    line-height: 1.5;
+    margin: 24pt 0 18pt;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.entry-title a:hover {
+    text-decoration: none;
+}
+
+.entry-date {
+    text-align: center;
+    color: #999;
+    margin-bottom: 60px;
+    font-size: 16px;
+}
+
+/* 一级标题：三号黑体，居中，段前 24pt、段后 18pt */
+.entry h1 {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 21px;          /* 三号，约 21px */
+    font-weight: normal;
+    color: #000;
+    text-align: left;
+    line-height: 1.5;
+    margin: 12pt 0 6pt;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  /* 二级标题：四号黑体，左对齐，段前 12pt、段后 6pt */
+  .entry h2 {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 16px;          /* 小四，约 16px */
+    font-weight: normal;
+    color: #000;
+    text-align: left;
+    line-height: 1.5;
+    margin: 6pt 0 6pt;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .entry h3{
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 16px;          /* 小四，约 16px */
+    font-weight: normal;
+    color: #000;
+    text-align: left;
+    line-height: 1.5;
+    margin: 6pt 0 6pt;
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+  
+  /* 四级及以下标题：一般也用黑体小四，左对齐 */
+  .entry h4,
+  .entry h5,
+  .entry h6 {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+    text-align: left;
+    line-height: 1.5;
+    margin: 6pt 0;
+  }
+
+/* 正文段落：首行缩进 2 字符，段前段后为 0，靠行距撑开 */
+.entry p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: #000;
+    text-indent: 2em;
+    text-align: left;
+    line-height: 1.8;
+}
+
+.entry ul {
+    margin-bottom: 25px;
+    margin-left: 25px;
+}
+
+.entry p+ul {
+    margin-top: -20px;
+}
+
+.entry ul li {
+    margin-bottom: 5px;
+    list-style: disc;
+    line-height: 1.8em;
+}
+
+.entry ol {
+    margin-bottom: 25px;
+    margin-left: 25px;
+}
+
+.entry ol li {
+    margin-bottom: 5px;
+    list-style: decimal;
+    line-height: 1.1em;
+}
+
+.entry blockquote {
+    margin-left: 25px;
+    font-size: 14px;
+    font-style: italic
+}
+
+.entry img {
+    max-width: 670px;
+    display: block;
+    margin: 10px auto;
+}
+
+

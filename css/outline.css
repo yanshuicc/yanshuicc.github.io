@@ -1,0 +1,256 @@
+/* ===== 正文区：左大纲 + 右文章 ===== */
+#content {
+    max-width: 1060px;
+    margin: 40px auto 60px;
+    padding: 0 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+/* 左侧大纲 */
+.sidenav {
+    flex: 0 0 240px;
+    position: sticky;
+    top: 80px;                        /* 与 header 高度对齐 */
+    max-height: calc(100vh - 100px);  /* 独立滚动高度 */
+    background: #FAFAFA;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    display: flex;
+    flex-direction: column;
+    transition: flex-basis 0.2s ease;
+}
+
+/* 折叠后宽度收紧 */
+.sidenav.collapsed {
+    flex-basis: 56px;
+}
+
+/* 头部：标题 + 按钮 */
+.sidenav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-bottom: 1px solid #E5E5E5;
+    flex-shrink: 0;
+}
+
+.sidenav-title {
+    font-size: 14px;
+    color: #3A3A38;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+}
+
+.sidenav-toggle {
+    width: 22px;
+    height: 22px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #7A7A76;
+    background: transparent;
+    border: 1px solid #E5E5E5;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.sidenav-toggle:hover {
+    color: #B8894A;
+    border-color: #B8894A;
+}
+
+/* 大纲内容：独立滚动 */
+.sidenav-body {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 12px 14px;
+    flex: 1;
+    min-height: 0;
+}
+
+/* 折叠时隐藏内容，只留头部 */
+.sidenav.collapsed .sidenav-body {
+    display: none;
+}
+
+.sidenav.collapsed .sidenav-title {
+    display: none;
+}
+
+.sidenav.collapsed .sidenav-header {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+/* 大纲内的链接 */
+.sidenav-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidenav-body li {
+    margin-bottom: 8px;
+    word-break: break-all;
+    line-height: 1.6;
+}
+
+.sidenav-body ul ul {
+    margin-top: 6px;
+    margin-left: 14px;
+}
+
+.sidenav-body a {
+    color: #7A7A76;
+    font-size: 13px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sidenav-body a:hover,
+.sidenav-body a.active {
+    color: #B8894A;
+}
+
+/* 滚动条美化（WebKit） */
+.sidenav-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidenav-body::-webkit-scrollbar-thumb {
+    background: #D5D5D5;
+    border-radius: 3px;
+}
+
+.sidenav-body::-webkit-scrollbar-thumb:hover {
+    background: #B8894A;
+}
+
+.sidenav-body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 右侧文章卡片 */
+.entry {
+    flex: 1;
+    min-width: 0;
+    background: #FAFAFA;
+    padding: 40px;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* 窄屏：隐藏大纲 */
+@media (max-width: 900px) {
+    #content {
+        display: block;
+        padding: 0 16px;
+    }
+    .sidenav {
+        display: none;
+    }
+    .entry {
+        padding: 24px 20px;
+    }
+}
+/* ===== 整体折叠 ===== */
+.sidenav.collapsed {
+    flex-basis: 56px;
+}
+
+.sidenav.collapsed .sidenav-body {
+    display: none;
+}
+
+.sidenav.collapsed .sidenav-title {
+    display: none;
+}
+
+.sidenav.collapsed .sidenav-header {
+    justify-content: center;
+    padding: 12px 0;
+}
+
+/* ===== 大纲条目 ===== */
+.sidenav-body ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidenav-body li {
+    margin-bottom: 6px;
+    line-height: 1.6;
+    position: relative;
+}
+
+.sidenav-body ul ul {
+    margin-top: 6px;
+    margin-left: 16px;
+}
+
+.sidenav-body a {
+    color: #7A7A76;
+    font-size: 13px;
+    display: block;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    padding-left: 18px;       /* 给折叠按钮留位置 */
+}
+
+.sidenav-body a:hover,
+.sidenav-body a.active {
+    color: #B8894A;
+}
+
+/* ===== 每级折叠按钮 ===== */
+.toc-toggle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 16px;
+    height: 20px;
+    line-height: 18px;
+    text-align: center;
+    font-size: 12px;
+    color: #B5AF9F;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 3px;
+    transition: all 0.15s ease;
+}
+
+.toc-toggle:hover {
+    color: #B8894A;
+    background: rgba(184, 137, 74, 0.08);
+}
+
+
+/* 折叠后隐藏子列表 */
+.sidenav-body li.collapsed > ul {
+    display: none;
+}
+
+/* ===== 锚点跳转补偿 ===== */
+:root {
+    --anchor-offset: 90px;
+}
+
+.entry h1,
+.entry h2,
+.entry h3,
+.entry h4,
+.entry h5,
+.entry h6 {
+    scroll-margin-top: var(--anchor-offset);
+}

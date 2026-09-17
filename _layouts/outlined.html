@@ -1,0 +1,71 @@
+---
+layout: home
+---
+
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            {% include toc.html html=content %}
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a></h1>
+        <div class="entry-date">{{ page.date | date: "%Y-%m-%d" }}</p>
+        {{ content }}
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            // 插到 li 的第一个子元素前（一般是 a 或文本）
+            $li.prepend($toggle);
+        });
+    
+        // 点击折叠按钮，只切换当前 li，不冒泡到链接
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
