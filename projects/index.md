@@ -1,7 +1,5 @@
 ---
 layout: home
-features:
-  - header
 ---
 
 <div class="index-content">
@@ -14,7 +12,7 @@ features:
                 </tr>
             </thead>
             <tbody>
-            {% for post in site.categories.personal %}
+            {% for post in site.categories.projects %}
                 <tr>
                     <td class="col-date">{{ post.date | date: "%Y-%m-%d" }}</td>
                     <td class="col-title">

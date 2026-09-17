@@ -1,0 +1,23 @@
+<!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" {% if page.url == "/" %}class="active"{% endif %}>个人随笔</a>
+            <a href="/programming/" {% if page.url contains "/programming" %}class="active"{% endif %}>编程感悟</a>
+            <a href="/projects/" {% if page.url contains "/projects" %}class="active"{% endif %}>项目</a>
+        </nav>
+    </div>
+</header>
+
+<script>
+    var lines = {{ site.data.flash_of_insight | jsonify }};
+    if (lines && lines.length) {
+        var line = lines[Math.floor(Math.random() * lines.length)];
+        document.getElementById('random-line').textContent = line["content"];
+    }
+</script>
