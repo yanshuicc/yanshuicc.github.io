@@ -10,7 +10,7 @@ kramdown:
   enable_coderay: true
   syntax_highlighter: rouge
   syntax_highlighter_opt:
-    line_numbers:  nil
+    line_numbers:  true
  
 highlighter: 'pygments'
 #paginate: 8

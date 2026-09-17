@@ -25,3 +25,23 @@
 .search-input::placeholder {
     color: #B5AF9F;
 }
+
+
+/* ===== 移动端 ===== */
+@media (max-width: 640px) {
+    .list-toolbar {
+        text-align: center;
+    }
+    .search-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .page-btn {
+        min-width: 28px;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 8px;
+        margin: 0 2px;
+        font-size: 12px;
+    }
+}
