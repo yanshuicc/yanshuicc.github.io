@@ -32,15 +32,16 @@
  * 两端对齐书写，段落首行左缩进两个汉字符。
  * 段前段后0磅，1.25倍行距（段落中有数学表达式时，可根据表达需要设置该段的行距） 
  */
-.entry {
-    font-family: "Times New Roman", "SimSun", "宋体", serif;
-    font-size: 16px;          /* 小四，16px */
-    line-height: 1.5;         /* 接近 Word 1.25 倍行距的网页效果 */
-    color: #000;
-    text-align: justify;
-    text-justify: inter-ideograph;
-  }
 
+.entry {
+    flex: 1;
+    min-width: 0;
+    background: #FAFAFA;
+    padding: 40px;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
 
 /**
  * 章标题/一级标题 黑体四号加粗居中（英文和阿拉伯数字用Times New Roman体）
@@ -193,3 +194,77 @@ body {
     content: counter(h1) "." counter(h2) "." counter(h3) " ";
   }
 
+
+  @media screen and (max-width: 750px) {
+    body {
+        font-size: 14px;
+    }
+    #content {
+        width: 85%;
+        margin: 100px auto 50px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 16px;
+    }
+    embed {
+        display: none;
+    }
+    .entry-title,
+    .entry-title a {
+        font-size: 24px;
+    }
+    .entry-date {
+        margin-bottom: 40px;
+    }
+    .entry img {
+        max-width: 90%;
+    }
+    .entry pre ol li {
+        margin-bottom: 0;
+        line-height: 1em;
+    }
+    .entry pre code {
+        line-height: 1em;
+        font-size: 12px;
+    }
+    .sidenav {
+        display: none;
+    }
+    .entry {
+        float: none;
+        width: auto;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+    }
+    .index-content .section {
+        margin-left: 0;
+        padding-right: 0;
+    }
+    .index-content .section ul {
+        width: 85%;
+    }
+    .index-content .cate-bar {
+        width: 85%;
+    }
+    .index-content .artical-cate {
+        margin-top: 50px;
+    }
+}
+
+@media (max-width: 1020px) {
+    .entry {
+        float: none;
+        width: auto;
+        background: transparent;
+        padding: 0;
+        box-shadow: none;
+    }
+    #content {
+        width: 85%;
+        margin: 100px auto 50px;
+    }
+}

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
-    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "math-article"%}
+    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "math-article" or page.layout == "poem" %}
         <link rel="stylesheet" href="/css/article.css" />
         {% if page.layout == "outlined" %}
             <link rel="stylesheet" href="/css/outline.css" />
@@ -18,6 +18,9 @@
     {% endif %}
     {% if page.features contains "table" %}
         <link rel="stylesheet" href="/css/table.css" />
+    {% endif %}
+    {% if page.features contains "poem" %}
+        <link rel="stylesheet" href="/css/poem.css" />
     {% endif %}
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.feed }}" />
