@@ -8,7 +8,7 @@
     min-height: 400px;
 }
 
-/************************************************************
+/*************************文章字体设置***************************
     中文字号	磅值（pt）	像素（px，约）
     初号	    42	        36
     小初	    36	        28
@@ -27,26 +27,33 @@
     七号	    5.5	        7.3 ≈ 7
     八号	    5	        6.7 ≈ 7
 *************************************************************/
-/* 文章正文整体：宋体 + Times New Roman，小四，黑色，1.8 倍行距 */
+
+/* 文章正文整体：宋体小四号 + Times New Roman，
+ * 两端对齐书写，段落首行左缩进两个汉字符。
+ * 段前段后0磅，1.25倍行距（段落中有数学表达式时，可根据表达需要设置该段的行距） 
+ */
 .entry {
     font-family: "Times New Roman", "SimSun", "宋体", serif;
     font-size: 16px;          /* 小四，16px */
-    line-height: 1.8;         /* 接近 Word 1.5 倍行距的网页效果 */
+    line-height: 1.5;         /* 接近 Word 1.25 倍行距的网页效果 */
     color: #000;
     text-align: justify;
     text-justify: inter-ideograph;
   }
 
 
+/**
+ * 章标题/一级标题 黑体四号加粗居中（英文和阿拉伯数字用Times New Roman体）
+ */
 .entry-title,
 .entry-title a {
     font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 29px;          /* 二号 29px */
+    font-size: 19px;          /* 四号 19px */
     font-weight: bold;
     color: #000;
     text-align: center;
     line-height: 1.5;
-    margin: 24pt 0 18pt;
+    margin: 24pt 0 10pt;
     page-break-after: avoid;
     break-after: avoid;
 }
@@ -58,15 +65,19 @@
 .entry-date {
     text-align: center;
     color: #999;
-    margin-bottom: 60px;
+    margin-bottom: 10px;
     font-size: 16px;
 }
 
-/* 一级标题：三号黑体，居中，段前 24pt、段后 18pt */
-.entry h1 {
+/**
+ * 
+ * 二级、三级、四级标题 黑体小四号（英文和阿拉伯数字用Times New Roman体）顶左，单倍行距，段前12磅，段后6磅，序号与题名间空一个汉字符
+ **/
+/* 2级标题~4级标题：三号黑体，居中，段前 24pt、段后 18pt */
+.entry h1,h2,h3 {
     font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 21px;          /* 三号，约 21px */
-    font-weight: normal;
+    font-size: 16px;          /* 三号，约 21px */
+    font-weight: bold;
     color: #000;
     text-align: left;
     line-height: 1.5;
@@ -75,43 +86,6 @@
     break-after: avoid;
   }
   
-  /* 二级标题：四号黑体，左对齐，段前 12pt、段后 6pt */
-  .entry h2 {
-    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 16px;          /* 小四，约 16px */
-    font-weight: normal;
-    color: #000;
-    text-align: left;
-    line-height: 1.5;
-    margin: 6pt 0 6pt;
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-
-  .entry h3{
-    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 16px;          /* 小四，约 16px */
-    font-weight: normal;
-    color: #000;
-    text-align: left;
-    line-height: 1.5;
-    margin: 6pt 0 6pt;
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-  
-  /* 四级及以下标题：一般也用黑体小四，左对齐 */
-  .entry h4,
-  .entry h5,
-  .entry h6 {
-    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    color: #000;
-    text-align: left;
-    line-height: 1.5;
-    margin: 6pt 0;
-  }
 
 /* 正文段落：首行缩进 2 字符，段前段后为 0，靠行距撑开 */
 .entry p {
@@ -124,32 +98,57 @@
     line-height: 1.8;
 }
 
+/* 正文斜体 */
+.entry em{
+    font-style: italic;
+}
+
+/* 正文无序列表 */
 .entry ul {
     margin-bottom: 25px;
     margin-left: 25px;
 }
 
+/* 段落紧跟列表时的补丁 */
 .entry p+ul {
     margin-top: -20px;
 }
 
+/* 无序列表项 */
 .entry ul li {
-    margin-bottom: 5px;
     list-style: disc;
     line-height: 1.8em;
 }
 
+/* 正文有序列表 */
 .entry ol {
     margin-bottom: 25px;
-    margin-left: 25px;
+    padding-left: 3em;   /* 序号和内容一起右移 */
 }
 
+/* 有序列表项 */
 .entry ol li {
     margin-bottom: 5px;
     list-style: decimal;
     line-height: 1.1em;
 }
+/* 有序列表项里的段落，统一去掉默认外边距，避免和序号错位 */
+.entry ol li > p {
+  margin: 0;
+  line-height: 1.8em;
+}
 
+/* 紧跟序号的第一段：不缩进，和序号对齐 */
+.entry ol li > p:first-child {
+  text-indent: 0;
+}
+
+/* 第一个段落之后的段落：缩进 2 个字符 */
+.entry ol li > p:first-child ~ p {
+  text-indent: 0;
+}
+
+/* 引用块> */
 .entry blockquote {
     margin-left: 25px;
     font-size: 14px;
@@ -162,4 +161,35 @@
     margin: 10px auto;
 }
 
+/**文章小标题自动编号**/
+body {
+    counter-reset: h1;
+  }
+  
+  h1 {
+    counter-reset: h2;
+  }
+  
+  h2 {
+    counter-reset: h3;
+  }
+  
+  h3 {
+    counter-reset: h4;
+  }
+  
+  h1::before {
+    counter-increment: h1;
+    content: counter(h1) ". ";
+  }
+  
+  h2::before {
+    counter-increment: h2;
+    content: counter(h1) "." counter(h2) " ";
+  }
+  
+  h3::before {
+    counter-increment: h3;
+    content: counter(h1) "." counter(h2) "." counter(h3) " ";
+  }
 

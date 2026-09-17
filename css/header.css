@@ -12,7 +12,7 @@
 .header-inner {
     width: 100%;
     margin: 0;
-    padding: 3px 30px;        /* 左右留一点边距 */
+    padding: 3px 0px;
     min-height: 60px;
     display: flex;
     align-items: center;
@@ -21,6 +21,7 @@
 /* 左侧标题 随机句 */
 .site-brand {
     display: flex;
+    padding-left: 30px;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;

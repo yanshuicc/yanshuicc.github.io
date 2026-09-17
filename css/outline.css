@@ -1,4 +1,5 @@
 /* ===== 正文区：左大纲 + 右文章 ===== */
+/* 居中背景板 */
 #content {
     max-width: 1060px;
     margin: 40px auto 60px;
@@ -253,4 +254,45 @@
 .entry h5,
 .entry h6 {
     scroll-margin-top: var(--anchor-offset);
+}
+
+/* ===== 大纲自动编号 ===== */
+.sidenav-body {
+    counter-reset: toc-h2;
+}
+
+/* 一级 */
+.sidenav-body > ul > li {
+    counter-increment: toc-h2;
+    counter-reset: toc-h3;
+}
+
+.sidenav-body > ul > li > a::before {
+    content: counter(toc-h2) ". ";
+    color: #B8894A;
+    font-weight: 500;
+    margin-right: 2px;
+}
+
+/* 二级 */
+.sidenav-body > ul > li > ul > li {
+    counter-increment: toc-h3;
+    counter-reset: toc-h4;
+}
+
+.sidenav-body > ul > li > ul > li > a::before {
+    content: counter(toc-h2) "." counter(toc-h3) " ";
+    color: #B8894A;
+    margin-right: 2px;
+}
+
+/* 三级 */
+.sidenav-body > ul > li > ul > li > ul > li {
+    counter-increment: toc-h4;
+}
+
+.sidenav-body > ul > li > ul > li > ul > li > a::before {
+    content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) " ";
+    color: #B8894A;
+    margin-right: 2px;
 }

@@ -1,0 +1,29 @@
+/* 表格样式 */
+/* 表格前一段文字默认为标题 */
+.entry p:has(+ table)  {
+    margin-bottom: 8px;
+    font-size: 16px;
+    color: #7A7A76;
+    font-weight: bold;
+    text-align: center;
+}
+
+.entry table {
+    border-collapse: collapse;
+    font-size: 16px;
+    border: 1px solid #e7e7e7;
+    background: #ffffff;
+    table-layout: fixed;   /* 关键：列宽平均分配 */
+    width: 100%;
+}
+
+.entry th {
+    font-weight: bold;
+    font-size: 16px;
+    background: #e7e7e7;
+    border: 1px solid #e7e7e7;
+}
+
+.entry td {
+    border: 1px solid #e7e7e7;
+}
