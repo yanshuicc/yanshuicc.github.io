@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
     <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
 
-    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "math-article" or page.layout == "poem" %}
+    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "math-outlined" or page.layout == "math-article" or page.layout == "poem" %}
         <link rel="stylesheet" href="/css/article.css" />
-        {% if page.layout == "outlined" %}
+        {% if page.layout == "outlined" or page.layout == "math-outlined" %}
             <link rel="stylesheet" href="/css/outline.css" />
         {% endif %}
     {% endif %}

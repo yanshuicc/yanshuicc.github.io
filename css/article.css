@@ -106,13 +106,10 @@
 
 /* 正文无序列表 */
 .entry ul {
-    margin-bottom: 25px;
-    margin-left: 25px;
-}
-
-/* 段落紧跟列表时的补丁 */
-.entry p+ul {
-    margin-top: -20px;
+    /*margin-top: 1em;
+    margin-bottom: 1em;*/
+    margin-left: 3em;
+    line-height: 1.8em;
 }
 
 /* 无序列表项 */
@@ -123,15 +120,17 @@
 
 /* 正文有序列表 */
 .entry ol {
-    margin-bottom: 25px;
+    /*margin-top: 1em;
+    margin-bottom: 1em;*/
     padding-left: 3em;   /* 序号和内容一起右移 */
+    line-height: 1.8em;
 }
 
 /* 有序列表项 */
 .entry ol li {
     margin-bottom: 5px;
     list-style: decimal;
-    line-height: 1.1em;
+    line-height: 1.8em;
 }
 /* 有序列表项里的段落，统一去掉默认外边距，避免和序号错位 */
 .entry ol li > p {
