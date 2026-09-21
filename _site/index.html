@@ -1,133 +1,206 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
     <meta charset="utf-8" />
-    <title>盐水冲茶</title>
+    <title>心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
+    <meta name="description" content="Everything about xwwz" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    
+    
+    
+    
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
+
 <body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
         </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
+
+        <nav class="site-nav">
+            <a href="/" class="active">个人随笔</a>
+            <a href="/thinking/" >感悟</a>
+            <a href="/memory" >知识记录</a>
+            <a href="/project" >项目</a>
+        </nav>
     </div>
+</header>
 
-    <div class="index-content blog">
-    <div class="section">
-        <ul class="artical-cate">
-            <li class="on"><a href="/"><span>Blog</span></a></li>
-            <li style="text-align:center"><a href="/dump"><span>Dump</span></a></li>
-            <li style="text-align:right"><a href="/project"><span>Project</span></a></li>
-        </ul>
-
-        <div class="cate-bar"><span id="cateBar"></span></div>
-
-        <ul class="artical-list">
-        
-        </ul>
-    </div>
-    <div class="aside">
-    </div>
-</div>
-
-
-<script type="text/javascript">
-    $(function(){
-        function animateBar($item,noAni){
-            var spanLeft = $item.find('span').offset().left;
-            var conLeft = $item.parent().offset().left;
-            var left = spanLeft - conLeft;
-            var width = $item.find('span').width() + 8;
-
-            if(noAni){
-                $('#cateBar').css({left:left,width:width})
-            }else{
-                $('#cateBar').stop().animate({left:left,width:width},300)
-            }
-        }
-
-        var waitForFinalEvent = (function () {
-            var timers = {};
-            return function (callback, ms, uniqueId) {
-                if (!uniqueId) {
-                    uniqueId = "Don't call this twice without a uniqueId";
-                }
-                if (timers[uniqueId]) {
-                    clearTimeout (timers[uniqueId]);
-                }
-                timers[uniqueId] = setTimeout(callback, ms);
-            };
-        })();
-
-        $('.artical-cate li').mouseenter(function(){
-            animateBar($(this));
-        }).mouseleave(function(){
-            animateBar($('.artical-cate .on'));
-        });
-
-        $(window).resize(function(e){
-            waitForFinalEvent(function(){
-                animateBar($('.artical-cate .on'));
-            })
-        })
-        animateBar($('.artical-cate .on'),true);
-    });
+<script>
+    var lines = [{"id":"1","content":"技术如果不能变成钱，那技术有什么用呢？","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"2","content":"什么程序优化啊，都抵不上有钱，有钱就是最好的优化。说什么‘效率就是金钱’，其实‘金钱就是效率’。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"3","content":"你比他好一点，他不会承认你，反而会嫉妒你；只有你比他好很多，他才会承认你，然后还会很崇拜你。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"4","content":"你不会造车，但可以去卖车；你不会下蛋，但可以炒蛋炒饭卖。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"5","content":"人无非有两种方法提高自己，一是真的提高自己，二是打击别人提高自己。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"6","content":"指针，是C语言最复杂的东西，也是C语言的灵魂。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"7","content":"对程序员来说，大部分快乐是从解决问题特别是独立解决问题中来的，不是从这个CASE有多大，奖金有多少中来的。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"8","content":"程序员是值得尊敬的，程序员的双手是魔术师的双手，他们把枯燥无味的代码变成了丰富多彩的软件。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"9","content":"写程序是创造，不是编造。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"10","content":"要么做第一个，要么做最好的一个。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"11","content":"‘疯狂的程序员’绝对不是靠狂妄和拼命的程序员，而是能够踏实，持续努力的程序员。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"12","content":"其实不是它难，是自己不去用它，不管什么技术，只要你必须去用它，学起来也就不难了。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"13","content":"要学就学大家都不知道的东西，这样你才能做大家都做不到的事情。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"14","content":"所以有时候人的技术啊，知识啊也许并不是学出来的，是逼出来的。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"15","content":"兴趣能给你动力去做一件事，但最重要的却是热情，热情能给你动力去一直做这一件事。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"16","content":"在写程序这个领域，能够限制你的只有你的想像力。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"17","content":"天地不仁以万物为刍狗","ref":"道德经","cat":"客观道理"},{"content":"一个人的行为特质，往往形成于少年时对父辈的模仿与反动。","ref":"廓晋","cat":"客观道理"}];
+    if (lines && lines.length) {
+        var line = lines[Math.floor(Math.random() * lines.length)];
+        document.getElementById('random-line').textContent = line["content"];
+    }
 </script>
+
+    <div class="index-content">
+  <div class="section">
+    <div class="list-toolbar">
+      <input type="text" class="search-input" placeholder="搜索标题或描述…" autocomplete="off" />
+    </div>
+
+    <table class="artical-list">
+      <thead>
+        <tr>
+          <th class="col-date">日期</th>
+          <th class="col-title">标题</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr class="artical-row" data-search="文章样式风格测试 ">
+          <td class="col-date">2026-09-17</td>
+          <td class="col-title">
+            <a href="/%E6%96%87%E7%AB%A0%E9%A3%8E%E6%A0%BC%E6%B5%8B%E8%AF%95">文章样式风格测试</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="大纲文章样式风格测试 ">
+          <td class="col-date">2026-09-17</td>
+          <td class="col-title">
+            <a href="/%E5%A4%A7%E7%BA%B2%E6%96%87%E7%AB%A0%E9%A3%8E%E6%A0%BC%E6%B5%8B%E8%AF%95">大纲文章样式风格测试</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="兔子老师 ">
+          <td class="col-date">2026-09-05</td>
+          <td class="col-title">
+            <a href="/%E5%85%94%E5%AD%90%E8%80%81%E5%B8%88">兔子老师</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="遥念妻女有感 ">
+          <td class="col-date">2026-05-20</td>
+          <td class="col-title">
+            <a href="/%E9%81%A5%E5%BF%B5%E5%A6%BB%E5%A5%B3%E6%9C%89%E6%84%9F">遥念妻女有感</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="人的行为特质 ">
+          <td class="col-date">2026-03-28</td>
+          <td class="col-title">
+            <a href="/%E4%BA%BA%E7%9A%84%E8%A1%8C%E4%B8%BA%E7%89%B9%E8%B4%A8">人的行为特质</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="数学公式测试 ">
+          <td class="col-date">2015-09-22</td>
+          <td class="col-title">
+            <a href="/%E6%95%B0%E5%AD%A6%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95">数学公式测试</a>
+            
+          </td>
+        </tr>
+        
+        <tr class="artical-row" data-search="像素小游戏《micropolis》 ">
+          <td class="col-date">2015-09-21</td>
+          <td class="col-title">
+            <a href="/micropolis">像素小游戏《Micropolis》</a>
+            
+          </td>
+        </tr>
+        
+      </tbody>
+    </table>
+
+    <div class="list-empty" style="display:none;">没有找到匹配的文章</div>
+    <div class="pagination"></div>
+  </div>
+</div>
+<!--嵌入搜索筛选功能-->
+<script>
+    (function () {
+        var PAGE_SIZE = 20;                    // 每页条数
+        var $rows = $('.artical-row');
+        var $empty = $('#listEmpty');
+        var $pagination = $('#pagination');
+        var currentPage = 1;
+        var filteredRows = $rows;
+    
+        function render() {
+            var total = filteredRows.length;
+            var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+            if (currentPage > totalPages) currentPage = totalPages;
+    
+            $rows.removeClass('is-visible');
+            var start = (currentPage - 1) * PAGE_SIZE;
+            filteredRows.slice(start, start + PAGE_SIZE).addClass('is-visible');
+    
+            $empty.toggle(total === 0);
+    
+            // 渲染页码
+            $pagination.empty();
+            if (totalPages <= 1) return;
+    
+            var html = '';
+            if (currentPage > 1) {
+                html += '<a href="#" class="page-btn" data-page="' + (currentPage - 1) + '">上一页</a>';
+            }
+            for (var i = 1; i <= totalPages; i++) {
+                if (i === currentPage) {
+                    html += '<span class="page-btn active">' + i + '</span>';
+                } else {
+                    html += '<a href="#" class="page-btn" data-page="' + i + '">' + i + '</a>';
+                }
+            }
+            if (currentPage < totalPages) {
+                html += '<a href="#" class="page-btn" data-page="' + (currentPage + 1) + '">下一页</a>';
+            }
+            $pagination.html(html);
+        }
+    
+        // 搜索
+        $('#searchInput').on('input', function () {
+            var kw = $.trim($(this).val()).toLowerCase();
+            if (!kw) {
+                filteredRows = $rows;
+            } else {
+                filteredRows = $rows.filter(function () {
+                    return ($(this).attr('data-search') || '').indexOf(kw) !== -1;
+                });
+            }
+            currentPage = 1;
+            render();
+        });
+    
+        // 翻页
+        $pagination.on('click', '.page-btn', function (e) {
+            e.preventDefault();
+            var p = parseInt($(this).attr('data-page'), 10);
+            if (!p) return;
+            currentPage = p;
+            render();
+            $('html, body').animate(
+                { scrollTop: $('.index-content').offset().top - 80 }, 200
+            );
+        });
+    
+        render();
+    })();
+    </script>
+
 
 
 </body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
 </html>
+
