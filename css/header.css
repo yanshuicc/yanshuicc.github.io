@@ -1,5 +1,8 @@
-/* ===== 站点顶栏 ===== */
-.site-header {
+/* ============================================================
+   header.css — 站点顶栏
+   ============================================================ */
+
+   .site-header {
     min-height: 60px;
     position: sticky;
     top: 0;
@@ -11,9 +14,8 @@
 
 .header-inner {
     width: 100%;
-    margin: 0;
-    padding: 3px 0px;
     min-height: 60px;
+    padding: 5px 0;
     display: flex;
     align-items: center;
 }
@@ -84,7 +86,90 @@
     font-weight: 500;
 }
 
+/* ---------- 平板及以上 ---------- */
 @media (min-width: 768px) {
     .site-title { font-size: 22px; }
     .site-nav { gap: 24px; }
+}
+
+/* ============================================================
+   移动端顶栏布局（max-width: 750px）
+   目标：
+   1. .header-inner 允许 brand 和 nav 换行
+   2. .site-brand 内部横向排列：左 title，右 random-line
+   3. title 不换行、不压缩；random-line 占剩余空间、内部可换行
+   4. nav 独占一行，横向滚动，不换行
+   ============================================================ */
+@media (max-width: 750px) {
+     /* 1. 允许 brand 和 nav 换行 */
+     .header-inner {
+        box-sizing: border-box;    /* 让 width 包含 padding */
+        flex-wrap: wrap;          /* brand 和 nav 可以换行，各占一行 */
+        align-items: center;      /* 交叉轴居中，避免上下错位 */
+        padding: 5px 0px 10px 10px;          /* 标题贴左，去掉左侧内边距 */
+    }
+
+    /* 2. brand 占满整行，使其与 nav 分行 */
+    .site-brand {
+        display: flex;            /* 启用 flex 布局 */
+        flex-direction: row;      /* 关键：title 和 random-line 横向并排（左 title，右 random-line） */
+        justify-content: space-between;  /* 关键：左右分开 */
+        align-items: flex-start;  /* 顶部对齐，random-line 多行时从顶部开始 */
+        flex: 1 1 100%;           /* 占满一整行，迫使 nav 换到下一行 */
+        max-width: 100%;          /* 防止溢出 */
+        min-width: 0;             /* 关键：允许内部子项收缩，配合 overflow 实现省略号 */
+        padding-left: 0;          /* 去掉左侧内边距，使标题贴左 */
+    }
+
+     /* 3. 标题：不换行，靠左，不收缩 */
+     .site-title {
+        flex: 0 0 auto;             /* 不压缩 */
+        font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left: 0;
+    }
+
+    /* 4. 随机句：靠右，占剩余空间，内部可换行 */
+    .random-line {
+        flex: 0 1 auto;
+        max-width: 80%;
+        font-size: 11px;
+        white-space: normal;
+        text-align: left;
+        line-height: 1.4;
+        height: 32px;
+        width: fit-content;         /* 宽度由内容决定 */
+    }
+
+    .site-nav {
+        flex: 1 1 100%;           /* 占满一行，自动换到 brand 下方 */
+        flex-wrap: nowrap;        /* 导航项内部不换行 */
+        overflow-x: auto;         /* 放不下时横向滚动 */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        margin: 6px 0 0;
+        padding-bottom: 2px;
+        justify-content: flex-start;    /* 居左 */
+    }
+
+    .site-nav::-webkit-scrollbar { display: none; }
+
+    .site-nav a {
+        flex: 0 0 auto;
+        font-size: 14px;
+        padding: 2px 0;
+        border-bottom: 2px solid transparent;
+    }
+    .site-nav a.active {
+        border-bottom-color: #B8894A;
+    }
+}
+
+/* ---------- 键盘焦点 ---------- */
+.site-nav a:focus-visible,
+.site-title:focus-visible {
+    outline: 2px solid #B8894A;
+    outline-offset: 2px;
 }

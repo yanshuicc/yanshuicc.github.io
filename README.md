@@ -2,7 +2,7 @@
 
 基于 Jekyll + GitHub Pages 搭建的个人静态博客，用于记录个人随笔、编程感悟与项目展示。
 
-- 站点地址：https://yscc.xyz
+- 站点地址：https://chenpei.online
 - GitHub Pages：https://yanshuicc.github.io
 
 ## 目录结构

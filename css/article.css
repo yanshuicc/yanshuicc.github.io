@@ -1,9 +1,24 @@
-/****************正文样式**************/
+/* ============================================================
+   article.css — 文章正文样式
+   结构：变量 → 布局 → 标题 → 正文 → 列表 → 媒体 → 响应式
+   ============================================================ */
 
+/* ---------- 设计变量 ---------- */
+:root {
+    --page-max: 1060px;
+    --bg-card: #FAFAFA;
+    --border: #E5E5E5;
+    --text-main: #000;
+    --text-muted: #999;
+    --text-quote: #555;
+    --radius: 4px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
 
-/*居中块*/
+/* ---------- 居中内容块 ---------- */
 #content {
-    width: 1060px;
+    width: var(--page-max);
+    max-width: calc(100% - 32px);
     margin: 40px auto 60px;
     min-height: 400px;
 }
@@ -32,15 +47,15 @@
  * 两端对齐书写，段落首行左缩进两个汉字符。
  * 段前段后0磅，1.25倍行距（段落中有数学表达式时，可根据表达需要设置该段的行距） 
  */
-
+/* ---------- 文章卡片 ---------- */
 .entry {
-    flex: 1;
-    min-width: 0;
-    background: #FAFAFA;
+    background: var(--bg-card);
     padding: 40px;
-    border: 1px solid #E5E5E5;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-width: 0;
+    counter-reset: h1;          /* 编号作用域限定在文章内 */
 }
 
 /**
@@ -49,221 +64,209 @@
 .entry-title,
 .entry-title a {
     font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 19px;          /* 四号 19px */
+    font-size: 19px;
     font-weight: bold;
-    color: #000;
+    color: var(--text-main);
     text-align: center;
     line-height: 1.5;
     margin: 24pt 0 10pt;
+    text-decoration: none;
     page-break-after: avoid;
     break-after: avoid;
-}
-
-.entry-title a:hover {
-    text-decoration: none;
 }
 
 .entry-date {
     text-align: center;
-    color: #999;
+    color: var(--text-muted);
     margin-bottom: 10px;
     font-size: 16px;
 }
 
-/**
- * 
- * 二级、三级、四级标题 黑体小四号（英文和阿拉伯数字用Times New Roman体）顶左，单倍行距，段前12磅，段后6磅，序号与题名间空一个汉字符
- **/
-/* 2级标题~4级标题：三号黑体，居中，段前 24pt、段后 18pt */
-.entry h1,h2,h3 {
+/* ---------- 正文标题层级 ----------
+   修正原写法 `.entry h1,h2,h3` 的全局污染：
+   h2/h3 原本不限定在 .entry 内，会影响整站。
+   同时给 h1/h2/h3 建立清晰层级，避免移动端 h2 反而比 h1 大。
+------------------------------------------------ */
+.entry h1,
+.entry h2,
+.entry h3 {
     font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
-    font-size: 16px;          /* 三号，约 21px */
     font-weight: bold;
-    color: #000;
+    color: var(--text-main);
     text-align: left;
     line-height: 1.5;
-    margin: 12pt 0 6pt;
     page-break-after: avoid;
     break-after: avoid;
-  }
-  
+}
 
-/* 正文段落：首行缩进 2 字符，段前段后为 0，靠行距撑开 */
+.entry h1 { font-size: 18px; margin: 16pt 0 8pt; counter-reset: h2; }
+.entry h2 { font-size: 17px; margin: 14pt 0 7pt; counter-reset: h3; }
+.entry h3 { font-size: 16px; margin: 12pt 0 6pt; counter-reset: h4; }
+
+/* ---------- 正文段落 ---------- */
 .entry p {
     margin: 0;
     font-size: 16px;
     font-weight: normal;
-    color: #000;
+    color: var(--text-main);
     text-indent: 2em;
     text-align: left;
     line-height: 1.8;
 }
 
-/* 正文斜体 */
-.entry em{
-    font-style: italic;
-}
+.entry em { font-style: italic; }
 
-/* 正文无序列表 */
+/* ---------- 列表 ---------- */
 .entry ul {
-    /*margin-top: 1em;
-    margin-bottom: 1em;*/
     margin-left: 3em;
     line-height: 1.8em;
 }
 
-/* 无序列表项 */
 .entry ul li {
     list-style: disc;
     line-height: 1.8em;
 }
 
-/* 正文有序列表 */
 .entry ol {
-    /*margin-top: 1em;
-    margin-bottom: 1em;*/
-    padding-left: 3em;   /* 序号和内容一起右移 */
+    padding-left: 3em;
     line-height: 1.8em;
 }
 
-/* 有序列表项 */
 .entry ol li {
     margin-bottom: 5px;
     list-style: decimal;
     line-height: 1.8em;
 }
-/* 有序列表项里的段落，统一去掉默认外边距，避免和序号错位 */
+
 .entry ol li > p {
-  margin: 0;
-  line-height: 1.8em;
+    margin: 0;
+    line-height: 1.8em;
+    text-indent: 0;
 }
 
-/* 紧跟序号的第一段：不缩进，和序号对齐 */
-.entry ol li > p:first-child {
-  text-indent: 0;
-}
-
-/* 第一个段落之后的段落：缩进 2 个字符 */
-.entry ol li > p:first-child ~ p {
-  text-indent: 0;
-}
-
-/* 引用块> */
+/* ---------- 引用块 ---------- */
 .entry blockquote {
-    margin-left: 25px;
+    margin: 1em 0 1em 25px;
+    padding-left: 12px;
+    border-left: 3px solid var(--border);
     font-size: 14px;
-    font-style: italic
+    font-style: italic;
+    color: var(--text-quote);
 }
 
+/* ---------- 图片 ---------- */
 .entry img {
     max-width: 670px;
+    width: 100%;
+    height: auto;
     display: block;
     margin: 10px auto;
 }
 
-/**文章小标题自动编号**/
-body {
-    counter-reset: h1;
-  }
-  
-  h1 {
-    counter-reset: h2;
-  }
-  
-  h2 {
-    counter-reset: h3;
-  }
-  
-  h3 {
-    counter-reset: h4;
-  }
-  
-  h1::before {
+/* ---------- 小标题自动编号 ---------- */
+.entry h1::before {
     counter-increment: h1;
     content: counter(h1) ". ";
-  }
-  
-  h2::before {
+}
+
+.entry h2::before {
     counter-increment: h2;
     content: counter(h1) "." counter(h2) " ";
-  }
-  
-  h3::before {
+}
+
+.entry h3::before {
     counter-increment: h3;
     content: counter(h1) "." counter(h2) "." counter(h3) " ";
-  }
+}
 
-
-  @media screen and (max-width: 750px) {
-    body {
-        font-size: 14px;
-    }
+/* ---------- 响应式：平板 ---------- */
+@media (max-width: 1020px) {
     #content {
-        width: 85%;
+        width: auto;
+        max-width: 85%;
         margin: 100px auto 50px;
     }
-    h2 {
-        font-size: 20px;
-    }
-    h3 {
-        font-size: 16px;
-    }
-    embed {
-        display: none;
-    }
-    .entry-title,
-    .entry-title a {
-        font-size: 24px;
-    }
-    .entry-date {
-        margin-bottom: 40px;
-    }
-    .entry img {
-        max-width: 90%;
-    }
-    .entry pre ol li {
-        margin-bottom: 0;
-        line-height: 1em;
-    }
-    .entry pre code {
-        line-height: 1em;
-        font-size: 12px;
-    }
-    .sidenav {
-        display: none;
-    }
     .entry {
-        float: none;
-        width: auto;
         background: transparent;
         padding: 0;
+        border: none;
         box-shadow: none;
-    }
-    .index-content .section {
-        margin-left: 0;
-        padding-right: 0;
-    }
-    .index-content .section ul {
-        width: 85%;
-    }
-    .index-content .cate-bar {
-        width: 85%;
-    }
-    .index-content .artical-cate {
-        margin-top: 50px;
     }
 }
 
-@media (max-width: 1020px) {
-    .entry {
-        float: none;
-        width: auto;
-        background: transparent;
-        padding: 0;
-        box-shadow: none;
-    }
+/* ---------- 响应式：手机 ---------- */
+@media (max-width: 750px) {
+    body { font-size: 14px; }
+
     #content {
-        width: 85%;
-        margin: 100px auto 50px;
+        width: auto;
+        max-width: 100%;
+        padding: 0 16px;
+        margin: 80px auto 40px;
+        box-sizing: border-box;
     }
+
+    .entry-title,
+    .entry-title a { font-size: 22px; }
+
+    .entry-date { margin-bottom: 32px; }
+
+    .entry h1 { font-size: 18px; }
+    .entry h2 { font-size: 17px; }
+    .entry h3 { font-size: 16px; }
+
+    .entry p { font-size: 15px; }
+
+    .entry img { max-width: 100%; }
+
+    .entry pre {
+        overflow-x: auto;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .entry pre code { font-size: 12px; }
+    .entry pre ol li { margin-bottom: 0; line-height: 1.5; }
+
+    embed,
+    .sidenav { display: none; }
+
+    .index-content .section { margin-left: 0; padding-right: 0; }
+    .index-content .section ul,
+    .index-content .cate-bar { width: 85%; }
+    .index-content .artical-cate { margin-top: 50px; }
+}
+
+/* ---------- 可访问性：键盘焦点 ---------- */
+.entry a:focus-visible,
+.entry-title a:focus-visible {
+    outline: 2px solid #B8894A;
+    outline-offset: 2px;
+}
+
+/* ---------- 打印样式 ---------- */
+@media print {
+    body { background: #fff; }
+    #content { width: auto; margin: 0; }
+    .entry {
+        background: #fff;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    .site-header,
+    .sidenav { display: none; }
+    .entry a { color: #000; text-decoration: underline; }
+}
+
+/* ---------- 暗色模式 ---------- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-card: #1c1c1c;
+        --border: #2e2e2e;
+        --text-main: #e6e6e6;
+        --text-muted: #8a8a8a;
+        --text-quote: #b0b0b0;
+    }
+    .entry blockquote { border-left-color: #3a3a3a; }
+    .entry pre { background: #141414; }
 }
