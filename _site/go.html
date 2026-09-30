@@ -1,38 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
     <meta charset="utf-8" />
-    <title>围棋 | 盐水冲茶</title>
+    <title>围棋 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
+    <meta name="description" content="Everything about xwwz" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+    
+    
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
-<body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
-        </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
-    </div>
 
-    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<script>
+    var lines = [{"id":"1","content":"技术如果不能变成钱，那技术有什么用呢？","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"2","content":"什么程序优化啊，都抵不上有钱，有钱就是最好的优化。说什么‘效率就是金钱’，其实‘金钱就是效率’。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"3","content":"你比他好一点，他不会承认你，反而会嫉妒你；只有你比他好很多，他才会承认你，然后还会很崇拜你。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"4","content":"你不会造车，但可以去卖车；你不会下蛋，但可以炒蛋炒饭卖。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"5","content":"人无非有两种方法提高自己，一是真的提高自己，二是打击别人提高自己。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"6","content":"指针，是C语言最复杂的东西，也是C语言的灵魂。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"7","content":"对程序员来说，大部分快乐是从解决问题特别是独立解决问题中来的，不是从这个CASE有多大，奖金有多少中来的。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"8","content":"程序员是值得尊敬的，程序员的双手是魔术师的双手，他们把枯燥无味的代码变成了丰富多彩的软件。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"9","content":"写程序是创造，不是编造。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"10","content":"要么做第一个，要么做最好的一个。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"11","content":"‘疯狂的程序员’绝对不是靠狂妄和拼命的程序员，而是能够踏实，持续努力的程序员。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"12","content":"其实不是它难，是自己不去用它，不管什么技术，只要你必须去用它，学起来也就不难了。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"13","content":"要学就学大家都不知道的东西，这样你才能做大家都做不到的事情。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"14","content":"所以有时候人的技术啊，知识啊也许并不是学出来的，是逼出来的。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"15","content":"兴趣能给你动力去做一件事，但最重要的却是热情，热情能给你动力去一直做这一件事。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"16","content":"在写程序这个领域，能够限制你的只有你的想像力。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"17","content":"天地不仁以万物为刍狗。","ref":"道德经","cat":"客观道理"},{"content":"一个人的行为特质，往往形成于少年时对父辈的模仿与反动。","ref":"廓晋","cat":"学习与成长思考"},{"content":"搞技术的总以为自己能当CEO；搞市场的总以为自己懂技术；搞融资的总以为技术可以随时换。","ref":"https://www.bilibili.com/video/BV1xBrjBdEcp","cat":"技术与职业洞察"},{"content":"认识是知识和实践反复交互的结果，区分看起来很重要的表面现象和真正决定结果的变量是尤为重要的。","ref":"","cat":"学习与成长思考"},{"content":"有时候应该坚持，有时候应该立刻放弃之前的认知与坚持。","ref":"","cat":"学习与成长思考"},{"content":"有些东西也许在平时看不出来，但是关键时刻忽然决定生死。","ref":"","cat":"学习与成长思考"}];
+    if (lines && lines.length) {
+        var line = lines[Math.floor(Math.random() * lines.length)];
+        document.getElementById('random-line').textContent = line["content"];
+    }
+</script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
     @media screen and (max-width: 750px){
@@ -43,382 +64,27 @@
     }
 </style>
 
+
 <div id="content">
-    <div class="entry">
-        <h1 class="entry-title"><a href="/go" title="围棋">围棋</a></h1>
-        <p class="entry-date">2017-05-20</p>
-        <p>这几天心情不佳，耽搁了随笔记录。补上今天的作品，花了一天时间使用pygame制作了个围棋游戏，代码逻辑比较简单清晰，实现了基本的下棋、吃子功能、计算棋子的活，还有很多细节处理的不是很好，如重新开始游戏、游戏局势、悔棋、棋谱制作。</p>
+<div class="entry">
+    <div class="entry-title"><a href="/go" title="围棋">围棋</a></div>
+    <div class="entry-date">2017-05-20</div>
+    <p>这几天心情不佳，耽搁了随笔记录。补上今天的作品，花了一天时间使用pygame制作了个围棋游戏。代码逻辑非常简单清晰，仅200余行。实现了基本的下棋、吃子功能、计算棋子的活，部分细节处理的不是很好，如重新开始游戏、游戏局势、悔棋、棋谱制作。</p>
 
-<p>主要是想以后有机会试一试蒙特卡洛或者其他神经网络方法。</p>
+<p>以后有机会试一试接入蒙特卡洛或者其他神经网络方法。</p>
 
-<p>运行效果如下：
-<img src="/images/go.png" alt="" /></p>
+<p>运行效果：</p>
 
-<p>代码如下：</p>
+<p><img src="/images/go.png" alt="" /></p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
-import pygame
-from pygame.locals import *
-import sys
-import copy
+<p>代码地址：<a href="/files/code/go.py">go.py</a></p>
 
-CLICK = USEREVENT + 1
-
-BLACK = 100
-WHITE = 101
-RED = 102
-GREY = 103
-LIGHTGRAY = 104
-
-GAME_START = 200
-GAME_PAUSE = 201
-GAME_END = 202
-
-INVFONT = 301
-FONT2 = 302
-
-pygame.init()
-fonts = {
-	FONT2: pygame.font.Font('./resources/mnjdy.ttf', 18)
-}
-
-
-colors = {
-	BLACK: (0, 0, 0),
-	RED: (255, 0, 0),
-	GREY:	(190, 190, 190),
-	LIGHTGRAY:(211, 211, 211),
-	WHITE: (255, 255, 255)
-}
-
-blackChess = 1
-whiteChess = 2
-icon = 0
-textures = {
-	blackChess: pygame.image.load('./resources/blackChess.png'),
-	whiteChess: pygame.image.load('./resources/whiteChess.png'),
-	icon: pygame.image.load('./resources/yscc.ico')
-}
-
-class Panel(object):
-	def __init__(self):
-		# 棋盘的边界距
-		self.posX = 40
-		self.posY = 40
-		# 棋盘格子数
-		self.width = 19
-		self.height = 19
-		# 每一个格子的大小
-		self.tileSize = 30
-		self.htileSize = self.tileSize / 2
-		# 棋盘
-		self.tiles = [[0 for _ in range(0, 19)] for _ in range(0, 19)]
-		# 棋盘大小
-		self.w = self.width  * self.tileSize
-		self.h = self.height * self.tileSize
-		# 鼠标位置
-		self.mouseX = 0
-		self.mouseY = 0
-		# 黑白棋执手 黑棋为1 白棋为2
-		self.flag = 1
-		# 黑棋数目
-		self.blackChessCount = 0
-		# 白棋数目
-		self.whiteChessCount = 0
-		self.info1 = ''
-		self.info2 = ''
-		self.info3 = ''
-
-	def getPos(self, pos):
-		return (pos[0] - self.posX + self.htileSize,
-				pos[1] - self.posY +self.htileSize)
-
-	def update(self,screen):
-
-		for x in range(0, self.width):
-			for y in range(0, self.height):
-				#pygame.draw.aaline(screen, (0, 0, 0),
-				#					(int(self.posX + x * self.tileSize), int(self.posY + y * self.tileSize)),
-				#												 (int(self.posX + x * self.tileSize), int(self.posY + y)),False)
-				#pygame.draw.aaline(screen, (0, 0, 0), False,
-				#					(self.posX + x * self.tileSize, self.posY + y * self.tileSize),
-				#					 (self.posX + x, self.posY + y * self.tileSize))
-				pygame.draw.line(screen, colors[BLACK],
-								 (self.posX + x * self.tileSize, self.posY + y * self.tileSize), (self.posX + x * self.tileSize, self.posY + y))
-				pygame.draw.line(screen, colors[BLACK],
-								 (self.posX + x * self.tileSize, self.posY + y * self.tileSize), (self.posX + x, self.posY + y * self.tileSize))
-
-		for x in range(0, self.width):
-			for y in range(0, self.height):
-				if self.tiles[x][y] == 1:
-					#blackC = pygame.transform.scale(textures[blackChess], (self.tileSize, self.tileSize))
-					#screen.blit(blackC, (self.posX + x*self.tileSize - self.htileSize, self.posY + y*self.tileSize - self.htileSize))
-					pos = (int(self.posX + x*self.tileSize), int(self.posY + y*self.tileSize))
-					pygame.draw.circle(screen, colors[BLACK],
-									   pos, int(self.htileSize))
-				if self.tiles[x][y] == 2:
-					#whiteC = pygame.transform.scale(textures[whiteChess], (self.tileSize, self.tileSize))
-					#screen.blit(whiteC, (self.posX + x * self.tileSize - self.htileSize, self.posY + y * self.tileSize - self.htileSize))
-					pos = (int(self.posX + x * self.tileSize), int(self.posY + y * self.tileSize))
-					pygame.draw.circle(screen, colors[GREY],
-									   pos, int(self.htileSize))
-		self.drawRedCircle(screen)
-
-	def drawRedCircle(self, screen):
-		pos = (int(self.mouseX*self.tileSize)+self.posX, int(self.mouseY * self.tileSize)+self.posY)
-		pygame.draw.circle(screen, colors[RED],
-						   pos, int(self.htileSize), 1)
-
-	def mouseEvent(self, event):
-		if event.type == MOUSEMOTION:
-			pos = self.getPos(event.dict['pos'])
-			if int(pos[0] / self.tileSize) &lt; self.width:
-				self.mouseX = int(pos[0] / self.tileSize)
-			elif int(pos[0] / self.tileSize) &gt; self.width:
-				self.mouseX = self.width - 1
-			if int(pos[1] / self.tileSize) &lt; self.height:
-				self.mouseY = int(pos[1] / self.tileSize)
-			elif int(pos[1] / self.tileSize) &gt; self.height:
-				self.mouseY = self.height - 1
-
-			tiles = copy.deepcopy(self.tiles)
-			flag = tiles[self.mouseX][self.mouseY]
-			if flag == 1:
-				self.info1 = '当前棋子颜色：黑'
-				self.info2 = '当前棋子坐标：('+str(self.mouseX)+','+str(self.mouseY)+')'
-				self.info3 = '当前棋子活：'+str(self.judgeOne(self.mouseX, self.mouseY, flag, tiles))
-			if flag == 2:
-				self.info1 = '当前棋子颜色：白'
-				self.info2 = '当前棋子坐标：('+str(self.mouseX)+','+str(self.mouseY)+')'
-				self.info3 = '当前棋子活：'+str(self.judgeOne(self.mouseX, self.mouseY, flag, tiles))
-		elif event.type == MOUSEBUTTONUP:
-			if event.button == 1:
-				pos = self.getPos(event.dict['pos'])
-				if 0 &lt;= int(pos[0] / self.tileSize) &lt; self.width and 0 &lt;= int(pos[1] / self.tileSize) &lt; self.height:
-					if self.tiles[self.mouseX][self.mouseY] == 0:
-						if self.flag == 1:
-							self.tiles[self.mouseX][self.mouseY] = 1
-							self.flag = 2
-							self.blackChessCount += 1
-						else:
-							self.tiles[self.mouseX][self.mouseY] =2
-							self.flag = 1
-							self.whiteChessCount += 1
-
-						tiles = copy.deepcopy(self.tiles)
-						X = [(0,1),(1,0),(0,-1),(-1,0)]
-						for x in X:
-							if 0 &lt;= self.mouseX + x[0] &lt; self.width and 0 &lt;= self.mouseY + x[1] &lt; self.height:
-								if self.tiles[self.mouseX + x[0]][self.mouseY + x[1]] == self.flag:
-									if self.judgeOne(self.mouseX + x[0], self.mouseY + x[1], self.flag, tiles) == 0:
-										self.removeArea(self.mouseX + x[0], self.mouseY + x[1], self.flag)
-
-	def judgeOne(self, x, y, flag, tiles):
-		tiles[x][y] = -1 * flag
-		i = 0
-		if x - 1 &gt;= 0:
-			if tiles[x - 1][y] == 0:
-				i += 1
-			elif tiles[x - 1][y] == flag:
-				i += self.judgeOne(x - 1, y, flag, tiles)
-		if x + 1 &lt; self.width:
-			if tiles[x + 1][y] == 0:
-				i += 1
-			elif tiles[x + 1][y] == flag:
-				i += self.judgeOne(x + 1, y, flag, tiles)
-		if y - 1 &gt;= 0:
-			if tiles[x][y - 1] == 0:
-				i += 1
-			elif tiles[x][y - 1] == flag:
-				i += self.judgeOne(x, y - 1, flag, tiles)
-		if y + 1 &lt; self.height:
-			if tiles[x][y + 1] == 0:
-				i += 1
-			elif tiles[x][y + 1] == flag:
-				i += self.judgeOne(x, y + 1, flag, tiles)
-		return i
-
-	def removeArea(self, x, y, flag):
-		if self.tiles[x][y] != flag:
-			return
-		self.tiles[x][y] = 0
-		if x - 1 &gt;= 0:
-			if self.tiles[x - 1][y] == flag:
-				self.removeArea(x - 1, y, flag)
-		if x + 1 &gt;= 0:
-			if self.tiles[x + 1][y] == flag:
-				self.removeArea(x + 1, y, flag)
-		if y - 1 &gt;= 0:
-			if self.tiles[x][y - 1] == flag:
-				self.removeArea(x, y - 1, flag)
-		if y + 1 &gt;= 0:
-			if self.tiles[x][y + 1] == flag:
-				self.removeArea(x, y + 1, flag)
-
-class Surrender(object):
-	def __init__(self):
-		self.windowWidth = 900
-		self.windowHeight = 600
-		self.panel = Panel()
-		self.status = GAME_PAUSE
-		self.DISPLAYSURF = pygame.display.set_mode((900, 600))
-		self.fpsClock = pygame.time.Clock()
-
-	def drawText(self, screen, text, x, y):
-		textObj = fonts[FONT2].render(text, True, colors[BLACK], colors[GREY])
-		screen.blit(textObj, (x, y))
-
-	def update(self):
-		self.fpsClock.tick(24)
-		self.DISPLAYSURF.fill(colors[WHITE])
-		self.panel.update(self.DISPLAYSURF)
-		self.drawText(self.DISPLAYSURF, '黑子总数:'+str(self.panel.blackChessCount), 650, 40)
-		self.drawText(self.DISPLAYSURF, '白子总数:'+str(self.panel.whiteChessCount), 650, 80)
-		self.drawText(self.DISPLAYSURF, self.panel.info1, 650, 120)
-		self.drawText(self.DISPLAYSURF, self.panel.info2, 650, 160)
-		self.drawText(self.DISPLAYSURF, self.panel.info3, 650, 200)
-		pygame.draw.rect(self.DISPLAYSURF,
-						 colors[RED],
-						(0, 0, self.windowWidth, self.windowHeight),2)
-		pygame.display.update()
-
-	def mouseEvent(self, event):
-		self.panel.mouseEvent(event)
-
-	def exit(self):
-		pygame.quit()
-		sys.exit()
-
-if __name__ == "__main__":
-	game = Surrender()
-	pygame.display.set_caption("Yscc-Surrender")
-	pygame.display.set_icon(textures[icon])
-	pygame.time.set_timer(CLICK, 1000)
-	while True:
-		game.update()
-		for event in pygame.event.get():
-			print(event)
-			if event.type == QUIT:
-				game.exit()
-			if event.type == MOUSEMOTION or event.type == MOUSEBUTTONDOWN or event.type == MOUSEBUTTONUP:
-				game.mouseEvent(event)
-</code></pre>
+</div>
 </div>
 
-    </div>
 
-    <div class="sidenav">
-        <h2>Blog</h2>
-        <ul class="artical-list">
-        
-        </ul>
-
-        <h2>Dump</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
-        
-            <li><a href="/Laplace">拉普拉斯分布</a></li>
-        
-            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
-        
-            <li><a href="/cpp_exception">C++异常</a></li>
-        
-            <li><a href="/cpp_const">C++ const的用法记录</a></li>
-        
-            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
-        
-            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
-        
-            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
-        
-            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
-        
-            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
-        
-            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
-        
-            <li><a href="/automake">automake安装与使用记录</a></li>
-        
-            <li><a href="/python-decorator">python@的用法记录</a></li>
-        
-            <li><a href="/python-design">python语言的设计记录</a></li>
-        
-            <li><a href="/Logistic">Logistic函数</a></li>
-        
-            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
-        
-            <li><a href="/VBA">Excel合并功能记录</a></li>
-        
-            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
-        
-            <li><a href="/move-average-method">移动平均法</a></li>
-        
-            <li><a href="/LineClassfier">线性分类器</a></li>
-        
-            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
-        
-            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
-        
-            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
-        
-            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
-        
-            <li><a href="/algorithm_complexity">算法复杂度</a></li>
-        
-            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
-        
-            <li><a href="/cmake">cmake</a></li>
-        
-        </ul>
-
-        <h2>Project</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/go">围棋</a></li>
-        
-            <li><a href="/test">前端绘图测试</a></li>
-        
-        </ul>
-    </div>
-</div>
-
-<script src="/js/post.js" type="text/javascript"></script>
 
 
 </body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
 </html>
+

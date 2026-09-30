@@ -1,38 +1,61 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
     <meta charset="utf-8" />
-    <title>算法复杂度 | 盐水冲茶</title>
+    <title>可计算性 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
+    <meta name="description" content="Everything about xwwz" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+        <link rel="stylesheet" href="/css/table.css" />
+    
+    
+    
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
-<body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
-        </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
-    </div>
 
-    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<script>
+    var lines = [{"id":"1","content":"技术如果不能变成钱，那技术有什么用呢？","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"2","content":"什么程序优化啊，都抵不上有钱，有钱就是最好的优化。说什么‘效率就是金钱’，其实‘金钱就是效率’。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"3","content":"你比他好一点，他不会承认你，反而会嫉妒你；只有你比他好很多，他才会承认你，然后还会很崇拜你。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"4","content":"你不会造车，但可以去卖车；你不会下蛋，但可以炒蛋炒饭卖。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"5","content":"人无非有两种方法提高自己，一是真的提高自己，二是打击别人提高自己。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"6","content":"指针，是C语言最复杂的东西，也是C语言的灵魂。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"7","content":"对程序员来说，大部分快乐是从解决问题特别是独立解决问题中来的，不是从这个CASE有多大，奖金有多少中来的。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"8","content":"程序员是值得尊敬的，程序员的双手是魔术师的双手，他们把枯燥无味的代码变成了丰富多彩的软件。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"9","content":"写程序是创造，不是编造。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"10","content":"要么做第一个，要么做最好的一个。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"11","content":"‘疯狂的程序员’绝对不是靠狂妄和拼命的程序员，而是能够踏实，持续努力的程序员。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"12","content":"其实不是它难，是自己不去用它，不管什么技术，只要你必须去用它，学起来也就不难了。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"13","content":"要学就学大家都不知道的东西，这样你才能做大家都做不到的事情。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"14","content":"所以有时候人的技术啊，知识啊也许并不是学出来的，是逼出来的。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"15","content":"兴趣能给你动力去做一件事，但最重要的却是热情，热情能给你动力去一直做这一件事。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"16","content":"在写程序这个领域，能够限制你的只有你的想像力。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"17","content":"天地不仁以万物为刍狗。","ref":"道德经","cat":"客观道理"},{"content":"一个人的行为特质，往往形成于少年时对父辈的模仿与反动。","ref":"廓晋","cat":"学习与成长思考"},{"content":"搞技术的总以为自己能当CEO；搞市场的总以为自己懂技术；搞融资的总以为技术可以随时换。","ref":"https://www.bilibili.com/video/BV1xBrjBdEcp","cat":"技术与职业洞察"},{"content":"认识是知识和实践反复交互的结果，区分看起来很重要的表面现象和真正决定结果的变量是尤为重要的。","ref":"","cat":"学习与成长思考"},{"content":"有时候应该坚持，有时候应该立刻放弃之前的认知与坚持。","ref":"","cat":"学习与成长思考"},{"content":"有些东西也许在平时看不出来，但是关键时刻忽然决定生死。","ref":"","cat":"学习与成长思考"}];
+    if (lines && lines.length) {
+        var line = lines[Math.floor(Math.random() * lines.length)];
+        document.getElementById('random-line').textContent = line["content"];
+    }
+</script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
     @media screen and (max-width: 750px){
@@ -43,218 +66,186 @@
     }
 </style>
 
+
 <div id="content">
-    <div class="entry">
-        <h1 class="entry-title"><a href="/algorithm_complexity" title="算法复杂度">算法复杂度</a></h1>
-        <p class="entry-date">2017-05-04</p>
-        <p>算法复杂度是衡量算法效率的重要标准，今天看见一个比较直观的算法复杂度表格，做一个记录备份。
-（其中若1.e+5形式，实际表示若1.0×10^5）</p>
+<div class="entry">
+    <div class="entry-title"><a href="/algorithm_complexity" title="可计算性">可计算性</a></div>
+    <div class="entry-date">2017-05-04</div>
+    <p>编写程序前一定要对程序是否有解、可解、以及大概需要运行多久做到心中有数。这个问题的关键是通常通过问题的可计算性和算法复杂度评估。</p>
+
+<h1 id="算法复杂度估算">算法复杂度估算</h1>
+
+<p>算法复杂度是衡量算法效率的重要标准。首先要了解现代计算机的性能上限：</p>
+
+<p>1) 普通家用计算机（主频约3GHz）可执行 10^9 ～ 10^10 条指令/秒；</p>
+
+<p>2) 多核PC/服务器：几十到上百核，约 10^11～10^12 条指令/秒。</p>
+
+<p>3) 超级计算机：达到百亿亿次级别，浮点运算约10^18 次/秒（FLOPS, Floating-point Operations Per Second），指令吞吐量在 10^17～10^18 条/秒 量级。</p>
+
+<p>在算法竞赛和算法分析中，通常保守地按 1 秒约 10^8 次基本操作来估算。</p>
+
+<p>不同算法复杂度在不同规模问题下的计算次数（其中若1.e+5形式，实际表示若1.0×10^5）</p>
 
 <table>
-   <tr>
-      <td rowspan="2">问题规模n</td>
-      <td colspan="5" width="385" align="middle">多项式函数</td>
-      <td colspan="2" width="206" align="middle">指数函数</td>
-   </tr>
-   <tr>
-      <td>logn</td>
-      <td>n</td>
-      <td>nlogn</td>
-      <td>n^2</td>
-      <td>n^3</td>
-      <td>2^n</td>
-      <td>n!</td>
-   </tr>
-   <tr>
-      <td align="right">1</td>
-      <td align="right">0</td>
-      <td align="right">1</td>
-      <td align="right">0</td>
-      <td align="right">1</td>
-      <td align="right">1</td>
-      <td align="right">2</td>
-      <td align="right">1</td>
-   </tr>
-   <tr>
-      <td align="right">10</td>
-      <td align="right">3.32</td>
-      <td align="right">10</td>
-      <td align="right">33.21928095</td>
-      <td align="right">100</td>
-      <td align="right">1000</td>
-      <td align="right">1024</td>
-      <td align="right">3628800</td>
-   </tr>
-   <tr>
-      <td align="right">20</td>
-      <td align="right">4.32</td>
-      <td align="right">20</td>
-      <td align="right">86.4385619</td>
-      <td align="right">400</td>
-      <td align="right">8000</td>
-      <td align="right">1048576</td>
-      <td align="right">2.4329E+18</td>
-   </tr>
-   <tr>
-      <td align="right">30</td>
-      <td align="right">4.91</td>
-      <td align="right">30</td>
-      <td align="right">147.2067179</td>
-      <td align="right">900</td>
-      <td align="right">27000</td>
-      <td align="right">1073741824</td>
-      <td align="right">2.65253E+32</td>
-   </tr>
-   <tr>
-      <td align="right">40</td>
-      <td align="right">5.32</td>
-      <td align="right">40</td>
-      <td align="right">212.8771238</td>
-      <td align="right">1600</td>
-      <td align="right">64000</td>
-      <td align="right">1.09951E+12</td>
-      <td align="right">8.15915E+47</td>
-   </tr>
-   <tr>
-      <td align="right">50</td>
-      <td align="right">5.64</td>
-      <td align="right">50</td>
-      <td align="right">282.1928095</td>
-      <td align="right">2500</td>
-      <td align="right">125000</td>
-      <td align="right">1.1259E+15</td>
-      <td align="right">3.04141E+64</td>
-   </tr>
-   <tr>
-      <td align="right">100</td>
-      <td align="right">6.64</td>
-      <td align="right">100</td>
-      <td align="right">664.385619</td>
-      <td align="right">10000</td>
-      <td align="right">1000000</td>
-      <td align="right">1.26765E+30</td>
-      <td align="right">9.3326E+157</td>
-   </tr>
+  <thead>
+    <tr>
+      <th style="text-align: right">问题规模 n</th>
+      <th style="text-align: right">多项式函数<br />logn</th>
+      <th style="text-align: right">多项式函数<br />n</th>
+      <th style="text-align: right">多项式函数<br />nlogn</th>
+      <th style="text-align: right">多项式函数<br />n^2</th>
+      <th style="text-align: right">多项式函数<br />n^3</th>
+      <th style="text-align: right">指数函数<br />2^n</th>
+      <th style="text-align: right">指数函数<br />n!</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">0</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">1</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">1</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">10</td>
+      <td style="text-align: right">3.32</td>
+      <td style="text-align: right">10</td>
+      <td style="text-align: right">33.21928095</td>
+      <td style="text-align: right">100</td>
+      <td style="text-align: right">1000</td>
+      <td style="text-align: right">1024</td>
+      <td style="text-align: right">3628800</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">20</td>
+      <td style="text-align: right">4.32</td>
+      <td style="text-align: right">20</td>
+      <td style="text-align: right">86.4385619</td>
+      <td style="text-align: right">400</td>
+      <td style="text-align: right">8000</td>
+      <td style="text-align: right">1048576</td>
+      <td style="text-align: right">2.4e+18</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">30</td>
+      <td style="text-align: right">4.91</td>
+      <td style="text-align: right">30</td>
+      <td style="text-align: right">147.2067179</td>
+      <td style="text-align: right">900</td>
+      <td style="text-align: right">27000</td>
+      <td style="text-align: right">1.0e+9</td>
+      <td style="text-align: right">2.6e+32</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">40</td>
+      <td style="text-align: right">5.32</td>
+      <td style="text-align: right">40</td>
+      <td style="text-align: right">212.8771238</td>
+      <td style="text-align: right">1600</td>
+      <td style="text-align: right">64000</td>
+      <td style="text-align: right">1.0e+12</td>
+      <td style="text-align: right">8.1e+47</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">50</td>
+      <td style="text-align: right">5.64</td>
+      <td style="text-align: right">50</td>
+      <td style="text-align: right">282.1928095</td>
+      <td style="text-align: right">2500</td>
+      <td style="text-align: right">125000</td>
+      <td style="text-align: right">1.1e+15</td>
+      <td style="text-align: right">3.0e+64</td>
+    </tr>
+    <tr>
+      <td style="text-align: right">100</td>
+      <td style="text-align: right">6.64</td>
+      <td style="text-align: right">100</td>
+      <td style="text-align: right">664.385619</td>
+      <td style="text-align: right">10000</td>
+      <td style="text-align: right">1000000</td>
+      <td style="text-align: right">1.2e+30</td>
+      <td style="text-align: right">9.3e+157</td>
+    </tr>
+  </tbody>
 </table>
 
-<blockquote>
-  <p>PS:jekyll来做表格真是麻烦，折腾了大半个上午。</p>
-</blockquote>
+<p>由此，可以通过问题规模和代码的算法复杂度，大致推断代码的运行时间量级。</p>
 
-    </div>
+<h1 id="p-np-np-complate-np-hard问题">P NP NP-Complate NP-Hard问题</h1>
 
-    <div class="sidenav">
-        <h2>Blog</h2>
-        <ul class="artical-list">
-        
-        </ul>
+<p>确定性图灵机（DTM）和非确定性图灵机（NTM）都是理论计算机科学中的抽象计算模型。它们不是真实的电脑，而是用来严格定义可计算和计算复杂度的工具。</p>
 
-        <h2>Dump</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
-        
-            <li><a href="/Laplace">拉普拉斯分布</a></li>
-        
-            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
-        
-            <li><a href="/cpp_exception">C++异常</a></li>
-        
-            <li><a href="/cpp_const">C++ const的用法记录</a></li>
-        
-            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
-        
-            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
-        
-            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
-        
-            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
-        
-            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
-        
-            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
-        
-            <li><a href="/automake">automake安装与使用记录</a></li>
-        
-            <li><a href="/python-decorator">python@的用法记录</a></li>
-        
-            <li><a href="/python-design">python语言的设计记录</a></li>
-        
-            <li><a href="/Logistic">Logistic函数</a></li>
-        
-            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
-        
-            <li><a href="/VBA">Excel合并功能记录</a></li>
-        
-            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
-        
-            <li><a href="/move-average-method">移动平均法</a></li>
-        
-            <li><a href="/LineClassfier">线性分类器</a></li>
-        
-            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
-        
-            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
-        
-            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
-        
-            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
-        
-            <li><a href="/algorithm_complexity">算法复杂度</a></li>
-        
-            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
-        
-            <li><a href="/cmake">cmake</a></li>
-        
-        </ul>
+<p>一台图灵机通常包括：一条无限长的纸带，分成一个个格子；一个读写头，可以读、写、左右移动；一个有限状态控制器；一个转移函数，决定下一步做什么。其核心就是转移函数。根据当前状态和读写头读到的符号，决定下一步，写什么符号，移动到哪个状态，读写头向左还是向右移动。</p>
 
-        <h2>Project</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/go">围棋</a></li>
-        
-            <li><a href="/test">前端绘图测试</a></li>
-        
-        </ul>
-    </div>
+<p>在计算复杂性理论中，讨论DTM和NTM时，<strong>图灵机是判定器</strong>，输入是一个有限字符串，图灵机会进入接受状态或拒绝状态，作为判定器我们可以以此表示判定结果接受或拒绝。</p>
+
+<p>Σ 是有限字母表，比如 {0,1}。</p>
+
+<p>L 是 Σ∗ 的一个子集，L⊆Σ∗。</p>
+
+<p>输入x∈Σ∗。</p>
+
+<p>如果 x∈L，答案是“是”，图灵机接受；</p>
+
+<p>如果 x∉L，答案是“否”，图灵机拒绝。</p>
+
+<h2 id="确定性图灵机dtm">确定性图灵机（DTM）</h2>
+
+<p>确定性图灵机对于每一个当前状态和当前读到的符号，转移函数<strong>最多</strong>给出一个确定的下一步动作。确定性图灵机就像普通程序，每一步都明确知道下一步该做什么。给定相同输入，它永远得到相同结果。</p>
+
+<p>最多也意味着可能某个状态下没有定义，则图灵机在该状态下进入停机状态。<em>停机和拒绝不等价，运算完成即为停机。</em></p>
+
+<h2 id="非确定性图灵机ntm">非确定性图灵机（NTM）</h2>
+
+<p>非确定性图灵机对于每一个当前状态和当前读到的符号，转移函数可以给出零个、一个或多个可能的下一步动作。非确定性图灵机直观上理解为一种计算树的运算，存在一条计算路径到达接受状态则接受，所有路径都拒绝才拒绝。需要注意的是：存在一条路径，对应数学概念上的存在∃，不等同于遍历多条路、在多条路随机选择一条路、同时并行验证所有解。</p>
+
+<h2 id="p类问题deterministic-polynomial-time">P类问题（Deterministic Polynomial time）</h2>
+<p>多项式时间可解的问题。存在一个确定性图灵机，能在多项式时间内判定该问题。
+典型例子：排序、二分查找、最短路径、最大流、线性规划、素数判定（2002 年 AKS 算法证明属于 P）</p>
+
+<h2 id="np问题nondeterministic-polynomial-time">NP问题（Nondeterministic Polynomial time）</h2>
+<p>可以在多项式时间内验证候选解的问题。存在一个非确定性图灵机，能在多项式时间内判定该问题。</p>
+
+<p>典型例子：</p>
+
+<p>SAT：给一个布尔公式，是否存在一组变量赋值使它为真？</p>
+
+<p>旅行商判定：是否存在一条长度不超过 K 的回路？</p>
+
+<p>子集和：是否存在一个子集，其和等于目标值？</p>
+
+<p>图着色：能否用 k 种颜色给图着色？</p>
+
+<h2 id="np完全nondeterministic-polynomial-time-complete">NP完全（Nondeterministic Polynomial Time Complete）</h2>
+<p>属于NP，且所有NP问题都能多项式时间归约到它。是NP中最难的问题。例子：SAT、旅行商判定、背包判定、图着色等。如果任何一个NP完全问题有多项式算法，则P=NP。</p>
+
+<h2 id="np难nondeterministic-polynomial-time-hard">NP难（Nondeterministic Polynomial Time Hard）</h2>
+<p>至少和NP中所有问题一样难，但不一定属于NP。不要求多项式时间可验证。例子：停机问题、TSP优化、SAT的某些推广。NP完全 = NP ∩ NP难。</p>
+
+<p>P⊆NP</p>
+
+<p>NP完全⊆NP</p>
+
+<p>NP完全⊆NP难</p>
+
+<p>NP完全=NP∩NP难</p>
+
+<p><img src="images/P_NP.png" alt="Alt text" /></p>
+
+<h1 id="小结">小结</h1>
+<p>很多NP完全问题目前最好的精确算法就是指数级或阶乘级，实际中遇到 NP完全或 NP难问题，通常不会去求精确最优解，而是用近似算法、启发式算法、限制问题规模、利用特殊结构或者接受指数时间，只处理小规模输入。P 是容易解的；NP 是容易验证的；NP完全是 NP 中最难的一类；NP难是至少和 NP完全一样难、但不一定在 NP 里的问题。P 是否等于 NP，是计算机科学最大的未解难题之一，目前学术界普遍猜测但尚未证明P ≠ NP。</p>
+
+</div>
 </div>
 
-<script src="/js/post.js" type="text/javascript"></script>
+
 
 
 </body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
 </html>
+
