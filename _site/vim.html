@@ -1,38 +1,63 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
     <meta charset="utf-8" />
-    <title>vim | 盐水冲茶</title>
+    <title>VIM常用命令与配置教程 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
+    <meta name="description" content="Everything about xwwz" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+        <link rel="stylesheet" href="/css/table.css" />
+    
+    
+    
+        <link rel="stylesheet" href="/css/code.css" />
+    
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
-<body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
-        </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
-    </div>
 
-    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<script>
+    var lines = [{"id":"1","content":"技术如果不能变成钱，那技术有什么用呢？","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"2","content":"什么程序优化啊，都抵不上有钱，有钱就是最好的优化。说什么‘效率就是金钱’，其实‘金钱就是效率’。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"3","content":"你比他好一点，他不会承认你，反而会嫉妒你；只有你比他好很多，他才会承认你，然后还会很崇拜你。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"4","content":"你不会造车，但可以去卖车；你不会下蛋，但可以炒蛋炒饭卖。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"5","content":"人无非有两种方法提高自己，一是真的提高自己，二是打击别人提高自己。","ref":"疯狂程序员","cat":"商业与社会现实法则"},{"id":"6","content":"指针，是C语言最复杂的东西，也是C语言的灵魂。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"7","content":"对程序员来说，大部分快乐是从解决问题特别是独立解决问题中来的，不是从这个CASE有多大，奖金有多少中来的。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"8","content":"程序员是值得尊敬的，程序员的双手是魔术师的双手，他们把枯燥无味的代码变成了丰富多彩的软件。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"9","content":"写程序是创造，不是编造。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"10","content":"要么做第一个，要么做最好的一个。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"11","content":"‘疯狂的程序员’绝对不是靠狂妄和拼命的程序员，而是能够踏实，持续努力的程序员。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"12","content":"其实不是它难，是自己不去用它，不管什么技术，只要你必须去用它，学起来也就不难了。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"13","content":"要学就学大家都不知道的东西，这样你才能做大家都做不到的事情。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"14","content":"所以有时候人的技术啊，知识啊也许并不是学出来的，是逼出来的。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"15","content":"兴趣能给你动力去做一件事，但最重要的却是热情，热情能给你动力去一直做这一件事。","ref":"疯狂程序员","cat":"学习与成长思考"},{"id":"16","content":"在写程序这个领域，能够限制你的只有你的想像力。","ref":"疯狂程序员","cat":"技术与职业洞察"},{"id":"17","content":"天地不仁以万物为刍狗。","ref":"道德经","cat":"客观道理"},{"content":"一个人的行为特质，往往形成于少年时对父辈的模仿与反动。","ref":"廓晋","cat":"学习与成长思考"},{"content":"搞技术的总以为自己能当CEO；搞市场的总以为自己懂技术；搞融资的总以为技术可以随时换。","ref":"https://www.bilibili.com/video/BV1xBrjBdEcp","cat":"技术与职业洞察"},{"content":"认识是知识和实践反复交互的结果，区分看起来很重要的表面现象和真正决定结果的变量是尤为重要的。","ref":"","cat":"学习与成长思考"},{"content":"有时候应该坚持，有时候应该立刻放弃之前的认知与坚持。","ref":"","cat":"学习与成长思考"},{"content":"有些东西也许在平时看不出来，但是关键时刻忽然决定生死。","ref":"","cat":"学习与成长思考"}];
+    if (lines && lines.length) {
+        var line = lines[Math.floor(Math.random() * lines.length)];
+        document.getElementById('random-line').textContent = line["content"];
+    }
+</script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
     @media screen and (max-width: 750px){
@@ -43,521 +68,1358 @@
     }
 </style>
 
+
 <div id="content">
-    <div class="entry">
-        <h1 class="entry-title"><a href="/vim" title="vim">vim</a></h1>
-        <p class="entry-date">2015-09-21</p>
-        <hr />
+<div class="entry">
+    <div class="entry-title"><a href="/vim" title="VIM常用命令与配置教程">VIM常用命令与配置教程</a></div>
+    <div class="entry-date">2015-09-21</div>
+    <h1 id="vim-的模式">vim 的模式</h1>
 
-<p>##常用命令
-####替换命令</p>
+<p>vim有多种运行模式，不同模式下按键含义不同。</p>
 
-<p>css文件调整格式</p>
-
-<p>所以{后面添加换行</p>
-
-<p>:%s/{/{\r /g</p>
-
-<p>所有的}前面后面都添加换行</p>
-
-<p>:%s/}/\r}\r /g</p>
-
-<p>自动对齐
-gg=G</p>
-
-<hr />
-
-<p>##我的配置文件</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	filetype on								"文件类型检测
-	filetype indent on				"缩进
-	filetype plugin on				"允许插件
-	filetype plugin indent on	"自动补全
-
-	set shiftwidth=2					"
-
-	set tabstop=2							"tab等同四个空格
-
-	set number								"启用行号
-
-	set mouse=a								"启用鼠标
-
-	set backup								"备份
-
-	set backupext=~						"备份后缀
-
-	set cul										"高亮标尺
-
-	set ruler									"显示标尺
-
-	set foldenable						"启动折叠
-
-	set clipboard+=unnamed		"共享粘贴板
-
-	set ai!										"自动缩进
-
-	set smartindent						"只能自动缩进
-
-	set foldmethod=indent			"依标记折叠
-
-	set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
-
-	""""""""""""""""""华丽的引号"""""""""""""""""""""""""
-
-	"插件配置
-
-	"taglist
-	"http://www.vim.org/scripts/script.php?script_id=273
-	let Tlist_Show_One_File=1
-	let Tlist_Exit_OnlyWindow=1
-
-	"WinManager
-	"http://www.vim.org/scripts/script.php?script_id=95
-	let g:winManagerWindowLayout='FileExplorer|TagList'
-	nmap wm :WMToggle&lt;cr&gt;
-
-	"MiniBufExplorer
-	"http://www.vim.org/scripts/script.php?script_id=159
-	let g:miniBufExplMapCTabSwitchBufs = 1
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-</code></pre>
-</div>
-
-<hr />
-
-<p>##我的插件</p>
-
-<p>####中文文档</p>
-
-<p>http://nchc.dl.sourceforge.net/sourceforge/vimcdoc/vimcdoc-1.5.0.tar.gz</p>
-
-<p>安装</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	$ sudo ./vimcdoc.sh -i
-</code></pre>
-</div>
-
-<p>set helplang=cn
-set encoding=utf-8</p>
-
-<p>####Ctags
-http://ctags.sourceforge.net</p>
-
-<p>安装</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	$ tar -xzvf ctags-5.6.tar.gz
-	$ cd ctags-5.6
-	$ make
-	$ sudo make install   // 需要root权限
-</code></pre>
-</div>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	$ cd ./src
-	$ ctags -R
-	:set tags=./src/tags
-</code></pre>
-</div>
-
-<p>&lt; C-]&gt; 跳转定义</p>
-
-<p>&lt; C-T&gt; 返回</p>
-
-<p>####TagList
-http://www.vim.org/scripts/script.php?script_id=273</p>
-
-<p>安装</p>
-
-<p>~/.vim目录下解压taglist.zip</p>
-
-<p>配置</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	let Tlist_Show_One_File=1
-	let Tlist_Exit_OnlyWindow=1
-</code></pre>
-</div>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	:Tlist
-	:help taglist.txt
-</code></pre>
-</div>
-
-<p>####WinManager
-下载</p>
-
-<p>http://www.vim.org/scripts/script.php?script_id=95</p>
-
-<p>安装</p>
-
-<p>./vim 目录下解压vinmanager.zip</p>
-
-<p>配置</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	let g:winManagerWindowLayout='FileExplorer|TagList'
-	nmap wm :WMToggle&lt;cr&gt;
-
-	:help winmanager
-</code></pre>
-</div>
-
-<p>####Cscope
-下载</p>
-
-<p>http://cscope.sourceforge.net</p>
-
-<p>安装</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	$ ./configure
-	$ sudo apt-get install libncurses5-dev flex bison
-	$ make
-	$ sudo make install
-</code></pre>
-</div>
-
-<p>配置</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	:set cscopequickfix=s-,c-,d-,i-,t-,e-
-</code></pre>
-</div>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	$ cd ./src
-	$ cscope -Rbq
-	$ ll cscope.*
-	-rw-rw-r-- 1 wooin wooin 1.1M 2007-09-30 10:56 cscope.in.out
-	-rw-rw-r-- 1 wooin wooin 6.7M 2007-09-30 10:56 cscope.out
-	-rw-rw-r-- 1 wooin wooin 5.1M 2007-09-30 10:56 cscope.po.out
-
-	$ cd src
-	$ vim main.c
-
-	:cs add ./src/cscope.out ./src
-	:cs find g main	查找定义
-	:cs find c main 查找调用
-	:cw 打开quickfix
-	:cn	上一个结果
-	:cp 下一个结果
-
-	:help if_cscop.txt
-	:help quickfix
-</code></pre>
-</div>
-
-<p>####MiniBufExplorer
-下载</p>
-
-<p>http://www.vim.org/scripts/script.php?script_id=159</p>
-
-<p>安装</p>
-
-<p>minibufexpl.vim放到~/.vim/plugin中</p>
-
-<p>配置</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	let g:miniBufExplMapCTabSwitchBufs = 1
-	&lt; C-Tab&gt;	向前循环切换到每个buffer上,并在但前窗口打开
-	&lt; C-S-Tab&gt;	向后循环切换到每个buffer上,并在但前窗口打开
-
-	let g:miniBufExplMapWindowNavVim = 1
-	let g:miniBufExplMapWindowNavArrows = 1
-</code></pre>
-</div>
-
-<p>&lt; C-w,h j k l&gt;向”左,下,上,右”切换窗口.
-&lt; C-箭头键&gt;切换到上下左右窗口中去</p>
-
-<p>####A
-下载</p>
-
-<p>http://www.vim.org/scripts/script.php?script_id=31</p>
-
-<p>安装</p>
-
-<p>a.vim 放到 ~./vim/plugin中</p>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	:A	在新Buffer中切换到c/h文件
-	:AS	横向分割窗口并打开c/h文件
-	:AV	纵向分割窗口并打开c/h文件
-	:AT	新建一个标签页并打开c/h文件
-</code></pre>
-</div>
-
-<p>####Grep
-下载</p>
-
-<p>http://www.vim.org/scripts/script.php?script_id=311</p>
-
-<p>安装</p>
-
-<p>grep.vim 放到~/.vim/plugin中</p>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	Search for pattern: /&lt;FEAT_QUICKFIX/&gt;
-	Search in files:*.c *.h
-</code></pre>
-</div>
-
-<p>####VisualMark
-下载</p>
-
-<p>http://www.vim.org/scripts/script.php?script_id=1026</p>
-
-<p>安装</p>
-
-<p>visualmark.vim 放到~/.vim/plugin中</p>
-
-<p>使用</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>	mm
-	:help Mark
-</code></pre>
-</div>
-
-<hr />
-
-<p>##脚本部分语法</p>
-
-<p>####定义变量
-s局部变量,g全局变量,w窗口局部变量,b当前缓冲区</p>
+<p>模式介绍</p>
 
 <table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th>进入方式</th>
+      <th>用途</th>
+    </tr>
+  </thead>
   <tbody>
     <tr>
-      <td>let [b</td>
-      <td>s</td>
-      <td>g</td>
-      <td>w</td>
-      <td>g</td>
-      <td>v]:{var}={exp}</td>
+      <td>普通模式</td>
+      <td>启动默认；按 <code class="language-plaintext highlighter-rouge">Esc</code></td>
+      <td>移动、删除、复制、粘贴</td>
+    </tr>
+    <tr>
+      <td>插入模式</td>
+      <td><code class="language-plaintext highlighter-rouge">i</code> <code class="language-plaintext highlighter-rouge">I</code> <code class="language-plaintext highlighter-rouge">a</code> <code class="language-plaintext highlighter-rouge">A</code> <code class="language-plaintext highlighter-rouge">o</code> <code class="language-plaintext highlighter-rouge">O</code></td>
+      <td>输入文字</td>
+    </tr>
+    <tr>
+      <td>可视模式</td>
+      <td><code class="language-plaintext highlighter-rouge">v</code> <code class="language-plaintext highlighter-rouge">V</code> <code class="language-plaintext highlighter-rouge">Ctrl-v</code></td>
+      <td>选择文本块</td>
+    </tr>
+    <tr>
+      <td>命令模式</td>
+      <td><code class="language-plaintext highlighter-rouge">:</code> <code class="language-plaintext highlighter-rouge">/</code> <code class="language-plaintext highlighter-rouge">?</code></td>
+      <td>执行命令、搜索</td>
+    </tr>
+    <tr>
+      <td>替换模式</td>
+      <td><code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>覆盖输入</td>
+    </tr>
+    <tr>
+      <td>终端模式</td>
+      <td><code class="language-plaintext highlighter-rouge">:terminal</code></td>
+      <td>在 vim 内运行终端</td>
     </tr>
   </tbody>
 </table>
 
-<p>定义局部变量</p>
-
-<p>setlocal</p>
-
-<p>####删除变量</p>
-
-<p>unlet[!] {var}</p>
-
-<p>####显示</p>
-
-<p>echo</p>
-
-<p>####循环</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>while {condition}
-{exp}
-endwhile
-</code></pre>
-</div>
-
-<p>####条件</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>if{condition}
-{statements}
-endif
-</code></pre>
-</div>
-
-<p>####匹配字符串</p>
-
-<p>=~(!~)</p>
-
-<p>####变量</p>
-
-<p>$NAME	环境变量</p>
-
-<p>&amp;name	选项</p>
-
-<p>@r		寄存器</p>
-
-<p>####执行命令</p>
-
-<p>execute “”</p>
-
-<p>normal ““(execute “normal “.normal_commands)</p>
-
-<p>####计算表达式的值</p>
-
-<p>eval()</p>
-
-<p>####终止脚本</p>
-
-<p>finish</p>
-
-<p>####使用函数</p>
-
-<p>call fun(…)</p>
-
-<p>####常用函数</p>
-
-<p>####定义函数
-函数名大写字母开始，a:{var}调用函数参数,!重定义已存在函数</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>function{!} {name}({var},...) {range}
-...
-endfunction
-</code></pre>
-</div>
-
-<p>####删除函数
-delfunction {fun}</p>
-
-<p>####引用</p>
-
-<p>function(‘{fun}’)</p>
-
-<p>####列表</p>
-
-<p>let a=[’’,’’,’’]</p>
-
-<p>+</p>
-
-<p>call extend({var},{var})</p>
-
-<p>call add({var},’’)</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>for n in a
-...
-endfor
-</code></pre>
-</div>
-
-<p>####字典</p>
-
-<p>let a={‘’:’’,’’:’’,’’:’’}</p>
-
-<p>au{tocmd} [group] {event} {pat} {nested} {cmd}</p>
+<p>按 <code class="language-plaintext highlighter-rouge">Esc</code> 可从大多数模式回到普通模式。</p>
 
 <hr />
 
-<p>##内置脚本</p>
+<h1 id="启动与退出">启动与退出</h1>
 
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vim file</code></td>
+      <td>打开文件</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:w</code></td>
+      <td>保存</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:q</code></td>
+      <td>退出</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:wq</code></td>
+      <td>保存并退出</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:x</code></td>
+      <td>保存并退出（仅当有修改）</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:q!</code></td>
+      <td>强制退出不保存</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ZZ</code></td>
+      <td>保存并退出</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">ZQ</code></td>
+      <td>强制退出</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:e!</code></td>
+      <td>重新加载文件，放弃修改</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:saveas newfile</code></td>
+      <td>另存为</td>
+    </tr>
+  </tbody>
+</table>
 
-    </div>
+<hr />
 
-    <div class="sidenav">
-        <h2>Blog</h2>
-        <ul class="artical-list">
-        
-        </ul>
+<h1 id="移动光标">移动光标</h1>
 
-        <h2>Dump</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
-        
-            <li><a href="/Laplace">拉普拉斯分布</a></li>
-        
-            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
-        
-            <li><a href="/cpp_exception">C++异常</a></li>
-        
-            <li><a href="/cpp_const">C++ const的用法记录</a></li>
-        
-            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
-        
-            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
-        
-            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
-        
-            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
-        
-            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
-        
-            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
-        
-            <li><a href="/automake">automake安装与使用记录</a></li>
-        
-            <li><a href="/python-decorator">python@的用法记录</a></li>
-        
-            <li><a href="/python-design">python语言的设计记录</a></li>
-        
-            <li><a href="/Logistic">Logistic函数</a></li>
-        
-            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
-        
-            <li><a href="/VBA">Excel合并功能记录</a></li>
-        
-            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
-        
-            <li><a href="/move-average-method">移动平均法</a></li>
-        
-            <li><a href="/LineClassfier">线性分类器</a></li>
-        
-            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
-        
-            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
-        
-            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
-        
-            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
-        
-            <li><a href="/algorithm_complexity">算法复杂度</a></li>
-        
-            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
-        
-            <li><a href="/cmake">cmake</a></li>
-        
-        </ul>
+<h2 id="基本移动">基本移动</h2>
 
-        <h2>Project</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/go">围棋</a></li>
-        
-            <li><a href="/test">前端绘图测试</a></li>
-        
-        </ul>
-    </div>
+<table>
+  <thead>
+    <tr>
+      <th>按键</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">h</code> <code class="language-plaintext highlighter-rouge">j</code> <code class="language-plaintext highlighter-rouge">k</code> <code class="language-plaintext highlighter-rouge">l</code></td>
+      <td>左、下、上、右</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">w</code> / <code class="language-plaintext highlighter-rouge">W</code></td>
+      <td>下一个单词 / 下一个以空格分隔的单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">b</code> / <code class="language-plaintext highlighter-rouge">B</code></td>
+      <td>上一个单词 / 上一个以空格分隔的单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e</code> / <code class="language-plaintext highlighter-rouge">E</code></td>
+      <td>单词末尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">0</code></td>
+      <td>行首</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">^</code></td>
+      <td>行首第一个非空字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">$</code></td>
+      <td>行尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gg</code></td>
+      <td>文件开头</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">G</code></td>
+      <td>文件末尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:n</code></td>
+      <td>跳到第 n 行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nG</code></td>
+      <td>跳到第 n 行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-f</code></td>
+      <td>下一页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-b</code></td>
+      <td>上一页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-d</code></td>
+      <td>下半页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-u</code></td>
+      <td>上半页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">H</code> <code class="language-plaintext highlighter-rouge">M</code> <code class="language-plaintext highlighter-rouge">L</code></td>
+      <td>屏幕高、中、低</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">{</code> <code class="language-plaintext highlighter-rouge">}</code></td>
+      <td>上一段、下一段</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">%</code></td>
+      <td>匹配括号</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">f{char}</code></td>
+      <td>行内向右查找字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">F{char}</code></td>
+      <td>行内向左查找字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">t{char}</code></td>
+      <td>向右直到字符前</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">T{char}</code></td>
+      <td>向左直到字符前</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">;</code></td>
+      <td>重复上次 f/F/t/T</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">,</code></td>
+      <td>反向重复上次 f/F/t/T</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="搜索跳转">搜索跳转</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">/pattern</code></td>
+      <td>向下搜索</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">?pattern</code></td>
+      <td>向上搜索</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">n</code></td>
+      <td>下一个匹配</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>上一个匹配</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">*</code></td>
+      <td>向下搜索光标下单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">#</code></td>
+      <td>向上搜索光标下单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:noh</code></td>
+      <td>取消搜索高亮</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set hlsearch</code></td>
+      <td>开启搜索高亮</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set incsearch</code></td>
+      <td>增量搜索</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set ignorecase</code></td>
+      <td>忽略大小写</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set smartcase</code></td>
+      <td>智能大小写</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="跳转与标记">跳转与标记</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-o</code></td>
+      <td>跳回上一个位置</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-i</code></td>
+      <td>跳到下一个位置</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">''</code></td>
+      <td>跳回上次跳转位置</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">m{a-z}</code></td>
+      <td>设置标记</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">'{a-z}</code></td>
+      <td>跳转到标记</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gd</code></td>
+      <td>跳到局部定义</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gD</code></td>
+      <td>跳到全局定义</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-]</code></td>
+      <td>跳转到标签</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-t</code></td>
+      <td>返回标签</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">[[</code> <code class="language-plaintext highlighter-rouge">]]</code></td>
+      <td>函数开头、结尾</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="编辑与修改">编辑与修改</h1>
+
+<h2 id="插入">插入</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">i</code></td>
+      <td>光标前插入</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">I</code></td>
+      <td>行首插入</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">a</code></td>
+      <td>光标后插入</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">A</code></td>
+      <td>行尾插入</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">o</code></td>
+      <td>下方新行插入</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">O</code></td>
+      <td>上方新行插入</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="删除">删除</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">x</code></td>
+      <td>删除光标处字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">X</code></td>
+      <td>删除光标前字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dd</code></td>
+      <td>删除整行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dw</code></td>
+      <td>删除一个单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d$</code> / <code class="language-plaintext highlighter-rouge">D</code></td>
+      <td>删除到行尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d0</code></td>
+      <td>删除到行首</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dgg</code></td>
+      <td>删除到文件开头</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dG</code></td>
+      <td>删除到文件末尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:g/pattern/d</code></td>
+      <td>删除匹配行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:v/pattern/d</code></td>
+      <td>删除不匹配行</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="修改">修改</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">r</code></td>
+      <td>替换一个字符</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">R</code></td>
+      <td>进入替换模式</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cc</code></td>
+      <td>修改整行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">cw</code></td>
+      <td>修改一个单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">c$</code> / <code class="language-plaintext highlighter-rouge">C</code></td>
+      <td>修改到行尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">~</code></td>
+      <td>切换大小写</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">J</code></td>
+      <td>合并下一行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>撤销</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-r</code></td>
+      <td>重做</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">.</code></td>
+      <td>重复上次操作</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="复制粘贴">复制粘贴</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yy</code></td>
+      <td>复制整行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">yw</code></td>
+      <td>复制一个单词</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">y$</code></td>
+      <td>复制到行尾</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>粘贴到光标后</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">P</code></td>
+      <td>粘贴到光标前</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">dd</code></td>
+      <td>剪切整行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"+y</code></td>
+      <td>复制到系统剪贴板</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"+p</code></td>
+      <td>从系统剪贴板粘贴</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="缩进">缩进</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;&gt;</code></td>
+      <td>当前行右缩进</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;&lt;</code></td>
+      <td>当前行左缩进</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code></td>
+      <td>可视模式右缩进</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>可视模式左缩进</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gg=G</code></td>
+      <td>全文自动缩进</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">=</code></td>
+      <td>可视模式自动缩进</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="可视模式">可视模式</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">v</code></td>
+      <td>字符可视模式</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">V</code></td>
+      <td>行可视模式</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-v</code></td>
+      <td>块可视模式</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">o</code></td>
+      <td>切换选择端点</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">d</code> / <code class="language-plaintext highlighter-rouge">y</code> / <code class="language-plaintext highlighter-rouge">c</code></td>
+      <td>删除 / 复制 / 修改选中</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">&gt;</code> / <code class="language-plaintext highlighter-rouge">&lt;</code></td>
+      <td>缩进选中</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">U</code> / <code class="language-plaintext highlighter-rouge">u</code></td>
+      <td>选中转大写 / 小写</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:sort</code></td>
+      <td>排序选中行</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="搜索与替换">搜索与替换</h1>
+
+<h2 id="基本替换">基本替换</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:s/old/new/</code></td>
+      <td>当前行替换第一个</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:s/old/new/g</code></td>
+      <td>当前行全部替换</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:%s/old/new/g</code></td>
+      <td>全文替换</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:%s/old/new/gc</code></td>
+      <td>全文替换并确认</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:n,m s/old/new/g</code></td>
+      <td>第 n 到 m 行替换</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:.,$s/old/new/g</code></td>
+      <td>当前行到文件末尾替换</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:%s/old/new/gi</code></td>
+      <td>忽略大小写替换</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="常用替换示例">常用替换示例</h2>
+
+<p>所有 <code class="language-plaintext highlighter-rouge">{</code> 后面添加换行和空格：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/{/</span><span class="p">{</span>\<span class="k">r</span> /<span class="k">g</span>
+</code></pre></div></div>
+
+<p>所有 <code class="language-plaintext highlighter-rouge">}</code> 前后添加换行：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/}/</span>\<span class="k">r</span><span class="p">}</span>\<span class="k">r</span> /<span class="k">g</span>
+</code></pre></div></div>
+
+<p>删除行尾空格：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/\s\+$/</span>/<span class="k">e</span>
+</code></pre></div></div>
+
+<p>删除空行：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span><span class="k">g</span><span class="sr">/^$/</span><span class="k">d</span>
+</code></pre></div></div>
+
+<p>统计匹配次数：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/pattern/</span>/gn
+</code></pre></div></div>
+
+<hr />
+
+<h1 id="分屏与标签">分屏与标签</h1>
+
+<h2 id="分屏">分屏</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:sp file</code></td>
+      <td>水平分屏</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:vsp file</code></td>
+      <td>垂直分屏</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w h/j/k/l</code></td>
+      <td>切换到左/下/上/右窗口</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w w</code></td>
+      <td>循环切换窗口</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w =</code></td>
+      <td>所有窗口等宽等高</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w _</code></td>
+      <td>最大化当前窗口高度</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w \|</code></td>
+      <td>最大化当前窗口宽度</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:close</code></td>
+      <td>关闭当前窗口</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:only</code></td>
+      <td>只保留当前窗口</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="标签页">标签页</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabnew</code></td>
+      <td>新建标签页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabnew file</code></td>
+      <td>在新标签页打开文件</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gt</code></td>
+      <td>下一个标签页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gT</code></td>
+      <td>上一个标签页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabclose</code></td>
+      <td>关闭当前标签页</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:tabonly</code></td>
+      <td>只保留当前标签页</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="寄存器与宏">寄存器与宏</h1>
+
+<h2 id="寄存器">寄存器</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"a</code></td>
+      <td>使用寄存器 a</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"+</code></td>
+      <td>系统剪贴板</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"*</code></td>
+      <td>系统选择缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:reg</code></td>
+      <td>查看所有寄存器</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">"0p</code></td>
+      <td>粘贴最近复制的内容</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="宏">宏</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">qa</code></td>
+      <td>开始录制宏到寄存器 a</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">q</code></td>
+      <td>停止录制</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@a</code></td>
+      <td>播放宏 a</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">@@</code></td>
+      <td>重复上次播放的宏</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">5@a</code></td>
+      <td>播放宏 a 五次</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="折叠">折叠</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zf</code></td>
+      <td>创建折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zo</code></td>
+      <td>打开折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zc</code></td>
+      <td>关闭折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">za</code></td>
+      <td>切换折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zR</code></td>
+      <td>打开所有折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">zM</code></td>
+      <td>关闭所有折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set foldenable</code></td>
+      <td>启用折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set foldmethod=indent</code></td>
+      <td>按缩进折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set foldmethod=syntax</code></td>
+      <td>按语法折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set foldmethod=marker</code></td>
+      <td>按标记折叠</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:set foldlevel=99</code></td>
+      <td>设置折叠层级</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="文件与缓冲区">文件与缓冲区</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:e file</code></td>
+      <td>打开文件</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:ls</code></td>
+      <td>列出缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:bnext</code> / <code class="language-plaintext highlighter-rouge">:bn</code></td>
+      <td>下一个缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:bprev</code> / <code class="language-plaintext highlighter-rouge">:bp</code></td>
+      <td>上一个缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:bd</code></td>
+      <td>关闭缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:b file</code></td>
+      <td>切换到指定缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:r file</code></td>
+      <td>读入文件内容到当前缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">:w !sudo tee %</code></td>
+      <td>用 sudo 保存当前文件</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="配置文件-vimrc">配置文件 <code class="language-plaintext highlighter-rouge">.vimrc</code></h1>
+
+<p>下面是一份较完整的 <code class="language-plaintext highlighter-rouge">.vimrc</code> 示例，可按需删减。</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" ===== 编码 =====</span>
+<span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>
+<span class="k">set</span> <span class="nb">fileencodings</span><span class="p">=</span>utf<span class="m">-8</span><span class="p">,</span>ucs<span class="p">-</span>bom<span class="p">,</span>gb18030<span class="p">,</span>gbk<span class="p">,</span>gb2312<span class="p">,</span>cp936
+
+<span class="c">" ===== 文件类型检测 =====</span>
+<span class="k">filetype</span> <span class="k">on</span>
+<span class="k">filetype</span> <span class="nb">indent</span> <span class="k">on</span>
+<span class="k">filetype</span> plugin <span class="k">on</span>
+<span class="k">filetype</span> plugin <span class="nb">indent</span> <span class="k">on</span>
+
+<span class="c">" ===== 显示 =====</span>
+<span class="k">set</span> <span class="k">number</span>                  " 显示行号
+<span class="k">set</span> <span class="nb">relativenumber</span>          " 显示相对行号
+<span class="k">set</span> <span class="nb">ruler</span>                   " 显示标尺
+<span class="k">set</span> <span class="nb">cursorline</span>              " 高亮当前行
+<span class="k">set</span> <span class="nb">showcmd</span>                 " 显示命令
+<span class="k">set</span> <span class="nb">showmatch</span>               " 匹配括号
+<span class="k">set</span> <span class="nb">laststatus</span><span class="p">=</span><span class="m">2</span>            " 总是显示状态栏
+<span class="k">set</span> <span class="nb">scrolloff</span><span class="p">=</span><span class="m">5</span>             " 光标距离顶部/底部保留 <span class="m">5</span> 行
+<span class="k">set</span> <span class="nb">wildmenu</span>                " 命令行补全菜单
+
+<span class="c">" ===== 缩进 =====</span>
+<span class="k">set</span> <span class="nb">tabstop</span><span class="p">=</span><span class="m">2</span>               " Tab 显示为 <span class="m">2</span> 个空格
+<span class="k">set</span> <span class="nb">shiftwidth</span><span class="p">=</span><span class="m">2</span>            " 自动缩进 <span class="m">2</span> 个空格
+<span class="k">set</span> <span class="nb">expandtab</span>               " Tab 转空格
+<span class="k">set</span> <span class="nb">autoindent</span>              " 自动缩进
+<span class="k">set</span> <span class="nb">smartindent</span>             " 智能缩进
+
+<span class="c">" ===== 搜索 =====</span>
+<span class="k">set</span> <span class="nb">hlsearch</span>                " 高亮搜索
+<span class="k">set</span> <span class="nb">incsearch</span>               " 增量搜索
+<span class="k">set</span> <span class="nb">ignorecase</span>              " 忽略大小写
+<span class="k">set</span> <span class="nb">smartcase</span>               " 智能大小写
+
+<span class="c">" ===== 编辑 =====</span>
+<span class="k">set</span> <span class="nb">backspace</span><span class="p">=</span><span class="nb">indent</span><span class="p">,</span><span class="nb">eol</span><span class="p">,</span>start
+<span class="k">set</span> <span class="nb">mouse</span><span class="p">=</span><span class="k">a</span>                 " 启用鼠标
+<span class="k">set</span> <span class="nb">clipboard</span><span class="p">=</span>unnamed       " 共享系统剪贴板，Linux 可用 unnamedplus
+<span class="k">set</span> <span class="nb">backup</span>                  " 启用备份
+<span class="k">set</span> <span class="nb">backupext</span><span class="p">=~</span>             " 备份后缀
+<span class="k">set</span> <span class="nb">backupdir</span><span class="p">=~</span><span class="sr">/.vim/</span><span class="nb">backup</span><span class="sr">//</span>
+<span class="k">set</span> <span class="nb">directory</span><span class="p">=~</span><span class="sr">/.vim/</span>swap<span class="sr">//</span>
+<span class="k">set</span> <span class="nb">undofile</span>                " 持久化撤销
+<span class="k">set</span> <span class="nb">undodir</span><span class="p">=~</span><span class="sr">/.vim/</span><span class="k">undo</span><span class="sr">//</span>
+
+<span class="c">" ===== 折叠 =====</span>
+<span class="k">set</span> <span class="nb">foldenable</span>
+<span class="k">set</span> <span class="nb">foldmethod</span><span class="p">=</span><span class="nb">indent</span>
+<span class="k">set</span> <span class="nb">foldlevel</span><span class="p">=</span><span class="m">99</span>
+
+<span class="c">" ===== 映射 =====</span>
+inoremap jk <span class="p">&lt;</span>Esc<span class="p">&gt;</span>           " 插入模式快速退出
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">w</span> <span class="p">:</span><span class="k">w</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>   " 保存
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">q</span> <span class="p">:</span><span class="k">q</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>   " 退出
+nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">h</span> <span class="p">:</span><span class="k">noh</span><span class="p">&lt;</span>CR<span class="p">&gt;</span> " 取消搜索高亮
+</code></pre></div></div>
+
+<p>常用设置说明：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>设置</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set number</code></td>
+      <td>显示绝对行号</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set relativenumber</code></td>
+      <td>显示相对行号，方便跳转</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set cursorline</code></td>
+      <td>高亮当前行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set expandtab</code></td>
+      <td>Tab 转空格</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set tabstop=2</code></td>
+      <td>Tab 宽度</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set shiftwidth=2</code></td>
+      <td>自动缩进宽度</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set hlsearch</code></td>
+      <td>搜索高亮</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set incsearch</code></td>
+      <td>边输入边搜索</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set ignorecase</code></td>
+      <td>忽略大小写</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set smartcase</code></td>
+      <td>有大写时区分大小写</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set clipboard=unnamed</code></td>
+      <td>使用系统剪贴板</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">set foldmethod=indent</code></td>
+      <td>按缩进折叠</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="插件管理">插件管理</h1>
+
+<p>最简单的插件管理器是 <code class="language-plaintext highlighter-rouge">vim-plug</code>。</p>
+
+<p>安装：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fLo</span> ~/.vim/autoload/plug.vim <span class="nt">--create-dirs</span> <span class="se">\</span>
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+</code></pre></div></div>
+
+<p>在 <code class="language-plaintext highlighter-rouge">.vimrc</code> 中添加：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'~/.vim/plugged'</span><span class="p">)</span>
+
+Plug <span class="s1">'preservim/nerdtree'</span>           " 文件树
+Plug <span class="s1">'tpope/vim-commentary'</span>         " 快速注释
+Plug <span class="s1">'junegunn/fzf'</span><span class="p">,</span> <span class="p">{</span> <span class="s1">'do'</span><span class="p">:</span> <span class="p">{</span> <span class="p">-&gt;</span> fzf#install<span class="p">()</span> <span class="p">}</span> <span class="p">}</span>
+Plug <span class="s1">'junegunn/fzf.vim'</span>             " 模糊搜索
+Plug <span class="s1">'ycm-core/YouCompleteMe'</span>       " 自动补全
+
+<span class="k">call</span> plug#end<span class="p">()</span>
+</code></pre></div></div>
+
+<p>然后在 vim 中执行：</p>
+
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>PlugInstall
+</code></pre></div></div>
+
+<p>常用插件：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>插件</th>
+      <th>作用</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">nerdtree</code></td>
+      <td>文件树</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vim-commentary</code></td>
+      <td><code class="language-plaintext highlighter-rouge">gcc</code> 注释当前行</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">fzf.vim</code></td>
+      <td>模糊搜索文件、缓冲区</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">YouCompleteMe</code></td>
+      <td>代码补全</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">vim-airline</code></td>
+      <td>状态栏美化</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">gruvbox</code></td>
+      <td>配色主题</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="常用技巧">常用技巧</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>技巧</th>
+      <th>命令</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>快速注释当前行</td>
+      <td><code class="language-plaintext highlighter-rouge">gcc</code>（需 vim-commentary）</td>
+    </tr>
+    <tr>
+      <td>注释选中行</td>
+      <td><code class="language-plaintext highlighter-rouge">gc</code></td>
+    </tr>
+    <tr>
+      <td>多文件搜索</td>
+      <td><code class="language-plaintext highlighter-rouge">:vimgrep /pattern/ **/*.c</code></td>
+    </tr>
+    <tr>
+      <td>打开搜索结果</td>
+      <td><code class="language-plaintext highlighter-rouge">:copen</code></td>
+    </tr>
+    <tr>
+      <td>删除空行</td>
+      <td><code class="language-plaintext highlighter-rouge">:g/^$/d</code></td>
+    </tr>
+    <tr>
+      <td>删除行尾空格</td>
+      <td><code class="language-plaintext highlighter-rouge">:%s/\s\+$//e</code></td>
+    </tr>
+    <tr>
+      <td>全文排序</td>
+      <td><code class="language-plaintext highlighter-rouge">:%sort</code></td>
+    </tr>
+    <tr>
+      <td>统计匹配次数</td>
+      <td><code class="language-plaintext highlighter-rouge">:%s/pattern//gn</code></td>
+    </tr>
+    <tr>
+      <td>粘贴模式</td>
+      <td><code class="language-plaintext highlighter-rouge">:set paste</code>，粘贴后 <code class="language-plaintext highlighter-rouge">:set nopaste</code></td>
+    </tr>
+    <tr>
+      <td>查看不可见字符</td>
+      <td><code class="language-plaintext highlighter-rouge">:set list</code></td>
+    </tr>
+    <tr>
+      <td>用 sudo 保存</td>
+      <td><code class="language-plaintext highlighter-rouge">:w !sudo tee %</code></td>
+    </tr>
+    <tr>
+      <td>快速跳转到文件</td>
+      <td><code class="language-plaintext highlighter-rouge">:e **/filename</code></td>
+    </tr>
+    <tr>
+      <td>重复上次替换</td>
+      <td><code class="language-plaintext highlighter-rouge">:&amp;</code></td>
+    </tr>
+    <tr>
+      <td>在当前行执行上次替换</td>
+      <td><code class="language-plaintext highlighter-rouge">:&amp;&amp;</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="命令速查表">命令速查表</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>类别</th>
+      <th>命令</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>退出</td>
+      <td><code class="language-plaintext highlighter-rouge">:wq</code></td>
+      <td>保存退出</td>
+    </tr>
+    <tr>
+      <td>退出</td>
+      <td><code class="language-plaintext highlighter-rouge">:q!</code></td>
+      <td>强制退出</td>
+    </tr>
+    <tr>
+      <td>移动</td>
+      <td><code class="language-plaintext highlighter-rouge">gg</code> / <code class="language-plaintext highlighter-rouge">G</code></td>
+      <td>文件头 / 文件尾</td>
+    </tr>
+    <tr>
+      <td>移动</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-f</code> / <code class="language-plaintext highlighter-rouge">Ctrl-b</code></td>
+      <td>下一页 / 上一页</td>
+    </tr>
+    <tr>
+      <td>编辑</td>
+      <td><code class="language-plaintext highlighter-rouge">dd</code></td>
+      <td>删除行</td>
+    </tr>
+    <tr>
+      <td>编辑</td>
+      <td><code class="language-plaintext highlighter-rouge">yy</code></td>
+      <td>复制行</td>
+    </tr>
+    <tr>
+      <td>编辑</td>
+      <td><code class="language-plaintext highlighter-rouge">p</code></td>
+      <td>粘贴</td>
+    </tr>
+    <tr>
+      <td>编辑</td>
+      <td><code class="language-plaintext highlighter-rouge">u</code> / <code class="language-plaintext highlighter-rouge">Ctrl-r</code></td>
+      <td>撤销 / 重做</td>
+    </tr>
+    <tr>
+      <td>搜索</td>
+      <td><code class="language-plaintext highlighter-rouge">/pattern</code></td>
+      <td>向下搜索</td>
+    </tr>
+    <tr>
+      <td>搜索</td>
+      <td><code class="language-plaintext highlighter-rouge">n</code> / <code class="language-plaintext highlighter-rouge">N</code></td>
+      <td>下一个 / 上一个</td>
+    </tr>
+    <tr>
+      <td>替换</td>
+      <td><code class="language-plaintext highlighter-rouge">:%s/a/b/g</code></td>
+      <td>全文替换</td>
+    </tr>
+    <tr>
+      <td>替换</td>
+      <td><code class="language-plaintext highlighter-rouge">:%s/a/b/gc</code></td>
+      <td>全文替换并确认</td>
+    </tr>
+    <tr>
+      <td>分屏</td>
+      <td><code class="language-plaintext highlighter-rouge">:sp</code> / <code class="language-plaintext highlighter-rouge">:vsp</code></td>
+      <td>水平 / 垂直分屏</td>
+    </tr>
+    <tr>
+      <td>分屏</td>
+      <td><code class="language-plaintext highlighter-rouge">Ctrl-w h/j/k/l</code></td>
+      <td>窗口切换</td>
+    </tr>
+    <tr>
+      <td>标签</td>
+      <td><code class="language-plaintext highlighter-rouge">:tabnew</code></td>
+      <td>新建标签</td>
+    </tr>
+    <tr>
+      <td>标签</td>
+      <td><code class="language-plaintext highlighter-rouge">gt</code> / <code class="language-plaintext highlighter-rouge">gT</code></td>
+      <td>下一个 / 上一个标签</td>
+    </tr>
+    <tr>
+      <td>宏</td>
+      <td><code class="language-plaintext highlighter-rouge">qa</code> / <code class="language-plaintext highlighter-rouge">@a</code></td>
+      <td>录制 / 播放宏</td>
+    </tr>
+    <tr>
+      <td>折叠</td>
+      <td><code class="language-plaintext highlighter-rouge">za</code> / <code class="language-plaintext highlighter-rouge">zR</code> / <code class="language-plaintext highlighter-rouge">zM</code></td>
+      <td>切换 / 打开全部 / 关闭全部</td>
+    </tr>
+    <tr>
+      <td>配置</td>
+      <td><code class="language-plaintext highlighter-rouge">:set number</code></td>
+      <td>显示行号</td>
+    </tr>
+    <tr>
+      <td>配置</td>
+      <td><code class="language-plaintext highlighter-rouge">:set relativenumber</code></td>
+      <td>相对行号</td>
+    </tr>
+    <tr>
+      <td>配置</td>
+      <td><code class="language-plaintext highlighter-rouge">:set hlsearch</code></td>
+      <td>搜索高亮</td>
+    </tr>
+    <tr>
+      <td>配置</td>
+      <td><code class="language-plaintext highlighter-rouge">:set ignorecase</code></td>
+      <td>忽略大小写</td>
+    </tr>
+    <tr>
+      <td>配置</td>
+      <td><code class="language-plaintext highlighter-rouge">:set expandtab</code></td>
+      <td>Tab 转空格</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h1 id="总结">总结</h1>
+
+<p>vim 的学习曲线较陡，但多用自然就会熟练，掌握常用命令后编辑效率会显著提升。先从移动、编辑、搜索替换、保存退出开始，逐步加入分屏、宏、寄存器、插件和自定义配置。把常用的 <code class="language-plaintext highlighter-rouge">.vimrc</code> 配置保存下来，换机器时直接复用即可。</p>
+
+</div>
 </div>
 
-<script src="/js/post.js" type="text/javascript"></script>
+
 
 
 </body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
 </html>
+
