@@ -15,10 +15,4 @@
     </div>
 </header>
 
-<script>
-    var lines = {{ site.data.flash_of_insight | jsonify }};
-    if (lines && lines.length) {
-        var line = lines[Math.floor(Math.random() * lines.length)];
-        document.getElementById('random-line').textContent = line["content"];
-    }
-</script>
+<script src="{{ '/js/random-line.js' | relative_url }}"></script>
