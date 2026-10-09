@@ -10,11 +10,7 @@ layout:           home
     <div class="entry-date">{{ page.date|date:"%Y-%m-%d" }}</div>
     {{ content }}
 
-    {% if page.ai_assisted != false %}
-    <div class="ai-notice">
-        本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
-    </div>
-    {% endif %}
+    {% include ai-notice.html %}
 </div>
 </div>
 
