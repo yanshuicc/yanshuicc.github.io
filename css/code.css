@@ -1,41 +1,147 @@
-/* 代码块样式
+/* ===== 行内代码 ===== */
 code {
-    background: #eee;
-    border: 1px solid #ccc;
-    padding: 0 5px;
-    font-family: "Courier";
-    line-height: 14px;
-    font-size: 14px;
+    background: #F0F0F0;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-family: "Courier", "Consolas", "Menlo", monospace;
+    font-size: 0.9em;            /* 相对字号，跟随正文缩放 */
+    color: #B8894A;
     word-wrap: break-word;
 }
 
-pre {
-    background-color: #000;
-    padding: 15px;
-    overflow: auto;
-    margin-bottom: 40px;
-    font-size: 14px;
-    border: 1px solid #eee;
-    -webkit-border-radius: 4px 4px 4px 4px;
-    -moz-border-radius: 4px 4px 4px 4px;
-    border-radius: 4px 4px 4px 4px;
-    color: #b9bdb6;
-    margin-top: 20px;
-}
-h4+pre,
-h3+pre {
-    margin-top: 20px;
+/* ===== 代码块容器 ===== */
+/* Jekyll 的 {% highlight %} 会生成 <div class="highlight">，作为定位锚点 */
+div.highlight {
+    position: relative;
+    margin: 0 0 30px;
+    border: 1px solid #E5E5E5;
+    border-radius: 4px;
+    background: #F7F7F7;
+    overflow: hidden;            /* 让圆角裁掉内部溢出 */
 }
 
+/* ===== 代码块本身 ===== */
+pre {
+    margin: 0;
+    padding: 8px 8px;
+    background: #F7F7F7;
+    border: none;
+    border-radius: 0;
+    overflow: auto;
+    font-size: 13px;
+    line-height: 1.65;
+    color: #3A3A38;
+    white-space: pre;
+    tab-size: 4;                 /* Tab 宽度 */
+    -moz-tab-size: 4;
+}
+
+/* ===== 代码块里的 code ===== */
 pre code {
-    background-color: transparent;
+    display: block;
+    background: transparent;
     border: none;
     padding: 0;
+    color: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
     word-wrap: normal;
+    white-space: pre;
 }
 
-pre ol {
-    margin-left: 25px;
-    list-style-type: decimal;
+pre.highlight {
+    padding: 0;
 }
- */
+
+/* ===== 行号（Rouge linenos 生成的表格） ===== */
+pre .lineno,
+table.rouge-table .lineno {
+    padding: 10px 10px;
+    color: #B5AF9F;
+    text-align: right;
+    user-select: none;           /* 复制时行号不被选中 */
+    -webkit-user-select: none;
+}
+
+/* Rouge 用表格布局实现行号，去掉表格默认边框 */
+table.rouge-table {
+    width: 100%;
+    margin: 0;
+    border: none;
+    border-collapse: collapse;
+    background: transparent;
+}
+
+table.rouge-table td {
+    padding: 0;
+    border: none;
+    vertical-align: top;
+    background: transparent;
+}
+
+table.rouge-table td.rouge-gutter {
+    width: 1%;
+    white-space: nowrap;
+    border-right: 1px solid #E5E5E5;
+    background: #F0F0F0;         /* 行号列单独浅灰底 */
+}
+
+
+/* ===== 滚动条美化（WebKit） ===== */
+pre::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+}
+
+pre::-webkit-scrollbar-thumb {
+    background: #D5D5D5;
+    border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: #B8894A;
+}
+
+pre::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* ===== 复制按钮（配合 clipboard.js） ===== */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 3px 10px;
+    font-size: 12px;
+    color: #7A7A76;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    z-index: 2;
+}
+
+div.highlight:hover .copy-btn {
+    opacity: 1;
+}
+
+.copy-btn:hover {
+    color: #B8894A;
+    border-color: #B8894A;
+}
+
+/* ===== 代码块紧跟标题时压缩间距 ===== */
+h2 + div.highlight,
+h3 + div.highlight,
+h4 + div.highlight {
+    margin-top: 16px;
+}
+
+/* ===== 段落后面紧跟代码块 ===== */
+p + div.highlight {
+    margin-top: -10px;
+}

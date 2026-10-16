@@ -144,6 +144,18 @@
     text-indent: 0;
 }
 
+/* ===== AI 协助声明 ===== */
+.ai-notice {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px dashed #E5E5E5;
+    font-size: 12px;
+    color: #B5AF9F;
+    line-height: 1.6;
+    text-align: right;
+    letter-spacing: 0.3px;
+}
+
 /* ---------- 引用块 ---------- */
 .entry blockquote {
     margin: 1em 0 1em 1em;
