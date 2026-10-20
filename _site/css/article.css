@@ -1,0 +1,288 @@
+/* ============================================================
+   article.css — 文章正文样式
+   结构：变量 → 布局 → 标题 → 正文 → 列表 → 媒体 → 响应式
+   ============================================================ */
+
+/* ---------- 设计变量 ---------- */
+:root {
+    --page-max: 1060px;
+    --bg-card: #FAFAFA;
+    --border: #E5E5E5;
+    --text-main: #000;
+    --text-muted: #999;
+    --text-quote: #555;
+    --radius: 4px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* ---------- 居中内容块 ---------- */
+#content {
+    width: var(--page-max);
+    max-width: calc(100% - 32px);
+    margin: 40px auto 60px;
+    min-height: 400px;
+}
+
+/*************************文章字体设置***************************
+    中文字号	磅值（pt）	像素（px，约）
+    初号	    42	        36
+    小初	    36	        28
+    一号	    26	        24.7 ≈ 35
+    小一	    24	        22
+    二号	    22	        29.3 ≈ 29
+    小二	    18	        24
+    三号	    16	        21.3 ≈ 21
+    小三	    15	        20
+    四号	    14	        18.7 ≈ 19
+    小四	    12	        16
+    五号	    10.5	    14
+    小五	    9	        12
+    六号	    7.5	        10
+    小六	    6.5	        8.7 ≈ 9
+    七号	    5.5	        7.3 ≈ 7
+    八号	    5	        6.7 ≈ 7
+*************************************************************/
+
+/* 文章正文整体：宋体小四号 + Times New Roman，
+ * 两端对齐书写，段落首行左缩进两个汉字符。
+ * 段前段后0磅，1.25倍行距（段落中有数学表达式时，可根据表达需要设置该段的行距） 
+ */
+/* ---------- 文章卡片 ---------- */
+.entry {
+    background: var(--bg-card);
+    padding: 40px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    min-width: 0;
+    counter-reset: h1;          /* 编号作用域限定在文章内 */
+}
+
+/**
+ * 章标题/一级标题 黑体四号加粗居中（英文和阿拉伯数字用Times New Roman体）
+ */
+.entry-title,
+.entry-title a {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--text-main);
+    text-align: center;
+    line-height: 1.5;
+    margin: 24pt 0 10pt;
+    text-decoration: none;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.entry-date {
+    text-align: center;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* ---------- 正文标题层级 ----------
+   修正原写法 `.entry h1,h2,h3` 的全局污染：
+   h2/h3 原本不限定在 .entry 内，会影响整站。
+   同时给 h1/h2/h3 建立清晰层级，避免移动端 h2 反而比 h1 大。
+------------------------------------------------ */
+.entry h1,
+.entry h2,
+.entry h3 {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
+    font-weight: bold;
+    color: var(--text-main);
+    text-align: left;
+    line-height: 1.5;
+    page-break-after: avoid;
+    break-after: avoid;
+}
+
+.entry h1 { font-size: 18px; margin: 16pt 0 8pt; counter-reset: h2; }
+.entry h2 { font-size: 17px; margin: 14pt 0 7pt; counter-reset: h3; }
+.entry h3 { font-size: 16px; margin: 12pt 0 6pt; counter-reset: h4; }
+
+/* ---------- 正文段落 ---------- */
+.entry p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--text-main);
+    text-indent: 2em;
+    text-align: left;
+    line-height: 1.8;
+}
+
+.entry em { font-style: italic; }
+
+/* ---------- 列表 ---------- */
+.entry ul {
+    margin-left: 3em;
+    line-height: 1.8em;
+}
+
+.entry ul li {
+    list-style: disc;
+    line-height: 1.8em;
+}
+
+.entry ol {
+    padding-left: 3em;
+    line-height: 1.8em;
+}
+
+.entry ol li {
+    margin-bottom: 5px;
+    list-style: decimal;
+    line-height: 1.8em;
+}
+
+.entry ol li > p {
+    margin: 0;
+    line-height: 1.8em;
+    text-indent: 0;
+}
+
+/* ===== AI 协助声明 ===== */
+.ai-notice {
+    margin-top: 60px;
+    padding-top: 16px;
+    border-top: 1px dashed #E5E5E5;
+    font-size: 12px;
+    color: #B5AF9F;
+    line-height: 1.6;
+    text-align: right;
+    letter-spacing: 0.3px;
+}
+
+/* ---------- 引用块 ---------- */
+.entry blockquote {
+    margin: 1em 0 1em 1em;
+    padding-left: 12px;
+    border-left: 3px solid var(--border);
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-quote);
+}
+
+.entry blockquote p {
+    text-indent: 0;        /* 只让引用块里的 p 不缩进 */
+}
+
+/* ---------- 图片 ---------- */
+.entry img {
+    max-width: 670px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 10px auto;
+}
+
+/* ---------- 小标题自动编号 ---------- */
+.entry h1::before {
+    counter-increment: h1;
+    content: counter(h1) ". ";
+}
+
+.entry h2::before {
+    counter-increment: h2;
+    content: counter(h1) "." counter(h2) " ";
+}
+
+.entry h3::before {
+    counter-increment: h3;
+    content: counter(h1) "." counter(h2) "." counter(h3) " ";
+}
+
+/* ---------- 响应式：平板 ---------- */
+@media (max-width: 1020px) {
+    #content {
+        width: auto;
+        max-width: 85%;
+        margin: 100px auto 50px;
+    }
+    .entry {
+        background: transparent;
+        padding: 0;
+        border: none;
+        box-shadow: none;
+    }
+}
+
+/* ---------- 响应式：手机 ---------- */
+@media (max-width: 750px) {
+    body { font-size: 14px; }
+
+    #content {
+        width: auto;
+        max-width: 100%;
+        padding: 0 16px;
+        margin: 80px auto 40px;
+        box-sizing: border-box;
+    }
+
+    .entry-title,
+    .entry-title a { font-size: 22px; }
+
+    .entry-date { margin-bottom: 32px; }
+
+    .entry h1 { font-size: 18px; }
+    .entry h2 { font-size: 17px; }
+    .entry h3 { font-size: 16px; }
+
+    .entry p { font-size: 15px; }
+
+    .entry img { max-width: 100%; }
+
+    .entry pre {
+        overflow-x: auto;
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    .entry pre code { font-size: 12px; }
+    .entry pre ol li { margin-bottom: 0; line-height: 1.5; }
+
+    embed,
+    .sidenav { display: none; }
+
+    .index-content .section { margin-left: 0; padding-right: 0; }
+    .index-content .section ul,
+    .index-content .cate-bar { width: 85%; }
+    .index-content .artical-cate { margin-top: 50px; }
+}
+
+/* ---------- 可访问性：键盘焦点 ---------- */
+.entry a:focus-visible,
+.entry-title a:focus-visible {
+    outline: 2px solid #B8894A;
+    outline-offset: 2px;
+}
+
+/* ---------- 打印样式 ---------- */
+@media print {
+    body { background: #fff; }
+    #content { width: auto; margin: 0; }
+    .entry {
+        background: #fff;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    .site-header,
+    .sidenav { display: none; }
+    .entry a { color: #000; text-decoration: underline; }
+}
+
+/* ---------- 暗色模式 ---------- */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-card: #1c1c1c;
+        --border: #2e2e2e;
+        --text-main: #e6e6e6;
+        --text-muted: #8a8a8a;
+        --text-quote: #b0b0b0;
+    }
+    .entry blockquote { border-left-color: #3a3a3a; }
+    .entry pre { background: #141414; }
+}

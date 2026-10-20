@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>提示词工程 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+            <link rel="stylesheet" href="/css/outline.css" />
+        
+    
+    
+        <link rel="stylesheet" href="/css/table.css" />
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#英文ai味道">英文AI味道</a></li><li><a href="#大模型中文ai味">大模型中文AI味</a><ul><li><a href="#一ai味的原因">一、AI味的原因</a></li><li><a href="#二结构特点">二、结构特点</a><ul><li><a href="#1-用词特征">1. 用词特征</a></li><li><a href="#2-语句结构特征">2. 语句结构特征</a></li><li><a href="#3-段落结构特征">3. 段落结构特征</a></li><li><a href="#4-语义特征">4. 语义特征</a></li><li><a href="#5-标点特征">5. 标点特征</a></li><li><a href="#6-排版特征">6. 排版特征</a></li></ul></li><li><a href="#三去中文ai味的提示词">三、去中文AI味的提示词</a></li></ul></li><li><a href="#编程提示词">编程提示词</a></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/%E6%8F%90%E7%A4%BA%E8%AF%8D%E5%B7%A5%E7%A8%8B" title="提示词工程">提示词工程</a></div>
+        <div class="entry-date">2026-10-10</div>
+        <p>AI时代最重要的不是如何快速做产品，而是做出来的产品应该是什么样子，其次是如何把脑海中的产品描述给大模型，并且不出现偏差，编写提示词是非常重要的一环。</p>
+
+<h1 id="英文ai味道">英文AI味道</h1>
+
+<h1 id="大模型中文ai味">大模型中文AI味</h1>
+
+<h2 id="一ai味的原因">一、AI味的原因</h2>
+
+<p>大模型在选词和造句时，会偏向语料里高频、安全、万能的表达。结果就是句子像报告、像摘要、像PPT，不像人在说话。</p>
+
+<ol>
+  <li><strong>训练语料模板化</strong>：模型学的是百科、教程、公文、公众号、论文摘要、营销文案，这些本身套话多。</li>
+  <li><strong>RLHF对齐偏好</strong>：人类标注者喜欢全面、安全、中立、礼貌、结构化，模型就学会列点、平衡、免责、总结。</li>
+  <li><strong>解码策略</strong>：低温度、贪心搜索让模型选高频词，如“首先”“其次”“总之”，人类会选意外、具体、低概率词。</li>
+  <li><strong>翻译腔影响</strong>：英文语料导致“基于……”“对于……而言”“进行……处理”等表达。</li>
+  <li><strong>缺乏具身经验</strong>：模型没有身体、生活、情绪，只能抽象概括，写不出“昨天我在菜市场……”这种细节。</li>
+  <li><strong>长文规划需要模板</strong>：为了连贯，模型倾向总分总、三点式、每段回扣。</li>
+  <li><strong>产品化需求</strong>：聊天机器人要显得专业、清晰、无害，所以爱用Markdown、列表、免责声明。</li>
+  <li><strong>中文公共语体本身套话多</strong>：AI只是把这种“平均文体”放大了。</li>
+</ol>
+
+<hr />
+
+<h2 id="二结构特点">二、结构特点</h2>
+
+<p>按“词→短语→句→句群→段→篇→标点→排版”从小到大看。</p>
+
+<h3 id="1-用词特征">1. 用词特征</h3>
+
+<p><strong>高频抽象名词/黑话</strong>：赋能、抓手、闭环、生态、维度、颗粒度、底层逻辑、范式、路径、对齐、落地、复盘、协同、增效、深耕、布局。<br />
+例子：</p>
+<ul>
+  <li>人话：“帮公司多赚钱。”<br />
+AI味：“以技术赋能业务，打造增长闭环，提升运营颗粒度。”</li>
+  <li>人话：“大家一起干。”<br />
+AI味：“强化协同，推动落地，实现生态共建。”</li>
+  <li>人话：“想清楚再干。”<br />
+AI味：“对齐底层逻辑，明确核心路径。”</li>
+</ul>
+
+<p><strong>高频短语/缓冲语</strong>：在一定程度上、从某种意义上说、总体而言、相对而言、值得注意的是、需要指出的是、不可否认、毋庸置疑、因人而异、需结合实际情况、不构成建议、请咨询专业人士。<br />
+例子：</p>
+<ul>
+  <li>人话：“你说得不对。”<br />
+AI味：“从某种程度上说，这一观点有一定合理性，但仍需进一步商榷。”</li>
+  <li>人话：“别买。”<br />
+AI味：“是否购买需结合个人实际情况综合判断，必要时请咨询专业人士。”</li>
+  <li>人话：“我不确定。”<br />
+AI味：“目前尚缺乏足够信息，需结合具体情境进一步评估。”</li>
+</ul>
+
+<p><strong>连接套话</strong>：首先、其次、再次、最后、此外、与此同时、然而、因此、总之、综上、由此可见、换言之、这意味着。<br />
+例子：</p>
+<ul>
+  <li>人话：“我饿了，去吃饭。”<br />
+AI味：“首先，当前已到用餐时间；其次，身体需要补充能量；因此，建议尽快就餐。”</li>
+  <li>人话：“他不来，算了。”<br />
+AI味：“由于对方未能到场，因此本次活动需相应调整安排。”</li>
+</ul>
+
+<p><strong>四字格与口号</strong>：行稳致远、扬帆起航、保驾护航、提质增效、降本增效、共创未来、未来可期、久久为功。<br />
+例子：</p>
+<ul>
+  <li>人话：“好好干。”<br />
+AI味：“让我们携手共进，行稳致远，共创美好未来。”</li>
+  <li>人话：“注意安全。”<br />
+AI味：“筑牢安全防线，为高质量发展保驾护航。”</li>
+</ul>
+
+<p><strong>模糊限定/免责</strong>：可能、或许、在一定程度上、建议结合自身情况、不构成投资建议、请咨询专业人士。<br />
+例子：</p>
+<ul>
+  <li>人话：“这股票会涨。”<br />
+AI味：“该标的未来走势存在不确定性，不构成投资建议，请理性判断。”</li>
+  <li>人话：“我觉得不行。”<br />
+AI味：“该方案在部分场景下可能面临一定挑战。”</li>
+</ul>
+
+<p><strong>术语化/翻译腔词</strong>：基于、对于……而言、进行……处理、实现……提升、推动……发展、具备……能力、以……为核心。<br />
+例子：</p>
+<ul>
+  <li>人话：“我处理了这个问题。”<br />
+AI味：“该问题已得到有效处理。”</li>
+  <li>人话：“做个给老人用的App。”<br />
+AI味：“打造一个以老年用户为中心、具备多模态交互能力的智能应用。”</li>
+</ul>
+
+<hr />
+
+<h3 id="2-语句结构特征">2. 语句结构特征</h3>
+
+<p><strong>句式高度模板化</strong>：不仅……而且……甚至……；既……又……；不是……而是……。<br />
+例子：</p>
+<ul>
+  <li>人话：“这工具好用。”<br />
+AI味：“它不仅提升了效率，也优化了体验，更重塑了工作方式。”</li>
+  <li>人话：“这是挑战也是机会。”<br />
+AI味：“它既是挑战，也是机遇；既是压力，也是动力。”</li>
+</ul>
+
+<p><strong>平衡句式：不站队，先说两面</strong>：一方面……另一方面……；虽然……但是……；既要……也要……。<br />
+例子：</p>
+<ul>
+  <li>人话：“加班不好。”<br />
+AI味：“一方面，加班可能带来短期产出；另一方面，长期加班也可能影响健康，因此需理性平衡。”</li>
+  <li>人话：“这电影一般。”<br />
+AI味：“该影片在视听层面有一定亮点，但在叙事层面仍存在提升空间。”</li>
+</ul>
+
+<p><strong>动宾结构、名词化，把动作变公文</strong>：通过……实现……；对……进行……；推动……落地；实现……提升。<br />
+例子：</p>
+<ul>
+  <li>人话：“我们改进了流程。”<br />
+AI味：“通过优化流程、整合资源、强化协同，实现了效率的显著提升。”</li>
+  <li>人话：“我修好了电脑。”<br />
+AI味：“对设备故障进行了排查与修复。”</li>
+</ul>
+
+<p><strong>被动、无主句</strong>：已得到、被广泛认为、得到了有效落实、推动了发展。<br />
+例子：</p>
+<ul>
+  <li>人话：“他们解决了问题。”<br />
+AI味：“该问题已得到有效解决。”</li>
+  <li>人话：“大家觉得很好。”<br />
+AI味：“该方案获得了较为广泛的认可。”</li>
+</ul>
+
+<p><strong>长定语、嵌套、翻译腔</strong>：基于……的、面向……的、具备……的、以……为核心的。<br />
+例子：</p>
+<ul>
+  <li>人话：“他迟到了，因为堵车。”<br />
+AI味：“他之所以迟到，是因为交通拥堵这一不可控因素所致。”</li>
+  <li>人话：“给小孩用的书。”<br />
+AI味：“面向儿童认知发展阶段的启蒙阅读材料。”</li>
+</ul>
+
+<p><strong>逻辑过度显化</strong>：因此、由此可见、换言之、这意味着。<br />
+例子：</p>
+<ul>
+  <li>人话：“他没钱，没去。”<br />
+AI味：“由于资金受限，因此他未能成行。”</li>
+  <li>人话：“天黑了，回家吧。”<br />
+AI味：“随着天色渐暗，因此建议尽快返程。”</li>
+</ul>
+
+<p><strong>排比、递进、升华</strong>：不仅……也……更……；既是……也是……更是……。<br />
+例子：</p>
+<ul>
+  <li>人话：“多读书有用。”<br />
+AI味：“阅读不仅增长知识，也拓宽视野，更塑造人格。”</li>
+  <li>人话：“别放弃。”<br />
+AI味：“唯有坚持，才能穿越周期；唯有奋斗，才能抵达远方。”</li>
+</ul>
+
+<p><strong>设问自答、定义式开头</strong>：什么是……？简单说，……。所谓……，是指……。<br />
+例子：</p>
+<ul>
+  <li>人话：“AI味就是套话多。”<br />
+AI味：“什么是AI味？简而言之，它是一种高度模板化、结构化、安全化的表达倾向。”</li>
+  <li>人话：“拖延就是不想干。”<br />
+AI味：“所谓拖延，通常指个体在任务推进过程中出现的非理性延迟行为。”</li>
+</ul>
+
+<hr />
+
+<h3 id="3-段落结构特征">3. 段落结构特征</h3>
+
+<p><strong>总分总</strong>：开头背景，中间分点，结尾升华。<br />
+典型模板：<br />
+“在当今数字化时代，随着……的发展，……越来越重要。首先……其次……最后……。综上所述，……具有重要现实意义。”<br />
+例子：</p>
+<ul>
+  <li>人话：“多喝水。”<br />
+AI味：“在健康管理日益受到重视的背景下，饮水作为基础环节具有重要意义。首先，……其次，……最后，……。总之，科学饮水有助于提升生活质量。”</li>
+</ul>
+
+<p><strong>三点式、清单式</strong>：第一、第二、第三；优势、挑战、建议；是什么、为什么、怎么办。<br />
+例子：</p>
+<ul>
+  <li>问“要不要考研？”<br />
+AI味：“一、评估目标；二、分析成本；三、制定计划；总之，理性选择。”</li>
+  <li>问“怎么学编程？”<br />
+AI味：“首先，明确目标；其次，系统学习；再次，项目实践；最后，持续复盘。”</li>
+</ul>
+
+<p><strong>每段主题句+解释+例子+回扣</strong>：<br />
+“在……方面，……。例如，……。因此，……。”<br />
+这种段落非常整齐，但像报告。</p>
+
+<p><strong>段落均匀、过渡词密集</strong>：每段长度差不多，段首“与此同时”“除此之外”“值得注意的是”。</p>
+
+<p><strong>不表态，最后“因人而异”</strong>：<br />
+例子：</p>
+<ul>
+  <li>问“该不该买房？”<br />
+AI味：“买房有稳定性，也有流动性风险；租房有灵活性，也有不确定性；需结合自身情况综合判断。”</li>
+  <li>问“该不该辞职？”<br />
+AI味：“辞职可能带来新机会，也可能带来风险；建议评估现状、分析风险、制定计划。”</li>
+</ul>
+
+<p><strong>结尾升华/号召</strong>：希望对你有所帮助、让我们一起、未来可期、只有……才能……。<br />
+例子：<br />
+“总之，只有不断学习，才能拥抱未来。让我们一起努力，共创美好明天！”</p>
+
+<p><strong>缺少叙事弧线</strong>：没有冲突、转折、情绪、失败、自嘲、个人经历。<br />
+例子：</p>
+<ul>
+  <li>问“创业难吗？”<br />
+AI味：“创业具有高风险高回报特征，需综合评估资源、能力与市场环境。”<br />
+人话：“我创业第一年赔了20万，合伙人跑了，猫还病了。”</li>
+</ul>
+
+<hr />
+
+<h3 id="4-语义特征">4. 语义特征</h3>
+
+<p><strong>抽象概括，正确但空</strong>：说的都对，但换任何场景都成立。<br />
+例子：</p>
+<ul>
+  <li>AI味：“要提升认知，优化方法，持续行动。”<br />
+人话：“你先把手机锁抽屉里，干完活再刷。”</li>
+</ul>
+
+<p><strong>缺少具体细节</strong>：没有时间、地点、人名、数字、感官、动作、心理。<br />
+例子：</p>
+<ul>
+  <li>问“怎么减肥？”<br />
+AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
+人话：“我三个月不吃夜宵，每天走一万步，瘦了八斤，但周末会破功。”</li>
+</ul>
+
+<p><strong>缺乏具身经验</strong>：没有身体感、生活感、情绪感。<br />
+例子：</p>
+<ul>
+  <li>AI味：“失败是成长的一部分。”<br />
+人话：“那天我蹲在楼道里，外卖凉了，眼泪掉进汤里。”</li>
+</ul>
+
+<p><strong>安全中立、免责</strong>：不站队、不冒犯、不绝对。<br />
+例子：</p>
+<ul>
+  <li>AI味：“这个问题没有标准答案，需辩证看待。”<br />
+人话：“我觉得就是不行。”</li>
+</ul>
+
+<p><strong>全知视角、无个人立场</strong>：像报告，不像“我”。<br />
+例子：</p>
+<ul>
+  <li>AI味：“人们普遍认为……”<br />
+人话：“我以前也这么想，后来发现不是。”</li>
+</ul>
+
+<p><strong>因果过度显化、同义反复</strong>：<br />
+例子：</p>
+<ul>
+  <li>AI味：“我们需要在战略上高度重视，在战术上精准施策，在执行上狠抓落实。”<br />
+人话：“赶紧干。”</li>
+</ul>
+
+<p><strong>万能适配、可替换</strong>：把主语换成任何项目都成立。<br />
+例子：</p>
+<ul>
+  <li>AI味：“该方案通过资源整合与流程优化，实现了降本增效，为业务发展赋能。”<br />
+人话：“这方案砍了两个审批，省了三天，少花两万。”</li>
+</ul>
+
+<p><strong>情绪中性、无冲突</strong>：很少有愤怒、偏爱、后悔、自嘲、偏见。<br />
+例子：</p>
+<ul>
+  <li>AI味：“该做法存在一定争议。”<br />
+人话：“这做法挺烦人的。”</li>
+</ul>
+
+<hr />
+
+<h3 id="5-标点特征">5. 标点特征</h3>
+
+<p><strong>大量引号</strong>：强调、术语、反讽。<br />
+例子：<br />
+“所谓‘底层逻辑’，其实是把简单事说复杂。”</p>
+
+<p><strong>破折号</strong>：解释、递进、转折。<br />
+例子：<br />
+“这不仅是一种方法——更是一种思维方式。”</p>
+
+<p><strong>冒号</strong>：引出列表、定义、结论。<br />
+例子：<br />
+“核心有三点：第一，……；第二，……；第三，……。”</p>
+
+<p><strong>分号</strong>：并列、对称。<br />
+例子：<br />
+“它既是机会；也是挑战；更是责任。”</p>
+
+<p><strong>括号</strong>：补充英文、解释、限定。<br />
+例子：<br />
+“人工智能（Artificial Intelligence, AI）正在……”</p>
+
+<p><strong>省略号</strong>：留白、委婉、抒情。<br />
+例子：<br />
+“或许，这就是成长吧……”</p>
+
+<p><strong>感叹号</strong>：号召、升华。<br />
+例子：<br />
+“让我们一起努力吧！”</p>
+
+<p><strong>问号</strong>：设问自答。<br />
+例子：<br />
+“什么是AI味？简单说，就是套话太多。”</p>
+
+<p><strong>顿号</strong>：并列堆叠。<br />
+例子：<br />
+“赋能、闭环、抓手、生态、维度、颗粒度。”</p>
+
+<hr />
+
+<h3 id="6-排版特征">6. 排版特征</h3>
+
+<p><strong>Markdown重度使用</strong>：标题、加粗、列表、表格、分隔线、引用块。<br />
+典型：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td><td class="rouge-code"><pre>## 一、核心观点
+**AI味**主要体现在：
+1. **用词**：高频套话
+2. **句式**：排比长句
+3. **结构**：总分总
+&gt; 总之，……
+---
+希望以上内容对你有帮助！
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><strong>小标题层级过多</strong>：一、二、三；（一）（二）；1. 2. 3.；-；✅。</p>
+
+<p><strong>加粗关键词</strong>：<strong>注意</strong>、<strong>核心</strong>、<strong>关键</strong>、<strong>重点</strong>。</p>
+
+<p><strong>表格对比</strong>：<br />
+| 维度 | 特征 | 例子 |
+|—|—|—|
+| 用词 | 套话 | 值得注意的是 |
+| 句式 | 排比 | 不仅……而且…… |</p>
+
+<p><strong>emoji、符号、中英混排</strong>：🌟、📌、✅、🚀；AI、Prompt、Token。</p>
+
+<p><strong>结尾礼貌</strong>：“希望以上内容对您有所帮助，欢迎继续交流。”</p>
+
+<hr />
+
+<h2 id="三去中文ai味的提示词">三、去中文AI味的提示词</h2>
+
+<p>可复制版：</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>请用中文写，像普通人说话。多给具体细节：时间、地点、人物、数字、动作、感官、心理。少用“首先/其次/最后/综上/值得注意的是”。少用“赋能/闭环/抓手/生态/维度/颗粒度”。少总结升华，少喊口号。少列点，少Markdown，少加粗，少表格。允许短句、口语、情绪、偏见、犹豫、不完整。直接表态，别总“因人而异”。能说“我”就说“我”。能举例就举具体例子。不要免责声明，不要结尾客套。
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>改前：<br />
+“在当今快节奏的社会中，时间管理对个人发展具有重要意义。首先，应明确目标；其次，需制定计划；最后，要坚持执行。综上所述，科学的时间管理有助于提升效率。希望对你有所帮助。”</p>
+
+<p>改后：<br />
+“我以前总拖。后来把手机扔客厅，早上先干最难的。管用。别整那些花哨方法。”</p>
+
+<p>改前：<br />
+“该方案通过资源整合与流程优化，实现了降本增效，为业务发展赋能。”</p>
+
+<p>改后：<br />
+“这方案砍了两个审批，省了三天，少花两万。”</p>
+
+<hr />
+
+<h1 id="编程提示词">编程提示词</h1>
+
+<p>摘自：Jorge RebollolIA</p>
+
+<p>不要告诉它想要什么
+告诉它：
+想要实现什么
+有哪些可用信息
+存在哪些限制
+优先考虑什么
+想要避免什么
+以何种方式收到回答
+它需要猜测得越少，结果就越好。</p>
+
+<ol>
+  <li>“给我做一个计划” 改为 “我想在[期限]内实现[目标]。我有这些资源:[资源]，还有这些限制:[限制]。请创建一个分阶段的计划，按优先级排序，并告诉我应该先做什么。”</li>
+</ol>
+
+<p>你不需要更多步骤。
+你需要更好的标准。</p>
+
+<ol>
+  <li>
+    <p>“给我一些想法” 改为 “给我10个针对[类型的人群]、以实现[目标]的想法。避免那些到处都有的老生常谈的建议。按影响力和执行难易程度排序，并简要解释为什么你会选择前两个最佳建议。”</p>
+  </li>
+  <li>
+    <p>“分析这个” 改为 “从5个角度分析这个:优势、劣势、可能被我忽略的风险、机会以及可能的改进。然后给我一个结论，并告诉我如果目标是[目标]，你会先改变什么。”</p>
+  </li>
+</ol>
+
+<p>分析并不意味着描述。
+它意味着找到你没有看到的东西。</p>
+
+<ol>
+  <li>“帮我解决这个问题” 改为 “首先识别问题的真正原因。然后给我3个可能的解决方案，包括各自的优点、缺点和执行难度。推荐一个，并将其转化为我今天就可以开始实施的具体步骤。”
+不要要求快速回答。
+让它在回应你之前先思考。</li>
+</ol>
+
+
+        
+        
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            // 插到 li 的第一个子元素前（一般是 a 或文本）
+            $li.prepend($toggle);
+        });
+    
+        // 点击折叠按钮，只切换当前 li，不冒泡到链接
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+
+</body>
+</html>
+

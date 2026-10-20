@@ -1,38 +1,56 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
     <meta charset="utf-8" />
-    <title>ubuntu配置ss服务端的记录 | 盐水冲茶</title>
+    <title>ubuntu配置ss服务端的记录 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
+    <meta name="description" content="Everything about xwwz" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+    
+    
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
-<body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
-        </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
-    </div>
 
-    <link rel="stylesheet" href="/js/prettify/prettify.css" />
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
     @media screen and (max-width: 750px){
@@ -43,11 +61,12 @@
     }
 </style>
 
+
 <div id="content">
-    <div class="entry">
-        <h1 class="entry-title"><a href="/bwh_ss" title="ubuntu配置ss服务端的记录">ubuntu配置ss服务端的记录</a></h1>
-        <p class="entry-date">2017-05-05</p>
-        <blockquote>
+<div class="entry">
+    <div class="entry-title"><a href="/bwh_ss" title="ubuntu配置ss服务端的记录">ubuntu配置ss服务端的记录</a></div>
+    <div class="entry-date">2017-05-05</div>
+    <blockquote>
   <p>shadowsocks是一款著名的开源翻墙软件（简称ss），通过第三方国外服务器和ss软件，我们的个人电脑便可以绕过GFW（Great Firewall of China），访问被屏蔽的国外网站，更好的进行学习。</p>
 </blockquote>
 
@@ -62,26 +81,35 @@
 其中password需要自己进行替换。<br />
 Ubuntu版本：Ubuntu 16.04 x86</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>sudo apt-get update
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>sudo apt-get update
 sudo apt-get install python-pip
 sudo apt–get install python–m2crypto
 sudo pip install cymysql
 sudo pip install shadowsocks
 sudo ssserver -p 444 -k password -m aes-256-cfb -d start
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <hr />
 <p>lnmp是nigix、mysql、php、phpadmin等一系列软件的打包集合，可以一键编译安装。<br />
 下面是安装lnmp的命令，会涉及一些安装选项，譬如mysql的密码设置、mysql/php的版本、内存监测工具Jemalloc和TCMalloc的选择。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>screen -s lnmp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>screen -s lnmp
 wget -c http://soft.vpser.net/lnmp/lnmp1.2-full.tar.gz 
 tar -xf lnmp1.2-full.tar.gz
 cd lnmp1.2-full
 ./install.sh lnmp
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>千万记得输入screen -s lnmp
 这样如果vps在安装lnmp时意外的断开了连接，重新连接之后，仍然可以通过此命令恢复到之前安装的步骤
@@ -92,18 +120,33 @@ cd lnmp1.2-full
 
 <p>使用apt-get，也很快速方便。</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>apt-get install apache2 libapache2-mod-php php mysql-server mysql-client 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>apt-get install apache2 libapache2-mod-php php mysql-server mysql-client 
 # 在bind-address 127.0.0.1前面加注释，使MySql支持远程连接
 sed '/bind/s/^/#/' /etc/mysql/my.cnf &gt; /etc/mysql/my.cnf
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <hr />
 <p>SS-Panel是一款开源的ss管理系统</p>
 
 <p>后端安装配置</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>git clone -b manyuser https://github.com/mengskysama/shadowsocks.git 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="rouge-code"><pre>git clone -b manyuser https://github.com/mengskysama/shadowsocks.git 
 cd ./shadowsocks/shadowsocks 
 vim Config.py 
 	#Config 
@@ -116,8 +159,7 @@ vim Config.py
 	MANAGE_BIND_IP = '127.0.0.1' 
 	MANAGE_PORT = 23333 
 python server.py 
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="未完待续">未完待续</h2>
 
@@ -126,120 +168,18 @@ python server.py
 <p><a href="http://blog.csdn.net/hanshileiai/article/details/49302865">ubuntu 服务器搭建 Shadowsocks 服务</a></p>
 
 
-    </div>
 
-    <div class="sidenav">
-        <h2>Blog</h2>
-        <ul class="artical-list">
-        
-        </ul>
-
-        <h2>Dump</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
-        
-            <li><a href="/Laplace">拉普拉斯分布</a></li>
-        
-            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
-        
-            <li><a href="/cpp_exception">C++异常</a></li>
-        
-            <li><a href="/cpp_const">C++ const的用法记录</a></li>
-        
-            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
-        
-            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
-        
-            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
-        
-            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
-        
-            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
-        
-            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
-        
-            <li><a href="/automake">automake安装与使用记录</a></li>
-        
-            <li><a href="/python-decorator">python@的用法记录</a></li>
-        
-            <li><a href="/python-design">python语言的设计记录</a></li>
-        
-            <li><a href="/Logistic">Logistic函数</a></li>
-        
-            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
-        
-            <li><a href="/VBA">Excel合并功能记录</a></li>
-        
-            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
-        
-            <li><a href="/move-average-method">移动平均法</a></li>
-        
-            <li><a href="/LineClassfier">线性分类器</a></li>
-        
-            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
-        
-            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
-        
-            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
-        
-            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
-        
-            <li><a href="/algorithm_complexity">算法复杂度</a></li>
-        
-            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
-        
-            <li><a href="/cmake">cmake</a></li>
-        
-        </ul>
-
-        <h2>Project</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/go">围棋</a></li>
-        
-            <li><a href="/test">前端绘图测试</a></li>
-        
-        </ul>
-    </div>
+    
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
 </div>
 
-<script src="/js/post.js" type="text/javascript"></script>
+</div>
+</div>
+
+
 
 
 </body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
 </html>
+

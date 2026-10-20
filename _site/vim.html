@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
-    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
 
     
         <link rel="stylesheet" href="/css/article.css" />
@@ -48,7 +47,11 @@
     </div>
 </header>
 
+<!--动态加载随机名言-->
 <script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
 
     <!--文章的灰色背景-->
 <link rel="stylesheet" href="/js/prettify/prettify.css" />
@@ -720,28 +723,33 @@
 
 <p>所有 <code class="language-plaintext highlighter-rouge">{</code> 后面添加换行和空格：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/{/</span><span class="p">{</span>\<span class="k">r</span> /<span class="k">g</span>
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span>%s<span class="sr">/{/</span><span class="p">{</span>\<span class="k">r</span> /<span class="k">g</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>所有 <code class="language-plaintext highlighter-rouge">}</code> 前后添加换行：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/}/</span>\<span class="k">r</span><span class="p">}</span>\<span class="k">r</span> /<span class="k">g</span>
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span>%s<span class="sr">/}/</span>\<span class="k">r</span><span class="p">}</span>\<span class="k">r</span> /<span class="k">g</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>删除行尾空格：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/\s\+$/</span>/<span class="k">e</span>
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span>%s<span class="sr">/\s\+$/</span>/<span class="k">e</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>删除空行：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span><span class="k">g</span><span class="sr">/^$/</span><span class="k">d</span>
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span><span class="k">g</span><span class="sr">/^$/</span><span class="k">d</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>统计匹配次数：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>%s<span class="sr">/pattern/</span>/gn
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span>%s<span class="sr">/pattern/</span>/gn
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <hr />
 
@@ -1015,7 +1023,62 @@
 
 <p>下面是一份较完整的 <code class="language-plaintext highlighter-rouge">.vimrc</code> 示例，可按需删减。</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">" ===== 编码 =====</span>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+</pre></td><td class="rouge-code"><pre><span class="c">" ===== 编码 =====</span>
 <span class="k">set</span> <span class="nb">encoding</span><span class="p">=</span>utf<span class="m">-8</span>
 <span class="k">set</span> <span class="nb">fileencodings</span><span class="p">=</span>utf<span class="m">-8</span><span class="p">,</span>ucs<span class="p">-</span>bom<span class="p">,</span>gb18030<span class="p">,</span>gbk<span class="p">,</span>gb2312<span class="p">,</span>cp936
 
@@ -1070,7 +1133,7 @@ inoremap jk <span class="p">&lt;</span>Esc<span class="p">&gt;</span>           
 nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">w</span> <span class="p">:</span><span class="k">w</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>   " 保存
 nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">q</span> <span class="p">:</span><span class="k">q</span><span class="p">&lt;</span>CR<span class="p">&gt;</span>   " 退出
 nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class="k">h</span> <span class="p">:</span><span class="k">noh</span><span class="p">&lt;</span>CR<span class="p">&gt;</span> " 取消搜索高亮
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>常用设置说明：</p>
 
@@ -1141,13 +1204,24 @@ nnoremap <span class="p">&lt;</span>leader<span class="p">&gt;</span><span class
 
 <p>安装：</p>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl <span class="nt">-fLo</span> ~/.vim/autoload/plug.vim <span class="nt">--create-dirs</span> <span class="se">\</span>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>curl <span class="nt">-fLo</span> ~/.vim/autoload/plug.vim <span class="nt">--create-dirs</span> <span class="se">\</span>
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>在 <code class="language-plaintext highlighter-rouge">.vimrc</code> 中添加：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'~/.vim/plugged'</span><span class="p">)</span>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="rouge-code"><pre><span class="k">call</span> plug#begin<span class="p">(</span><span class="s1">'~/.vim/plugged'</span><span class="p">)</span>
 
 Plug <span class="s1">'preservim/nerdtree'</span>           " 文件树
 Plug <span class="s1">'tpope/vim-commentary'</span>         " 快速注释
@@ -1156,12 +1230,13 @@ Plug <span class="s1">'junegunn/fzf.vim'</span>             " 模糊搜索
 Plug <span class="s1">'ycm-core/YouCompleteMe'</span>       " 自动补全
 
 <span class="k">call</span> plug#end<span class="p">()</span>
-</code></pre></div></div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>然后在 vim 中执行：</p>
 
-<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">:</span>PlugInstall
-</code></pre></div></div>
+<div class="language-vim highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="p">:</span>PlugInstall
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>常用插件：</p>
 
@@ -1407,6 +1482,12 @@ Plug <span class="s1">'ycm-core/YouCompleteMe'</span>       " 自动补全
 <h1 id="总结">总结</h1>
 
 <p>vim 的学习曲线较陡，但多用自然就会熟练，掌握常用命令后编辑效率会显著提升。先从移动、编辑、搜索替换、保存退出开始，逐步加入分屏、宏、寄存器、插件和自定义配置。把常用的 <code class="language-plaintext highlighter-rouge">.vimrc</code> 配置保存下来，换机器时直接复用即可。</p>
+
+
+    
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
 
 </div>
 </div>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Jekyll配置使用技巧 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+<div class="entry">
+    <div class="entry-title"><a href="/Jekyll" title="Jekyll配置使用技巧">Jekyll配置使用技巧</a></div>
+    <div class="entry-date">2026-10-08</div>
+    <h1 id="引子">引子</h1>
+<p>我对Jekyll的基本样式、模板嵌套有一些修改，同时也记录自定义前端样式美化的配置。</p>
+
+<h1 id="多种文章风格">多种文章风格</h1>
+<p>对于博客的布局，分别设置了文章、大纲文章、短篇窄文3种布局，layout设定分别对应article、outlined、short-article。</p>
+
+<h1 id="文章特性">文章特性</h1>
+
+<p>目前文章特性自定义设置了表格特性和ai创作声明，分别对应以下代码</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>---
+layout: post
+title: 某篇文章
+ai_assisted: false
+features:
+    table
+    poem
+    code
+    math
+---
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h1 id="代码样式">代码样式</h1>
+
+<h2 id="highlight和围栏代码块的区别">highlight和围栏代码块的区别</h2>
+
+<p>两者都能渲染代码，但走的路径不同，能力上有一些细节差异。</p>
+
+<p>围栏代码块是Markdown 原生能力。</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre><span class="p">```</span><span class="nl">go
+</span><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">fmt</span><span class="o">.</span><span class="n">Println</span><span class="p">(</span><span class="s">"hi"</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="p">```</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>生成的代码如下：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>&lt;div class="language-go highlighter-rouge"&gt;
+  &lt;div class="highlight"&gt;
+    &lt;pre class="highlight"&gt;&lt;code&gt;...&lt;/code&gt;&lt;/pre&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>highlight 标签Jekyll的Liquid模板语法</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>{% highlight go %}
+func main() {
+    fmt.Println("hi")
+}
+{% endhighlight %}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>highlight 标签生成：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>&lt;figure class="highlight"&gt;
+  &lt;pre&gt;&lt;code class="language-go" data-lang="go"&gt;...&lt;/code&gt;&lt;/pre&gt;
+&lt;/figure&gt;
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>异同：</p>
+<ul>
+  <li>Liquid 标签。Jekyll 会先解析 Liquid，处理Liquid代码标签逻辑再渲染 Markdown。围栏代码块不做处理直接输出。</li>
+  <li>围栏代码块想开行号，需要在 _config.yml 里全局设置：</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">syntax_highlighter_opts</span><span class="pi">:</span>
+    <span class="na">block</span><span class="pi">:</span>
+      <span class="na">line_numbers</span><span class="pi">:</span> <span class="kc">true</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+<p>或者</p>
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="p">```</span><span class="nl">go
+</span><span class="k">func</span> <span class="n">main</span><span class="p">()</span> <span class="p">{}</span>
+<span class="p">```</span>
+{: .no-lineno}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Liquid可以在代码块中指定</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre>{% highlight go linenos %}
+{% endhighlight %}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+
+
+    
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>
+

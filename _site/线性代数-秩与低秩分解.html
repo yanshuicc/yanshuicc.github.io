@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>线性代数-秩与低秩分解（低秩分解可以补充例子） | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+            <link rel="stylesheet" href="/css/outline.css" />
+        
+    
+    
+        <link rel="stylesheet" href="/css/table.css" />
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#k阶子式">k阶子式</a></li><li><a href="#矩阵的秩">矩阵的秩</a><ul><li><a href="#秩的几何意义">秩的几何意义</a><ul><li><a href="#向量组视角">向量组视角</a></li><li><a href="#方程组视角">方程组视角</a><ul><li><a href="#1-无解">1) 无解</a></li><li><a href="#2-有唯一解">2) 有唯一解</a></li><li><a href="#3-有无穷多解">3) 有无穷多解</a></li></ul></li><li><a href="#空间视角">空间视角</a></li></ul></li></ul></li><li><a href="#矩阵的低秩分解-loralow-rank-matrix-factorization">矩阵的低秩分解-LORA（Low-rank Matrix Factorization）</a><ul><li><a href="#基本概念">基本概念</a></li><li><a href="#方法1-奇异值分解svd">方法1-奇异值分解（SVD）</a></li><li><a href="#方法2-矩阵分解matrix-factorization-mf">方法2-矩阵分解（Matrix Factorization, MF）</a></li><li><a href="#方法3-非负矩阵分解nmf">方法3-非负矩阵分解（NMF）</a></li><li><a href="#应用场景">应用场景</a></li></ul></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%A7%A9%E4%B8%8E%E4%BD%8E%E7%A7%A9%E5%88%86%E8%A7%A3" title="线性代数-秩与低秩分解（低秩分解可以补充例子）">线性代数-秩与低秩分解（低秩分解可以补充例子）</a></div>
+        <div class="entry-date">2016-03-18</div>
+        <h1 id="k阶子式">k阶子式</h1>
+
+<p><strong>k阶子式</strong>是线性代数中用来描述矩阵局部行列式的概念。简单说：从\(m\times n\)矩阵中任取k行、k 列，交叉位置的元素按原顺序组成一个\(m\times n\) 矩阵，它的行列式就叫一个 <strong>k阶子式</strong>，通常记作\(D_k\)。</p>
+
+<p>设矩阵 \(A\) 是 \(m\times n\) 的。任选 \(k\) 行（比如第 \(i_1,i_2,\dots,i_k\) 行）和 \(k\) 列（比如第 \(j_1,j_2,\dots,j_k\) 列），由这些行和列交叉处的元素组成的 \(k\times k\) 行列式：</p>
+
+\[D_k = \begin{vmatrix}
+a_{i_1 j_1} &amp; a_{i_1 j_2} &amp; \cdots &amp; a_{i_1 j_k} \\
+a_{i_2 j_1} &amp; a_{i_2 j_2} &amp; \cdots &amp; a_{i_2 j_k} \\
+\vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+a_{i_k j_1} &amp; a_{i_k j_2} &amp; \cdots &amp; a_{i_k j_k}
+\end{vmatrix}\]
+
+<p>就称为矩阵A的一个 <strong>k阶子式</strong>。</p>
+
+<ul>
+  <li>k的范围：\(1 \le k \le \min(m,n)\)。</li>
+  <li>当k = min(m,n)时，称为<strong>最高阶子式</strong>。</li>
+  <li>一共有 \(\binom{m}{k}\binom{n}{k}\) 个不同的 \(k\) 阶子式（按位置区分）。</li>
+</ul>
+
+<p>矩阵的秩是线性代数中最核心的概念之一。它衡量的是矩阵所包含的<strong>“有效信息量”</strong>，或者说矩阵的行（列）向量组中<strong>线性无关向量的最大个数</strong>。</p>
+
+<p>下面我从定义、计算、性质和直观意义四个层面帮你彻底理清。</p>
+
+<hr />
+
+<h1 id="矩阵的秩">矩阵的秩</h1>
+
+<p>矩阵 \(A_{m\times n}\) 的秩，记作 r(A) 或 rank(A)。</p>
+
+<blockquote>
+  <p>定义1：<strong>矩阵中最高阶非零子式的阶数。</strong> 如果存在某个 r 阶子式不为 0，而所有 r+1 阶子式（如果存在）全为 0，那么 r(A)=r。</p>
+</blockquote>
+
+<p>注：r阶子式不为0指的是r阶子式的行列式值不为0。</p>
+
+<blockquote>
+  <p>定义2：<strong>矩阵的行向量组（或列向量组）中，线性无关向量的最大个数。</strong></p>
+</blockquote>
+
+<p>这两个定义是等价的，一个从行列式角度，一个从向量组角度，描述的是同一件事。</p>
+
+<p>基本性质</p>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left">性质</th>
+      <th style="text-align: left">说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">\(0 \le r(A) \le \min(m,n)\)</td>
+      <td style="text-align: left">秩不超过行数和列数的较小者</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(A)=0\)</td>
+      <td style="text-align: left">当且仅当 \(A\) 是零矩阵</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(A)=m\)</td>
+      <td style="text-align: left">行满秩（行向量组线性无关）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(A)=n\)</td>
+      <td style="text-align: left">列满秩（列向量组线性无关）</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(A)=m=n\)</td>
+      <td style="text-align: left">满秩，此时 \(A\) 可逆，\(|A|\neq0\)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(A)=r(A^T)\)</td>
+      <td style="text-align: left">转置不改变秩</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">\(r(AB)\le\min(r(A),r(B))\)</td>
+      <td style="text-align: left">乘积的秩不超过各因子的秩</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">初等变换不改变秩</td>
+      <td style="text-align: left">这是行变换法求秩的依据/计算方法</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="秩的几何意义">秩的几何意义</h2>
+
+<h3 id="向量组视角">向量组视角</h3>
+
+<p>把矩阵的每一行看成一个向量。如果第3行是第1行和第2行的线性组合，那第3行就是多余的，不贡献新信息。秩就是<strong>真正独立、不冗余的行向量个数</strong>。</p>
+
+<h3 id="方程组视角">方程组视角</h3>
+
+<p>对于线性方程组 Ax=b，令 r(A) = 系数矩阵的秩，\(r(A \mid b)\) = 增广矩阵的秩，那么可以得到：</p>
+
+<p>\(r(A) &lt; r(A\mid b)\)：<strong>方程组矛盾无解</strong></p>
+
+<p>\(r(A) = r(A\mid b)\) = n：<strong>有唯一解</strong></p>
+
+<p>\(r(A) = r(A\mid b)\) &lt; n：<strong>方程组有自由变量，存在有无穷多解</strong></p>
+
+<blockquote>
+  <p>将线性方程组的增广矩阵化为<strong>行最简形</strong>后，主元列对应的变量称为<strong>主变量</strong>（或约束变量），非主元列对应的变量称为<strong>自由变量</strong>。自由变量的个数 = 未知数个数n − 系数矩阵的秩 r(A)。</p>
+</blockquote>
+
+<p>下面用最简短的例子分别说明三种情况。设未知数个数为 \(n\)。</p>
+
+<h4 id="1-无解">1) 无解</h4>
+
+<p>方程组：
+\(\begin{cases}
+x+y=1\\
+x+y=2
+\end{cases}\)</p>
+
+<p>矩阵形式：
+\(A=\begin{pmatrix}1&amp;1\\1&amp;1\end{pmatrix},\quad
+b=\begin{pmatrix}1\\2\end{pmatrix}\)</p>
+
+<p>增广矩阵：
+\((A|b)=\begin{pmatrix}1&amp;1&amp;1\\1&amp;1&amp;2\end{pmatrix}\)</p>
+
+<p>\(r(A)=1，r(A\mid b)=2，r(A) &lt; r(A\mid b)\)，无解。</p>
+
+<h4 id="2-有唯一解">2) 有唯一解</h4>
+
+<p>方程组：
+\(\begin{cases}
+x+y=3\\
+x-y=1
+\end{cases}\)</p>
+
+<p>矩阵形式：
+\(A=\begin{pmatrix}1&amp;1\\1&amp;-1\end{pmatrix},\quad
+b=\begin{pmatrix}3\\1\end{pmatrix}\)</p>
+
+<p>增广矩阵：
+\((A|b)=\begin{pmatrix}1&amp;1&amp;3\\1&amp;-1&amp;1\end{pmatrix}\)</p>
+
+<p>\(r(A)=2，r(A\mid b)=2，未知数个数 n=2，r(A)=r(A\mid b)=n=2\)，所以 <strong>有唯一解</strong>：x=2, y=1。</p>
+
+<h4 id="3-有无穷多解">3) 有无穷多解</h4>
+
+<p>方程组：
+\(\begin{cases}
+x+y=1\\
+2x+2y=2
+\end{cases}\)</p>
+
+<p>矩阵形式：
+\(A=\begin{pmatrix}1&amp;1\\2&amp;2\end{pmatrix},\quad
+b=\begin{pmatrix}1\\2\end{pmatrix}\)</p>
+
+<p>增广矩阵：
+\((A|b)=\begin{pmatrix}1&amp;1&amp;1\\2&amp;2&amp;2\end{pmatrix}\)</p>
+
+<p>\(r(A)=1，r(A\mid b)=1\)，未知数个数 n=2，因为 \(r(A)=r(A\mid b)=1&lt;n=2\)，所以 <strong>有无穷多解</strong>。</p>
+
+<h3 id="空间视角">空间视角</h3>
+
+<ul>
+  <li>\(r(A)\) 等于矩阵<strong>列空间</strong>的维数，也等于<strong>行空间</strong>的维数。</li>
+  <li>\(n - r(A)\) 等于<strong>零空间</strong>（解空间）的维数，即自由变量的个数。</li>
+</ul>
+
+<hr />
+
+<h1 id="矩阵的低秩分解-loralow-rank-matrix-factorization">矩阵的低秩分解-LORA（Low-rank Matrix Factorization）</h1>
+
+<p>矩阵的低秩分解是一种将一个矩阵近似表示为两个（或多个）<strong>低秩矩阵乘积</strong>的技术。其核心思想是：<strong>很多实际应用中的高维矩阵，其内在结构可以用较少的隐含因子来解释</strong>，因此可以用低秩矩阵来近似原始矩阵，从而实现数据压缩、去噪、缺失值填补、推荐系统等功能。</p>
+
+<h2 id="基本概念">基本概念</h2>
+
+<p>设有一个矩阵 \(A \in \mathbb{R}^{m \times n}\)，它的秩为 \(r = \text{rank}(A)\)。低秩分解的目标是找到两个矩阵 \(U \in \mathbb{R}^{m \times k}\) 和 \(V \in \mathbb{R}^{k \times n}\)，使得：</p>
+
+\[A \approx UV\]
+
+<p>其中 \(k \ll \min(m, n)\)，即 <strong>k 远小于矩阵的行数和列数</strong>，此时 UV 的秩最多为 k，称为<strong>低秩近似</strong>。</p>
+
+<h2 id="方法1-奇异值分解svd">方法1-奇异值分解（SVD）</h2>
+
+<p>对任意实矩阵 A，其 SVD 为：</p>
+
+\[A = U \Sigma V^\top\]
+
+<p>其中 U 和 V 是正交矩阵，\(\Sigma\) 是对角矩阵，对角线元素为奇异值 \(\sigma_1 \ge \sigma_2 \ge \dots \ge \sigma_r &gt; 0\)。</p>
+
+<p><strong>最佳秩-k 近似</strong>（在 Frobenius 范数或谱范数意义下）由截断 SVD 给出：</p>
+
+\[A_k = \sum_{i=1}^k \sigma_i u_i v_i^\top = U_k \Sigma_k V_k^\top\]
+
+<p>这是一种低秩分解。理论上的最优解，缺点是计算复杂度高，且要求矩阵完整不能有缺失值。</p>
+
+<h2 id="方法2-矩阵分解matrix-factorization-mf">方法2-矩阵分解（Matrix Factorization, MF）</h2>
+
+<p>常用于<strong>推荐系统</strong>（如 Netflix、电商推荐）。假设用户-物品评分矩阵 \(R \in \mathbb{R}^{m \times n}\) 很大很稀疏，我们希望找到：</p>
+
+\[R_{ij} \approx (U V)_{ij} = \mathbf{u}_i^\top \mathbf{v}_j\]
+
+<p>其中：</p>
+<ul>
+  <li>\(\mathbf{u}_i \in \mathbb{R}^k\)：用户 i 的隐向量（latent factor）</li>
+  <li>\(\mathbf{v}_j \in \mathbb{R}^k\)：物品 j 的隐向量</li>
+</ul>
+
+<p>通过最小化已知评分的误差（如平方损失）并加入正则项：</p>
+
+\[\min_{U,V} \sum_{(i,j) \in \Omega} (R_{ij} - \mathbf{u}_i^\top \mathbf{v}_j)^2 + \lambda (\|U\|_F^2 + \|V\|_F^2)\]
+
+<p>其中 \(\Omega\) 是已观测到的评分位置集合。</p>
+
+<blockquote>
+  <p>优点是可以处理缺失数据，适合大规模稀疏矩阵，缺点是非凸优化，可能陷入局部最优。</p>
+</blockquote>
+
+<hr />
+
+<h2 id="方法3-非负矩阵分解nmf">方法3-非负矩阵分解（NMF）</h2>
+
+<p>如果要求所有元素非负（如图像、文本词频），可使用 NMF：</p>
+
+\[A \approx WH, \quad W \ge 0, H \ge 0\]
+
+<p>常用于主题建模、图像部件提取等。</p>
+
+<h2 id="应用场景">应用场景</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>应用领域</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>推荐系统</td>
+      <td>用户-物品交互矩阵低秩近似，预测未评分项</td>
+    </tr>
+    <tr>
+      <td>图像处理</td>
+      <td>图像压缩、去噪（图像可视为矩阵）</td>
+    </tr>
+    <tr>
+      <td>自然语言处理</td>
+      <td>词-文档矩阵分解（如 LSA/LSI）</td>
+    </tr>
+    <tr>
+      <td>数据降维</td>
+      <td>用低维隐空间表示高维数据</td>
+    </tr>
+    <tr>
+      <td>系统识别/控制</td>
+      <td>系统传递函数的低阶近似</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>想象一个电影评分表（用户 vs 电影），虽然表格很大（比如 100 万用户 × 1 万部电影），但用户的偏好其实由少数几个因素决定，比如“喜欢动作片”、“讨厌恐怖片”、“偏好老电影”等。这些就是<strong>隐因子（latent factors）</strong>。低秩分解就是试图从已有评分中自动学习这些隐因子，并用它们重建整个评分矩阵。</p>
+
+
+
+
+<!--mathjax 用以支持latex数学公式-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        
+        
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            // 插到 li 的第一个子元素前（一般是 a 或文本）
+            $li.prepend($toggle);
+        });
+    
+        // 点击折叠按钮，只切换当前 li，不冒泡到链接
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+
+</body>
+</html>
+

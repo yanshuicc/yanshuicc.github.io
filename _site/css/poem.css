@@ -1,0 +1,39 @@
+/* ===== 居中文本/图片 ===== */
+.poem {
+    display: block;
+    margin: 30px auto;
+    text-align: center;
+    line-height: 2;
+    color: #4A4A48;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* 段落之间留一点间距 */
+.poem p {
+    margin: 0 0 10px;
+    text-indent: 0;        /* 覆盖正文段落的缩进 */
+}
+
+/* 居中的图片 */
+.poem img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+    border-radius: 4px;
+}
+
+/* 图片下方的小字说明 */
+.poem .caption {
+    font-family: "Kaiti SC", "STKaiti", "KaiTi", serif;
+    margin-top: 8px;
+    font-size: 28px;
+    text-align: center;
+    letter-spacing: 0;
+}
+
+/* 想让字体更“诗”一点可以加这个变体 */
+.poem.serif {
+    font-family: "Kaiti SC", "STKaiti", "KaiTi", serif;
+    font-size: 25px;
+}

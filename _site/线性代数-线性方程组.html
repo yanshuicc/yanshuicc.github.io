@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>线性代数-线性方程组 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+            <link rel="stylesheet" href="/css/outline.css" />
+        
+    
+    
+        <link rel="stylesheet" href="/css/table.css" />
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#齐次线性方程组和非齐次线性方程组的对比">齐次线性方程组和非齐次线性方程组的对比</a></li><li><a href="#解的定义">解的定义</a><ul><li><a href="#基础解系">基础解系</a></li><li><a href="#解空间">解空间</a></li><li><a href="#特解">特解</a></li><li><a href="#通解">通解</a></li></ul></li><li><a href="#齐次线性方程组">齐次线性方程组</a></li><li><a href="#非齐次线性方程组">非齐次线性方程组</a></li><li><a href="#几何理解">几何理解</a></li><li><a href="#例子">例子</a></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0-%E7%BA%BF%E6%80%A7%E6%96%B9%E7%A8%8B%E7%BB%84" title="线性代数-线性方程组">线性代数-线性方程组</a></div>
+        <div class="entry-date">2016-03-18</div>
+        <h1 id="齐次线性方程组和非齐次线性方程组的对比">齐次线性方程组和非齐次线性方程组的对比</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: left"> </th>
+      <th style="text-align: left">齐次 \(Ax=0\)</th>
+      <th style="text-align: left">非齐次 \(Ax=b\)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: left">常数项</td>
+      <td style="text-align: left">全为 0</td>
+      <td style="text-align: left">不全为 0</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">是否有解</td>
+      <td style="text-align: left">一定有（至少零解）</td>
+      <td style="text-align: left">需判定 \(r(A)=r(A|b)\)</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">解的结构</td>
+      <td style="text-align: left">纯零空间</td>
+      <td style="text-align: left">特解 和 零空间</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">解的个数</td>
+      <td style="text-align: left">零解 或 无穷多解</td>
+      <td style="text-align: left">无解 / 唯一解 / 无穷多解</td>
+    </tr>
+    <tr>
+      <td style="text-align: left">自由变量个数</td>
+      <td style="text-align: left">\(n-r(A)\)</td>
+      <td style="text-align: left">\(n-r(A)\)（有解时）</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>齐次看秩与未知数个数的关系，非齐次先看增广矩阵的秩是否相等，再套特解和齐次通解的公式。</p>
+</blockquote>
+
+<h1 id="解的定义">解的定义</h1>
+
+<h2 id="基础解系">基础解系</h2>
+
+<p><strong>定义</strong>：齐次方程组 \(Ax=0\) 的解空间中，一组<strong>线性无关</strong>的解向量，且方程组的<strong>所有解</strong>都能由它们线性表示。它是一组最精简的解，其他所有解都是它们的线性组合。</p>
+
+<p><strong>特点</strong>：</p>
+<ul>
+  <li>基础解系中向量的个数 = \(n - r(A)\)（自由变量的个数）。</li>
+  <li>基础解系不唯一，但向量个数固定。</li>
+  <li>每个自由变量对应一个基础解向量。</li>
+</ul>
+
+<h2 id="解空间">解空间</h2>
+
+<p>齐次方程组的全部解构成一个向量空间，叫做<strong>零空间</strong>或<strong>解空间</strong>，记作 \(\text{Nul}(A)\)。</p>
+
+<p>其维数：
+\(\dim(\text{Nul}(A)) = n - r(A)\)</p>
+
+<p><strong>例子</strong>：
+\(\begin{cases}
+x+y+z=0\\
+x-y+z=0
+\end{cases}\)</p>
+
+<p>行变换后：
+\(\begin{pmatrix}1&amp;0&amp;1&amp;0\\0&amp;1&amp;0&amp;0\end{pmatrix}\)</p>
+
+<ul>
+  <li>主变量：\(x, y\)</li>
+  <li>自由变量：\(z=t\)</li>
+  <li>解：\(x=-t,\ y=0,\ z=t\)</li>
+</ul>
+
+<p>即：
+\(x = t\begin{pmatrix}-1\\0\\1\end{pmatrix}\)</p>
+
+<p>解空间是一维的直线。</p>
+
+<h2 id="特解">特解</h2>
+
+<p><strong>定义</strong>：非齐次方程组 \(Ax=b\) 的<strong>任意一个</strong>满足方程的确定解。</p>
+
+<p><strong>通俗理解</strong>：特解就是“随便找到一个具体的解”，不需要包含所有情况，只要它满足方程就行。</p>
+
+<p><strong>例子</strong>：
+\(x+y=3\)
+取 \(x=1, y=2\)，则 \((1,2)^T\) 就是一个特解。取 \(x=0, y=3\) 也行，特解不唯一。</p>
+
+<hr />
+
+<h2 id="通解">通解</h2>
+
+<p><strong>定义</strong>：方程组<strong>所有解</strong>的统一表达式。</p>
+
+<p><strong>齐次方程的通解</strong>：
+\(x = c_1\xi_1 + c_2\xi_2 + \cdots + c_k\xi_k\)
+其中 \(\xi_1,\dots,\xi_k\) 是基础解系，\(c_1,\dots,c_k\) 是任意常数。</p>
+
+<p><strong>非齐次方程的通解</strong>：
+\(x = \eta^* + c_1\xi_1 + c_2\xi_2 + \cdots + c_k\xi_k\)
+其中 \(\eta^*\) 是一个特解，\(\xi_i\) 是对应齐次方程的基础解系。</p>
+
+<p><strong>通俗理解</strong>：通解 = 一个特解 + 齐次通解。特解负责“找到一个落脚点”，齐次通解负责“在解空间里自由移动”。</p>
+
+<hr />
+
+<h1 id="齐次线性方程组">齐次线性方程组</h1>
+
+<p><strong>定义</strong>：形如 \(Ax = 0\) 的方程组，常数项全为 0。</p>
+
+\[\begin{cases}
+a_{11}x_1 + a_{12}x_2 + \cdots + a_{1n}x_n = 0\\
+a_{21}x_1 + a_{22}x_2 + \cdots + a_{2n}x_n = 0\\
+\vdots\\
+a_{m1}x_1 + a_{m2}x_2 + \cdots + a_{mn}x_n = 0
+\end{cases}\]
+
+<p><strong>解的性质</strong>：</p>
+<ul>
+  <li>一定有零解 \(x=0\)。</li>
+  <li>解集构成一个向量空间，即<strong>零空间/解空间</strong>。</li>
+  <li>若 \(r(A)&lt;n\)，则有非零解，且有无穷多解。</li>
+  <li>若 \(r(A)=n\)，则只有零解。</li>
+</ul>
+
+<p><strong>通解形式</strong>：由基础解系线性组合而成。</p>
+
+<h1 id="非齐次线性方程组">非齐次线性方程组</h1>
+
+<p><strong>定义</strong>：形如 \(Ax=b\)，且 \(b\neq 0\)。</p>
+
+<p><strong>解的情况</strong>：</p>
+<ul>
+  <li>\(r(A)&lt;r(A\mid b)\)：无解。</li>
+  <li>\(r(A)=r(A\mid b)=n\)：唯一解。</li>
+  <li>\(r(A)=r(A\mid b)&lt;n\)：无穷多解。</li>
+</ul>
+
+<p><strong>通解形式</strong>：
+\(\boxed{\text{非齐次通解} = \text{一个特解} + \text{齐次通解}}\)</p>
+
+<h1 id="几何理解">几何理解</h1>
+
+<ul>
+  <li>齐次解空间是过原点的直线/平面（向量空间）。</li>
+  <li>非齐次解集是把这条直线/平面<strong>平移</strong>到特解的位置，不过原点，即<strong>仿射空间</strong>。</li>
+</ul>
+
+<h1 id="例子">例子</h1>
+
+<p>方程组：
+\(\begin{cases}
+x+y+z=3\\
+x-y+z=1
+\end{cases}\)</p>
+
+<p><strong>第一步</strong>：求对应齐次方程 \(Ax=0\) 的基础解系。
+行变换后得 \(y=0\)，\(x+z=0\)。令 \(z=t\)，则 \(x=-t\)。
+基础解系：\(\{(-1,0,1)^T\}\)。</p>
+
+<p><strong>第二步</strong>：找特解
+令 \(z=0\)，解得 \(x=2, y=1\)。特解：\((2,1,0)^T\)。</p>
+
+<p><strong>第三步</strong>：写通解
+\(x = \begin{pmatrix}2\\1\\0\end{pmatrix} + c\begin{pmatrix}-1\\0\\1\end{pmatrix}, \quad c\in\mathbb{R}\)</p>
+
+
+
+
+<!--mathjax 用以支持latex数学公式-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        
+        
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            // 插到 li 的第一个子元素前（一般是 a 或文本）
+            $li.prepend($toggle);
+        });
+    
+        // 点击折叠按钮，只切换当前 li，不冒泡到链接
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+
+</body>
+</html>
+

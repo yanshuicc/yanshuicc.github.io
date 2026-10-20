@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>感知机 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+            <link rel="stylesheet" href="/css/outline.css" />
+        
+    
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#感知机perceptron-1958">感知机（Perceptron）-1958</a></li><li><a href="#编码主义与连接主义">编码主义与连接主义</a></li><li><a href="#感知机模型">感知机模型</a></li><li><a href="#学习机制与价值动态">学习机制与价值动态</a></li><li><a href="#学习机制与价值动态-1">学习机制与价值动态</a></li><li><a href="#数学分析与学习曲线">数学分析与学习曲线</a></li><li><a href="#理想环境与分化环境">理想环境与分化环境</a></li><li><a href="#扩展与限制">扩展与限制</a></li><li><a href="#主要结论与意义">主要结论与意义</a></li><li><a href="#缺陷与发展">缺陷与发展</a></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/%E6%84%9F%E7%9F%A5%E6%9C%BA" title="感知机">感知机</a></div>
+        <div class="entry-date">2026-09-19</div>
+        <h1 id="感知机perceptron-1958">感知机（Perceptron）-1958</h1>
+<p>The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain
+提出了感知机模型，这是最早的神经网络原型，开启了用可学习参数进行模式识别的思路。</p>
+
+<h1 id="编码主义与连接主义">编码主义与连接主义</h1>
+<p>作者认为，要理解高级有机体的知觉、泛化、回忆和思维，必须回答三个问题：（1）物理世界的信息如何被生物系统感知？（2）信息以什么形式存储或记忆？（3）存储的信息如何影响识别和行为？论文主要关注后两个问题。
+对于记忆存储，存在两种对立观点：
+（1）编码图像观：内部编码表征图像，编码和外部图像存在对应关系，记忆类似于内存电荷或者布线图
+（2）连接主义观：记忆由中枢神经系统中新连接或通路的形成；信息储存在连接、关联或对特定反应的偏好中
+对于问题3，新刺激出现时，编码图像观对新的输入需要对比已存储的内容进行对比。连接主义则沿着已有的通路激活反应。</p>
+
+<p>作者归纳了连接主义5条假设。
+（1）接线假设：出生时脑内连接个体不同，大体随机，遗传只给最少约束。
+（2）可塑假设：神经一起活动后，连接概率会持久改变。
+（3）归类假设：刺激见多了，相似刺激倾向激活同一群细胞，不相似的分到不同群细胞。
+（4）强化假设：正强化或负强化会促进、阻碍正在形成的连接。
+（5）相似性假设：相似不是刺激固有属性，而由知觉系统和环境共同决定，并决定世界如何被分类。</p>
+
+<h1 id="感知机模型">感知机模型</h1>
+<p>感知机被设计为一个简化的神经网络模型，主要包含：
+S点：感觉单元，如视网膜上的光感受器，采用全或无反应。
+A单元：关联单元，接收来自 S 点的随机连接，具有阈值；若兴奋与抑制的代数和达到阈值，则全或无放电。
+R单元：响应单元，接收来自 A 单元的随机连接，并可与 A 单元形成反馈。
+典型结构为：视网膜 S → 投影区 A₁ → 关联区 A₂ → 响应 R。
+对于R对A₂单元的连接，有2种观点，分别是激励性或抑制性连接。R单元被激活后，（1）R会激励支持自己的A单元；（2）R会抑制那些不支持自己的A单元，从而切断竞争响应的输入，使不同响应不能同时存在，只能有一个胜出。论文为了易于分析，采用观点2。</p>
+
+<h1 id="学习机制与价值动态">学习机制与价值动态</h1>
+<p>学习的核心是改变A单元的价值V。活动通常增加 A 单元的价值，使其输出更有效。</p>
+
+<p>论文比较了三种价值动态系统：</p>
+
+<p>α系统：活动单元获得价值增量并长期保持。新增的V永远不会减少，这样比较简单，但容易失控：活动多的细胞会无限变强，噪声和偶然活动也会被永久积累。</p>
+
+<p>β系统：每个源集以恒定速率获得总增益，增量按活动比例分配；但净价值不断增长，会放大统计差异，导致性能较差。净价值不断增长，会放大统计差异，导致性能较差。早期某个单元稍微活跃一点，其增长速度具备累计性，后续就会多分到价值，最后造成富者越富。</p>
+
+<p>γ系统：活动单元从同源集的非活动单元夺取价值，源集总价值恒定；性能较好，且源集的均值判别与总和判别等价。</p>
+
+<p>响应分为两个阶段：前优势期中部分 A 单元被激活；随后进入后后优势期，某个响应成为主导，抑制其他响应。若该响应被强化，再次出现相同刺激时它更容易胜出，即发生学习。</p>
+
+<h1 id="学习机制与价值动态-1">学习机制与价值动态</h1>
+
+<p>学习的核心是改变 A 单元的价值V。活动通常增加 A 单元的价值，使其输出更有效。论文比较了三种价值动态系统：</p>
+
+<ul>
+  <li><strong>α 系统</strong>：活动单元获得价值增量并长期保持。</li>
+  <li><strong>β 系统</strong>：每个源集以恒定速率获得总增益，增量按活动比例分配；但净价值不断增长，会放大统计差异，导致性能较差。</li>
+  <li><strong>γ 系统</strong>：活动单元从同源集的非活动单元夺取价值，源集总价值恒定；性能较好，且均值判别与总和判别等价。</li>
+</ul>
+
+<p>响应分为两个阶段：<strong>主导期</strong>中部分 A 单元被激活；随后进入<strong>后主导期</strong>，某个响应成为主导，抑制其他响应。若该响应被强化，再次出现相同刺激时它更容易胜出，即发生学习。</p>
+
+<h1 id="数学分析与学习曲线">数学分析与学习曲线</h1>
+
+<p>论文用概率论而非符号逻辑来分析系统。关键变量包括：</p>
+
+<p>\(P_a\)：给定刺激激活 A 单元的比例；</p>
+
+<p>\(P_c\)：一个 A 单元对刺激 \(S_1\) 响应后，也对 \(S_2\) 响应的条件概率；</p>
+
+<p>\(P_r\)：在两个备选响应中做出正确选择的概率；</p>
+
+<p>\(P_\theta\)：对未见过刺激正确泛化的概率。</p>
+
+<p>学习性能近似为  \(P = P(N_{a_r}&gt;0)\cdot \phi(Z)\)</p>
+
+<p>其中 Z 由若干系数 \(c_1,c_2,c_3,c_4\) 和训练刺激数决定。这些系数取决于物理参数：每个 A 单元的兴奋连接数 x、抑制连接数 y、阈值 \(\theta\)、A 单元与 R 单元连接比例 \(\omega\)、A 单元数 \(N_A\)、R 单元数 \(N_R\) 等。</p>
+
+<h1 id="理想环境与分化环境">理想环境与分化环境</h1>
+
+<ul>
+  <li><strong>理想环境</strong>：刺激为随机点集合，没有内在相似类别。此时 \(c_1=0\)，泛化概率 \(P_\theta\) 不优于随机水平 0.5；随着学习刺激数增加，正确反应概率 \(P_r\) 会退化到随机水平。系统只能死记具体刺激，不能真正泛化。</li>
+  <li><strong>分化环境</strong>：刺激来自不同类别，如方形、圆形等。此时 \(c_1\neq 0\)，学习曲线出现非随机渐近线。若满足<br />
+[
+P_{e12} &lt; P_a &lt; P_{e11}
+]
+则系统性能优于随机，且 \(P_r\) 与 \(P_\theta\) 趋近同一渐近线。增加 A 单元数量可使渐近线接近 1，即简单图形辨别错误可忽略。</li>
+</ul>
+
+<h1 id="扩展与限制">扩展与限制</h1>
+
+<p>论文还讨论了：</p>
+
+<ul>
+  <li><strong>二值系统</strong>：可施加正负强化，相当于奖励与惩罚，使感知机能够进行试错学习。</li>
+  <li><strong>二值编码</strong>：用少量二元响应表示多个刺激类别，提高效率。</li>
+  <li><strong>时间模式</strong>：若刺激留下暂时痕迹，感知机可识别速度、声音序列等。</li>
+  <li><strong>轮廓敏感投影区</strong>：可提高性能。</li>
+  <li><strong>自发概念形成</strong>：若 A 单元价值按幅度衰减，系统可在自动强化下自发区分两类刺激。</li>
+  <li><strong>选择性注意与回忆</strong>：通过源集交叠，可实现“命名左边物体”等选择性反应。</li>
+  <li><strong>局限</strong>：感知机擅长具体刺激的识别与关联，但在关系判断和高阶抽象上存在根本困难，如“正方形左边的物体”“圆形之前出现的图案”等。</li>
+</ul>
+
+<h1 id="主要结论与意义">主要结论与意义</h1>
+
+<p>论文最后总结了感知机的性质：</p>
+
+<ol>
+  <li>随机连接系统可在随机环境中学会具体刺激—反应关联；</li>
+  <li>但在理想随机环境中，随学习刺激增多，正确率退化到随机水平，且无泛化基础；</li>
+  <li>在分化环境中，若刺激类内相似性高于类间相似性，则学习和泛化可优于随机，并随 A 单元数增加趋近于 1；</li>
+  <li>记忆是分布式的：去掉部分 A 单元不会严重破坏某一特定联想，而是普遍降低所有已学关联；</li>
+  <li>可从六个基本物理参数预测学习、辨别和泛化行为；</li>
+  <li>该理论在简洁性、可验证性和解释力上优于当时许多行为主义学习理论，并试图在神经生理学与心理学之间建立定量桥梁。</li>
+</ol>
+
+<p>总体而言，这篇论文提出了以<strong>统计可分性</strong>为核心的感知机理论，用随机连接、阈值单元、价值变化和概率分析来解释信息存储、学习、泛化及认知组织，是神经网络和机器学习历史上的奠基性文献。</p>
+
+<h1 id="缺陷与发展">缺陷与发展</h1>
+
+<p>单层感知机只能解决线性分类问题，无法解决XOR。解决方案是多层感知机和核方法。多层感知机（MLP，Multilayer Perceptron）通过引入隐藏层和非线性激活函数，拟合非线性边界，以传播学习训练。核方法则把数据隐式映射到高维空间，在高维用超平面的线性分类器解决非线性问题。</p>
+
+
+
+
+<!--mathjax 用以支持latex数学公式-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        
+        
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            // 插到 li 的第一个子元素前（一般是 a 或文本）
+            $li.prepend($toggle);
+        });
+    
+        // 点击折叠按钮，只切换当前 li，不冒泡到链接
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+
+</body>
+</html>
+

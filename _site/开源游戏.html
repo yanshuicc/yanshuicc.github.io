@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>开源游戏 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+<div class="entry">
+    <div class="entry-title"><a href="/%E5%BC%80%E6%BA%90%E6%B8%B8%E6%88%8F" title="开源游戏">开源游戏</a></div>
+    <div class="entry-date">2015-09-21</div>
+    <h1 id="开源模拟游戏-openttd">开源模拟游戏-OpenTTD</h1>
+<p><a href="https://github.com/OpenTTD/OpenTTD">OpenTTD</a> 是另一款开源模拟游戏，它照着 1995 年的《运输大亨豪华版》重新写了一遍，修铁路、跑火车、开公交、建机场，把货物和乘客从一座城运到另一座城赚钱。</p>
+
+<h1 id="像素工厂-mindustry">像素工厂-Mindustry</h1>
+<p><a href="https://github.com/Anuken/Mindustry">Mindustry</a> 是一款融合了工厂自动化、塔防和即时战略（RTS）元素的独立游戏。它最初是开发者 Anuke 在 2017 年的一场 Game Jam 中，用 72 小时制作的原型，之后持续更新发展成为一款内容极为丰富的开源游戏。其核心循环是建造供应链以支撑防御与进攻，不像传统塔防那样只需放置炮塔，它需要搭建一套复杂的自动化工业体系来维持运转。</p>
+
+<p>游戏覆盖 Windows、macOS、Linux、Android 和 iOS 等多个平台，并且支持跨平台多人合作与对战。</p>
+
+<h1 id="公元0年-0-ad">公元0年-0 A.D.</h1>
+<p><a href="https://github.com/0ad/0ad">0 A.D.</a> 是一款古代战争题材即时战略（RTS）游戏，由全球志愿者团队 Wildfire Games (WFG) 开发，旨在让玩家重现或改写公元前 500 年至公元 500 年的西方文明历史。</p>
+
+<p>游戏提供了 14 个独特的古代文明供玩家选择，包括雅典、斯巴达、罗马、迦太基、波斯、印度等。每个文明在单位、建筑和科技树上都各具特色。核心玩法有：</p>
+<ul>
+  <li>领土系统：建造建筑来扩张你的领土边界，控制资源点</li>
+  <li>对战系统：排列对战阵型，如马其顿方阵（Phalanx）或罗马龟甲阵（Testudo）</li>
+  <li>不同的游戏模式：征服模式、弑君模式、奇观胜利等</li>
+</ul>
+
+<p>游戏使用名为 Pyrogenesis 的自研游戏引擎，引擎核心由 C++ 编写以保证性能，游戏逻辑、AI 和界面交互则大量使用 JavaScript 来驱动，便于修改和扩展。</p>
+
+<h1 id="battle-for-wesnoth韦诺之战">Battle for Wesnoth（韦诺之战）</h1>
+<p><a href="https://github.com/wesnoth/wesnoth">Battle for Wesnoth</a> 是一款以高奇幻为主题的开源回合制策略游戏，由美国开发者 David White 等人于 2003 年首次发布。游戏以架空奇幻世界 Irdya 为背景，采用六边形网格地图设计，包含 16 个官方战役（超过 200 个场景）及大量玩家自制战役。</p>
+
+<p>游戏提供六个主要派系供玩家选择，涵盖人类、精灵、矮人、兽人、亡灵等种族，拥有超过 200 种单位。核心机制围绕地形适应性和昼夜时段立场（守序、混沌、中立、边缘）展开——不同种族在白天或黑夜中的战斗力会有显著差异，需要据此制定策略。玩家通过控制村庄获取金币来维持军队开支，单位可通过战斗升级并继承至后续场景。</p>
+
+<p>游戏支持单机、局域网及在线多人对战，提供 50 多张多人地图，并支持包括中文在内的 40 多种语言。作为自由游戏联盟成员，游戏基于 GPL 协议发布，拥有活跃的模组社区，用户自制内容可从官方服务器下载，优秀作品甚至会被纳入官方发布。</p>
+
+<h1 id="tux-开的卡丁车-supertuxkart">Tux 开的卡丁车-SuperTuxKart</h1>
+<p><a href="https://github.com/supertuxkart/stk-code">SuperTuxKart</a> 是一款开源三维街机赛车游戏，目标是为所有年龄段的玩家带来比真实卡丁车更纯粹的乐趣。游戏以 Linux 吉祥物企鹅 Tux 为主角，角色阵容还包括 GIMP 的吉祥物 Wilber、OpenBSD 的 Puffy、KDE 的 Konqi 等众多开源项目的吉祥物。</p>
+
+<p>游戏核心玩法类似《马里奥赛车》，玩家可在比赛中使用冰冻射线等道具干扰对手，还设有足球模式和自定义赛道功能。游戏提供故事模式（打败反派 Nolok，拯救导师 Gnu）、计时模式、锦标赛以及本地最多 8 人同屏对战和在线多人模式。目前已包含 21 条原创赛道，下载量超过 500 万次。</p>
+
+<p>SuperTuxKart 采用 C++ 和 OpenGL/OpenGL ES 技术构建，支持 Linux、Windows、macOS 及 Nintendo Switch 平台，代码遵循 GNU GPL 协议。玩家可通过 Blender 工具创作自己的角色和赛道并分享至社区。</p>
+
+<h1 id="minetestluanti">Minetest（Luanti）</h1>
+<p><a href="https://github.com/minetest/minetest">Minetest</a>（现已更名为 <strong>Luanti</strong>）是一款开源体素沙盒游戏与游戏开发平台，由 Perttu Ahlola（别名“celeron55”）于 2010 年创建，灵感来源于 Infiniminer 和 Minecraft。玩家可以在三维开放世界中创建和销毁各种方块，支持生存模式和创造模式，同时具备多人联机、动态光照和“无限”地图生成功能。</p>
+
+<p>Luanti 的最大特色在于它是一个游戏平台而非单一游戏。引擎本身只提供基础的体素渲染和网络功能，游戏玩法通过 Lua API 由“子游戏”定义。ContentDB 上已有超过 3100 个开源模组可供使用和改编。地图尺寸达到 62,000 × 62,000 × 62,000 个方块，支持 Windows、macOS、Linux、BSD 和 Android 系统。引擎基于 LGPL 协议发布，完全开源透明。</p>
+
+<h1 id="endless-sky">Endless Sky</h1>
+<p><a href="https://github.com/endless-sky/endless-sky">Endless Sky</a> 是一款 2D 太空探索、贸易与战斗游戏，风格类似经典的 Escape Velocity 系列。玩家从一艘最基础的飞船起步，通过贸易、运送乘客、完成各种任务来赚钱，逐步升级武器、引擎和飞船，最终拥有一支属于自己的舰队。</p>
+
+<p>游戏设定在一个人口稠密的银河系中，人类空间由约 200 个星系通过超空间链路连接。玩家可以选择成为商人、海盗猎人、赏金猎人，也可以深入未知空间寻找外星文明。游戏包含一条完整的主线剧情——参与一场重塑人类空间的叛乱，以及大量支线任务。约 70 种不同型号的飞船可供购买，从大型货轮到强大战舰再到灵巧的侦察舰。游戏还拥有丰富的装备系统，玩家需要在能源、散热和空间之间做出权衡。</p>
+
+<p>Endless Sky 完全免费开源，支持 Windows、macOS 和 Linux 平台，设计上尽可能便于社区创作新内容，目前已有多个其他故事线正在开发中。</p>
+
+<h1 id="xonotic">Xonotic</h1>
+<p><a href="https://gitlab.com/xonotic/xonotic">Xonotic</a> 是一款快节奏的竞技场式第一人称射击游戏（FPS），衍生自另一款开源 FPS 游戏 Nexuiz，由从 Nexuiz 社区分裂出来的 Xonotic 团队负责开发。游戏基于源自 Quake 引擎的 DarkPlaces 引擎，设计灵感来自《雷神之锤》和《虚幻竞技场》。</p>
+
+<p>Xonotic 主打经典死亡竞赛和竞技场玩法，强调流畅的移动机制和丰富的武器选择。游戏包含多种武器，每种都有主副两种开火模式，配合冲刺、跳跃等移动技巧，形成极高的操作上限。游戏完全免费，支持 Windows、macOS 和 Linux 平台，拥有活跃的社区服务器和定期锦标赛。</p>
+
+<h1 id="veloren">Veloren</h1>
+<p><a href="https://github.com/veloren/veloren">Veloren</a> 是一款开源多人体素角色扮演游戏（RPG），使用 Rust 语言编写。游戏从 2018 年中开始开发，灵感来源于《Cube World》《矮人要塞》《塞尔达传说：旷野之息》和《Minecraft》。玩家可以在广阔的开放世界中探索、战斗、制作和建造，创建高度自定义的角色，体验类似《旷野之息》的冒险感。</p>
+
+<p>项目由约 20 名活跃开发者以及另外 20 名艺术家、作家、设计师和作曲家共同贡献，已有超过 150 人参与过该项目。游戏采用社区原创的图形、音乐等素材，基于 GPL 3.0 协议发布，目前处于 beta 阶段但已可游玩，支持 Windows、Linux 和 macOS。</p>
+
+<h1 id="shattered-pixel-dungeon">Shattered Pixel Dungeon</h1>
+<p><a href="https://github.com/00-Evan/shattered-pixel-dungeon">Shattered Pixel Dungeon</a>（破碎的像素地牢）是一款传统 Roguelike 地牢探索 RPG，由开发者 Evan Debenham 基于 Watabou 于 2012 年发布的开源游戏《像素地下城》的源代码开发，项目于 2014 年启动，旨在对原版进行全面改进和扩展。</p>
+
+<p>游戏上手容易但精通很难。每次游戏都是独一无二的挑战：6 位独特英雄，每位拥有 2 个子类、3 个终局能力和超过 25 种天赋；随机生成的关卡包含 5 个区域、26 个楼层、超过 100 种房间类型及数万亿种布局可能；超过 300 种道具、60 多种敌人类型、30 种陷阱和 10 个首领。游戏还包含炼金系统和地形策略要素。</p>
+
+<p>游戏完全免费开源，不含广告与内购，支持社区模组开发与多语言翻译，更新频率约为每月一次。支持 Android、iOS、Steam 等平台，全平台销量超过 10 万份。</p>
+
+<h1 id="openra">OpenRA</h1>
+<p><a href="https://github.com/OpenRA/OpenRA">OpenRA</a> 是一个开源即时战略（RTS）游戏引擎，使用 C# 编写，基于 SDL 和 OpenGL，专门用于重制和现代化 Westwood 的经典 RTS 游戏。它支持《命令与征服：红色警戒》《命令与征服：泰伯利亚黎明》和《沙丘 2000》三款经典作品。</p>
+
+<p>OpenRA 并非简单的复刻，而是围绕现代 RTS 体验重新设计了游戏机制，加入了攻击移动、单位经验、战争迷雾等现代功能，同时保留了经典玩法的核心魅力。游戏支持完整的模组系统和自定义地图，内置 Mod SDK 允许玩家创建全新的 RTS 游戏。多人模式支持在线对战和自定义地图，社区定期举办锦标赛。游戏原生支持 Windows、macOS 和 Linux 平台，完全开源，开发过程公开透明。</p>
+
+<h1 id="cataclysm-dda">Cataclysm: DDA</h1>
+<p><a href="https://github.com/CleverRaven/Cataclysm-DDA">Cataclysm: Dark Days Ahead</a> 是一款回合制生存 Roguelike 游戏，背景设定在一个后末日世界中。游戏世界是程序生成的、持久化的、严酷的，玩家需要在其中挣扎求生。从死去的文明遗迹中搜刮食物、装备，或者——如果你运气好的话——找到一辆油箱满满的汽车，逃离这片地狱。</p>
+
+<p>游戏的深度惊人。你需要管理饥饿、口渴、温度、伤口感染、精神健康等无数生存指标。敌人种类从僵尸、巨型昆虫到杀手机器人乃至更诡异可怕的存在。游戏采用回合制玩法和类似 RPG 的技能成长系统，是现代传统 Roguelike 的典范之作。</p>
+
+<p>游戏支持 Windows、macOS、Linux 及 Android 系统（iOS 版本已不再维护），提供多种语言版本，完全开源免费。</p>
+
+<hr />
+
+<h1 id="更多开源游戏分类索引">更多开源游戏分类索引</h1>
+
+<p>以下按类型整理，前面已详细介绍的游戏不再重复，仅列出其余值得关注的开源项目。</p>
+
+<h2 id="动作游戏">动作游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Hypersomnia</strong>：竞争性俯视射击，节奏极快，带像素复古风，内置地图编辑器。<a href="https://hypersomnia.io/">官网</a></td>
+          <td><a href="https://github.com/TeamHypersomnia/Hypersomnia">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Anarch</strong>：不是 90 年代复古射击，它就是 90 年代射击。<a href="https://drummyfish.gitlab.io/anarch">官网</a></td>
+          <td><a href="https://gitlab.com/drummyfish/anarch">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="冒险游戏">冒险游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Dead Ascend</strong>：僵尸题材冒险与密室逃脱，带反转。<a href="https://blackgrain.dk/games/deadascend">官网</a></td>
+          <td><a href="https://github.com/larpon/DeadAscend">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Pioneer</strong>：设定在银河系 33 世纪初的太空冒险。<a href="https://pioneerspacesim.net/">官网</a></td>
+          <td><a href="https://github.com/pioneerspacesim/pioneer">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>ScummVM</strong>：用于运行部分经典图形冒险与角色扮演游戏的程序。<a href="https://www.scummvm.org/">官网</a></td>
+          <td><a href="https://github.com/scummvm/scummvm">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>The Legend of Zelda: Twilight Princess</strong>：逆向工程项目，将《黄昏公主》反编译为可读、可修改的源代码。<a href="https://zsrtp.link/">官网</a></td>
+          <td><a href="https://github.com/zeldaret/tp">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Zelda 3</strong>：《塞尔达传说：众神的三角力量》的逆向工程克隆。<a href="https://github.com/snesrev/zelda3">源码</a></li>
+</ul>
+
+<h2 id="经营与大亨游戏">经营与大亨游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>CorsixTH</strong>：《主题医院》的开源克隆。<a href="https://corsixth.com/">官网</a></td>
+          <td><a href="https://github.com/CorsixTH/CorsixTH">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Hurry Curry!</strong>：快节奏合作多人烹饪游戏。<a href="https://hurrycurry.org/">官网</a></td>
+          <td><a href="https://codeberg.org/hurrycurry/hurrycurry">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenLoco</strong>：Chris Sawyer《Locomotion》的开源重实现。<a href="https://openloco.io/">官网</a></td>
+          <td><a href="https://github.com/OpenLoco/OpenLoco">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenRCT2</strong>：《过山车大亨 2》的开源重实现。<a href="https://openrct2.org/">官网</a></td>
+          <td><a href="https://github.com/OpenRCT2/OpenRCT2">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="城市建设游戏">城市建设游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Akhenaten</strong>：战略城市建设，基于《法老王 + 克利奥帕特拉》的资源与玩法，扮演古埃及统治者与市长。<a href="https://dalerank.itch.io/akhenaten">官网</a></td>
+          <td><a href="https://github.com/dalerank/Akhenaten">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Citybound</strong>：用微观模型模拟数百万个体互动所形成的城市有机体。<a href="https://aeplay.org/citybound">官网</a></td>
+          <td><a href="https://github.com/citybound/citybound">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Cytopia</strong>：免费开源的复古像素风城市建设游戏。<a href="https://cytopia.itch.io/cytopia">官网</a></td>
+          <td><a href="https://github.com/CytopiaTeam/Cytopia">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Egregoria</strong>：独立城市建设，主要灵感来自《城市：天际线》。<a href="https://github.com/Uriopass/Egregoria">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>IsoCity</strong>：用 NextJS、TypeScript 和 TailwindCSS 制作的等距城市建设模拟。<a href="https://iso-city.com/">官网</a></td>
+          <td><a href="https://github.com/amilich/isometric-city">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Julius</strong>：《凯撒大帝 III》的开源重实现。<a href="https://github.com/bvschaik/julius">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>micropolisJS</strong>：开源城市模拟器 Micropolis 的手写 JavaScript 移植。<a href="http://www.graememcc.co.uk/micropolisJS">官网</a></td>
+          <td><a href="https://github.com/graememcc/micropolisJS">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Unknown Horizons</strong>：侧重经济与城市建设的 2D 即时战略模拟。<a href="https://unknown-horizons.org/">官网</a></td>
+          <td><a href="https://github.com/unknown-horizons/unknown-horizons">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="第一人称游戏">第一人称游戏</h2>
+<ul>
+  <li><strong>.kkrieger</strong>：德国 demogroup .theprodukkt 制作的第一人称射击，2004 年 4 月在 Breakpoint 的 96k 比赛中获第一。<a href="https://github.com/farbrausch/fr_public/tree/master/werkkzeug3_kkrieger">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>AssaultCube</strong>：免费多人第一人称射击。<a href="https://assault.cubers.net/">官网</a></td>
+          <td><a href="https://github.com/assaultcube/AC">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Cube 2: Sauerbraten</strong>：免费单人/多人第一人称射击。<a href="http://sauerbraten.org/">官网</a></td>
+          <td><a href="https://sourceforge.net/projects/sauerbraten">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Descent 3</strong>：第一人称射击。<a href="https://github.com/kevinbentley/Descent3">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Liblast</strong>：用 Godot 4 与全开源工具链制作的自由多人 FPS。<a href="https://libla.st/">官网</a></td>
+          <td><a href="https://codeberg.org/liblast/liblast">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Red Eclipse</strong>：面向现代的老派竞技场射击。<a href="https://www.redeclipse.net/">官网</a></td>
+          <td><a href="https://github.com/redeclipse/base">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Surreal Engine</strong>：《虚幻竞技场》引擎重实现。<a href="https://github.com/dpjudas/SurrealEngine">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>The Dark Mod</strong>：第一人称潜行游戏。<a href="https://www.thedarkmod.com/main">官网</a></td>
+          <td><a href="https://svn.thedarkmod.com/publicsvn/darkmod_src/trunk">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="异形大战铁血战士源码移植">《异形大战铁血战士》源码移植</h3>
+<ul>
+  <li><strong>AvP Forever</strong>：维护《Aliens versus Predator (1999)》现有源码。<a href="https://github.com/dreamer/avp-forever">源码</a></li>
+  <li><strong>avpmp</strong>：原 Linux 移植的分支，增加多人等功能。<a href="https://github.com/mbait/avpmp">源码</a></li>
+  <li><strong>NakedAVP</strong>：将《Aliens vs Predator Classic (2000)》移植到现代系统，基于 icculus 的 Linux/macOS/Windows 移植，使用 SDL3。<a href="https://github.com/atsb/NakedAVP">源码</a></li>
+</ul>
+
+<h3 id="基于-build-引擎的游戏">基于 Build 引擎的游戏</h3>
+<ul>
+  <li><strong>Duke Nukem 3D</strong>：由 3D Realms 制作。<a href="https://github.com/videogamepreservation/dukenukem3d">源码</a></li>
+  <li><strong>Shadow Warrior</strong>：《Shadow Warrior》官方源码发布。<a href="https://github.com/Azarien/shadow-warrior">源码</a></li>
+  <li><strong>BuildGDX</strong>：<a href="https://github.com/vogonsorg/BuildGDX">源码</a></li>
+  <li><strong>EDuke32</strong>：包含 EDuke32、Ion Fury、VoidSW、Mapster32 等基于 Build 引擎的项目。<a href="https://voidpoint.io/terminx/eduke32">官网</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>JFDuke3D</strong>：《毁灭公爵 3D》移植。<a href="https://www.jonof.id.au/jfduke3d">官网</a></td>
+          <td><a href="https://github.com/jonof/jfduke3d">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>JFShadowWarrior</strong>：《Shadow Warrior》移植。<a href="https://www.jonof.id.au/jfsw">官网</a></li>
+  <li><strong>NBlood</strong>：用 EDuke32 技术与开发原则逆向移植的 Build 游戏。<a href="https://github.com/NBlood/NBlood">源码</a></li>
+  <li><strong>NuBuildGDX</strong>：BuildGDX 分支，侧重稳定、修 bug 与性能。<a href="https://github.com/atsb/NuBuildGDX">源码</a></li>
+  <li><strong>Raze</strong>：基于 GZDoom 技术的 Build 引擎移植。目前支持《毁灭公爵 3D》《Blood》《Shadow Warrior》《Redneck Rampage》以及《Powerslave/Exhumed》。<a href="https://github.com/ZDoom/Raze">源码</a></li>
+</ul>
+
+<h3 id="id-software-游戏">id Software 游戏</h3>
+<ul>
+  <li><strong>Doom</strong>：<a href="https://github.com/id-Software/DOOM">源码</a></li>
+  <li><strong>DOOM64-RE</strong>：《Doom 64》完整逆向。<a href="https://github.com/Erick194/DOOM64-RE">源码</a></li>
+  <li><strong>Doom 3 BFG Edition</strong>：<a href="https://github.com/id-Software/DOOM-3-BFG">源码</a></li>
+  <li><strong>Quake</strong>：<a href="https://github.com/id-Software/Quake">源码</a></li>
+  <li><strong>Quake II</strong>：<a href="https://github.com/id-Software/Quake-2">源码</a></li>
+  <li><strong>Quake III Arena</strong>：<a href="https://github.com/id-Software/Quake-III-Arena">源码</a></li>
+  <li><strong>Wolfenstein 3D</strong>：<a href="https://github.com/id-Software/wolf3d">源码</a></li>
+</ul>
+
+<h3 id="id-software-游戏源码移植与重实现">id Software 游戏源码移植与重实现</h3>
+<ul>
+  <li><strong>CatacombGL</strong>：Catacomb 3D 与 Catacomb Adventure 系列的源码移植。<a href="https://github.com/ArnoAnsems/CatacombGL">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Chocolate Doom</strong>：尽量还原 1990 年代《Doom》体验的移植。<a href="https://www.chocolate-doom.org/">官网</a></td>
+          <td><a href="https://github.com/chocolate-doom/chocolate-doom">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>ZDoom</strong>：面向全部 Doom 引擎游戏的功能型移植。<a href="https://zdoom.org/">官网</a></td>
+          <td><a href="https://github.com/UZDoom/UZDoom">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Chocolate Quake</strong>：还原 v1.09 及更早版本观感的纯粹派 Quake 移植。<a href="https://github.com/Henrique194/chocolate-quake">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>FTEQW</strong>：用于游玩与模组 idTech 游戏的强大引擎。<a href="https://www.fteqw.org/">官网</a></td>
+          <td><a href="https://github.com/fte-team/fteqw">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>ECWolf</strong>：基于 Wolf4SDL 的《德军总部 3D》引擎移植。<a href="https://bitbucket.org/ecwolf/ecwolf">源码</a></li>
+  <li><strong>Wolf4SDL</strong>：将《德军总部 3D》移植到跨平台多媒体库 SDL。<a href="https://github.com/lazd/wolf4sdl">源码</a></li>
+</ul>
+
+<h2 id="平台跳跃">平台跳跃</h2>
+<ul>
+  <li><strong>Commander-Genius</strong>：Commander Keen（1–6、Dreams）与 Cosmo’s Cosmic 系列的开源解释器，可玩原作关卡及部分模组。<a href="https://gitlab.com/Dringgstein/Commander-Genius">源码</a></li>
+  <li><strong>Commander Keen in Keen Dreams</strong>：id Software 开发的横版平台游戏。<a href="https://github.com/keendreams/keen">源码</a></li>
+  <li><strong>Omnispeak</strong>：《Commander Keen in Goodbye Galaxy》的开源重实现。<a href="https://github.com/sulix/omnispeak">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>DDraceNetwork</strong>：合作 2D 在线平台跳跃。<a href="https://ddnet.tw/">官网</a></td>
+          <td><a href="https://github.com/ddnet/ddnet">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Jumpy</strong>：战术 2D 射击。<a href="https://fishfolk.org/games/jumpy">官网</a></td>
+          <td><a href="https://github.com/fishfolk/jumpy">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Punchy</strong>：用 Bevy 制作的 2.5D 横版格斗。<a href="https://github.com/fishfolk/punchy">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Frogatto &amp; Friends</strong>：动作冒险平台跳跃，主角是一只爱幻想的青蛙。<a href="https://frogatto.com/">官网</a></td>
+          <td><a href="https://github.com/frogatto/frogatto">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenGOAL</strong>：将《杰克与达斯特》系列移植到 PC。<a href="https://opengoal.dev/">官网</a></td>
+          <td><a href="https://github.com/water111/jak-project">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Rigel Engine</strong>：1993 年 Apogee 为 MS-DOS 发行的《Duke Nukem II》重实现。<a href="https://github.com/lethal-guitar/RigelEngine">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Sonic Robo Blast 2</strong>：基于 Doom 的 3D 开源索尼克同人游戏。<a href="https://www.srb2.org/">官网</a></td>
+          <td><a href="https://git.do.srb2.org/STJr/SRB2">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Super Mario 64</strong>：《超级马里奥 64》完整反编译。<a href="https://github.com/n64decomp/sm64">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>VVVVVV</strong>：<a href="https://thelettervsixtim.es/">官网</a></td>
+          <td><a href="https://github.com/TerryCavanagh/VVVVVV">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="解谜游戏">解谜游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>BlockOut II</strong>：1989 年 California Dreams 的 BlockOut® DOS 游戏的免费改编。<a href="http://www.blockout.net/blockout2">官网</a></td>
+          <td><a href="https://sourceforge.net/projects/blockout/files/blockout/BlockOut%202.5">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Portal64</strong>：《传送门》面向任天堂 64 的 demake。<a href="https://github.com/mwpenny/portal64-still-alive">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Whatajong</strong>：<a href="https://whatajong.com/">官网</a></td>
+          <td><a href="https://github.com/masylum/whatajong">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="竞速游戏">竞速游戏</h2>
+<ul>
+  <li><strong>Dust Racing 2D</strong>：传统俯视赛车，含关卡编辑器。<a href="https://github.com/juzzlin/DustRacing2D">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>ManiaDrive</strong>：Nadeo《TrackMania》的免费克隆。<a href="http://maniadrive.raydium.org/">官网</a></td>
+          <td><a href="http://maniadrive.raydium.org/index.php?downloads=yes">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Rigs of Rods</strong>：开源物理沙盒，可实时模拟载具运动与形变。<a href="https://www.rigsofrods.org/">官网</a></td>
+          <td><a href="https://github.com/RigsOfRods/rigs-of-rods">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>RVGL</strong>：《Re-Volt》的跨平台重写/移植，原生支持 Windows 与 GNU/Linux。<a href="https://re-volt.io/">官网</a></td>
+          <td><a href="https://gitlab.com/re-volt">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Speed Dreams</strong>：免费开源赛车模拟。<a href="https://www.speed-dreams.net/">官网</a></td>
+          <td><a href="https://forge.a-lec.org/xavi/speed-dreams-code">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Stunt Rally</strong>：带科幻元素的 3D 竞速，自带赛道编辑器。<a href="https://stuntrally.tuxfamily.org/">官网</a></td>
+          <td><a href="https://github.com/stuntrally/stuntrally3">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>TORCS</strong>：高可移植的多平台赛车模拟，可用作普通赛车、AI 竞赛与研究平台。<a href="https://torcs.sourceforge.net/">官网</a></td>
+          <td><a href="https://sourceforge.net/projects/torcs">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Trigger Rally</strong>：面向 Linux 与 Windows 的快节奏单人竞速。<a href="https://trigger-rally.sourceforge.io/">官网</a></td>
+          <td><a href="https://sourceforge.net/projects/trigger-rally">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>VDrift</strong>：跨平台开源驾驶模拟，侧重漂移。<a href="https://vdrift.net/">官网</a></td>
+          <td><a href="https://github.com/VDrift/vdrift">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Yorg</strong>：Ya2 用 Panda3D 开发，支持 Windows、OSX 与 Linux。<a href="https://ya2.itch.io/yorg">官网</a></td>
+          <td><a href="https://github.com/cflavio/yorg">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>wipEout</strong>：1995 年 PSX《Wipeout》的重实现。<a href="https://github.com/phoboslab/wipeout-rewrite">源码</a></li>
+</ul>
+
+<h2 id="即时战略">即时战略</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>BAR (Beyond All Reason)</strong>：<a href="https://www.beyondallreason.info/">官网</a></td>
+          <td><a href="https://github.com/beyond-all-reason/Beyond-All-Reason">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Dune II The Maker</strong>：《沙丘 2》重制。<a href="https://dune2themaker.fundynamic.com/">官网</a></td>
+          <td><a href="https://github.com/stefanhendriks/Dune-II---The-Maker">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Freeserf.net</strong>：BlueByte《移民者 I》的忠实重制。<a href="http://freeserf.net/">官网</a></td>
+          <td><a href="https://github.com/Pyrdacor/freeserf.net">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Keeper FX</strong>：《地下城守护者》开源重制与粉丝扩展。<a href="https://keeperfx.net/">官网</a></td>
+          <td><a href="https://github.com/dkfans/keeperfx">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenAge</strong>：自由、跨平台的 RTS 引擎，提供《帝国时代》机制。<a href="https://openage.sft.mx/">官网</a></td>
+          <td><a href="https://github.com/SFTtech/openage">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenHV</strong>：开源像素风科幻即时战略。<a href="https://www.openhv.net/">官网</a></td>
+          <td><a href="https://github.com/OpenHV/OpenHV">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Permafrost Engine</strong>：用 C 编写的 OpenGL 3.3 即时战略引擎。<a href="https://github.com/eduard-permyakov/permafrost-engine">源码</a></li>
+  <li><strong>Standard Of Iron</strong>：用 C++20、Qt 6 与 OpenGL 3.3 Core 构建的现代 RTS 引擎。<a href="https://github.com/djeada/Standard-of-Iron">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Warzone 2100</strong>：免费开源 3D 即时战略，含剧情单人战役、在线多人、离线遭遇战等。<a href="https://wz2100.net/">官网</a></td>
+          <td><a href="https://github.com/Warzone2100/warzone2100">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Widelands</strong>：免费开源即时战略。<a href="https://www.widelands.org/">官网</a></td>
+          <td><a href="https://github.com/widelands/widelands">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Zero-K</strong>：带物理弹道、智能单位与强大 UI 的 RTS。<a href="https://zero-k.info/">官网</a></td>
+          <td><a href="https://github.com/ZeroK-RTS/Zero-K">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="暴雪游戏重实现">暴雪游戏重实现</h3>
+<ul>
+  <li><strong>OpenBW</strong>：自由开源的 Best Wargame。<a href="https://github.com/OpenBW/openbw">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Brood War API</strong>：<a href="https://bwapi.github.io/">官网</a></td>
+          <td><a href="https://github.com/OpenBW/bwapi">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Strategus</strong>：<a href="https://stratagus.com/">官网</a></td>
+          <td><a href="https://github.com/Wargus/stratagus">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>War1gus</strong>：《魔兽争霸：兽人与人类》重实现，可在现代平台游玩。<a href="https://stratagus.com/war1gus.html">官网</a></td>
+          <td><a href="https://github.com/Wargus/war1gus">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Wargus</strong>：《魔兽争霸 II：黑暗之潮》、资料片《黑暗之门之外》以及 Aleonas Tales 的导入器与脚本。<a href="https://stratagus.com/">官网</a></td>
+          <td><a href="https://github.com/Wargus/wargus">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Wyrmsun</strong>：融合神话、历史与虚构元素的战略游戏。<a href="https://andrettin.github.io/">官网</a></td>
+          <td><a href="https://github.com/Andrettin/Wyrmsun">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Stargus</strong>：《星际争霸》的导入器与脚本。<a href="https://stratagus.com/stratagus.html">官网</a></td>
+          <td><a href="https://github.com/Wargus/stargus">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Warsmash Mod Engine</strong>：用于增强《魔兽争霸 III》模组开发的模拟引擎。<a href="https://github.com/Retera/WarsmashModEngine">源码</a></li>
+</ul>
+
+<h3 id="westwood-与-ea命令与征服系列">Westwood 与 EA《命令与征服》系列</h3>
+<ul>
+  <li><strong>Command &amp; Conquer Remastered Collection</strong>：《命令与征服重制版合集》的 TiberianDawn.dll、RedAlert.dll 与地图编辑器。<a href="https://github.com/electronicarts/CnC_Remastered_Collection">源码</a></li>
+  <li><strong>Generals</strong>：《命令与征服：将军》及其资料片《绝命时刻》。<a href="https://github.com/electronicarts/CnC_Generals_Zero_Hour">源码</a></li>
+  <li><strong>Red Alert</strong>：<a href="https://github.com/electronicarts/CnC_Red_Alert">源码</a></li>
+  <li><strong>Tiberian Dawn</strong>：<a href="https://github.com/electronicarts/CnC_Tiberian_Dawn">源码</a></li>
+</ul>
+
+<h2 id="roguelike">Roguelike</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Brogue CE</strong>：极简回合制程序生成 roguelike，深入危险地牢取回 Yendor 护身符。<a href="https://sites.google.com/site/broguegame/">官网</a></td>
+          <td><a href="https://github.com/tmewett/BrogueCE">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Dungeon Crawl Stone Soup</strong>：开源 roguelike，在充满危险怪物的地牢中寻找神秘的 Zot 宝珠。<a href="https://crawl.develz.org/">官网</a></td>
+          <td><a href="https://github.com/crawl/crawl">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>NetHack</strong>：单人地牢探索。<a href="https://nethack.org/">官网</a></td>
+          <td><a href="https://github.com/NetHack/NetHack">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Meritous</strong>：动作冒险地牢探索。<a href="http://asceai.net/meritous">官网</a></td>
+          <td><a href="https://github.com/Patashu/Meritous">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>OpenNefia</strong>：日式 roguelike《Elona》的可模组引擎重实现。<a href="https://github.com/OpenNefia/OpenNefia">源码</a></li>
+</ul>
+
+<h2 id="角色扮演游戏">角色扮演游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Ambermoon.net</strong>：《Ambermoon》的完整 C# 重写。<a href="https://pyrdacor.itch.io/ambermoon">官网</a></td>
+          <td><a href="https://github.com/Pyrdacor/Ambermoon.net">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Daggerfall Unity</strong>：用 Unity 重制《上古卷轴 II：匕首雨》。<a href="https://www.dfworkshop.net/">官网</a></td>
+          <td><a href="https://github.com/Interkarma/daggerfall-unity">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Exult</strong>：在现代操作系统上重现《创世纪 VII》。<a href="https://exult.sourceforge.io/">官网</a></td>
+          <td><a href="https://github.com/exult/exult">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Fallout Community Edition</strong>：《辐射》可完整运行的重实现。<a href="https://github.com/alexbatalov/fallout1-ce">源码</a></li>
+  <li><strong>Fallout 2 Community Edition</strong>：《辐射 2》可完整运行的重实现。<a href="https://github.com/alexbatalov/fallout2-ce">源码</a></li>
+  <li><strong>GemRB</strong>：Bioware Infinity Engine 的可移植开源实现。支持《博德之门》《博德之门 II》《冰风谷》《冰风谷 II》《异域镇魂曲》。<a href="https://gemrb.org/">官网</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Kandria</strong>：用 Common Lisp 制作的动作 RPG。<a href="https://kandria.com/">官网</a></td>
+          <td><a href="https://codeberg.org/shirakumo/kandria">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Naev</strong>：融合动作、RPG 与模拟的 2D 太空动作/RPG。<a href="https://naev.org/">官网</a></td>
+          <td><a href="https://codeberg.org/naev/naev">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Oolite</strong>：开放世界太空歌剧。<a href="https://www.oolite.space/">官网</a></td>
+          <td><a href="https://github.com/OoliteProject/oolite">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>OpenEnroth</strong>：《魔法门 VI–VIII》引擎重制，使用原数据与代码。<a href="https://github.com/OpenEnroth/OpenEnroth">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenMW</strong>：自由开源的现代引擎，重实现并扩展 2002 年 Gamebryo，用于开放世界 RPG《上古卷轴 III：晨风》。<a href="https://openmw.org/">官网</a></td>
+          <td><a href="https://github.com/OpenMW/openmw">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>OpenNox</strong>：扩展 Nox 引擎的开源社区项目。<a href="https://github.com/noxworld-dev/opennox">源码</a></li>
+  <li><strong>reone</strong>：可运行《星球大战：旧共和国武士》及其续作《西斯领主》的自由开源引擎。<a href="https://github.com/seedhartha/reone">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Severed Chains</strong>：《龙骑兵传说》反编译、逆向并移植到 PC/Mac/Linux/Steam Deck。<a href="https://legendofdragoon.org/projects/severed-chains">官网</a></td>
+          <td><a href="https://github.com/Legend-of-Dragoon-Modding/Severed-Chains">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Space Station 14</strong>：《太空站 13》的开源重制。<a href="https://spacestation14.io/">官网</a></td>
+          <td><a href="https://github.com/space-wizards/space-station-14">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Ultima VII: Revisited</strong>：《创世纪 VII》替代引擎，以 3D 呈现并修复若干问题。<a href="https://www.u7revisited.com/">官网</a></td>
+          <td><a href="https://github.com/ViridianGames/U7Revisited">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h3 id="暗黑破坏神重实现">《暗黑破坏神》重实现</h3>
+<ul>
+  <li><strong>Abyss Engine</strong>：《暗黑破坏神 II》的洁净室重实现，用 C 编写。<a href="https://github.com/AbyssEngine/AbyssEngine">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>DevilutionX</strong>：《暗黑破坏神》与《地狱火》移植，便于运行，并提供引擎改进、修 bug 与可选生活质量功能。<a href="https://devilutionx.com/">官网</a></td>
+          <td><a href="https://github.com/diasurgical/devilutionX">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Freeablo</strong>：进行中的《暗黑破坏神 I》引擎开源替代。<a href="https://freeablo.org/">官网</a></td>
+          <td><a href="https://github.com/wheybags/freeablo">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>Open Diablo II</strong>：《暗黑破坏神 II》开源重实现。<a href="https://github.com/OpenDiablo2/OpenDiablo2">源码</a></li>
+</ul>
+
+<h2 id="大型多人在线角色扮演游戏">大型多人在线角色扮演游戏</h2>
+<ul>
+  <li><strong>OpenKO</strong>：老派 MMORPG《Knight Online》的开源版本。<a href="https://github.com/Open-KO/KnightOnline">源码</a></li>
+  <li><strong>OpenKore</strong>：《仙境传说》的自定义客户端与智能自动化助手。<a href="https://github.com/OpenKore/openkore">源码</a></li>
+</ul>
+
+<h2 id="沙盒游戏">沙盒游戏</h2>
+<ul>
+  <li><strong>Minosoft</strong>：从零用 Kotlin（及 Java）编写的开源 Minecraft 客户端。<a href="https://github.com/bixilon/minosoft">源码</a></li>
+</ul>
+
+<h2 id="射击卷轴游戏">射击卷轴游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>SDL Sopwith</strong>：将经典双翼机射击《Sopwith》移植到现代电脑与操作系统。<a href="https://fragglet.github.io/sdl-sopwith">官网</a></td>
+          <td><a href="https://github.com/fragglet/sdl-sopwith">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Taisei Project</strong>：东方 Project 的免费开源同人作，用 C、SDL3 与 OpenGL 编写。<a href="https://taisei-project.org/">官网</a></td>
+          <td><a href="https://github.com/taisei-project/taisei">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="体育游戏">体育游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Open Golf</strong>：用 C 编写的跨平台迷你高尔夫。<a href="https://mgerdes.github.io/minigolf.html">官网</a></td>
+          <td><a href="https://github.com/mgerdes/Open-Golf">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Pooltool</strong>：强调写实物理的台球沙盒。<a href="https://pooltool.readthedocs.io/">官网</a></td>
+          <td><a href="https://github.com/ekiefl/pooltool">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="第三人称游戏">第三人称游戏</h2>
+<ul>
+  <li><strong>Command &amp; Conquer Renegade</strong>：<a href="https://github.com/electronicarts/CnC_Renegade">源码</a></li>
+  <li><strong>CroftEngine</strong>：《古墓丽影 1》开源引擎重制。<a href="https://github.com/stohrendorf/CroftEngine">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Lugaru: The Rabbit’s Foot</strong>：跨平台开源 3D 动作。<a href="http://www.wolfire.com/lugaru">官网</a></td>
+          <td><a href="https://github.com/WolfireGames/lugaru">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenLara</strong>：经典《古墓丽影》开源引擎。<a href="http://xproger.info/projects/OpenLara">官网</a></td>
+          <td><a href="https://github.com/XProger/OpenLara">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenRW</strong>：《侠盗猎车手 III》重实现。<a href="https://openrw.org/">官网</a></td>
+          <td><a href="https://github.com/rwengine/openrw">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Overgrowth</strong>：Lugaru 的续作。<a href="https://overgrowth.wolfire.com/">官网</a></td>
+          <td><a href="https://github.com/WolfireGames/overgrowth">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li><strong>RE3</strong>：《GTA III》与《GTA 罪恶都市》完整逆向源码。<a href="https://github.com/VideogameSources/gta3-decomp-alt">源码</a></li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Tomb Engine</strong>：用于自制《古墓丽影》冒险的开源引擎（Core Design 时代，1–5）。<a href="https://tombengine.com/">官网</a></td>
+          <td><a href="https://github.com/TombEngine/TombEngine">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="塔防游戏">塔防游戏</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Server Survival</strong>：教云架构的塔防：搭建基础设施、扛住流量、学习扩容。<a href="https://pshenok.github.io/server-survival">官网</a></td>
+          <td><a href="https://github.com/pshenok/server-survival">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="回合制战略">回合制战略</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Ancient Beast</strong>：在线对战的回合制独立战略。<a href="https://ancientbeast.com/">官网</a></td>
+          <td><a href="https://github.com/FreezingMoon/AncientBeast">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Athena Crisis</strong>：现代复古回合制战术战略。<a href="https://athenacrisis.com/">官网</a></td>
+          <td><a href="https://github.com/nkzw-tech/athena-crisis">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>C-evo</strong>：Windows 免费帝国建设。<a href="http://c-evo.org/">官网</a></td>
+          <td><a href="http://c-evo.org/files/files.php">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>fheroes2</strong>：《英雄无敌 II》引擎重现。<a href="https://ihhub.github.io/fheroes2">官网</a></td>
+          <td><a href="https://github.com/ihhub/fheroes2">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>FreeCol</strong>：基于《殖民帝国》、类似《文明》的回合制战略。<a href="https://www.freecol.org/">官网</a></td>
+          <td><a href="https://github.com/FreeCol/freecol">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Freeciv</strong>：自由开源的帝国建设战略。<a href="http://www.freeciv.org/">官网</a></td>
+          <td><a href="https://github.com/freeciv/freeciv">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>FreeOrion</strong>：免费开源的回合制太空帝国与银河征服（4X）。<a href="https://www.freeorion.org/index.php/Main_Page">官网</a></td>
+          <td><a href="https://github.com/freeorion/freeorion">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Hnefatafl</strong>：Copenhagen Hnefatafl，有点像国际象棋。<a href="https://hnefatafl.org/">官网</a></td>
+          <td><a href="https://github.com/dcampbell24/hnefatafl">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenPanzer</strong>：《装甲将军 II》的 Javascript/HTML5 重写。<a href="https://www.linuxconsulting.ro/openpanzer">官网</a></td>
+          <td><a href="https://github.com/nicupavel/openpanzer">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>OpenXcom</strong>：MicroProse《UFO: Enemy Unknown》与《X-COM: Terror From the Deep》的开源克隆。<a href="https://openxcom.org/">官网</a></td>
+          <td><a href="https://github.com/OpenXcom/OpenXcom">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>Unciv</strong>：《文明 V》的开源 Android/桌面重制。<a href="https://yairm210.itch.io/unciv">官网</a></td>
+          <td><a href="https://github.com/yairm210/Unciv">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><strong>VCMI Project</strong>：《英雄无敌 III》开源引擎。<a href="https://vcmi.eu/">官网</a></td>
+          <td><a href="https://github.com/vcmi/vcmi">源码</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="其他列表">其他列表</h2>
+<ul>
+  <li><a href="https://github.com/radek-sprta/awesome-game-remakes">Awesome Game Remakes</a></li>
+  <li><a href="https://github.com/michelpereira/awesome-open-source-games">Awesome Open Source Games</a></li>
+  <li><a href="https://github.com/leereilly/games">Games on GitHub</a></li>
+  <li><a href="https://libregamewiki.org/">Libre Game Wiki</a></li>
+  <li><a href="https://trilarion.github.io/opensourcegames">List of Open Source Games</a></li>
+  <li><a href="https://www.macsourceports.com/">Mac Source Ports</a></li>
+  <li><a href="https://osgameclones.com/">Open Source Game Clones</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/List_of_open-source_video_games">Wikipedia list of open-source video games</a></li>
+</ul>
+
+<p>项目地址：https://github.com/bobeff/open-source-games</p>
+
+
+    
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>
+

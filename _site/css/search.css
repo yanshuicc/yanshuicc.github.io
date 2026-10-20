@@ -1,0 +1,47 @@
+/* ===== 搜索框 ===== */
+
+.list-toolbar {
+    margin-bottom: 20px;
+    text-align: right;
+}
+
+.search-input {
+    width: 220px;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #3A3A38;
+    background: #FBF9F4;
+    border: 1px solid #E8E3D8;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-input:focus {
+    border-color: #B8894A;
+    box-shadow: 0 0 0 2px rgba(184, 137, 74, 0.12);
+}
+
+.search-input::placeholder {
+    color: #B5AF9F;
+}
+
+
+/* ===== 移动端 ===== */
+@media (max-width: 640px) {
+    .list-toolbar {
+        text-align: center;
+    }
+    .search-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    .page-btn {
+        min-width: 28px;
+        height: 28px;
+        line-height: 28px;
+        padding: 0 8px;
+        margin: 0 2px;
+        font-size: 12px;
+    }
+}

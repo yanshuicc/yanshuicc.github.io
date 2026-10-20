@@ -344,19 +344,35 @@ net start tailscale
 ## 解决tailscale驱动更新
 tailscale windows客户端显示staring，然后不弹出登入界面。tailscale客户端路径位于C:\ProgramData\Tailscale\Logs\目录，查看日志了解情况，发现是网卡设备创建失败。
 
-![Alt text](images/tailscale网卡设备创建报错.png)
+```
+26-10-16T15:28:19.247+08:00: Timed out waiting for device query: 等待的操作过时。 (Code 0x00000102)
+2026-10-16T15:28:19.247+08:00: Failed to setup adapter (problem code: 0x1F, ntstatus: 0xC00002F0): 系统找不到指定的文件。 (Code 0x00000002)
+2026-10-16T15:28:19.290+08:00: tstun.New("Tailscale"): Error creating interface: The system cannot find the file specified.
+2026-10-16T15:28:19.290+08:00: tstunNew: [v1] backoff: 1820 msec
+2026-10-16T15:28:21.176+08:00: Using existing driver 0.14
+2026-10-16T15:28:21.187+08:00: Creating adapter
+```
 
 ![Alt text](images/tailscale驱动更新.png)
 在设备管理器中更新驱动，让我从计算机上的可用驱动程序列表中选取安装。
 
 ## 解决tailscale客户端的已知bug
-可能日志文件会刷一行日志：control: AuthURL is http://hs.example.com:443/register/hskey-authreq-xxxxxxx
+可能日志文件会刷一行日志：
+```
+control: AuthURL is http://hs.example.com:443/register/hskey-authreq-xxxxxxx
+```
+
 这是由于tailscale一个已知bug，客户端生成的是一个 http:// 开头的 URL，端口却是 443，所以不会弹出来登录界面。
 
 从日志中提取这个 URL，手动修改为正确的 HTTPS 格式
+```
 https://hs.example.com/register/hskey-authreq-xxxxxxx
+```
+
 进入认证界面，然后将认证界面的命令复制到服务端执行，将注册请求绑定到之前创建的用户上。（也可以不打开浏览器，直接运行命令）
+```
 ./headscale auth register --auth-id hskey-authreq-xxxxxxx --user nuc
+```
 
 # 搭建中继服务器
 
@@ -380,8 +396,10 @@ systemctl restart headscale
 
 
 ```
-在客户端检测时延
+#在客户端检测时延
 .\tailscale.exe netcheck
+
+# 输出如下
 Report:
         * Time: 2026-10-16 18:05:01.8822264+08:00
         * UDP: true

@@ -1,0 +1,126 @@
+/* ===== 短篇随笔 ===== */
+
+.essay {
+    max-width: 620px;
+    margin: 60px auto 80px;
+    padding: 0 20px;
+    font-size: 17px;
+    line-height: 2;
+    color: #3A3A38;
+    letter-spacing: 0.3px;
+}
+
+/* 标题 */
+.essay-title {
+    margin: 0 0 8px;
+    font-size: 24px;
+    font-weight: bold;
+    color: #2A2A28;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+/* 日期 */
+.essay-date {
+    margin: 0 0 48px;
+    font-size: 13px;
+    color: #B5AF9F;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+/* 正文段落 */
+.essay p {
+    margin: 0 0 1.6em;
+    text-indent: 2em;          /* 中文首行缩进 */
+    line-height: 2;
+}
+
+/* 第一段不缩进，作为引子 */
+.essay p:first-of-type {
+    text-indent: 0;
+}
+
+/* 段落里的强调 */
+.essay strong {
+    color: #8B6F3D;
+    font-weight: bold;
+}
+
+.essay em {
+    font-style: normal;
+    color: #B8894A;
+}
+
+/* 引用 */
+.essay blockquote {
+    margin: 1.8em 0;
+    padding: 0 0 0 20px;
+    border-left: 2px solid #E0D8C8;
+    color: #7A6A4A;
+    font-size: 15px;
+    font-style: italic;
+    line-height: 1.9;
+}
+
+.essay blockquote p {
+    text-indent: 0;
+    margin-bottom: 0.8em;
+}
+
+.essay blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 图片 */
+.essay img {
+    display: block;
+    max-width: 100%;
+    margin: 2em auto;
+    border-radius: 4px;
+}
+
+/* 分隔线，用于段落之间的停顿 */
+.essay hr {
+    width: 40px;
+    margin: 2.5em auto;
+    border: none;
+    border-top: 1px solid #D8D0C0;
+}
+
+/* 结尾署名 */
+.essay-sign {
+    margin-top: 3em;
+    text-align: right;
+    font-size: 14px;
+    color: #9A9488;
+    letter-spacing: 0.5px;
+}
+
+/* 行内代码 */
+.essay code {
+    background: #F0F0F0;
+    border: 1px solid #E0E0E0;
+    border-radius: 3px;
+    padding: 1px 5px;
+    font-size: 0.9em;
+    color: #B8894A;
+}
+
+/* 窄屏 */
+@media (max-width: 640px) {
+    .essay {
+        margin: 40px auto 60px;
+        font-size: 16px;
+        line-height: 1.9;
+    }
+    .essay-title {
+        font-size: 20px;
+    }
+    .essay-date {
+        margin-bottom: 32px;
+    }
+    .essay p {
+        text-indent: 1.5em;
+    }
+}

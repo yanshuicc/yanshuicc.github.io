@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
-    <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
 
     
     
@@ -41,9 +40,14 @@
     </div>
 </header>
 
+<!--动态加载随机名言-->
 <script src="/js/random-line.js"></script>
 
-    <div class="index-content">
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!-- 文章列表 -->
+<div class="index-content">
   <div class="section">
     <div class="list-toolbar">
       <input type="text" class="search-input" placeholder="搜索标题或描述…" autocomplete="off" />
@@ -215,7 +219,7 @@
     
         render();
     })();
-    </script>
+</script>
 
 
 

@@ -1,123 +1,110 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <!--
-    * Author:         BeiYuu
-    * Revised:        Yscc
-    -->
-    <meta charset="utf-8" />
-    <title>线性方程组的迭代求解 | 盐水冲茶</title>
-    <meta name="author" content="Mukosame" />
-    <meta name="renderer" content="webkit">
-    <meta name="description" content="Everything about Yscc" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="/css/default.css" type="text/css" />
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
-    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
-</head>
-<body>
-	
-    <div class="home-menu">
-        <div class="home-icon-con">
-            <a class="home-menu-icon" href="/">盐水冲茶的个人小站</a>
-            <a class="home-follow" href="#" title="Contact Me">+</a>
-        </div>
-        <div class="home-contact">
-            <a href="https://github.com/yanshuicc" target="_blank" style="margin-left:-5px;"><img src=
-			"/images/git.png" alt="" width="24"/></a>
-            <a href="https://www.douban.com/people/90512818/" target="_blank" style="text-align:center;"><img src="http://www.douban.com/favicon.ico" alt="" width="22"/></a>
-            <a href="http://www.zhihu.com/people/yan-shui-chong-cha" target="_blank" style="text-align:right"><img src="http://www.zhihu.com/favicon.ico" alt="" width="22"/></a>
-			<a href="http://weibo.com/u/2852567272" target="_blank" style="text-align:right"><img src="http://weibo.com/favicon.ico" alt="" width="22"/></a>
-        </div>
-    </div>
+<p>线性方程组在线性代数里面常被表示为如下形式：</p>
 
-    <link rel="stylesheet" href="/js/prettify/prettify.css" />
-<style type="text/css">
-    body { background:#e8e8e8; }
-    @media screen and (max-width: 750px){
-        body { background:#fff; }
-    }
-    @media screen and (max-width: 1020px){
-        body { background:#fff; }
-    }
-</style>
-
-<div id="content">
-    <div class="entry">
-        <h1 class="entry-title"><a href="/iterative_method_of_linear_equations" title="线性方程组的迭代求解">线性方程组的迭代求解</a></h1>
-        <p class="entry-date">2017-05-04</p>
-        <p>线性方程组在线性代数里面常被表示为如下形式：</p>
-
-<script type="math/tex; mode=display">\begin{align}
+\[\begin{align}
 Ax=b
-\end{align}</script>
+\end{align}\]
 
 <p>其中A是n阶非奇异矩阵，x和b为n维列向量<br />
 从小学开始，我们便掌握了求解多元线性方程组的高斯消去方法。但是当矩阵A的阶数很大，应用到矩阵中的数据集达到几MB以上时，高斯消元显得力不从心了。
 因而在此总结介绍，计算机中迭代求解线性方程组的方法。<br />
 迭代的方法有很多种，这里先介绍雅可比迭代（Jacobi iteration）。迭代推导过程如下：</p>
 
-<script type="math/tex; mode=display">\begin{align}
+\[\begin{align}
 A=L+D+U
-\end{align}</script>
+\end{align}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align}
+\[\begin{align}
 L=\left[
 \begin{matrix}
-0&&\\
-a_{21}&0&\\
-a_{31}&a_{32}&0\\
-...&...&...&0\\
-a_{n1}&a_{n2}&...&a_{n,n-1}&0
+0&amp;&amp;\\
+a_{21}&amp;0&amp;\\
+a_{31}&amp;a_{32}&amp;0\\
+...&amp;...&amp;...&amp;0\\
+a_{n1}&amp;a_{n2}&amp;...&amp;a_{n,n-1}&amp;0
 \end{matrix}
 \right]
 \\
 \\
-\end{align} %]]></script>
+\end{align}\]
 
-<script type="math/tex; mode=display">\begin{align}
+\[\begin{align}
 D=diag(a_11,a_22,...,a_nn)
 \\
 \\
-\end{align}</script>
+\end{align}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align}
+\[\begin{align}
 U=\left[
 \begin{matrix}
-0&a_{12}&a_{13}&...&a_{1n}\\
-&0&a_{23}&...&a_{2n}\\
-&&0&...&...\\
-&&&&0
+0&amp;a_{12}&amp;a_{13}&amp;...&amp;a_{1n}\\
+&amp;0&amp;a_{23}&amp;...&amp;a_{2n}\\
+&amp;&amp;0&amp;...&amp;...\\
+&amp;&amp;&amp;&amp;0
 \end{matrix}
 \right]
 
-\end{align} %]]></script>
+\end{align}\]
 
-<script type="math/tex; mode=display">% <![CDATA[
-\begin{align*}
-&\because
+\[\begin{align*}
+&amp;\because
 Ax=b\\
-&\therefore
+&amp;\therefore
 (L+D+U)x=b\\
-&Dx=-(L+U)x+b\\
-&x=-D^{-1}(L+U)x+D^{-1}b=Bx+f
-\end{align*} %]]></script>
+&amp;Dx=-(L+U)x+b\\
+&amp;x=-D^{-1}(L+U)x+D^{-1}b=Bx+f
+\end{align*}\]
 
 <p>其中,
-<script type="math/tex">\begin{align*}
+\(\begin{align*}
 B=D^{-1}(L+U);\quad f=D^{-1}b
-\end{align*}</script><br />
+\end{align*}\)<br />
 迭代格式为
-<script type="math/tex">\begin{align*}
+\(\begin{align*}
 x^{k+1}=Bx^k+f;\quad k=0,1,2,...
-\end{align*}</script></p>
+\end{align*}\)</p>
 
 <p>该迭代过程的python代码如下：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code># coding:utf-8
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+</pre></td><td class="rouge-code"><pre># coding:utf-8
 
 import numpy as np
 from numpy import *
@@ -156,17 +143,19 @@ def iterat(A, b, steps, error):
 
 if __name__ == "__main__":
 	iterat(A, b, 100, 1.0e-6)
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <p>输出结果如下：</p>
 
-<div class="highlighter-rouge"><pre class="highlight"><code>16
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre>16
 [[ 2.99999999]
  [ 1.99999975]
  [ 0.99999987]]
-</code></pre>
-</div>
+</pre></td></tr></tbody></table></code></pre></div></div>
 
 <h2 id="未完待续">未完待续</h2>
 <p>迭代过程误差的图形留个坑，以后某日再画。</p>
@@ -174,121 +163,3 @@ if __name__ == "__main__":
 <p>参考文献：<br />
 机器学习算法原理与编程实践<br />
 <a href="http://blog.csdn.net/xiaowei_cqu/article/details/8585703/">迭代法解方程：牛顿迭代法、Jacobi迭代法</a></p>
-
-    </div>
-
-    <div class="sidenav">
-        <h2>Blog</h2>
-        <ul class="artical-list">
-        
-        </ul>
-
-        <h2>Dump</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/VTK_Tutorial">VTK的Tutorial使用记录</a></li>
-        
-            <li><a href="/Laplace">拉普拉斯分布</a></li>
-        
-            <li><a href="/cpp_pointer">C++指针/引用/地址/函数参数</a></li>
-        
-            <li><a href="/cpp_exception">C++异常</a></li>
-        
-            <li><a href="/cpp_const">C++ const的用法记录</a></li>
-        
-            <li><a href="/windows_process_api">windows进程相关的api记录</a></li>
-        
-            <li><a href="/cpp_dll">C++生成DLL链接文件</a></li>
-        
-            <li><a href="/raspberry_3">树莓派的坑3--树莓派的常用命令记录</a></li>
-        
-            <li><a href="/raspberry_2">树莓派的坑记录2--休眠的配置</a></li>
-        
-            <li><a href="/raspberry_1">树莓派的坑记录1--键盘布局</a></li>
-        
-            <li><a href="/cpp_definition_and_declaration">C++中的定义与声明</a></li>
-        
-            <li><a href="/automake">automake安装与使用记录</a></li>
-        
-            <li><a href="/python-decorator">python@的用法记录</a></li>
-        
-            <li><a href="/python-design">python语言的设计记录</a></li>
-        
-            <li><a href="/Logistic">Logistic函数</a></li>
-        
-            <li><a href="/lC_6_ZigZag_Conversion">leetcode 6 ZigZag Conversion</a></li>
-        
-            <li><a href="/VBA">Excel合并功能记录</a></li>
-        
-            <li><a href="/python-matplotlib">python matplotlib库和numpy库的基本操作记录</a></li>
-        
-            <li><a href="/move-average-method">移动平均法</a></li>
-        
-            <li><a href="/LineClassfier">线性分类器</a></li>
-        
-            <li><a href="/LC_5_Longest_Palindromic_Substring">leetcode 5 Longest Palindromic Substring</a></li>
-        
-            <li><a href="/config_piwik_web_analytics">配置Piwik站长统计</a></li>
-        
-            <li><a href="/bwh_ss">ubuntu配置ss服务端的记录</a></li>
-        
-            <li><a href="/iterative_method_of_linear_equations">线性方程组的迭代求解</a></li>
-        
-            <li><a href="/algorithm_complexity">算法复杂度</a></li>
-        
-            <li><a href="/LC_4_Median_of_Two_Sorted_Arrays">leetcode 4 Median of Two Sorted Arrays</a></li>
-        
-            <li><a href="/cmake">cmake</a></li>
-        
-        </ul>
-
-        <h2>Project</h2>
-        <ul class="artical-list">
-        
-            <li><a href="/go">围棋</a></li>
-        
-            <li><a href="/test">前端绘图测试</a></li>
-        
-        </ul>
-    </div>
-</div>
-
-<script src="/js/post.js" type="text/javascript"></script>
-
-
-</body>
-    <script type="text/javascript">
-        $(function(){
-            $('.home-follow').click(function(e){
-                e.preventDefault();
-
-                if($('.home-contact').is(':visible')){
-                    $('.home-contact').slideUp(100);
-                }else{
-                    $('.home-contact').slideDown(100);
-                }
-            });
-        })
-    </script>
-	<!--canvas-->
-	<script type="text/javascript" color="0,0,255" opacity='0.7' zIndex="-2" count="70" src="/js/canvas-nest.js"></script>
-	<!--End canvas-->
-	<!--mathjax-->
-	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-	<!--End mathjax-->
-	<!-- Piwik -->
-	<script type="text/javascript">
-	  var _paq = _paq || [];
-	  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-	  _paq.push(['trackPageView']);
-	  _paq.push(['enableLinkTracking']);
-	  (function() {
-		var u="//chenpei.science/";
-		_paq.push(['setTrackerUrl', u+'piwik.php']);
-		_paq.push(['setSiteId', '1']);
-		var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-		g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-	  })();
-	</script>
-	<!-- End Piwik Code -->
-</html>

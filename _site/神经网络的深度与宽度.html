@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>神经网络的深度与宽度 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+
+    
+        <link rel="stylesheet" href="/css/article.css" />
+        
+    
+    
+    
+    
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    
+    <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script>
+
+    <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+<div class="entry">
+    <div class="entry-title"><a href="/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%9A%84%E6%B7%B1%E5%BA%A6%E4%B8%8E%E5%AE%BD%E5%BA%A6" title="神经网络的深度与宽度">神经网络的深度与宽度</a></div>
+    <div class="entry-date">2026-09-22</div>
+    <h1 id="神经网络的深度">神经网络的深度</h1>
+
+<h2 id="训练困难问题">训练困难问题</h2>
+
+<p>深层神经网络存在一个根本性难题，反向传播依赖链式法则，梯度从输出层向输入层传播时，需要连续乘以各层的局部雅可比矩阵。层数越多，这种连续乘法对梯度信号的扭曲越严重。如果每层局部导数平均小于 1，梯度幅度随层数指数衰减；如果平均大于 1，梯度又指数放大，导致训练不稳定。</p>
+
+<p>早期网络多使用 Sigmoid 或 Tanh 激活函数，它们在饱和区导数接近 0，进一步加剧了梯度消失。ReLU 在正半轴导数为 1，缓解了这一问题，但负半轴导数为 0。如果一个神经元长期接收负输入，其梯度恒为 0，参数不再更新，该神经元永久失效。</p>
+
+<p>针对这些困难，He 等人（2015）从初始化和激活函数两个角度给出了改进。他们提出了 PReLU，将 ReLU 负半轴的固定斜率 0 改为一个可学习的参数 (a_i)，使得即使输入为负，神经元也能保留非零梯度，避免彻底“死亡”。同时，他们推导了专门针对 ReLU 的初始化方法（He 初始化），根据每层输入和输出的维度设置权重方差，使前向传播中各层激活方差大致稳定，反向传播中梯度方差也大致稳定，从而在训练起点就避免梯度指数衰减或放大。</p>
+
+<h3 id="12-梯度破碎深度带来的方向性危机">1.2 梯度破碎：深度带来的方向性危机</h3>
+
+<p>PReLU 和 He 初始化解决了梯度幅度的问题，但当网络深度达到数百层时，训练仍然困难。Balduzzi 等人（2017）揭示了更深层的问题：<strong>梯度方向在深层网络中会破碎</strong>。</p>
+
+<p>该论文指出，在标准前馈网络中，不同层之间梯度向量的相关性随深度增加呈<strong>指数级衰减</strong>。浅层相邻层的梯度方向还比较一致，但在深层，每一层的梯度方向变得几乎完全随机，梯度之间的结构被“打碎”了。根源仍然在于链式法则中的连续矩阵乘法：每一次乘法都对梯度方向做一次线性变换，累积起来就破坏了梯度之间的空间相关性。结果是，网络虽然可能仍有梯度幅度，但梯度方向已经不一致，不同层的更新信号互相冲突，极深网络很难协调优化。</p>
+
+<h3 id="13-残差连接为梯度提供恒等通路">1.3 残差连接：为梯度提供恒等通路</h3>
+
+<p>He 等人（2016）提出的残差网络（ResNet）从根本上改变了梯度的传播方式。ResNet 将某一层输出写成</p>
+
+<p>[
+y = x + F(x)
+]</p>
+
+<p>其中 (x) 通过跳跃连接直接传到后面。反向传播时，损失对 (x) 的梯度为：</p>
+
+<p>[
+\frac{\partial L}{\partial x} = \frac{\partial L}{\partial y}\left(1 + \frac{\partial F(x)}{\partial x}\right)
+]</p>
+
+<p>其中的“1”来自恒等映射，相当于给梯度提供了一条直接回传的路径。梯度不必只经过 (F) 的雅可比矩阵连乘，可以沿恒等映射几乎无损地传回浅层。这使梯度方向的相关性衰减从指数级变为亚线性，浅层和深层还能保持比较一致的优化信号。ResNet 因此可以训练数百甚至上千层的网络。</p>
+
+<p>He 等人在后续工作（2016）中进一步分析了不同跳跃连接设计的影响，发现当恒等映射作为跳跃连接时，梯度可以在整个网络中直接传播，训练更加稳定，误差也更容易随深度下降。</p>
+
+<h3 id="14-深度对训练动态的简化ntk-视角">1.4 深度对训练动态的简化：NTK 视角</h3>
+
+<p>宽度趋于无穷时，深度网络的训练动态会大幅简化。Lee 等人（2019）证明，对于任意深度的宽神经网络，在无限宽度极限下，梯度下降的训练动态可以用一个线性模型精确描述，该线性模型由网络在初始化时的神经正切核（NTK）决定。这一结果从理论上解释了为什么宽而深的网络通常更容易训练：它们的优化过程更接近凸优化，损失曲面更平滑。</p>
+
+<p>值得注意的是，NTK 视角将深度和宽度耦合在一起：只有当宽度足够大时，深度的训练动态才被线性化。在有限宽度下，深度仍然会引入非线性和非凸性，训练难度随深度增长。残差连接之所以重要，恰恰是因为它在有限宽度下也保持了梯度的可传播性。</p>
+
+<h3 id="15-深度的表达优势与极限">1.5 深度的表达优势与极限</h3>
+
+<p>深度在表达效率上具有根本优势。Telgarsky 等人证明，存在一些函数可以被深度为 (O(k)) 的网络高效表示，但任何深度为 (O(k)) 的多项式宽度网络都无法表示，需要指数级更大的宽度。Chatziafratis 等人进一步研究了宽度-深度权衡，表明深度在表达某些函数时比宽度更高效。</p>
+
+<p>然而，深度并非无限有益。对于自注意力模型，当深度超过与宽度对数相关的阈值后，深度的表达效率增益会显著减弱。超过该阈值后，继续加深的边际收益迅速下降。这一发现意味着深度存在一个与架构宽度相关的有效上限，盲目堆叠层数并不总是有效。</p>
+
+<h2 id="第二章-宽度">第二章 宽度</h2>
+
+<h3 id="21-宽度的表达能力相变与阈值">2.1 宽度的表达能力：相变与阈值</h3>
+
+<p>宽度是网络表达能力的另一个基础维度。Lu 等人（2017）从理论上刻画了 ReLU 网络的宽度阈值。他们证明，当网络宽度为输入维度 (n) 时，绝大多数函数无法被逼近；但当宽度达到 (n+4) 时，网络就具备了通用逼近能力。这一结果揭示了宽度上的“相变”现象：存在一个临界宽度，低于它网络表达能力严重受限，高于它则几乎可以逼近任意连续函数。</p>
+
+<p>该论文同时给出了一个重要的比较结论：存在一些宽网络无法被深度受限于多项式的窄网络实现，这为“深度在表达效率上可能优于宽度”提供了理论证据。但反过来，窄网络的深度需要指数级增长才能弥补宽度的不足。</p>
+
+<h3 id="22-深度与宽度的权衡深度更关键">2.2 深度与宽度的权衡：深度更关键</h3>
+
+<p>Lu 等人（2017）留下的一个开放问题是：宽而浅的网络能否被窄而深的网络高效近似？Vardi 等人（2022）解决了这个问题。他们证明，任何输入在 (\mathbb{R}^d) 上的目标网络都可以被一个宽度为 (O(d)) 的网络近似，且参数量仅比目标网络多一个线性因子。结合已有的深度分离定理，这一结果有力地说明：<strong>在表达力上，深度比宽度扮演着更关键的角色</strong>。</p>
+
+<p>但这并不意味着宽度不重要。在特定任务上，宽度可以换取深度。对于 Transformer 在图任务上的表现，线性增长的宽度可以让常数深度的 Transformer 解决大量通常需要对数深度的问题。这意味着增加宽度有时能换来更浅、推理更快的模型。</p>
+
+<h3 id="23-宽度的局限并非越宽越好">2.3 宽度的局限：并非越宽越好</h3>
+
+<p>宽度并不总是带来收益。Pleiss 和 Cunningham（2021）通过解耦容量和宽度，发现宽度和深度对模型的作用方向是相反的：深度增强模型的非高斯性（即表达能力），而宽度则使模型趋向高斯过程，最终可能退化为更浅的模型，丧失层次化建模的适应性。</p>
+
+<p>该研究还预测了一个“最佳宽度”的存在：对于使用 L2 正则化的常规神经网络，当隐藏单元数在约 500 到 1000 之间时性能最佳，超过此宽度后测试性能反而下降。Christakis 等人（2026）的研究也证实，中等容量往往是最优的，盲目增大模型可能导致训练不稳定和更高的误差。</p>
+
+<h3 id="24-宽度独立于参数量的价值">2.4 宽度独立于参数量的价值</h3>
+
+<p>一个关键问题是：宽网络性能好，是因为宽度本身，还是因为参数量增加了？Golubeva 等人（2020）巧妙地控制了参数量不变，通过比较不同“变宽”策略后发现：在参数量相同的情况下，<strong>网络宽度是决定性能的关键因素，参数数量反而是次要的</strong>，前提是模型保持可训练性。这直接证明了宽度具有独立于参数量的价值，不仅仅是因为宽网络通常参数更多。</p>
+
+<h3 id="25-宽度对训练动态的影响">2.5 宽度对训练动态的影响</h3>
+
+<p>宽度不仅影响表达力，也深刻影响训练过程。Lee 等人（2019）的 NTK 理论表明，当网络宽度趋于无穷时，训练动态可以用线性模型精确描述，优化过程接近凸优化。这解释了宽网络通常比窄网络更容易训练的现象：宽网络的损失曲面更平滑，梯度方向更一致，对学习率和初始化的敏感性更低。</p>
+
+<p>但这种简化也有代价。当宽度极大时，网络可能进入“懒惰训练”状态：参数几乎不变，网络近似于其初始化时的线性化版本，特征学习能力大幅减弱。在 NTK 极限下，网络等价于一个核方法，无法学习数据中的层次化特征。因此，宽度的收益存在一个上限：太窄则难以优化，太宽则丧失特征学习的优势。</p>
+
+<h3 id="26-缩放律中的深度与宽度">2.6 缩放律中的深度与宽度</h3>
+
+<p>近年来，缩放律研究开始区分深度和宽度对性能的独立影响。Fahim 和 Karim（2026）的架构条件缩放律发现，在计算最优训练下，<strong>最优深度随计算量按 (D^* \propto C^{0.12}) 增长，而最优宽度按 (W^* \propto C^{0.34}) 增长</strong>，意味着宽度需要以约深度 2.83 倍的速度扩展。</p>
+
+<p>这一发现在 Transformer 架构中也有呼应。Brown 等人（2022）证明，更宽的单层 Transformer 模型在多种 NLP 任务上可以达到甚至超越更深的模型，同时具有更高的效率和更快的推理速度。平均而言，更宽的模型在性能相当的情况下，参数量约小 1.4 倍，推理速度快约 3.1 倍。</p>
+
+<p>综合来看，宽度和深度不是简单的替代关系，而是需要在给定计算预算下协同调整的两个维度。缩放律的启示是：在计算增长时，宽度需要比深度以更快的速度增长，才能维持最优的容量-效率平衡。</p>
+
+<p><strong>参考文献</strong></p>
+
+<p>[1] He, K., Zhang, X., Ren, S., &amp; Sun, J. (2015). Delving deep into rectifiers: Surpassing human-level performance on ImageNet classification. <em>Proceedings of the IEEE International Conference on Computer Vision (ICCV)</em>, 1026–1034.</p>
+
+<p>[2] He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Deep residual learning for image recognition. <em>Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 770–778.</p>
+
+<p>[3] He, K., Zhang, X., Ren, S., &amp; Sun, J. (2016). Identity mappings in deep residual networks. <em>European Conference on Computer Vision (ECCV)</em>, 630–645.</p>
+
+<p>[4] Lu, Z., Pu, H., Wang, F., Hu, Z., &amp; Wang, L. (2017). The expressive power of neural networks: A view from the width. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 30.</p>
+
+<p>[5] Vardi, G., Yehudai, G., &amp; Shamir, O. (2022). Width is less important than depth in ReLU neural networks. <em>Conference on Learning Theory (COLT)</em>, PMLR 178, 1249–1281.</p>
+
+<p>[6] Lee, J., Xiao, L., Schoenholz, S. S., Bahri, Y., Novak, R., Sohl-Dickstein, J., &amp; Pennington, J. (2019). Wide neural networks of any depth evolve as linear models under gradient descent. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 32.</p>
+
+<p>[7] Golubeva, A., Neyshabur, B., &amp; Gur-Ari, G. (2020). Are wider nets better given the same number of parameters? <em>International Conference on Learning Representations (ICLR)</em>, 2021.</p>
+
+<p>[8] Balduzzi, D., Frean, M., Leary, L., Lewis, J. P., Ma, K. W.-D., &amp; McWilliams, B. (2017). The shattered gradients problem: If resnets are the answer, then what is the question? <em>Proceedings of the 34th International Conference on Machine Learning (ICML)</em>, 70, 342–350.</p>
+
+<p>[9] Fahim, M., &amp; Karim, A. (2026). The depth delusion: Why transformers should be wider, not deeper. <em>arXiv preprint</em>.</p>
+
+<p>[10] Chatziafratis, V., et al. (2020). Depth-width trade-offs for ReLU networks via Sharkovsky‘s theorem. <em>arXiv preprint</em>.</p>
+
+<p>[11] Brown, J. R., Zhao, Y., Shumailov, I., &amp; Mullins, R. D. (2022). Wide attention is the way forward for transformers? <em>arXiv preprint arXiv:2210.00640</em>.</p>
+
+<p>[12] Pleiss, G., &amp; Cunningham, J. P. (2021). The limitations of large width in neural networks: A deep Gaussian process perspective. <em>Advances in Neural Information Processing Systems (NeurIPS)</em>, 34.</p>
+
+<p>[13] Christakis, N., Fung, D., &amp; Drikakis, D. (2026). Beyond scaling: Non-monotonic effects of depth and width in neural networks. <em>Neurocomputing</em>, 697, 134166.</p>
+
+<p>[14]【本世纪被引用最多的论文是一篇出色的巧妙之作】 https://www.bilibili.com/video/BV1wwtz6pERs/</p>
+
+
+    
+<div class="ai-notice">
+    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
+</div>
+
+</div>
+</div>
+
+
+
+
+</body>
+</html>
+
