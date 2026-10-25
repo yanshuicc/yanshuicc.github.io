@@ -11,36 +11,28 @@
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
-
-    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "math-outlined" or page.layout == "math-article" or page.layout == "poem" %}
-        <link rel="stylesheet" href="/css/article.css" />
-        {% if page.layout == "outlined" or page.layout == "math-outlined" %}
-            <link rel="stylesheet" href="/css/outline.css" />
+    {% if page.layout == "article" or page.layout == "outlined" or page.layout == "poem" %}
+    <link rel="stylesheet" href="/css/article.css" />
+        {% if page.layout == "outlined" %}
+    <link rel="stylesheet" href="/css/outline.css" />
         {% endif %}
-    {% elsif page.layout == "eassy" %}
-    11
-        <link rel="stylesheet" href="{{ css | relative_url }}" />
+    {% elsif page.layout == "essay" %}
+    <link rel="stylesheet" href="/css/essay.css" />
     {% endif %}
     {% if page.features contains "table" %}
-        <link rel="stylesheet" href="/css/table.css" />
+    <link rel="stylesheet" href="/css/table.css" />
     {% endif %}
-    {% if page.features contains "poem" %}
-        <link rel="stylesheet" href="/css/poem.css" />
+    {% if page.features contains "poem" or page.layout == "poem" %}
+    <link rel="stylesheet" href="/css/poem.css" />
     {% endif %}
-    {% if page.features contains "code" %}
-        <link rel="stylesheet" href="/css/code.css" />
-    {% endif %}
+    <link rel="stylesheet" href="/css/code.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="{{ site.feed }}" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-    
-    {% include header.html %}
-
-    {{ content }}
-
+    {% include header.html %} {{ content }} {% if page.features contains "math" %} {% include mathjax.html %} {% endif %}
 </body>
-</html>
 
+</html>

@@ -3,22 +3,42 @@
    结构：变量 → 布局 → 标题 → 正文 → 列表 → 媒体 → 响应式
    ============================================================ */
 
-/* ---------- 设计变量 ---------- */
+/* ---------- 设计变量（统一管理，outlined/poem 共享） ---------- */
 :root {
+    /* 容器总宽：基础 1060px，超宽屏渐进放开 */
     --page-max: 1060px;
+
+    /* 正文最佳阅读宽度（单词行 ~70-80 字的舒适区） */
+    --entry-max: 720px;
+
+    /* 大纲宽度（outlined 布局用） */
+    --sidenav-w: 240px;
+    --sidenav-gap: 30px;
+
+    /* 配色 */
     --bg-card: #FAFAFA;
     --border: #E5E5E5;
     --text-main: #000;
     --text-muted: #999;
     --text-quote: #555;
+    --accent: #B8894A;
+
     --radius: 4px;
     --shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 
+/* ---------- 超宽屏：容器放开，正文保持 720px ---------- */
+@media (min-width: 1600px) {
+    :root { --page-max: 1200px; }
+}
+@media (min-width: 2000px) {
+    :root { --page-max: 1400px; }
+}
+
 /* ---------- 居中内容块 ---------- */
 #content {
-    width: var(--page-max);
-    max-width: calc(100% - 32px);
+    width: min(var(--page-max), calc(100vw - 64px));
+    max-width: 100%;
     margin: 40px auto 60px;
     min-height: 400px;
 }
@@ -43,10 +63,6 @@
     八号	    5	        6.7 ≈ 7
 *************************************************************/
 
-/* 文章正文整体：宋体小四号 + Times New Roman，
- * 两端对齐书写，段落首行左缩进两个汉字符。
- * 段前段后0磅，1.25倍行距（段落中有数学表达式时，可根据表达需要设置该段的行距） 
- */
 /* ---------- 文章卡片 ---------- */
 .entry {
     background: var(--bg-card);
@@ -55,6 +71,8 @@
     border-radius: var(--radius);
     box-shadow: var(--shadow);
     min-width: 0;
+    max-width: var(--entry-max);
+    margin: 0 auto;
     counter-reset: h1;          /* 编号作用域限定在文章内 */
 }
 
@@ -172,8 +190,7 @@
 
 /* ---------- 图片 ---------- */
 .entry img {
-    max-width: 670px;
-    width: 100%;
+    max-width: 100%;
     height: auto;
     display: block;
     margin: 10px auto;
@@ -222,6 +239,7 @@
         box-sizing: border-box;
     }
 
+    .entry { max-width: 100%; }
     .entry-title,
     .entry-title a { font-size: 22px; }
 
@@ -268,6 +286,7 @@
         border: none;
         box-shadow: none;
         padding: 0;
+        max-width: 100%;
     }
     .site-header,
     .sidenav { display: none; }
