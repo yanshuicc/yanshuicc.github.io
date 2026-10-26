@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>CMake配置记录（未完） | 心物婉转</title>
+    <title>CMake配置记录 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about xwwz" />
@@ -67,12 +67,12 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#生成makefile">生成Makefile</a></li><li><a href="#构建可执行程序">构建可执行程序</a><ul><li><a href="#添加工程版本号和配置头文件">添加工程版本号和配置头文件</a></li></ul></li><li><a href="#调试">调试</a></li><li><a href="#添加链接库文件和链接路径">添加链接库文件和链接路径</a></li><li><a href="#添加源码搜索路径">添加源码搜索路径</a></li><li><a href="#增加编译选项">增加编译选项</a></li><li><a href="#项目依赖">项目依赖</a></li><li><a href="#安装和测试">安装和测试</a></li><li><a href="#添加系统内省adding-system-introspection">添加系统内省Adding System Introspection</a></li><li><a href="#添加生成文件和生成器-adding-a-generated-file-and-generator">添加生成文件和生成器 Adding a Generated File and Generator</a></li><li><a href="#构建和安装-building-an-installer-step-6">构建和安装 Building an Installer (Step 6)</a></li><li><a href="#添加仪表盘的支持-adding-support-for-a-dashboard-step-7">添加仪表盘的支持 Adding Support for a Dashboard (Step 7)</a></li></ul>
+            <ul><li><a href="#生成makefile">生成Makefile</a></li><li><a href="#构建可执行程序">构建可执行程序</a><ul><li><a href="#添加工程版本号和配置头文件">添加工程版本号和配置头文件</a></li></ul></li><li><a href="#调试">调试</a></li><li><a href="#添加链接库文件和链接路径">添加链接库文件和链接路径</a></li><li><a href="#添加源码搜索路径">添加源码搜索路径</a></li><li><a href="#增加编译选项">增加编译选项</a></li><li><a href="#项目依赖">项目依赖</a></li><li><a href="#安装和测试">安装和测试</a></li><li><a href="#添加系统依赖检测">添加系统依赖检测</a></li><li><a href="#构建生成器并生成文件">构建生成器并生成文件</a></li><li><a href="#构建和安装包">构建和安装包</a></li><li><a href="#添加仪表盘支持">添加仪表盘支持</a></li></ul>
         </div>
     </aside>
 
     <div class="entry">
-        <div class="entry-title"><a href="/cmake" title="CMake配置记录（未完）">CMake配置记录（未完）</a></div>
+        <div class="entry-title"><a href="/cmake" title="CMake配置记录">CMake配置记录</a></div>
         <div class="entry-date">2015-11-26</div>
         <p>CMake是一个代码项目管理工具。最开始是为了将项目VTK兼容于VS的环境下，生成VS的工程文件而开发的工具，后来随着应用愈广，演化为独立的代码项目管理工具。</p>
 
@@ -353,15 +353,7 @@ add_library(myobj OBJECT src/a.cpp)
 
 <h1 id="项目依赖">项目依赖</h1>
 
-<p>构造一个子项目为链接库，主项目依赖这个子项目。
-子项目功能是计算平方根，用以代替编译器自己提供的标准平方根计算方法。子项目名称为MathFunctions。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>add_library(MathFunctions mysqrt.cxx)
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>源文件mysqrt.cxx中有一个名为mysqrt的函数，这个函数提供了相比于编译器版本平方根函数的简化版本。为了使用新库，我们在顶层根目录中的CMakeLists.txt调用add_subdirectory，如此一来该库便建成了。 
-我们也可以添加另外一个包含路径，这样的话，头文件MathFunctions/MathFunctions.h便可以被函数原型找到。</p>
+<p>构造一个子项目为链接库，主项目依赖这个子项目。子项目功能是计算平方根，用以代替编译器自己提供的标准平方根计算方法。子项目名称为MathFunctions。项目目录如下：</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -369,27 +361,17 @@ add_library(myobj OBJECT src/a.cpp)
 4
 5
 6
-</pre></td><td class="rouge-code"><pre>include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-add_subdirectory (MathFunctions) 
- 
-# add the executable
-add_executable (Tutorial tutorial.cxx)
-target_link_libraries (Tutorial MathFunctions)
+7
+</pre></td><td class="rouge-code"><pre>项目根目录/
+├── CMakeLists.txt
+├── tutorial.cxx
+└── MathFunctions/
+	├── CMakeLists.txt
+	├── mysqrt.cxx
+	└── MathFunctions.h
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>现在，我们来考虑一下是否使MathFunctions库可用。在大型库，或者依赖于第三方代码的库中，很需要这种功能。 
-第一步，在顶层根目录的CMakeLists.txt中添加选项：
-Now let us consider making the MathFunctions library optional. In this tutorial there really isn’t any reason to do so, but with larger libraries or libraries that rely on third party code you might want to. The first step is to add an option to the top level CMakeLists.txt file.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-2
-3
-</pre></td><td class="rouge-code"><pre># should we use our own math functions?
-option (USE_MYMATH 
-		"Use tutorial provided math implementation" ON) 
-</pre></td></tr></tbody></table></code></pre></div></div>
-
-<p>在CMake-GUI中，该值将以默认的ON值显示，用户可以随意更改。该值将存储在缓存文件中，用户不需要每次运行cmake指令时都对其进行一次设定。</p>
+<p>为了编译这个库的代码，需要在顶层根目录的 CMakeLists.txt 中调用 add_subdirectory(MathFunctions)。这样 CMake 会处理子目录 MathFunctions 中的 CMakeLists.txt。</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -402,20 +384,39 @@ option (USE_MYMATH
 9
 10
 11
-</pre></td><td class="rouge-code"><pre># add the MathFunctions library?
-#
-if (USE_MYMATH)
-  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-  add_subdirectory (MathFunctions)
-  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
-endif (USE_MYMATH)
- 
-# add the executable
-add_executable (Tutorial tutorial.cxx)
-target_link_libraries (Tutorial  ${EXTRA_LIBS})
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td><td class="rouge-code"><pre># 是否使用我们自己实现的数学函数？
+option(USE_MYMATH
+	"Use tutorial provided math implementation" ON)
+
+# 是否添加 MathFunctions 库？
+if(USE_MYMATH)
+# 添加一个头文件路径，确保MathFunctions/MathFunctions.h可以被函数原型找到。
+include_directories("${PROJECT_SOURCE_DIR}/MathFunctions")
+# 把该子项目加入构建，并构建其中的 MathFunctions 库
+add_subdirectory(MathFunctions)
+set(EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
+endif(USE_MYMATH)
+
+# 添加可执行文件
+add_executable(Tutorial tutorial.cxx)
+target_link_libraries(Tutorial ${EXTRA_LIBS})
+
+# 创建一个名为 MathFunctions 的库目标，并把源文件 mysqrt.cxx 编译进这个库中
+add_library(MathFunctions mysqrt.cxx)
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>This uses the setting of USE_MYMATH to determine if the MathFunctions should be compiled and used. Note the use of a variable (EXTRA_LIBS in this case) to collect up any optional libraries to later be linked into the executable. This is a common approach used to keep larger projects with many optional components clean. The corresponding changes to the source code are fairly straight forward and leave us with:</p>
+<p>这里使用 USE_MYMATH 的设置来决定是否编译并使用 MathFunctions。在CMake-GUI中，USE_MYMATH 将以默认的ON值显示，用户可以随意更改。该值将存储在缓存文件中，用户不需要每次运行cmake指令时都对其进行一次设定。
+注意这里使用了一个变量 EXTRA_LIBS 来收集可选库，之后再将这些库链接到可执行文件中。这是大型项目中包含许多可选组件时常用的一种保持项目整洁的方法。</p>
+
+<p>源码中也需要使用 USE_MYMATH。这个宏由 CMake 通过配置文件 TutorialConfig.h.in 提供给源代码。对应的源码修改比较直接，如下所示：</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
@@ -448,9 +449,7 @@ target_link_libraries (Tutorial  ${EXTRA_LIBS})
 29
 30
 31
-32
-</pre></td><td class="rouge-code"><pre>// A simple program that computes the square root of a number
-#include &lt;stdio.h&gt;
+</pre></td><td class="rouge-code"><pre>#include &lt;stdio.h&gt;
 #include &lt;stdlib.h&gt;
 #include &lt;math.h&gt;
 #include "TutorialConfig.h"
@@ -483,40 +482,45 @@ int main (int argc, char *argv[])
 }
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>上面的源码中我们也使用到了USE_MYMATH。我们在之前的TutorialConfig.h.in配置文件中添加下面的一行：</p>
-
-<p>In the source code we make use of USE_MYMATH as well. This is provided from CMake to the source code through the TutorialConfig.h.in configured file by adding the following line to it:</p>
+<p>为了把 USE_MYMATH 从 CMake 传递到源代码中，需要在之前的 TutorialConfig.h.in 配置文件中添加下面一行：</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 </pre></td><td class="rouge-code"><pre>#cmakedefine USE_MYMATH
 </pre></td></tr></tbody></table></code></pre></div></div>
 
 <h1 id="安装和测试">安装和测试</h1>
-<p>这一步骤中，我们将向我们的工程中添加安装规则和测试支持。 
-安装规则很简单直接。对于MathFunctions，我们可以在MathFuncitions的CMakeLists.txt中添加两行代码，即可安装库与头文件。
-For the next step we will add install rules and testing support to our project. The install rules are fairly straight forward. For the MathFunctions library we setup the library and the header file to be installed by adding the following two lines to MathFunctions’ CMakeLists.txt file:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<p>对于 <code class="language-plaintext highlighter-rouge">MathFunctions</code>，可以在 <code class="language-plaintext highlighter-rouge">MathFunctions/CMakeLists.txt</code> 中添加两行代码，用来安装库目标和头文件：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">install</span><span class="p">(</span>TARGETS MathFunctions DESTINATION bin<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span>FILES MathFunctions.h DESTINATION include<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>对于主程序，还需要在顶层根目录的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 中加入几行代码，用来安装可执行文件和由 CMake 配置生成的头文件：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
-5
-6
-7
-</pre></td><td class="rouge-code"><pre>install (TARGETS MathFunctions DESTINATION bin)
-install (FILES MathFunctions.h DESTINATION include) 另外在顶层根目录的CMakeLists.txt中，也需要加入几行代码，用来安装可执行文件与头文件： For the application the following lines are added to the top level CMakeLists.txt file to install the executable and the configured header file:
-
-# add the install targets
-install (TARGETS Tutorial DESTINATION bin)
-install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
-		 DESTINATION include) 到了这一步，你应该已经可以构建其自己的教程了。这时候输入make install，工程将安装合适的头文件、库文件和可执行文件。其中，CMake变量CMAKE_INSTALL_PREFIX被用来定义安装文件的根目录。
+</pre></td><td class="rouge-code"><pre><span class="c1"># 添加安装目标</span>
+<span class="nb">install</span><span class="p">(</span>TARGETS Tutorial DESTINATION bin<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span>FILES <span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span><span class="s2">/TutorialConfig.h"</span>
+        DESTINATION include<span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>添加测试也是一个简单直接的操作。在顶层根目录中的CMakeLists.txt中，我们可以添加几行简单测试代码来衡量应用是否正确。		 
-That is all there is to it. At this point you should be able to build the tutorial, then type make install (or build the INSTALL target from an IDE) and it will install the appropriate header files, libraries, and executables. The CMake variable CMAKE_INSTALL_PREFIX is used to determine the root of where the files will be installed. Adding testing is also a fairly straight forward process. At the end of the top level CMakeLists.txt file we can add a number of basic tests to verify that the application is working correctly.
-include(CTest)</p>
+<p>完成这些设置后，就可以正常构建工程。执行 <code class="language-plaintext highlighter-rouge">make install</code>，或者在 IDE 中构建 <code class="language-plaintext highlighter-rouge">INSTALL</code> 目标，工程会安装合适的头文件、库文件和可执行文件。CMake 变量 <code class="language-plaintext highlighter-rouge">CMAKE_INSTALL_PREFIX</code> 用来定义安装文件的根目录。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<p>在顶层根目录的 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 中，可以添加若干基础测试来验证程序是否按预期工作。首先引入 CTest：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre><span class="nb">include</span><span class="p">(</span>CTest<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后添加测试：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -538,51 +542,37 @@ include(CTest)</p>
 20
 21
 22
-23
-24
-25
-26
-27
-28
-29
-</pre></td><td class="rouge-code"><pre># does the application run
-add_test (TutorialRuns Tutorial 25)
+</pre></td><td class="rouge-code"><pre><span class="c1"># 应用程序是否能运行</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialRuns Tutorial 25<span class="p">)</span>
 
-# does it sqrt of 25
-add_test (TutorialComp25 Tutorial 25)
-set_tests_properties (TutorialComp25 PROPERTIES PASS_REGULAR_EXPRESSION "25 is 5")
+<span class="c1"># 是否计算了 25 的平方根</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialComp25 Tutorial 25<span class="p">)</span>
+<span class="nb">set_tests_properties</span><span class="p">(</span>TutorialComp25
+  PROPERTIES PASS_REGULAR_EXPRESSION <span class="s2">"25 is 5"</span><span class="p">)</span>
 
-# does it handle negative numbers
-add_test (TutorialNegative Tutorial -25)
-set_tests_properties (TutorialNegative PROPERTIES PASS_REGULAR_EXPRESSION "-25 is 0")
+<span class="c1"># 是否能处理负数</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialNegative Tutorial -25<span class="p">)</span>
+<span class="nb">set_tests_properties</span><span class="p">(</span>TutorialNegative
+  PROPERTIES PASS_REGULAR_EXPRESSION <span class="s2">"-25 is 0"</span><span class="p">)</span>
 
-# does it handle small numbers
-add_test (TutorialSmall Tutorial 0.0001)
-set_tests_properties (TutorialSmall PROPERTIES PASS_REGULAR_EXPRESSION "0.0001 is 0.01")
+<span class="c1"># 是否能处理小数</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialSmall Tutorial 0.0001<span class="p">)</span>
+<span class="nb">set_tests_properties</span><span class="p">(</span>TutorialSmall
+  PROPERTIES PASS_REGULAR_EXPRESSION <span class="s2">"0.0001 is 0.01"</span><span class="p">)</span>
 
-# does the usage message work?
-add_test (TutorialUsage Tutorial)
-set_tests_properties (TutorialUsage PROPERTIES PASS_REGULAR_EXPRESSION "Usage:.*number") 构建之后，运行ctest命令行可以运行这些测试。 After building one may run the “ctest” command line tool to run the tests. The first test simply verifies that the application runs, does not segfault or otherwise crash, and has a zero return value. This is the basic form of a CTest test. The next few tests all make use of the PASS_REGULAR_EXPRESSION test property to verify that the output of the test contains certain strings. In this case verifying that the computed square root is what it should be and that the usage message is printed when an incorrect number of arguments are provided. If you wanted to add a lot of tests to test different input values you might consider creating a macro like the following:
-
-#define a macro to simplify adding tests, then use it
-macro (do_test arg result)
-  add_test (TutorialComp${arg} Tutorial ${arg})
-  set_tests_properties (TutorialComp${arg}
-	PROPERTIES PASS_REGULAR_EXPRESSION ${result})
-endmacro (do_test)
- 
-# do a bunch of result based tests
-do_test (25 "25 is 5")
-do_test (-25 "-25 is 0")
+<span class="c1"># 用法提示是否正常</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialUsage Tutorial<span class="p">)</span>
+<span class="nb">set_tests_properties</span><span class="p">(</span>TutorialUsage
+  PROPERTIES PASS_REGULAR_EXPRESSION <span class="s2">"Usage:.*number"</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>For each invocation of do_test, another test is added to the project with a name, input, and results based on the passed arguments.</p>
+<p>构建完成后，可以运行 <code class="language-plaintext highlighter-rouge">ctest</code> 命令行工具来执行这些测试。</p>
 
-<h1 id="添加系统内省adding-system-introspection">添加系统内省Adding System Introspection</h1>
+<p>第一个测试 <code class="language-plaintext highlighter-rouge">TutorialRuns</code> 只是验证应用程序能够运行、不会发生段错误或其他崩溃，并且返回值为 0。这是 CTest 测试的基本形式。后面的几个测试都使用 <code class="language-plaintext highlighter-rouge">PASS_REGULAR_EXPRESSION</code> 测试属性，用来验证测试输出中是否包含指定字符串。这里分别验证计算出的平方根是否符合预期，以及当参数数量不正确时是否打印用法提示。</p>
 
-<p>Next let us consider adding some code to our project that depends on features the target platform may not have. For this example we will add some code that depends on whether or not the target platform has the log and exp functions. Of course almost every platform has these functions but for this tutorial assume that they are less common. If the platform has log then we will use that to compute the square root in the mysqrt function. We first test for the availability of these functions using the CheckFunctionExists.cmake macro in the top level CMakeLists.txt file as follows:</p>
+<p>如果希望添加大量针对不同输入值的测试，可以考虑定义一个宏来简化测试添加过程：</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -592,37 +582,77 @@ do_test (-25 "-25 is 0")
 8
 9
 10
-</pre></td><td class="rouge-code"><pre># does this system provide the log and exp functions?
-include (CheckFunctionExists)
-check_function_exists (log HAVE_LOG)
-check_function_exists (exp HAVE_EXP)
+</pre></td><td class="rouge-code"><pre><span class="c1"># 定义一个宏来简化测试添加，然后使用它</span>
+<span class="nb">macro</span><span class="p">(</span>do_test arg result<span class="p">)</span>
+  <span class="nb">add_test</span><span class="p">(</span>TutorialComp<span class="si">${</span><span class="nv">arg</span><span class="si">}</span> Tutorial <span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="p">)</span>
+  <span class="nb">set_tests_properties</span><span class="p">(</span>TutorialComp<span class="si">${</span><span class="nv">arg</span><span class="si">}</span>
+    PROPERTIES PASS_REGULAR_EXPRESSION <span class="si">${</span><span class="nv">result</span><span class="si">}</span><span class="p">)</span>
+<span class="nb">endmacro</span><span class="p">(</span>do_test<span class="p">)</span>
 
-Next we modify the TutorialConfig.h.in to define those values if CMake found them on the platform as follows:
-
-// does the platform provide exp and log functions?
-#cmakedefine HAVE_LOG
-#cmakedefine HAVE_EXP
+<span class="c1"># 执行一组基于结果的测试</span>
+<span class="nf">do_test</span><span class="p">(</span>25 <span class="s2">"25 is 5"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>-25 <span class="s2">"-25 is 0"</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>It is important that the tests for log and exp are done before the configure_file command for TutorialConfig.h. The configure_file command immediately configures the file using the current settings in CMake. Finally in the mysqrt function we can provide an alternate implementation based on log and exp if they are available on the system using the following code:</p>
+<p>每次调用 <code class="language-plaintext highlighter-rouge">do_test</code>，都会根据传入的参数向工程中添加一个测试，测试名称、输入值和期望结果都来自这些参数。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<hr />
+
+<h1 id="添加系统依赖检测">添加系统依赖检测</h1>
+
+<p>接下来考虑向工程中添加一些依赖于目标平台特性的代码。这个例子中，添加的代码依赖目标平台是否提供 <code class="language-plaintext highlighter-rouge">log</code> 和 <code class="language-plaintext highlighter-rouge">exp</code> 函数。当然，几乎所有平台都有这些函数，但本教程假设它们并不常见。如果平台提供 <code class="language-plaintext highlighter-rouge">log</code>，就在 <code class="language-plaintext highlighter-rouge">mysqrt</code> 函数中使用它来计算平方根。</p>
+
+<p>首先在顶层 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 中使用 <code class="language-plaintext highlighter-rouge">CheckFunctionExists.cmake</code> 宏检测这些函数是否可用：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="c1"># 当前系统是否提供 log 和 exp 函数？</span>
+<span class="nb">include</span><span class="p">(</span>CheckFunctionExists<span class="p">)</span>
+<span class="nf">check_function_exists</span><span class="p">(</span>log HAVE_LOG<span class="p">)</span>
+<span class="nf">check_function_exists</span><span class="p">(</span>exp HAVE_EXP<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>然后修改 <code class="language-plaintext highlighter-rouge">TutorialConfig.h.in</code>，如果 CMake 在平台上找到了这些函数，就定义相应的宏：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre><span class="c1">// 平台是否提供 exp 和 log 函数？</span>
+<span class="cp">#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+</span></pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>需要注意，对 <code class="language-plaintext highlighter-rouge">log</code> 和 <code class="language-plaintext highlighter-rouge">exp</code> 的检测必须在针对 <code class="language-plaintext highlighter-rouge">TutorialConfig.h</code> 的 <code class="language-plaintext highlighter-rouge">configure_file</code> 命令之前完成。因为 <code class="language-plaintext highlighter-rouge">configure_file</code> 命令会立即使用 CMake 当前的设置来配置文件。如果在检测之前配置，<code class="language-plaintext highlighter-rouge">HAVE_LOG</code> 和 <code class="language-plaintext highlighter-rouge">HAVE_EXP</code> 还没有确定，生成的头文件就不会包含正确结果。</p>
+
+<p>最后，在 <code class="language-plaintext highlighter-rouge">mysqrt</code> 函数中，如果系统同时提供 <code class="language-plaintext highlighter-rouge">log</code> 和 <code class="language-plaintext highlighter-rouge">exp</code>，就可以使用它们提供另一种实现：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td><td class="rouge-code"><pre>// if we have both log and exp then use them
-#if defined (HAVE_LOG) &amp;&amp; defined (HAVE_EXP)
-  result = exp(log(x)*0.5);
-#else // otherwise use an iterative approach
-  . . .
-</pre></td></tr></tbody></table></code></pre></div></div>
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1">// 如果同时有 log 和 exp，就使用它们</span>
+<span class="cp">#if defined(HAVE_LOG) &amp;&amp; defined(HAVE_EXP)
+</span>  <span class="n">result</span> <span class="o">=</span> <span class="n">exp</span><span class="p">(</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">);</span>
+<span class="cp">#else
+</span>  <span class="c1">// 否则使用迭代方法</span>
+  <span class="c1">// ...</span>
+<span class="cp">#endif
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
-<h1 id="添加生成文件和生成器-adding-a-generated-file-and-generator">添加生成文件和生成器 Adding a Generated File and Generator</h1>
+<p>这样，同一份源码就可以根据目标平台能力选择不同的平方根实现。</p>
 
-<p>In this section we will show how you can add a generated source file into the build process of an application. For this example we will create a table of precomputed square roots as part of the build process, and then compile that table into our application. To accomplish this we first need a program that will generate the table. In the MathFunctions subdirectory a new source file named MakeTable.cxx will do just that.</p>
+<h1 id="构建生成器并生成文件">构建生成器并生成文件</h1>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<p>这一部分展示如何把生成的文件加入应用程序的构建过程。这个例子中，在构建过程中创建一个预计算平方根表，然后把这个表编译进应用程序。</p>
+
+<p>为了实现这一点，首先需要一个生成表的程序。在 <code class="language-plaintext highlighter-rouge">MathFunctions</code> 子目录中新增源文件 <code class="language-plaintext highlighter-rouge">MakeTable.cxx</code>，用来生成平方根表：</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -658,47 +688,49 @@ Next we modify the TutorialConfig.h.in to define those values if CMake found the
 34
 35
 36
-</pre></td><td class="rouge-code"><pre>// A simple program that builds a sqrt table 
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-#include &lt;math.h&gt;
- 
-int main (int argc, char *argv[])
-{
-  int i;
-  double result;
- 
-  // make sure we have enough arguments
-  if (argc &lt; 2)
-	{
-	return 1;
-	}
-  
-  // open the output file
-  FILE *fout = fopen(argv[1],"w");
-  if (!fout)
-	{
-	return 1;
-	}
-  
-  // create a source file with a table of square roots
-  fprintf(fout,"double sqrtTable[] = {\n");
-  for (i = 0; i &lt; 10; ++i)
-	{
-	result = sqrt(static_cast&lt;double&gt;(i));
-	fprintf(fout,"%g,\n",result);
-	}
- 
-  // close the table with a zero
-  fprintf(fout,"0};\n");
-  fclose(fout);
-  return 0;
-}
+</pre></td><td class="rouge-code"><pre><span class="c1">// 一个用于构建平方根表的简单程序</span>
+<span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">int</span> <span class="n">argc</span><span class="p">,</span> <span class="kt">char</span> <span class="o">*</span><span class="n">argv</span><span class="p">[])</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+  <span class="kt">double</span> <span class="n">result</span><span class="p">;</span>
+
+  <span class="c1">// 确保参数足够</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">argc</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 打开输出文件</span>
+  <span class="kt">FILE</span> <span class="o">*</span><span class="n">fout</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="s">"w"</span><span class="p">);</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">fout</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 创建一个包含平方根表的源文件</span>
+  <span class="n">fprintf</span><span class="p">(</span><span class="n">fout</span><span class="p">,</span> <span class="s">"double sqrtTable[] = {</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="p">{</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span><span class="p">(</span><span class="n">i</span><span class="p">));</span>
+    <span class="n">fprintf</span><span class="p">(</span><span class="n">fout</span><span class="p">,</span> <span class="s">"%g,</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">result</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// 用 0 结束表</span>
+  <span class="n">fprintf</span><span class="p">(</span><span class="n">fout</span><span class="p">,</span> <span class="s">"0};</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+  <span class="n">fclose</span><span class="p">(</span><span class="n">fout</span><span class="p">);</span>
+  <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>Note that the table is produced as valid C++ code and that the name of the file to write the output to is passed in as an argument. The next step is to add the appropriate commands to MathFunctions’ CMakeLists.txt file to build the MakeTable executable, and then run it as part of the build process. A few commands are needed to accomplish this, as shown below.</p>
+<p>注意，生成的表是合法的 C++ 代码，输出文件名通过命令行参数传入。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<p>下一步是在 <code class="language-plaintext highlighter-rouge">MathFunctions/CMakeLists.txt</code> 中添加合适的命令，构建 <code class="language-plaintext highlighter-rouge">MakeTable</code> 可执行文件，并在构建过程中运行它。需要几条命令：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -714,30 +746,41 @@ int main (int argc, char *argv[])
 14
 15
 16
-</pre></td><td class="rouge-code"><pre># first we add the executable that generates the table
-add_executable(MakeTable MakeTable.cxx)
- 
-# add the command to generate the source code
-add_custom_command (
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
-  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
+17
+18
+</pre></td><td class="rouge-code"><pre><span class="c1"># 首先添加生成表的可执行文件</span>
+<span class="nb">add_executable</span><span class="p">(</span>MakeTable MakeTable.cxx<span class="p">)</span>
+
+<span class="c1"># 添加生成源代码的命令</span>
+<span class="nb">add_custom_command</span><span class="p">(</span>
+  OUTPUT <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
+  COMMAND MakeTable <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
   DEPENDS MakeTable
-  )
- 
-# add the binary tree directory to the search path for 
-# include files
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
- 
-# add the main library
-add_library(MathFunctions mysqrt.cxx ${CMAKE_CURRENT_BINARY_DIR}/Table.h  )
+<span class="p">)</span>
+
+<span class="c1"># 把二进制目录加入头文件搜索路径</span>
+<span class="nb">include_directories</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span><span class="p">)</span>
+
+<span class="c1"># 添加主库</span>
+<span class="nb">add_library</span><span class="p">(</span>MathFunctions
+  mysqrt.cxx
+  <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
+<span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>First the executable for MakeTable is added as any other executable would be added. Then we add a custom command that specifies how to produce Table.h by running MakeTable. Next we have to let CMake know that mysqrt.cxx depends on the generated file Table.h. This is done by adding the generated Table.h to the list of sources for the library MathFunctions. We also have to add the current binary directory to the list of include directories so that Table.h can be found and included by mysqrt.cxx. When this project is built it will first build the MakeTable executable. It will then run MakeTable to produce Table.h. Finally, it will compile mysqrt.cxx which includes Table.h to produce the MathFunctions library. At this point the top level CMakeLists.txt file with all the features we have added looks like the following:
-cmake_minimum_required (VERSION 2.6)
-project (Tutorial)
-include(CTest)</p>
+<p>首先像添加普通可执行文件一样添加 <code class="language-plaintext highlighter-rouge">MakeTable</code>。然后添加一个自定义命令，指定如何通过运行 <code class="language-plaintext highlighter-rouge">MakeTable</code> 生成 <code class="language-plaintext highlighter-rouge">Table.h</code>。接着必须让 CMake 知道 <code class="language-plaintext highlighter-rouge">mysqrt.cxx</code> 依赖生成文件 <code class="language-plaintext highlighter-rouge">Table.h</code>。做法是把生成的 <code class="language-plaintext highlighter-rouge">Table.h</code> 加入 <code class="language-plaintext highlighter-rouge">MathFunctions</code> 库的源文件列表中。同时还需要把当前二进制目录加入头文件搜索路径，这样 <code class="language-plaintext highlighter-rouge">mysqrt.cxx</code> 才能找到并包含 <code class="language-plaintext highlighter-rouge">Table.h</code>。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<p>当构建这个项目时，构建顺序是：</p>
+
+<ol>
+  <li>首先构建 <code class="language-plaintext highlighter-rouge">MakeTable</code> 可执行文件；</li>
+  <li>然后运行 <code class="language-plaintext highlighter-rouge">MakeTable</code> 生成 <code class="language-plaintext highlighter-rouge">Table.h</code>；</li>
+  <li>最后编译包含 <code class="language-plaintext highlighter-rouge">Table.h</code> 的 <code class="language-plaintext highlighter-rouge">mysqrt.cxx</code>，生成 <code class="language-plaintext highlighter-rouge">MathFunctions</code> 库。</li>
+</ol>
+
+<p>此时，包含前面所有特性的顶层 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 如下：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -807,179 +850,213 @@ include(CTest)</p>
 68
 69
 70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91
-92
-93
-94
-95
-96
-97
-</pre></td><td class="rouge-code"><pre># The version number.
-set (Tutorial_VERSION_MAJOR 1)
-set (Tutorial_VERSION_MINOR 0)
- 
-# does this system provide the log and exp functions?
-include (${CMAKE_ROOT}/Modules/CheckFunctionExists.cmake)
- 
-check_function_exists (log HAVE_LOG)
-check_function_exists (exp HAVE_EXP)
- 
-# should we use our own math functions
-option(USE_MYMATH 
-  "Use tutorial provided math implementation" ON)
- 
-# configure a header file to pass some of the CMake settings
-# to the source code
-configure_file (
-  "${PROJECT_SOURCE_DIR}/TutorialConfig.h.in"
-  "${PROJECT_BINARY_DIR}/TutorialConfig.h"
-  )
- 
-# add the binary tree to the search path for include files
-# so that we will find TutorialConfig.h
-include_directories ("${PROJECT_BINARY_DIR}")
- 
-# add the MathFunctions library?
-if (USE_MYMATH)
-  include_directories ("${PROJECT_SOURCE_DIR}/MathFunctions")
-  add_subdirectory (MathFunctions)
-  set (EXTRA_LIBS ${EXTRA_LIBS} MathFunctions)
-endif (USE_MYMATH)
- 
-# add the executable
-add_executable (Tutorial tutorial.cxx)
-target_link_libraries (Tutorial  ${EXTRA_LIBS})
- 
-# add the install targets
-install (TARGETS Tutorial DESTINATION bin)
-install (FILES "${PROJECT_BINARY_DIR}/TutorialConfig.h"        
-		 DESTINATION include)
- 
-# does the application run
-add_test (TutorialRuns Tutorial 25)
- 
-# does the usage message work?
-add_test (TutorialUsage Tutorial)
-set_tests_properties (TutorialUsage
-  PROPERTIES 
-  PASS_REGULAR_EXPRESSION "Usage:.*number"
-  )
- 
- 
-#define a macro to simplify adding tests
-macro (do_test arg result)
-  add_test (TutorialComp${arg} Tutorial ${arg})
-  set_tests_properties (TutorialComp${arg}
-	PROPERTIES PASS_REGULAR_EXPRESSION ${result}
-	)
-endmacro (do_test)
- 
-# do a bunch of result based tests
-do_test (4 "4 is 2")
-do_test (9 "9 is 3")
-do_test (5 "5 is 2.236")
-do_test (7 "7 is 2.645")
-do_test (25 "25 is 5")
-do_test (-25 "-25 is 0")
-do_test (0.0001 "0.0001 is 0.01")
+</pre></td><td class="rouge-code"><pre><span class="nb">cmake_minimum_required</span><span class="p">(</span>VERSION 2.6<span class="p">)</span>
+<span class="nb">project</span><span class="p">(</span>Tutorial<span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span>CTest<span class="p">)</span>
 
-TutorialConfig.h.in looks like:
-// the configured options and settings for Tutorial
-#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
-#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
-#cmakedefine USE_MYMATH
- 
-// does the platform provide exp and log functions?
-#cmakedefine HAVE_LOG
-#cmakedefine HAVE_EXP
+<span class="c1"># 版本号</span>
+<span class="nb">set</span><span class="p">(</span>Tutorial_VERSION_MAJOR 1<span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span>Tutorial_VERSION_MINOR 0<span class="p">)</span>
 
-And the CMakeLists.txt file for MathFunctions looks like:
-# first we add the executable that generates the table
-add_executable(MakeTable MakeTable.cxx)
-# add the command to generate the source code
-add_custom_command (
-  OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/Table.h
-  DEPENDS MakeTable
-  COMMAND MakeTable ${CMAKE_CURRENT_BINARY_DIR}/Table.h
-  )
-# add the binary tree directory to the search path 
-# for include files
-include_directories( ${CMAKE_CURRENT_BINARY_DIR} )
- 
-# add the main library
-add_library(MathFunctions mysqrt.cxx ${CMAKE_CURRENT_BINARY_DIR}/Table.h)
- 
-install (TARGETS MathFunctions DESTINATION bin)
-install (FILES MathFunctions.h DESTINATION include)
+<span class="c1"># 当前系统是否提供 log 和 exp 函数？</span>
+<span class="nb">include</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_ROOT</span><span class="si">}</span>/Modules/CheckFunctionExists.cmake<span class="p">)</span>
+
+<span class="nf">check_function_exists</span><span class="p">(</span>log HAVE_LOG<span class="p">)</span>
+<span class="nf">check_function_exists</span><span class="p">(</span>exp HAVE_EXP<span class="p">)</span>
+
+<span class="c1"># 是否使用我们自己实现的数学函数</span>
+<span class="nb">option</span><span class="p">(</span>USE_MYMATH
+  <span class="s2">"Use tutorial provided math implementation"</span> ON<span class="p">)</span>
+
+<span class="c1"># 配置头文件，把一些 CMake 设置传递给源代码</span>
+<span class="nb">configure_file</span><span class="p">(</span>
+  <span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span><span class="s2">/TutorialConfig.h.in"</span>
+  <span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span><span class="s2">/TutorialConfig.h"</span>
+<span class="p">)</span>
+
+<span class="c1"># 把二进制目录加入头文件搜索路径</span>
+<span class="c1"># 以便找到 TutorialConfig.h</span>
+<span class="nb">include_directories</span><span class="p">(</span><span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+
+<span class="c1"># 是否添加 MathFunctions 库？</span>
+<span class="nb">if</span><span class="p">(</span>USE_MYMATH<span class="p">)</span>
+  <span class="nb">include_directories</span><span class="p">(</span><span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_SOURCE_DIR</span><span class="si">}</span><span class="s2">/MathFunctions"</span><span class="p">)</span>
+  <span class="nb">add_subdirectory</span><span class="p">(</span>MathFunctions<span class="p">)</span>
+  <span class="nb">set</span><span class="p">(</span>EXTRA_LIBS <span class="si">${</span><span class="nv">EXTRA_LIBS</span><span class="si">}</span> MathFunctions<span class="p">)</span>
+<span class="nb">endif</span><span class="p">(</span>USE_MYMATH<span class="p">)</span>
+
+<span class="c1"># 添加可执行文件</span>
+<span class="nb">add_executable</span><span class="p">(</span>Tutorial tutorial.cxx<span class="p">)</span>
+<span class="nb">target_link_libraries</span><span class="p">(</span>Tutorial <span class="si">${</span><span class="nv">EXTRA_LIBS</span><span class="si">}</span><span class="p">)</span>
+
+<span class="c1"># 添加安装目标</span>
+<span class="nb">install</span><span class="p">(</span>TARGETS Tutorial DESTINATION bin<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span>FILES <span class="s2">"</span><span class="si">${</span><span class="nv">PROJECT_BINARY_DIR</span><span class="si">}</span><span class="s2">/TutorialConfig.h"</span>
+        DESTINATION include<span class="p">)</span>
+
+<span class="c1"># 应用程序是否能运行</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialRuns Tutorial 25<span class="p">)</span>
+
+<span class="c1"># 用法提示是否正常</span>
+<span class="nb">add_test</span><span class="p">(</span>TutorialUsage Tutorial<span class="p">)</span>
+<span class="nb">set_tests_properties</span><span class="p">(</span>TutorialUsage
+  PROPERTIES
+  PASS_REGULAR_EXPRESSION <span class="s2">"Usage:.*number"</span>
+<span class="p">)</span>
+
+<span class="c1"># 定义一个宏来简化测试添加</span>
+<span class="nb">macro</span><span class="p">(</span>do_test arg result<span class="p">)</span>
+  <span class="nb">add_test</span><span class="p">(</span>TutorialComp<span class="si">${</span><span class="nv">arg</span><span class="si">}</span> Tutorial <span class="si">${</span><span class="nv">arg</span><span class="si">}</span><span class="p">)</span>
+  <span class="nb">set_tests_properties</span><span class="p">(</span>TutorialComp<span class="si">${</span><span class="nv">arg</span><span class="si">}</span>
+    PROPERTIES PASS_REGULAR_EXPRESSION <span class="si">${</span><span class="nv">result</span><span class="si">}</span>
+  <span class="p">)</span>
+<span class="nb">endmacro</span><span class="p">(</span>do_test<span class="p">)</span>
+
+<span class="c1"># 执行一组基于结果的测试</span>
+<span class="nf">do_test</span><span class="p">(</span>4 <span class="s2">"4 is 2"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>9 <span class="s2">"9 is 3"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>5 <span class="s2">"5 is 2.236"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>7 <span class="s2">"7 is 2.645"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>25 <span class="s2">"25 is 5"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>-25 <span class="s2">"-25 is 0"</span><span class="p">)</span>
+<span class="nf">do_test</span><span class="p">(</span>0.0001 <span class="s2">"0.0001 is 0.01"</span><span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<h1 id="构建和安装-building-an-installer-step-6">构建和安装 Building an Installer (Step 6)</h1>
-<p>Next suppose that we want to distribute our project to other people so that they can use it. We want to provide both binary and source distributions on a variety of platforms. This is a little different from the install we did previously in section Installing and Testing (Step 3), where we were installing the binaries that we had built from the source code. In this example we will be building installation packages that support binary installations and package management features as found in cygwin, debian, RPMs etc. To accomplish this we will use CPack to create platform specific installers as described in Chapter Packaging with CPack. Specifically we need to add a few lines to the bottom of our toplevel CMakeLists.txt file.</p>
+<p><code class="language-plaintext highlighter-rouge">TutorialConfig.h.in</code> 内容如下：</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
 6
 7
-</pre></td><td class="rouge-code"><pre># build a CPack driven installer package
-include (InstallRequiredSystemLibraries)
-set (CPACK_RESOURCE_FILE_LICENSE  
-	 "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
-set (CPACK_PACKAGE_VERSION_MAJOR "${Tutorial_VERSION_MAJOR}")
-set (CPACK_PACKAGE_VERSION_MINOR "${Tutorial_VERSION_MINOR}")
-include (CPack)
-</pre></td></tr></tbody></table></code></pre></div></div>
+8
+</pre></td><td class="rouge-code"><pre><span class="c1">// Tutorial 的配置选项和设置</span>
+<span class="cp">#define Tutorial_VERSION_MAJOR @Tutorial_VERSION_MAJOR@
+#define Tutorial_VERSION_MINOR @Tutorial_VERSION_MINOR@
+#cmakedefine USE_MYMATH
+</span>
+<span class="c1">// 平台是否提供 exp 和 log 函数？</span>
+<span class="cp">#cmakedefine HAVE_LOG
+#cmakedefine HAVE_EXP
+</span></pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>That is all there is to it. We start by including InstallRequiredSystemLibraries. This module will include any runtime libraries that are needed by the project for the current platform. Next we set some CPack variables to where we have stored the license and version information for this project. The version information makes use of the variables we set earlier in this tutorial. Finally we include the CPack module which will use these variables and some other properties of the system you are on to setup an installer.
-The next step is to build the project in the usual manner and then run CPack on it. To build a binary distribution you would run:</p>
+<p><code class="language-plaintext highlighter-rouge">MathFunctions/CMakeLists.txt</code> 内容如下：</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
-</pre></td><td class="rouge-code"><pre>cpack --config CPackConfig.cmake
-To create a source distribution you would type
-cpack --config CPackSourceConfig.cmake
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</pre></td><td class="rouge-code"><pre><span class="c1"># 首先添加生成表的可执行文件</span>
+<span class="nb">add_executable</span><span class="p">(</span>MakeTable MakeTable.cxx<span class="p">)</span>
+
+<span class="c1"># 添加生成源代码的命令</span>
+<span class="nb">add_custom_command</span><span class="p">(</span>
+  OUTPUT <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
+  DEPENDS MakeTable
+  COMMAND MakeTable <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
+<span class="p">)</span>
+
+<span class="c1"># 把二进制目录加入头文件搜索路径</span>
+<span class="nb">include_directories</span><span class="p">(</span><span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span><span class="p">)</span>
+
+<span class="c1"># 添加主库</span>
+<span class="nb">add_library</span><span class="p">(</span>MathFunctions
+  mysqrt.cxx
+  <span class="si">${</span><span class="nv">CMAKE_CURRENT_BINARY_DIR</span><span class="si">}</span>/Table.h
+<span class="p">)</span>
+
+<span class="nb">install</span><span class="p">(</span>TARGETS MathFunctions DESTINATION bin<span class="p">)</span>
+<span class="nb">install</span><span class="p">(</span>FILES MathFunctions.h DESTINATION include<span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<h1 id="添加仪表盘的支持-adding-support-for-a-dashboard-step-7">添加仪表盘的支持 Adding Support for a Dashboard (Step 7)</h1>
-<p>Adding support for submitting our test results to a dashboard is very easy. We already defined a number of tests for our project in the earlier steps of this tutorial. We just have to run those tests and submit them to a dashboard. To include support for dashboards we include the CTest module in our toplevel CMakeLists.txt file.</p>
+<hr />
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+<h1 id="构建和安装包">构建和安装包</h1>
+
+<p>假设希望把项目分发给其他人使用，并希望在多种平台上同时提供二进制分发包和源码分发包。这与前面“安装和测试”中的安装略有不同：前面安装的是从源码构建出来的二进制文件，而这里要构建支持二进制安装和包管理功能的安装包，例如 cygwin、debian、RPM 等平台上的包。</p>
+
+<p>为此可以使用 CPack 创建平台相关的安装包。具体来说，需要在顶层 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 文件末尾添加几行代码：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
-</pre></td><td class="rouge-code"><pre># enable dashboard scripting
-include (CTest)
+3
+4
+5
+6
+7
+</pre></td><td class="rouge-code"><pre><span class="c1"># 构建由 CPack 驱动的安装包</span>
+<span class="nb">include</span><span class="p">(</span>InstallRequiredSystemLibraries<span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span>CPACK_RESOURCE_FILE_LICENSE
+    <span class="s2">"</span><span class="si">${</span><span class="nv">CMAKE_CURRENT_SOURCE_DIR</span><span class="si">}</span><span class="s2">/License.txt"</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span>CPACK_PACKAGE_VERSION_MAJOR <span class="s2">"</span><span class="si">${</span><span class="nv">Tutorial_VERSION_MAJOR</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span>CPACK_PACKAGE_VERSION_MINOR <span class="s2">"</span><span class="si">${</span><span class="nv">Tutorial_VERSION_MINOR</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">include</span><span class="p">(</span>CPack<span class="p">)</span>
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>We also create a CTestConfig.cmake file where we can specify the name of this project for the dashboard.</p>
+<p>引入 <code class="language-plaintext highlighter-rouge">InstallRequiredSystemLibraries</code>。这个模块会把当前平台下项目所需的运行时库包含进来。然后设置一些 CPack 变量，指定许可证文件和版本信息的位置。版本信息使用了本教程前面设置的变量。最后引入 <code class="language-plaintext highlighter-rouge">CPack</code> 模块，它会使用这些变量以及当前系统的一些其他属性来设置安装器。</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
-</pre></td><td class="rouge-code"><pre>set (CTEST_PROJECT_NAME "Tutorial")
+<p>下一步是按通常方式构建项目，然后对它运行 CPack。</p>
+
+<p>要构建二进制分发包，可以运行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cpack <span class="nt">--config</span> CPackConfig.cmake
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<p>CTest will read in this file when it runs. To create a simple dashboard you can run CMake on your project, change directory to the binary tree, and then run ctest –D Experimental. The results of your dashboard will be uploaded to Kitware’s public dashboard here.</p>
+<p>要创建源码分发包，可以运行：</p>
 
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>cpack <span class="nt">--config</span> CPackSourceConfig.cmake
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<hr />
+
+<h1 id="添加仪表盘支持">添加仪表盘支持</h1>
+
+<p>前面的步骤中已经为项目定义了一些测试，现在运行这些测试并把结果提交到仪表盘。</p>
+
+<p>为了包含仪表盘支持，在顶层 <code class="language-plaintext highlighter-rouge">CMakeLists.txt</code> 中引入 <code class="language-plaintext highlighter-rouge">CTest</code> 模块：</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="c1"># 启用仪表盘脚本</span>
+<span class="nb">include</span><span class="p">(</span>CTest<span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>还需要创建一个 <code class="language-plaintext highlighter-rouge">CTestConfig.cmake</code> 文件，在其中指定仪表盘使用的项目名称和上传路径，支持配置私有仪表盘。</p>
+
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">set</span><span class="p">(</span>CTEST_PROJECT_NAME <span class="s2">"Tutorial"</span><span class="p">)</span>
+<span class="nb">set</span><span class="p">(</span>CTEST_SUBMIT_URL <span class="s2">"https://my.cdash.org/submit.php?project=Tutorial"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>CTest 运行时将读取这个文件。要创建一个简单的仪表盘，可以先对项目运行 CMake，然后切换到构建目录，再运行：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td><td class="rouge-code"><pre>ctest <span class="nt">-D</span> Experimental
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>仪表盘结果会上传到 Kitware 的公共仪表盘。</p>
 
 
         
