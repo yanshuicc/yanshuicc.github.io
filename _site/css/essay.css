@@ -1,9 +1,23 @@
-/* ===== 短篇随笔 ===== */
+/* ===== essay.css — 短篇随笔 =====
+   适用于 `layout: essay`，通过 home.html 加载（article.css 不加载）。
+   模板结构：#content > .entry > (.entry-title + .entry-date + p...)
+   所以选择器用 #content > .entry，与 article.css 的 #content > .entry 是兄弟关系，
+   由 CSS 加载顺序决定覆盖（home.html 先 article.css 再 essay.css）。 */
 
-.essay {
-    max-width: 620px;
+#content {
+    /* 随笔比文章更窄，突出阅读焦点 */
+    max-width: 800px;
+    width: auto;
     margin: 60px auto 80px;
     padding: 0 20px;
+}
+
+#content > .entry {
+    background:#FAFAFA;
+    border: none;
+    box-shadow: none;
+    padding: 40px;
+    max-width: none;
     font-size: 17px;
     line-height: 2;
     color: #3A3A38;
@@ -11,17 +25,20 @@
 }
 
 /* 标题 */
-.essay-title {
-    margin: 0 0 8px;
+.entry-title,
+.entry-title a {
+    font-family: "Times New Roman", "SimHei", "黑体", sans-serif;
     font-size: 24px;
     font-weight: bold;
     color: #2A2A28;
     text-align: center;
     letter-spacing: 1px;
+    margin: 0 0 8pt;
+    counter-reset: none !important;     /* 随笔不需要 h1/h2 编号 */
 }
 
 /* 日期 */
-.essay-date {
+.entry-date {
     margin: 0 0 48px;
     font-size: 13px;
     color: #B5AF9F;
@@ -29,31 +46,31 @@
     letter-spacing: 0.5px;
 }
 
-/* 正文段落 */
-.essay p {
+/* 正文段落：随笔用 .entry 的选择器 */
+#content > .entry p {
     margin: 0 0 1.6em;
-    text-indent: 2em;          /* 中文首行缩进 */
+    text-indent: 2em;
     line-height: 2;
 }
 
 /* 第一段不缩进，作为引子 */
-.essay p:first-of-type {
+#content > .entry p:first-of-type {
     text-indent: 0;
 }
 
-/* 段落里的强调 */
-.essay strong {
-    color: #8B6F3D;
-    font-weight: bold;
+/* 标题自动编号：随笔不需要，强制关掉 */
+.entry h1::before,
+.entry h2::before,
+.entry h3::before {
+    content: none !important;
 }
 
-.essay em {
-    font-style: normal;
-    color: #B8894A;
-}
+/* 段落里的强调 */
+#content > .entry strong { color: #8B6F3D; font-weight: bold; }
+#content > .entry em    { font-style: normal; color: #B8894A; }
 
 /* 引用 */
-.essay blockquote {
+#content > .entry blockquote {
     margin: 1.8em 0;
     padding: 0 0 0 20px;
     border-left: 2px solid #E0D8C8;
@@ -62,26 +79,19 @@
     font-style: italic;
     line-height: 1.9;
 }
-
-.essay blockquote p {
-    text-indent: 0;
-    margin-bottom: 0.8em;
-}
-
-.essay blockquote p:last-child {
-    margin-bottom: 0;
-}
+#content > .entry blockquote p { text-indent: 0; margin-bottom: 0.8em; }
+#content > .entry blockquote p:last-child { margin-bottom: 0; }
 
 /* 图片 */
-.essay img {
+#content > .entry img {
     display: block;
     max-width: 100%;
     margin: 2em auto;
     border-radius: 4px;
 }
 
-/* 分隔线，用于段落之间的停顿 */
-.essay hr {
+/* 分隔线 */
+#content > .entry hr {
     width: 40px;
     margin: 2.5em auto;
     border: none;
@@ -98,7 +108,7 @@
 }
 
 /* 行内代码 */
-.essay code {
+#content > .entry code {
     background: #F0F0F0;
     border: 1px solid #E0E0E0;
     border-radius: 3px;
@@ -107,20 +117,48 @@
     color: #B8894A;
 }
 
+/* 列表（随笔不常出现，简化处理） */
+#content > .entry ul,
+#content > .entry ol {
+    margin: 0 0 1.6em 2em;
+}
+#content > .entry ul li { list-style: disc; }
+#content > .entry ol li { list-style: decimal; }
+
+/* AI 声明 */
+#content > .ai-notice {
+    margin-top: 3em;
+    padding-top: 12px;
+    font-size: 12px;
+    color: #B5AF9F;
+    border-top: 1px dashed #E5E5E5;
+}
+
+/* 暗色模式 */
+@media (prefers-color-scheme: dark) {
+    .entry-title, .entry-title a { color: #e6e2d6; }
+    .entry-date { color: #8a8a8a; }
+    #content > .entry { color: #c8c4b8; }
+    #content > .entry strong { color: #d4b07a; }
+    #content > .entry em { color: #d4a860; }
+    #content > .entry blockquote {
+        color: #9a8e72;
+        border-left-color: #4a4238;
+    }
+    #content > .entry code {
+        background: #2a2620; border-color: #3a342a; color: #d4a860;
+    }
+    .entry h1::before, .entry h2::before, .entry h3::before {
+        content: none !important;
+    }
+}
+
 /* 窄屏 */
 @media (max-width: 640px) {
-    .essay {
-        margin: 40px auto 60px;
-        font-size: 16px;
-        line-height: 1.9;
-    }
-    .essay-title {
-        font-size: 20px;
-    }
-    .essay-date {
-        margin-bottom: 32px;
-    }
-    .essay p {
-        text-indent: 1.5em;
-    }
+    #content { margin: 40px auto 60px; }
+    #content > .entry { font-size: 16px; line-height: 1.9; }
+    .entry-title, .entry-title a { font-size: 20px; }
+    .entry-date { margin-bottom: 32px; }
+    #content > .entry p { text-indent: 1.5em; }
+    #content > .entry p:first-of-type { text-indent: 0; }
 }

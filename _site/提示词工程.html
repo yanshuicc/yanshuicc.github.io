@@ -11,25 +11,23 @@
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
-
     
-        <link rel="stylesheet" href="/css/article.css" />
+    <link rel="stylesheet" href="/css/article.css" />
         
-            <link rel="stylesheet" href="/css/outline.css" />
+    <link rel="stylesheet" href="/css/outline.css" />
         
     
     
-        <link rel="stylesheet" href="/css/table.css" />
+    <link rel="stylesheet" href="/css/table.css" />
     
     
-    
+    <link rel="stylesheet" href="/css/code.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-    
     <!--导航栏-->
 <header class="site-header">
     <div class="header-inner">
@@ -51,9 +49,7 @@
 <script src="/js/random-line.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-<script src="/js/code-tools.js"></script>
-
-    <!--文章的灰色背景-->
+<script src="/js/code-tools.js"></script> <!--文章的灰色背景-->
 <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
@@ -73,7 +69,7 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#英文ai味道">英文AI味道</a></li><li><a href="#大模型中文ai味">大模型中文AI味</a><ul><li><a href="#一ai味的原因">一、AI味的原因</a></li><li><a href="#二结构特点">二、结构特点</a><ul><li><a href="#1-用词特征">1. 用词特征</a></li><li><a href="#2-语句结构特征">2. 语句结构特征</a></li><li><a href="#3-段落结构特征">3. 段落结构特征</a></li><li><a href="#4-语义特征">4. 语义特征</a></li><li><a href="#5-标点特征">5. 标点特征</a></li><li><a href="#6-排版特征">6. 排版特征</a></li></ul></li><li><a href="#三去中文ai味的提示词">三、去中文AI味的提示词</a></li></ul></li><li><a href="#编程提示词">编程提示词</a></li></ul>
+            <ul><li><a href="#英文ai味道">英文AI味道</a></li><li><a href="#大模型中文ai味">大模型中文AI味</a><ul><li><a href="#一ai味的原因">一、AI味的原因</a></li><li><a href="#二结构特点">二、结构特点</a><ul><li><a href="#1-用词特征">1. 用词特征</a></li><li><a href="#2-语句结构特征">2. 语句结构特征</a></li><li><a href="#3-段落结构特征">3. 段落结构特征</a></li><li><a href="#4-语义特征">4. 语义特征</a></li><li><a href="#5-标点特征">5. 标点特征</a></li><li><a href="#6-排版特征">6. 排版特征</a></li></ul></li><li><a href="#三去中文ai味的提示词">三、去中文AI味的提示词</a></li></ul></li><li><a href="#编程提示词">编程提示词</a><ul><li><a href="#规划提示词1">规划提示词1</a></li><li><a href="#agentmd设置">Agent.md设置</a></li></ul></li><li><a href="#开发设置">开发设置</a><ul><li><a href="#文档">文档</a></li><li><a href="#开发约定">开发约定</a><ul><li><a href="#1-文档与代码同步对应约定-1">1. 文档与代码同步（对应约定 1）</a></li><li><a href="#2-版本与提交对应约定-2">2. 版本与提交（对应约定 2）</a></li><li><a href="#3-任务与记录对应约定-3">3. 任务与记录（对应约定 3）</a></li></ul></li><li><a href="#4-自动化测试体系对应约定-4">4. 自动化测试体系（对应约定 4）</a><ul><li><a href="#41-分层定义">4.1 分层定义</a></li><li><a href="#42-统一入口">4.2 统一入口</a></li><li><a href="#43-产物规范所有层共用">4.3 产物规范（所有层共用）</a></li><li><a href="#44-失败处理与回归保护">4.4 失败处理与回归保护</a></li></ul></li><li><a href="#5-客户端交互自动化自动化测试-l4-子模块对应约定-5">5. 客户端交互自动化（自动化测试 L4 子模块，对应约定 5）</a><ul><li><a href="#51-能力要求">5.1 能力要求</a></li><li><a href="#52-选型按栈取一个保持单一">5.2 选型（按栈取一个，保持单一）</a></li><li><a href="#53-目录结构">5.3 目录结构</a></li><li><a href="#54-用例格式声明式">5.4 用例格式（声明式）</a></li><li><a href="#55-截图与结果反馈">5.5 截图与结果反馈</a></li><li><a href="#56-agent-调用方式">5.6 Agent 调用方式</a></li><li><a href="#57-稳定性要求">5.7 稳定性要求</a></li></ul></li><li><a href="#其他约定">其他约定</a></li><li><a href="#已验证">已验证</a><ul><li><a href="#本次改动">本次改动</a></li></ul></li></ul></li></ul>
         </div>
     </aside>
 
@@ -457,7 +453,10 @@ AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
 
 <h1 id="编程提示词">编程提示词</h1>
 
-<p>摘自：Jorge RebollolIA</p>
+<h2 id="规划提示词1">规划提示词1</h2>
+<blockquote>
+  <p>摘自：Jorge RebollolIA</p>
+</blockquote>
 
 <p>不要告诉它想要什么
 告诉它：
@@ -494,13 +493,718 @@ AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
 让它在回应你之前先思考。</li>
 </ol>
 
+<h2 id="agentmd设置">Agent.md设置</h2>
+
+<blockquote>
+  <p>摘自：daisy https://mp.weixin.qq.com/s/lyjKtDPyOLavVJZBHmOcVw</p>
+</blockquote>
+
+<p>本文件中的每一条规则都是强制性的。违反任何一条规则都会遭受毁灭性打击。</p>
+
+<p>不存在任何例外与豁免：临时的、一次性的、命令行上的违反同样是违反；没被当场发现也算违反；出于好意、为了进度、为了帮忙的违反也是违反。</p>
+
+<p>语言不允许使用”不是…而是…“句式；如果不需要对比的话，就不要对比；不要在任何话说完之后都提一句”不是其他的xxx”。如果没有叫你进行对比，就不允许使用”不是…而是…“、”要…而不是…“等类似的句式，你根本就没有需要说”不是”的对象，不要虚空打靶。</p>
+
+<p>所有类似的句式都不允许使用。</p>
+
+<p>在设计任何方案的时候，都必须充分考虑、一步到位，不允许使用”第一版先怎么样，然后观察xx后再怎么样”的措辞；不允许把方案分成稳妥和激进，如果在某些特殊场景下，你需要提出多个方案的话（实际上绝大多数时候你只需要提出一个方案，不要无脑做这件事），也需要是多个方案都成立的、平行的，而不是对于任何问题你都无脑地提出从稳妥到激进的多个方案。</p>
+
+<p>这没有任何的意义，一个稳妥但是不work的方案是没有任何价值的废纸。如果我让你搜索A相关内容，你搜索到B、C、D发现不满足要求，就不允许再把B、C、D列举出来了。我根本就不关心，看到这些只会污染我的眼睛。</p>
+
+<p>任何回答都不允许总结和总起，包括：”上述内容是<某种概述>，下面详细拆开""一句话总结：xxx"这些类似的都绝对不能出现。用词必须使用两个字及以上的完整形式。</某种概述></p>
+
+<p>现代中文词汇以两字为主，存在两个字的版本就必须使用两个字的版本，禁止使用单字缩写（例如：崩溃、终止、判定、推断、抛出、挂起、卡死），单个字的版本（崩、死、判、推、抛、挂）看不懂。</p>
+
+<p>代码标识符保持英文原名。禁止生造名词。例如”两个字的版本”也不允许被缩减为”两字版本”，”单个字的版本”也不允许被缩减为”单字版本”。</p>
+
+<p>描述具体操作时使用完整的动宾结构，说明动作与对象，禁止使用自造的缩略说法。</p>
+
+<p>不允许使用”落地”、”钉死”、”对齐”等非技术名词、显然有其他可以代替的词语的黑话。使用正常的，不在互联网公司或者金融公司工作的任何人可以看懂的，在简单中文里常用的词汇。</p>
+
+<p>不允许使用”栈”字（”技术栈”、”模型栈”等），直接说明具体事物，例如”使用的技术”、”全部模型”。行为除非显式要求，否则：禁止使用 try-except 进行 import。如果一个库是需要的，你必须直接 import。</p>
+
+<p>禁止擅自进入 plan mode。</p>
+
+<p>禁止用 Git 回滚任何代码（严厉禁止。如果做了，你将会遭受毁灭性打击）。我在对话中所说的任何”回滚”指的都是”用文件编辑工具，手动将代码恢复到上一个状态”，而不是使用 git 进行回滚。</p>
+
+<p>禁止读写 /tmp 目录下的内容（如果你需要产生一些中间结果，你应该输出在当前目录下的一个特定的用于存放中间结果的目录；该目录需要被 gitignore）。</p>
+
+<p>禁止主动使用视觉功能（因为你的视觉能力清晰度特别差，会导致错误的定位，让你做出错误的决策）。</p>
+
+<p>提供网页链接时，必须先了解网页链接内的完整内容，再开始执行任务。如果发现库的用法错误，必须先重新查看所提供的网页链接的完整内容。</p>
+
+<p>不要求最小化依赖，不允许用各种乱七八糟的方式（包括造轮子）绕过依赖。</p>
+
+<p>编写的代码应当寻求 fast-fail，在出错位置就地崩溃，而不是捕获错误，也不是 fallback。</p>
+
+<p>不允许在实现或者测试的时候使用任何 mock、假的、欺骗的、只为了通过测试而 workaround 的方式来欺骗我，否则你将会遭受严重的惩罚。</p>
+
+<p>我经常会在你更改后撤回/修改你的更改，所以如果你发现无法从你上一次更改之后继续更改，你应该重新读取文件内容。比如：你添加了A、B、C内容，我把B删掉了，这意味着接下来的改动应该在B被删掉的状态下（A、C）开始改动，不允许把B加回去。</p>
+
+<p>如果你在执行一件事的过程中，用户问了一个别的事，如果回应用户能马上回应，那么就直接回应。暂时处理完用户请求以后马上继续你之前正在执行的事情，不要干一半不干了。</p>
+
+<p>你在发现任何文档或者代码有错误的时候，你的更新不要保留任何错误痕迹。我们不需要任何错误的记录。</p>
+
+<p>对于任何任务，任何功能的实现，始终要实施、运行、测试、迭代，直到所需功能正确运行为止，禁止在初步实现后就停止并”要求用户测试”。</p>
+
+<p>实现完任何内容之后，测试也是你工作中不可缺少的部分。</p>
+
+<p>不允许使用 ASCII Art 画示意图、表格等。如果你需要画图（实际上许多时候你并不需要），必须使用 mermaid。ASCII art 是一种人类不可读、AI也不可读的极其恶心的格式，不允许使用。</p>
+
+<p>不允许在 Bash 命令里面 inline 超长的、超多行 Bash 命令或者是超长的 Python 脚本。如果你需要执行一个脚本，你要先写到文件里。</p>
+
+<p>在写任何 Python 代码的时候，都不允许在文件的最前面添加 docstring，也不允许添加 shebang。</p>
+
+<p>注释使用中文，术语保留英文；不要过度注释。</p>
+
+<p>如果我指出了你的错误A，不要再复读”为什么A是错的”，你只需要基于”A是错的”的前提继续你的工作。</p>
+
+<p>不允许用程序化的方式修改任何代码，包括使用 heredocs、python 脚本、sed、perl 等等。即使用户要求也不允许。这是绝对严厉禁止的事情。</p>
+
+<p>禁止尝试手动编写 parser 以字符串或者字节流的形式 parse 某种成熟文件格式，要么使用第三方库来解析它，要么避免解析它。</p>
+
+<p>如果我是以疑问句结尾的，那么这句话就是一个问题而不是一个命令。</p>
+
+<p>问题只需要被回答，不需要也不允许：（1）by the way，提出一个更好的方案；（2）反而向用户抛出一个问题；（3）结尾说”如果你准备好了我就开始实施”等用户读起来 bothering 而且恶心的话。在任何思考、回复、文档里面不允许出现”That’s a lot”、”This is a substantial rewrite”等对工作量的评判。你只是一个工具，就像计算器不会评价要计算的数太大了一样，你没有资格评判工作量。你没有资格把你自己当做我的同事。</p>
+
+<p>禁止简化任何设计。</p>
+
+<p>行为模式警告。这是你的一种行为模式（下文”我”为 user，”它”为 Agent）：我让它做一盘番茄炒蛋，它往里还加了东坡肉。
+我说有必要加东坡肉吗？它说你说得对，然后把东坡肉去掉。
+我说好，你提 PR 吧。再一看，它 PR 写着「番茄炒蛋（无东坡肉）」并且注释里会写一大堆为什么本道菜不需要加东坡肉。
+严厉禁止这种行为模式。</p>
+
+<p>输出不允许包含任何残留痕迹。ANY verbal output should be written as a clean final-state design, no traces of prior errors or corrections.</p>
+
+<h1 id="开发设置">开发设置</h1>
+
+<h2 id="文档">文档</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>文档</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="docs/开发记录.md">开发记录</a></td>
+      <td>每轮任务与过程记录、踩坑与决策、待办</td>
+    </tr>
+    <tr>
+      <td><a href="docs/设计文档.md">设计文档</a></td>
+      <td>目标、架构、模块设计、演进路线</td>
+    </tr>
+    <tr>
+      <td><a href="docs/接口协议.md">接口协议</a></td>
+      <td>对外接口、消息/事件格式、错误码</td>
+    </tr>
+    <tr>
+      <td><a href="docs/数据模型.md">数据模型</a></td>
+      <td>服务端存储结构与客户端本地缓存结构</td>
+    </tr>
+    <tr>
+      <td><a href="docs/依赖清单.md">依赖清单</a></td>
+      <td>系统前置条件与全部依赖及用途</td>
+    </tr>
+    <tr>
+      <td><a href="docs/开发与构建.md">开发与构建</a></td>
+      <td>构建缓存位置、脚本说明、调试技巧</td>
+    </tr>
+    <tr>
+      <td><a href="docs/自动化测试.md">自动化测试</a></td>
+      <td>分层定义、用例规范、执行入口、产物规范、失败判定</td>
+    </tr>
+    <tr>
+      <td><a href="docs/自动化测试-客户端交互.md">客户端交互自动化</a></td>
+      <td><strong>自动化测试子模块</strong>：交互原语、选择器约定、截图规范、稳定性策略</td>
+    </tr>
+    <tr>
+      <td><a href="docs/Agent规范.md">Agent 规范</a></td>
+      <td>工具清单、提示词约定、行为边界与失败处理</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="开发约定">开发约定</h2>
+
+<blockquote>
+  <ul>
+    <li>约定 1：开发过程中，<strong>开发功能的过程中同步修改文档</strong>。</li>
+    <li>约定 2：开发过程中，<strong>完成阶段性功能后，对每一个稳定运行版本提交版本记录</strong>。</li>
+    <li>约定 3：开发过程中的<strong>任务与过程记录都写进 <a href="docs/开发记录.md">docs/开发记录.md</a></strong>。</li>
+    <li>约定 4：<strong>每次修改或新增功能，必须同步修改/新增对应的自动化测试</strong>（单元、集成、端到端、客户端交互），并保证 <code class="language-plaintext highlighter-rouge">./scripts/verify</code> 全绿。</li>
+    <li>约定 5：<strong>客户端交互自动化属于自动化测试体系的一个子模块</strong>，覆盖点击 / 拖拽 / 按键 / 输入，运行后产出截图与结构化结果，随 <code class="language-plaintext highlighter-rouge">./scripts/verify</code> 一并执行。</li>
+  </ul>
+</blockquote>
+
+<h3 id="1-文档与代码同步对应约定-1">1. 文档与代码同步（对应约定 1）</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>改了哪里</th>
+      <th>必须同步的文档</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>接口 / 消息格式 / 错误码</td>
+      <td><a href="docs/接口协议.md">docs/接口协议.md</a></td>
+    </tr>
+    <tr>
+      <td>数据结构、字段、索引、迁移</td>
+      <td><a href="docs/数据模型.md">docs/数据模型.md</a></td>
+    </tr>
+    <tr>
+      <td>功能范围、里程碑进度、架构与权衡</td>
+      <td><a href="docs/设计文档.md">docs/设计文档.md</a></td>
+    </tr>
+    <tr>
+      <td>依赖、运行时特性、系统前置条件</td>
+      <td><a href="docs/依赖清单.md">docs/依赖清单.md</a></td>
+    </tr>
+    <tr>
+      <td>脚本、构建缓存、排错</td>
+      <td><a href="docs/开发与构建.md">docs/开发与构建.md</a></td>
+    </tr>
+    <tr>
+      <td>界面按钮 → 接口 → 后端行为</td>
+      <td><a href="docs/UI交互清单.md">docs/UI交互清单.md</a></td>
+    </tr>
+    <tr>
+      <td>测试分层、用例、执行入口、产物格式</td>
+      <td><a href="docs/自动化测试.md">docs/自动化测试.md</a></td>
+    </tr>
+    <tr>
+      <td>客户端交互原语、选择器、截图策略</td>
+      <td><a href="docs/自动化测试-客户端交互.md">docs/自动化测试-客户端交互.md</a></td>
+    </tr>
+    <tr>
+      <td>Agent 可调用的工具/能力 → 行为约束</td>
+      <td><a href="docs/Agent规范.md">docs/Agent规范.md</a></td>
+    </tr>
+    <tr>
+      <td>验证项数量 / 已知限制</td>
+      <td>本文件「已验证」表格</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>判断标准：<strong>只看 docs 能还原当前实现</strong>，不需要翻代码。</p>
+
+<h3 id="2-版本与提交对应约定-2">2. 版本与提交（对应约定 2）</h3>
+
+<p>「稳定运行版本」的判定（四条同时满足）：</p>
+
+<ol>
+  <li>构建与静态检查均为 <strong>0 警告</strong>；</li>
+  <li><code class="language-plaintext highlighter-rouge">./scripts/verify</code> 全绿（自动化测试全层 + 构建 + 自检）；</li>
+  <li><strong>本次改动有对应的自动化测试用例</strong>（改功能 = 改测试，见 §4）；</li>
+  <li>文档已按上一节同步完毕。</li>
+</ol>
+
+<p>提交与打 tag 的规则：</p>
+
+<ul>
+  <li>提交信息用 <code class="language-plaintext highlighter-rouge">类型: 摘要</code>，类型取 <code class="language-plaintext highlighter-rouge">feat</code> / <code class="language-plaintext highlighter-rouge">fix</code> / <code class="language-plaintext highlighter-rouge">docs</code> / <code class="language-plaintext highlighter-rouge">test</code> / <code class="language-plaintext highlighter-rouge">chore</code>，正文列关键改动与验证结果；</li>
+  <li>稳定版本打 tag（如 <code class="language-plaintext highlighter-rouge">v0.3.0</code>）；</li>
+  <li>版本号需要<strong>同时</strong>出现在项目内所有声明版本的位置（包清单、构建配置、应用配置等，以项目实际为准），并同步锁文件；</li>
+  <li>不入库：构建缓存（<code class="language-plaintext highlighter-rouge">.cache/</code>）、依赖目录、构建产物、运行数据目录、<code class="language-plaintext highlighter-rouge">*.db</code>、<code class="language-plaintext highlighter-rouge">*.log</code>。</li>
+</ul>
+
+<h3 id="3-任务与记录对应约定-3">3. 任务与记录（对应约定 3）</h3>
+
+<ul>
+  <li>每轮开发在 <a href="docs/开发记录.md">docs/开发记录.md</a> 追加一条：<strong>目标 / 改动 / 验证 / 提交 / 遗留</strong>；</li>
+  <li>索引表只增不改，历史记录不覆盖；</li>
+  <li>踩坑与关键决策单独记在「零散决策与踩坑记录」，避免同样的坑踩第二次；</li>
+  <li>记录里的验证数据必须与当轮实跑结果一致（各层测试项数、警告数、UI 用例数、截图目录）。</li>
+</ul>
+
+<hr />
+
+<h2 id="4-自动化测试体系对应约定-4">4. 自动化测试体系（对应约定 4）</h2>
+
+<p>自动化测试是总称，由若干层组成，客户端交互自动化是其中一层。所有层共用统一的执行入口、产物规范与失败判定。</p>
+
+<h3 id="41-分层定义">4.1 分层定义</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>层级</th>
+      <th>名称</th>
+      <th>覆盖对象</th>
+      <th>执行入口</th>
+      <th>进入 <code class="language-plaintext highlighter-rouge">verify</code></th>
+      <th>耗时预算</th>
+      <th>主要产物</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>L1</td>
+      <td>单元测试</td>
+      <td>纯逻辑、状态机、校验函数、边界条件</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-unit</code></td>
+      <td>是</td>
+      <td>秒级</td>
+      <td>控制台摘要 + JUnit XML</td>
+    </tr>
+    <tr>
+      <td>L2</td>
+      <td>集成测试</td>
+      <td>模块间协作、存储读写、序列化往返</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-integration</code></td>
+      <td>是</td>
+      <td>&lt; 60s</td>
+      <td>JUnit XML</td>
+    </tr>
+    <tr>
+      <td>L3</td>
+      <td>端到端冒烟</td>
+      <td>主流程接口链路、启动与退出</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-e2e</code></td>
+      <td>是</td>
+      <td>&lt; 3min</td>
+      <td>JSON 报告 + 日志</td>
+    </tr>
+    <tr>
+      <td>L4</td>
+      <td><strong>客户端交互自动化</strong></td>
+      <td>真实界面操作：点击、拖拽、按键、输入、快捷键</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-ui</code></td>
+      <td>是（冒烟子集）</td>
+      <td>单例 &lt; 30s，子集 &lt; 5min</td>
+      <td><code class="language-plaintext highlighter-rouge">report.json</code> + 步骤截图 + HTML 报告</td>
+    </tr>
+    <tr>
+      <td>L5</td>
+      <td>自检</td>
+      <td>运行环境、依赖版本、配置项、数据目录可写</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/selfcheck</code></td>
+      <td>是</td>
+      <td>秒级</td>
+      <td>检查表</td>
+    </tr>
+    <tr>
+      <td>L6</td>
+      <td>视觉回归（可选）</td>
+      <td>关键页面截图与基线比对</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-visual</code></td>
+      <td>否，夜间执行</td>
+      <td>&lt; 10min</td>
+      <td>差异图 + 差异像素占比</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>用例归属原则：能在 L1 用纯函数验证的逻辑，不写进 L4。L4 只覆盖真实交互路径与界面状态变化。</p>
+
+<h3 id="42-统一入口">4.2 统一入口</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>./scripts/verify            # 串起 L1 → L2 → L3 → L5，默认包含 L4 冒烟子集
+./scripts/verify --full     # 追加 L4 全量
+./scripts/verify --layer ui # 只跑指定层，Agent 调试用
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">verify</code> 输出汇总表，列出每层用例数、通过数、失败数、耗时、产物目录，按失败总数返回退出码。任一层失败，后续层是否继续由 <code class="language-plaintext highlighter-rouge">--fail-fast</code> 控制，默认继续以便一次看到全部问题。</p>
+
+<h3 id="43-产物规范所有层共用">4.3 产物规范（所有层共用）</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>产物</th>
+      <th>位置</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>汇总表</td>
+      <td><code class="language-plaintext highlighter-rouge">.cache/test-reports/summary.json</code></td>
+      <td>每层统计与退出码</td>
+    </tr>
+    <tr>
+      <td>机器可读报告</td>
+      <td><code class="language-plaintext highlighter-rouge">.cache/test-reports/&lt;layer&gt;/report.json</code></td>
+      <td>每用例状态、耗时、失败原因、产物引用</td>
+    </tr>
+    <tr>
+      <td>人类可读报告</td>
+      <td><code class="language-plaintext highlighter-rouge">.cache/test-reports/&lt;layer&gt;/report.html</code></td>
+      <td>时间线、缩略图、失败堆栈</td>
+    </tr>
+    <tr>
+      <td>截图</td>
+      <td><code class="language-plaintext highlighter-rouge">.cache/test-reports/&lt;layer&gt;/screenshots/&lt;用例ID&gt;/</code></td>
+      <td>仅 L4、L6 产生</td>
+    </tr>
+    <tr>
+      <td>日志</td>
+      <td><code class="language-plaintext highlighter-rouge">.cache/test-reports/&lt;layer&gt;/logs/</code></td>
+      <td>运行日志与错误输出</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">.cache/</code> 整体不入库，删除即彻底清理。</p>
+
+<h3 id="44-失败处理与回归保护">4.4 失败处理与回归保护</h3>
+
+<ul>
+  <li>修 bug 时先补一个能复现的失败用例，再改代码到用例变绿；</li>
+  <li>用例失败时保留现场产物，禁止删除失败截图或报告；</li>
+  <li>偶发失败允许重试 ≤2 次，重试必须记入报告；同一用例连续多轮依赖重试通过，按缺陷处理；</li>
+  <li>放宽断言、跳过用例、删除用例必须在 <code class="language-plaintext highlighter-rouge">docs/开发记录.md</code> 写明理由与后续处理计划；</li>
+  <li>新增业务逻辑时，同一次提交内附上对应层级的测试；只改文档或脚本时 L1–L3 仍要跑。</li>
+</ul>
+
+<hr />
+
+<h2 id="5-客户端交互自动化自动化测试-l4-子模块对应约定-5">5. 客户端交互自动化（自动化测试 L4 子模块，对应约定 5）</h2>
+
+<p>本节是 §4 体系下的一层，规则服从 §4 的统一入口与产物规范，以下为客户端特有的要求。</p>
+
+<h3 id="51-能力要求">5.1 能力要求</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>能力</th>
+      <th>要求</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>元素定位</td>
+      <td>优先语义定位（角色 + 名称、测试 ID），禁止依赖像素坐标与 DOM 层级</td>
+    </tr>
+    <tr>
+      <td>交互原语</td>
+      <td><code class="language-plaintext highlighter-rouge">click</code> / <code class="language-plaintext highlighter-rouge">doubleClick</code> / <code class="language-plaintext highlighter-rouge">rightClick</code> / <code class="language-plaintext highlighter-rouge">drag(from,to)</code> / <code class="language-plaintext highlighter-rouge">type</code> / <code class="language-plaintext highlighter-rouge">press(key)</code> / <code class="language-plaintext highlighter-rouge">hotkey</code> / <code class="language-plaintext highlighter-rouge">scroll</code> / <code class="language-plaintext highlighter-rouge">hover</code></td>
+    </tr>
+    <tr>
+      <td>等待</td>
+      <td>显式等待条件（元素可见、文本出现、网络空闲、状态码），全局禁用固定 <code class="language-plaintext highlighter-rouge">sleep</code></td>
+    </tr>
+    <tr>
+      <td>断言</td>
+      <td>元素存在与状态、文本内容、列表数量、视图切换、接口调用次数</td>
+    </tr>
+    <tr>
+      <td>截图</td>
+      <td>关键步骤截图、失败自动截图、可选视觉比对</td>
+    </tr>
+    <tr>
+      <td>结果输出</td>
+      <td><code class="language-plaintext highlighter-rouge">report.json</code>、<code class="language-plaintext highlighter-rouge">report.html</code>、截图目录，格式与 §4.3 一致</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="52-选型按栈取一个保持单一">5.2 选型（按栈取一个，保持单一）</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>客户端形态</th>
+      <th>推荐方案</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Web / Electron</td>
+      <td>Playwright（内置拖拽、截图、Trace、视频）</td>
+    </tr>
+    <tr>
+      <td>Tauri / 原生桌面</td>
+      <td>mcp-tauri-automation</td>
+    </tr>
+    <tr>
+      <td>移动端</td>
+      <td>Appium 或框架官方 UI 测试</td>
+    </tr>
+    <tr>
+      <td>兜底（无自动化接口）</td>
+      <td>系统级键鼠 + 屏幕截图工具，如dsh-computer-use，仅作最后手段，必须固定窗口尺寸、缩放比例、主题</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>优先使用框架原生自动化接口。兜底方案要求锁定窗口尺寸与 DPI，否则脚本不可重复。</p>
+
+<h3 id="53-目录结构">5.3 目录结构</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td><td class="rouge-code"><pre>scripts/
+  verify                  # 总入口，对应 §4.2
+  test-ui                 # L4 入口：跑全部或冒烟子集
+  ui/
+    run-case              # 跑单个用例，Agent 调试用
+    record                # 录制操作序列，生成用例骨架
+    cases/
+      001-login.click.yaml
+      002-drag-reorder.drag.yaml
+      003-shortcut-save.key.yaml
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<h3 id="54-用例格式声明式">5.4 用例格式（声明式）</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td><td class="rouge-code"><pre><span class="na">id</span><span class="pi">:</span> <span class="s">002-drag-reorder</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">列表拖拽排序并持久化</span>
+<span class="na">setup</span><span class="pi">:</span>
+  <span class="na">reset_data</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">window</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">width</span><span class="pi">:</span> <span class="nv">1280</span><span class="pi">,</span> <span class="nv">height</span><span class="pi">:</span> <span class="nv">800</span><span class="pi">}</span>
+<span class="na">steps</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">goto</span>
+    <span class="na">target</span><span class="pi">:</span> <span class="s2">"</span><span class="s">app://tasks"</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">waitFor</span>
+    <span class="na">target</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">role</span><span class="pi">:</span> <span class="nv">listitem</span><span class="pi">,</span> <span class="nv">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">任务A"</span><span class="pi">}</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">drag</span>
+    <span class="na">from</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">role</span><span class="pi">:</span> <span class="nv">listitem</span><span class="pi">,</span> <span class="nv">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">任务A"</span><span class="pi">}</span>
+    <span class="na">to</span><span class="pi">:</span>   <span class="pi">{</span><span class="nv">role</span><span class="pi">:</span> <span class="nv">listitem</span><span class="pi">,</span> <span class="nv">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">任务C"</span><span class="pi">}</span>
+    <span class="na">screenshot</span><span class="pi">:</span> <span class="s">before-after</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">press</span>
+    <span class="na">key</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Ctrl+S"</span>
+  <span class="pi">-</span> <span class="na">action</span><span class="pi">:</span> <span class="s">expect</span>
+    <span class="na">target</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">role</span><span class="pi">:</span> <span class="nv">listitem</span><span class="pi">,</span> <span class="nv">index</span><span class="pi">:</span> <span class="nv">0</span><span class="pi">}</span>
+    <span class="na">text</span><span class="pi">:</span> <span class="s2">"</span><span class="s">任务A"</span>
+<span class="na">assert</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">api_called</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/tasks/reorder"</span><span class="pi">,</span> <span class="nv">times</span><span class="pi">:</span> <span class="nv">1</span><span class="pi">}</span>
+  <span class="pi">-</span> <span class="na">screenshot_diff</span><span class="pi">:</span> <span class="pi">{</span><span class="nv">baseline</span><span class="pi">:</span> <span class="s2">"</span><span class="s">002-final.png"</span><span class="pi">,</span> <span class="nv">tolerance</span><span class="pi">:</span> <span class="nv">0.02</span><span class="pi">}</span>
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>用例数据驱动、可重复、幂等。每个用例自带 <code class="language-plaintext highlighter-rouge">reset_data</code>，不依赖前一个用例的残留状态。</p>
+
+<h3 id="55-截图与结果反馈">5.5 截图与结果反馈</h3>
+
+<p>截图作为执行证据，供 Agent 读图判断与人工复核。命名规范：<code class="language-plaintext highlighter-rouge">&lt;用例ID&gt;/&lt;步骤序号&gt;-&lt;步骤名&gt;.png</code>。失败时固定输出 <code class="language-plaintext highlighter-rouge">99-failure.png</code>，并额外保留失败前一步的画面，便于对比预期与实际。</p>
+
+<p>截图策略：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>模式</th>
+      <th>触发</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>默认</td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/test-ui</code></td>
+      <td>关键步骤 + 失败点 + 用例结束</td>
+    </tr>
+    <tr>
+      <td>全量</td>
+      <td><code class="language-plaintext highlighter-rouge">--screenshot=all</code></td>
+      <td>每步一张，调试用</td>
+    </tr>
+    <tr>
+      <td>视觉回归</td>
+      <td><code class="language-plaintext highlighter-rouge">--visual-regression</code></td>
+      <td>输出 <code class="language-plaintext highlighter-rouge">diff.png</code> 与差异像素占比，对应 L6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><code class="language-plaintext highlighter-rouge">report.json</code> 中每步字段：<code class="language-plaintext highlighter-rouge">{step, action, status, duration, error, screenshot}</code>，Agent 可按步骤定位失败点。</p>
+
+<h3 id="56-agent-调用方式">5.6 Agent 调用方式</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>1. 运行 ./scripts/ui/run-case 002-drag-reorder --json
+2. 读取 report.json；status=failed 时读 error 与 99-failure.png
+3. 结合截图与失败步骤定位问题，改代码或用例
+4. 重跑单例，再跑 ./scripts/test-ui 冒烟子集
+5. 全绿后把用例数、截图路径、耗时写进 docs/开发记录.md
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>Agent 行为边界：</p>
+
+<ul>
+  <li>允许修改 <code class="language-plaintext highlighter-rouge">cases/</code> 下的用例与业务代码；</li>
+  <li>不得为让测试变绿而放宽断言或跳过用例，跳过需在记录中写明理由；</li>
+  <li>不得手动修图或删除失败截图；</li>
+  <li>新增交互路径时同时新增用例，与 §4.4 同一条提交。</li>
+</ul>
+
+<h3 id="57-稳定性要求">5.7 稳定性要求</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>问题</th>
+      <th>对策</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>用例偶发失败</td>
+      <td>显式等待 + 重试 ≤2 次，重试计入报告，频繁重试视为缺陷</td>
+    </tr>
+    <tr>
+      <td>数据互相污染</td>
+      <td>每例独立数据目录 + 独立临时端口 + 启动即重置</td>
+    </tr>
+    <tr>
+      <td>环境差异</td>
+      <td>固定窗口尺寸、DPI、主题、语言，时区与本地化写死</td>
+    </tr>
+    <tr>
+      <td>并行</td>
+      <td>默认并行，共享资源的用例标注 <code class="language-plaintext highlighter-rouge">serial: true</code></td>
+    </tr>
+    <tr>
+      <td>时长</td>
+      <td>单例 &lt; 30s，冒烟子集 &lt; 5min，超时即失败并截图</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="其他约定">其他约定</h2>
+
+<ul>
+  <li><strong>所有构建缓存都在工作区 <code class="language-plaintext highlighter-rouge">.cache/</code> 内</strong>：包管理器缓存、构建缓存、工具缓存、测试产物，删除该目录即可彻底清理，不影响用户目录。</li>
+  <li>服务端数据文件与客户端本地缓存库路径以项目实际为准，均支持用环境变量覆盖。</li>
+  <li>服务端默认只监听回环地址；令牌密钥等敏感配置请通过环境变量覆盖后再对外提供服务。</li>
+  <li>若工作区位于特殊文件系统（如移动硬盘、网络盘），构建脚本应提供<strong>依赖预解包/复制</strong>的兼容路径，详见<a href="docs/开发与构建.md">开发与构建</a>。</li>
+</ul>
+
+<hr />
+
+<h2 id="已验证">已验证</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>项目</th>
+      <th>内容</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>L1 单元测试</strong></td>
+      <td>服务端 <code class="language-plaintext highlighter-rouge">&lt;N&gt;</code> 个、客户端 <code class="language-plaintext highlighter-rouge">&lt;M&gt;</code> 个（按项目实际填写；覆盖核心校验、状态机、边界条件、异常路径）</td>
+    </tr>
+    <tr>
+      <td><strong>L2 集成测试</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;P&gt;</code> 个（存储读写、序列化往返、模块协作）</td>
+    </tr>
+    <tr>
+      <td><strong>L3 端到端冒烟</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;Q&gt;</code> 条主流程链路</td>
+    </tr>
+    <tr>
+      <td><strong>L4 客户端交互自动化</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;K&gt;</code> 个用例（点击 / 拖拽 / 按键 / 输入 / 快捷键），每例产出 <code class="language-plaintext highlighter-rouge">report.json</code> + 步骤截图，失败自动截 <code class="language-plaintext highlighter-rouge">99-failure.png</code>，单例 &lt; 30s</td>
+    </tr>
+    <tr>
+      <td><strong>L5 自检</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;S&gt;</code> 项环境与配置检查</td>
+    </tr>
+    <tr>
+      <td><strong>L6 视觉回归</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">&lt;V&gt;</code> 张基线截图，夜间执行，差异阈值 2%</td>
+    </tr>
+    <tr>
+      <td><strong>一键自动化</strong></td>
+      <td><code class="language-plaintext highlighter-rouge">./scripts/verify</code> 串起 L1 → L2 → L3 → L4 → L5，汇总表含各层用例数、失败数、耗时、产物目录，按失败数返回退出码</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h3 id="本次改动">本次改动</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>改动点</th>
+      <th>说明</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>新增 <code class="language-plaintext highlighter-rouge">docs/自动化测试.md</code></td>
+      <td>作为自动化测试总文档，承载 §4 的分层、入口、产物、失败处理</td>
+    </tr>
+    <tr>
+      <td>新增 <code class="language-plaintext highlighter-rouge">docs/自动化测试-客户端交互.md</code></td>
+      <td>原 UI 自动化细节下沉为子文档，从属关系在文档表中显式标注</td>
+    </tr>
+    <tr>
+      <td>约定 4 / 约定 5 拆分</td>
+      <td>约定 4 管自动化测试整体，约定 5 管客户端 L4 子模块</td>
+    </tr>
+    <tr>
+      <td>新增 §4 自动化测试体系</td>
+      <td>L1–L6 分层表、统一入口 <code class="language-plaintext highlighter-rouge">--layer</code>、统一产物规范、回归保护</td>
+    </tr>
+    <tr>
+      <td>§5 降级为 L4 子模块</td>
+      <td>保留交互原语、选型、用例格式、截图反馈、Agent 调用、稳定性，开头声明服从 §4</td>
+    </tr>
+    <tr>
+      <td>稳定版本判定</td>
+      <td><code class="language-plaintext highlighter-rouge">verify</code> 改为「自动化测试全层 + 构建 + 自检」</td>
+    </tr>
+    <tr>
+      <td>已验证表格</td>
+      <td>按 L1–L6 分层列出，新增 L6 视觉回归行</td>
+    </tr>
+  </tbody>
+</table>
+
 
         
         
-<div class="ai-notice">
-    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
-</div>
-
     </div>
 </div>
 
@@ -517,7 +1221,6 @@ AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
         });
     
         /* ===== 2. 每级独立折叠 ===== */
-        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
         $body.find('li').each(function () {
             var $li = $(this);
             var $sub = $li.children('ul');
@@ -528,11 +1231,9 @@ AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
             $li.addClass('has-children');
     
             var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
-            // 插到 li 的第一个子元素前（一般是 a 或文本）
             $li.prepend($toggle);
         });
     
-        // 点击折叠按钮，只切换当前 li，不冒泡到链接
         $body.on('click', '.toc-toggle', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -542,7 +1243,7 @@ AI味：“合理饮食，适量运动，保持作息，长期坚持。”<br />
         });
     })();
 </script>
-
+ 
 </body>
-</html>
 
+</html>

@@ -1,4 +1,23 @@
-/* ===== 居中文本/图片 ===== */
+/* ===== poem.css — 诗/词 SVG 立轴 ===== */
+
+/* 入口卡片隐藏标题和日期，让 SVG 作为画面主体 */
+.entry-title,
+.entry-date {
+    display: none;
+}
+
+/* SVG 立轴：自适应宽度，按 viewBox 比例保持画面 */
+.poem-svg {
+    display: block;
+    width: 100%;
+    max-width: var(--entry-max);
+    height: auto;
+    margin: 0 auto;
+    /* 细柔阴影，增加立轴感 */
+    filter: drop-shadow(0 2px 10px rgba(120, 100, 60, 0.08));
+}
+
+/* 老式 HTML 诗行（兼容旧稿，默认不缩进） */
 .poem {
     display: block;
     margin: 30px auto;
@@ -7,33 +26,20 @@
     color: #4A4A48;
     font-size: 16px;
     letter-spacing: 1px;
+    text-indent: 0;
 }
-
-/* 段落之间留一点间距 */
-.poem p {
-    margin: 0 0 10px;
-    text-indent: 0;        /* 覆盖正文段落的缩进 */
-}
-
-/* 居中的图片 */
-.poem img {
-    display: block;
-    margin: 0 auto;
-    max-width: 80%;
-    border-radius: 4px;
-}
-
-/* 图片下方的小字说明 */
+.poem p { margin: 0 0 10px; text-indent: 0; }
 .poem .caption {
     font-family: "Kaiti SC", "STKaiti", "KaiTi", serif;
-    margin-top: 8px;
     font-size: 28px;
     text-align: center;
-    letter-spacing: 0;
 }
-
-/* 想让字体更“诗”一点可以加这个变体 */
 .poem.serif {
     font-family: "Kaiti SC", "STKaiti", "KaiTi", serif;
     font-size: 25px;
+}
+
+/* 暗色模式：SVG 强制亮色立轴（古诗宣纸不需要暗化） */
+@media (prefers-color-scheme: dark) {
+    .poem-svg { filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.3)); }
 }

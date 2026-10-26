@@ -1,9 +1,9 @@
 ---
-layout: math-outlined
+layout: outlined
 title: Headscale透传组网
 category: memory
 features:
-    code
+    - math
 ---
 
 # 前言

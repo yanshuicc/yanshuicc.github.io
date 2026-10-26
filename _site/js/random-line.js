@@ -5,7 +5,7 @@
     // baseurl 是为了让 JS 在子路径部署时也能正确拼路径。如果站点部署在根路径，baseurl 是空字符串，baseurl 就是 ""，拼出来的 URL 是 /assets/data/flash_of_insight.json
     var base = "";
     // Liquid 传一个构建时间，这样每次重新构建，版本号会变，浏览器会重新拉数据；同一次构建内，多个页面共用缓存。
-    var ver = "1792427846";
+    var ver = "1792999784";
     var url = base + '/assets/data/flash_of_insight.json?v=' + ver;
 
     fetch(url)

@@ -1,46 +1,110 @@
-<!--嵌入搜索筛选功能-->
+<!--搜索 + 分页脚本：依赖 post_list.html 的 DOM 结构（.artical-row / #searchInput / #listEmpty / #pagination / #pageInfo）-->
 <script>
     (function () {
-        var PAGE_SIZE = 20;                    // 每页条数
+        /* 响应式每页条数：大屏更密集、小屏更稀疏，避免一屏空荡 */
+        function getPageSize() {
+            var w = window.innerWidth || document.documentElement.clientWidth;
+            if (w >= 1400) return 20;   // 宽屏
+            if (w >= 900)  return 15;   // 常规桌面
+            return 10;                  // 手机 / 平板
+        }
+        var PAGE_SIZE = getPageSize();
         var $rows = $('.artical-row');
         var $empty = $('#listEmpty');
         var $pagination = $('#pagination');
+        var $info = $('#pageInfo');
         var currentPage = 1;
         var filteredRows = $rows;
-    
+
+        /** 根据当前页 + 总页数，生成带省略号的页码数组 */
+        function buildPages(cur, total) {
+            if (total <= 7) {
+                var arr = [];
+                for (var i = 1; i <= total; i++) arr.push(i);
+                return arr;
+            }
+            var pages = [1];
+            // 省略号 + 中间 5 页 + 省略号 + total
+            var lo = Math.max(2, cur - 2);
+            var hi = Math.min(total - 1, cur + 2);
+            if (lo > 2) pages.push('...');
+            for (var k = lo; k <= hi; k++) pages.push(k);
+            if (hi < total - 1) pages.push('...');
+            if (pages[pages.length - 1] !== total) pages.push(total);
+            return pages;
+        }
+
         function render() {
             var total = filteredRows.length;
             var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
             if (currentPage > totalPages) currentPage = totalPages;
-    
+            if (currentPage < 1) currentPage = 1;
+
+            // 显示当前页行
             $rows.removeClass('is-visible');
             var start = (currentPage - 1) * PAGE_SIZE;
             filteredRows.slice(start, start + PAGE_SIZE).addClass('is-visible');
-    
+
+            // 空态
             $empty.toggle(total === 0);
-    
-            // 渲染页码
+
+            // 统计信息
+            if (total === 0) {
+                $info.text('');
+            } else {
+                var from = start + 1;
+                var to = Math.min(start + PAGE_SIZE, total);
+                $info.text('第 ' + from + '–' + to + ' 条 / 共 ' + total + ' 条');
+            }
+
+            // 分页
             $pagination.empty();
             if (totalPages <= 1) return;
-    
-            var html = '';
-            if (currentPage > 1) {
-                html += '<a href="#" class="page-btn" data-page="' + (currentPage - 1) + '">上一页</a>';
-            }
-            for (var i = 1; i <= totalPages; i++) {
-                if (i === currentPage) {
-                    html += '<span class="page-btn active">' + i + '</span>';
+
+            // 首页 / 上一页
+            $pagination.append(
+                '<a href="#" class="page-btn" data-page="1"' +
+                    (currentPage === 1 ? ' disabled' : '') + '>«</a>'
+            );
+            $pagination.append(
+                '<a href="#" class="page-btn" data-page="' + (currentPage - 1) + '"' +
+                    (currentPage === 1 ? ' disabled' : '') + '>‹</a>'
+            );
+
+            // 数字页码 + 省略号
+            var seq = buildPages(currentPage, totalPages);
+            seq.forEach(function (n) {
+                if (n === '...') {
+                    $pagination.append('<span class="page-ellipsis">…</span>');
+                } else if (n === currentPage) {
+                    $pagination.append('<span class="page-btn active" aria-current="page">' + n + '</span>');
                 } else {
-                    html += '<a href="#" class="page-btn" data-page="' + i + '">' + i + '</a>';
+                    $pagination.append('<a href="#" class="page-btn" data-page="' + n + '">' + n + '</a>');
                 }
+            });
+
+            // 下一页 / 尾页
+            $pagination.append(
+                '<a href="#" class="page-btn" data-page="' + (currentPage + 1) + '"' +
+                    (currentPage === totalPages ? ' disabled' : '') + '>›</a>'
+            );
+            $pagination.append(
+                '<a href="#" class="page-btn" data-page="' + totalPages + '"' +
+                    (currentPage === totalPages ? ' disabled' : '') + '>»</a>'
+            );
+
+            // 跳转输入框（超过 3 页才显示，避免简陋）
+            if (totalPages > 3) {
+                var jumpHtml =
+                    '<span class="page-jump">' +
+                        '跳至 <input type="number" min="1" max="' + totalPages + '"' +
+                            ' data-jump /> / ' + totalPages + ' 页' +
+                    '</span>';
+                $pagination.append(jumpHtml);
             }
-            if (currentPage < totalPages) {
-                html += '<a href="#" class="page-btn" data-page="' + (currentPage + 1) + '">下一页</a>';
-            }
-            $pagination.html(html);
         }
-    
-        // 搜索
+
+        // 搜索 —— 输入即过滤
         $('#searchInput').on('input', function () {
             var kw = $.trim($(this).val()).toLowerCase();
             if (!kw) {
@@ -53,19 +117,50 @@
             currentPage = 1;
             render();
         });
-    
-        // 翻页
+
+        // 点击页码
         $pagination.on('click', '.page-btn', function (e) {
             e.preventDefault();
-            var p = parseInt($(this).attr('data-page'), 10);
+            var $t = $(this);
+            if ($t.is('.active, .disabled')) return;
+            var p = parseInt($t.attr('data-page'), 10);
             if (!p) return;
             currentPage = p;
             render();
-            $('html, body').animate(
-                { scrollTop: $('.index-content').offset().top - 80 }, 200
-            );
+            // 滚回列表区（若当前视口已离开列表）
+            var $list = $('.index-content');
+            if ($list.length && $list.offset()) {
+                var listTop = $list.offset().top;
+                if ($(window).scrollTop() > listTop + 400) {
+                    $('html, body').animate({ scrollTop: listTop - 80 }, 200);
+                }
+            }
         });
-    
+
+        // 跳转输入框：回车即跳
+        $pagination.on('keyup', 'input[data-jump]', function (e) {
+            if (e.keyCode !== 13) return;
+            var $t = $(this);
+            var total = filteredRows.length;
+            var totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+            var v = parseInt($t.val(), 10);
+            if (isNaN(v) || v < 1) v = 1;
+            if (v > totalPages) v = totalPages;
+            currentPage = v;
+            render();
+            $t.val('');
+        });
+
+        // 窗口尺寸变化：重算 PAGE_SIZE + 立即重渲染
+        $(window).on('resize', function () {
+            var newSize = getPageSize();
+            if (newSize !== PAGE_SIZE) {
+                PAGE_SIZE = newSize;
+                currentPage = 1;
+                render();
+            }
+        });
+
         render();
     })();
 </script>

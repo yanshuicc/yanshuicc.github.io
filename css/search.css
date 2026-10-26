@@ -1,5 +1,6 @@
-/* ===== 搜索框 ===== */
+/* ===== search.css — 列表/搜索/分页 ===== */
 
+/* --- 工具条（搜索框 + 统计） --- */
 .list-toolbar {
     margin-bottom: 20px;
     text-align: right;
@@ -9,6 +10,7 @@
     width: 220px;
     padding: 8px 14px;
     font-size: 14px;
+    font-family: inherit;
     color: #3A3A38;
     background: #FBF9F4;
     border: 1px solid #E8E3D8;
@@ -16,32 +18,160 @@
     outline: none;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
-
 .search-input:focus {
     border-color: #B8894A;
     box-shadow: 0 0 0 2px rgba(184, 137, 74, 0.12);
 }
+.search-input::placeholder { color: #B5AF9F; }
 
-.search-input::placeholder {
+/* --- 空态 --- */
+.list-empty {
+    text-align: center;
+    padding: 48px 20px;
     color: #B5AF9F;
+    font-size: 14px;
 }
 
+/* --- 列表与分页的容器 --- */
+.list-footer {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    justify-content: space-between;
+}
 
-/* ===== 移动端 ===== */
-@media (max-width: 640px) {
-    .list-toolbar {
-        text-align: center;
-    }
+/* --- 统计信息 --- */
+.page-info {
+    font-size: 13px;
+    color: #9A9488;
+    letter-spacing: 0.3px;
+}
+
+/* --- 分页按钮组 --- */
+.pagination {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+/* 通用按钮/当前页/省略号 */
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    font-size: 13px;
+    font-family: inherit;
+    line-height: 1;
+    color: #7A6A4A;
+    text-decoration: none;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
+}
+.page-btn:hover:not(.active):not(.disabled) {
+    background: #FBF9F4;
+    border-color: #E8E3D8;
+    color: #3A352B;
+}
+.page-btn.active {
+    background: #3A352B;
+    color: #FBF9F4;
+    border-color: #3A352B;
+    font-weight: bold;
+}
+.page-btn.disabled {
+    color: #D8D0C0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* 省略号 */
+.page-ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 32px;
+    color: #B5AF9F;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* 跳转输入框 */
+.page-jump {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 8px;
+    font-size: 13px;
+    color: #9A9488;
+}
+.page-jump input[type="number"] {
+    width: 46px;
+    height: 28px;
+    padding: 0 6px;
+    font-size: 13px;
+    font-family: inherit;
+    color: #3A352B;
+    text-align: center;
+    background: #FBF9F4;
+    border: 1px solid #E8E3D8;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+.page-jump input[type="number"]:focus {
+    border-color: #B8894A;
+    box-shadow: 0 0 0 2px rgba(184, 137, 74, 0.12);
+}
+/* 移除 number spinner，更古朴 */
+.page-jump input[type="number"]::-webkit-inner-spin-button,
+.page-jump input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.page-jump input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* --- 暗色模式 --- */
+@media (prefers-color-scheme: dark) {
     .search-input {
-        width: 100%;
-        box-sizing: border-box;
+        background: #2a2620;
+        border-color: #3a342a;
+        color: #E8DFCD;
     }
+    .search-input:focus { border-color: #B8894A; box-shadow: 0 0 0 2px rgba(184,137,74,0.25); }
+    .page-info { color: #8a8478; }
+    .page-btn { color: #A89C86; }
+    .page-btn:hover:not(.active):not(.disabled) { background: #2a2620; border-color: #3a342a; color: #E8DFCD; }
+    .page-btn.active { background: #E8DFCD; color: #24211C; border-color: #E8DFCD; }
+    .page-btn.disabled { color: #4a4238; }
+    .page-ellipsis { color: #6a6458; }
+    .page-jump { color: #8a8478; }
+    .page-jump input[type="number"] { background: #2a2620; border-color: #3a342a; color: #E8DFCD; }
+}
+
+/* --- 移动端 --- */
+@media (max-width: 640px) {
+    .list-toolbar { text-align: center; }
+    .search-input { width: 100%; box-sizing: border-box; }
+    .list-footer { flex-direction: column; gap: 16px; }
+    .page-info { text-align: center; }
+    .pagination { justify-content: center; gap: 2px; }
     .page-btn {
-        min-width: 28px;
-        height: 28px;
-        line-height: 28px;
-        padding: 0 8px;
-        margin: 0 2px;
+        min-width: 30px; height: 30px;
         font-size: 12px;
+        padding: 0 6px;
     }
+    .page-jump { margin-left: 0; font-size: 12px; }
 }

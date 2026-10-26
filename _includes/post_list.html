@@ -2,7 +2,7 @@
 <div class="index-content">
   <div class="section">
     <div class="list-toolbar">
-      <input type="text" class="search-input" placeholder="搜索标题或描述…" autocomplete="off" />
+      <input type="text" id="searchInput" class="search-input" placeholder="搜索标题或描述…" autocomplete="off" />
     </div>
 
     <table class="artical-list">
@@ -28,7 +28,12 @@
       </tbody>
     </table>
 
-    <div class="list-empty" style="display:none;">没有找到匹配的文章</div>
-    <div class="pagination"></div>
+    <div id="listEmpty" class="list-empty" style="display:none;">没有找到匹配的文章</div>
+
+    <!-- 统计 + 分页 -->
+    <div class="list-footer">
+      <div class="page-info" id="pageInfo"></div>
+      <nav class="pagination" id="pagination" aria-label="文章列表分页"></nav>
+    </div>
   </div>
 </div>

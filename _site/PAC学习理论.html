@@ -11,23 +11,21 @@
     <link rel="stylesheet" href="/css/default.css" type="text/css" />
     <link rel="stylesheet" href="/css/header.css" type="text/css" />
     <link rel="stylesheet" href="/css/search.css" type="text/css" />
-
     
-        <link rel="stylesheet" href="/css/article.css" />
+    <link rel="stylesheet" href="/css/article.css" />
         
-            <link rel="stylesheet" href="/css/outline.css" />
+    <link rel="stylesheet" href="/css/outline.css" />
         
     
     
     
-    
+    <link rel="stylesheet" href="/css/code.css" />
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
     <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
 </head>
 
 <body>
-    
     <!--导航栏-->
 <header class="site-header">
     <div class="header-inner">
@@ -49,9 +47,7 @@
 <script src="/js/random-line.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
-<script src="/js/code-tools.js"></script>
-
-    <!--文章的灰色背景-->
+<script src="/js/code-tools.js"></script> <!--文章的灰色背景-->
 <link rel="stylesheet" href="/js/prettify/prettify.css" />
 <style type="text/css">
     body { background:#e8e8e8; }
@@ -385,17 +381,8 @@ end
 
 
 
-
-
-<!--mathjax 用以支持latex数学公式-->
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
         
-        
-<div class="ai-notice">
-    本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。
-</div>
-
+        <div class="ai-notice">本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。</div> 
     </div>
 </div>
 
@@ -412,7 +399,6 @@ end
         });
     
         /* ===== 2. 每级独立折叠 ===== */
-        // 给所有含子列表的 li 加标记，并在前面插入折叠按钮
         $body.find('li').each(function () {
             var $li = $(this);
             var $sub = $li.children('ul');
@@ -423,11 +409,9 @@ end
             $li.addClass('has-children');
     
             var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
-            // 插到 li 的第一个子元素前（一般是 a 或文本）
             $li.prepend($toggle);
         });
     
-        // 点击折叠按钮，只切换当前 li，不冒泡到链接
         $body.on('click', '.toc-toggle', function (e) {
             e.preventDefault();
             e.stopPropagation();
@@ -437,7 +421,9 @@ end
         });
     })();
 </script>
-
+  
+<!--mathjax 用以支持latex数学公式-->
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
 </body>
-</html>
 
+</html>

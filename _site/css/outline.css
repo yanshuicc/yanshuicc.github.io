@@ -1,20 +1,22 @@
-/* ===== 正文区：左大纲 + 右文章 ===== */
-/* 居中背景板 */
+/* ===== outlined.css — 左大纲 + 右文章（长篇文章布局） ===== */
+/* 变量取自 article.css：--page-max / --entry-max / --sidenav-w / --sidenav-gap */
+
 #content {
-    max-width: 1060px;
+    width: min(var(--page-max), calc(100vw - 64px));
+    max-width: 100%;
     margin: 40px auto 60px;
     padding: 0 20px;
     display: flex;
     align-items: flex-start;
-    gap: 30px;
+    gap: var(--sidenav-gap);
 }
 
 /* 左侧大纲 */
 .sidenav {
-    flex: 0 0 240px;
+    flex: 0 0 var(--sidenav-w);
     position: sticky;
-    top: 80px;                        /* 与 header 高度对齐 */
-    max-height: calc(100vh - 100px);  /* 独立滚动高度 */
+    top: 80px;
+    max-height: calc(100vh - 100px);
     background: #FAFAFA;
     border: 1px solid #E5E5E5;
     border-radius: 4px;
@@ -77,37 +79,15 @@
     min-height: 0;
 }
 
-/* 折叠时隐藏内容，只留头部 */
-.sidenav.collapsed .sidenav-body {
-    display: none;
-}
+/* 折叠时隐藏内容 */
+.sidenav.collapsed .sidenav-body { display: none; }
+.sidenav.collapsed .sidenav-title { display: none; }
+.sidenav.collapsed .sidenav-header { justify-content: center; padding: 12px 0; }
 
-.sidenav.collapsed .sidenav-title {
-    display: none;
-}
-
-.sidenav.collapsed .sidenav-header {
-    justify-content: center;
-    padding: 12px 0;
-}
-
-/* 大纲内的链接 */
-.sidenav-body ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.sidenav-body li {
-    margin-bottom: 8px;
-    word-break: break-all;
-    line-height: 1.6;
-}
-
-.sidenav-body ul ul {
-    margin-top: 6px;
-    margin-left: 14px;
-}
+/* 大纲链接 */
+.sidenav-body ul { list-style: none; margin: 0; padding: 0; }
+.sidenav-body li { margin-bottom: 6px; line-height: 1.6; position: relative; }
+.sidenav-body ul ul { margin-top: 6px; margin-left: 16px; }
 
 .sidenav-body a {
     color: #7A7A76;
@@ -115,184 +95,80 @@
     display: block;
     text-decoration: none;
     transition: color 0.2s ease;
+    padding-left: 18px;
 }
-
 .sidenav-body a:hover,
-.sidenav-body a.active {
-    color: #B8894A;
-}
+.sidenav-body a.active { color: #B8894A; }
 
-/* 滚动条美化（WebKit） */
-.sidenav-body::-webkit-scrollbar {
-    width: 6px;
-}
+/* 滚动条美化 */
+.sidenav-body::-webkit-scrollbar { width: 6px; }
+.sidenav-body::-webkit-scrollbar-thumb { background: #D5D5D5; border-radius: 3px; }
+.sidenav-body::-webkit-scrollbar-thumb:hover { background: #B8894A; }
+.sidenav-body::-webkit-scrollbar-track { background: transparent; }
 
-.sidenav-body::-webkit-scrollbar-thumb {
-    background: #D5D5D5;
-    border-radius: 3px;
+/* 折叠按钮 */
+.toc-toggle {
+    position: absolute; left: 0; top: 0;
+    width: 16px; height: 20px; line-height: 18px;
+    text-align: center; font-size: 12px;
+    color: #B5AF9F; cursor: pointer; user-select: none;
+    border-radius: 3px; transition: all 0.15s ease;
 }
+.toc-toggle:hover { color: #B8894A; background: rgba(184, 137, 74, 0.08); }
+.sidenav-body li.collapsed > ul { display: none; }
 
-.sidenav-body::-webkit-scrollbar-thumb:hover {
-    background: #B8894A;
-}
-
-.sidenav-body::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-/* 右侧文章卡片 */
+/* 右侧文章卡片：在 outlined 布局里不受 720px 全局限制，
+   因为 page-max 本身已经限制了容器总宽（1060-1400px），
+   减去 sidenav(240) + gap(30) 后 entry 自然落在 790-1130px */
 .entry {
-    flex: 1;
+    flex: 1 1 auto;
     min-width: 0;
-    background: #FAFAFA;
-    padding: 40px;
-    border: 1px solid #E5E5E5;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    max-width: none;
 }
+
+/* 锚点跳转补偿 */
+.entry h1, .entry h2, .entry h3,
+.entry h4, .entry h5, .entry h6 {
+    scroll-margin-top: 90px;
+}
+
+/* 大纲自动编号 */
+.sidenav-body { counter-reset: toc-h2; }
+.sidenav-body > ul > li { counter-increment: toc-h2; counter-reset: toc-h3; }
+.sidenav-body > ul > li > a::before {
+    content: counter(toc-h2) ". ";
+    color: #B8894A; font-weight: 500; margin-right: 2px;
+}
+.sidenav-body > ul > li > ul > li { counter-increment: toc-h3; counter-reset: toc-h4; }
+.sidenav-body > ul > li > ul > li > a::before {
+    content: counter(toc-h2) "." counter(toc-h3) " ";
+    color: #B8894A; margin-right: 2px;
+}
+.sidenav-body > ul > li > ul > li > ul > li { counter-increment: toc-h4; }
+.sidenav-body > ul > li > ul > li > ul > li > a::before {
+    content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) " ";
+    color: #B8894A; margin-right: 2px;
+}
+
 
 /* 窄屏：隐藏大纲 */
 @media (max-width: 900px) {
     #content {
         display: block;
+        width: auto;
+        max-width: 100%;
         padding: 0 16px;
+        box-sizing: border-box;
     }
-    .sidenav {
-        display: none;
-    }
-    .entry {
-        padding: 24px 20px;
-    }
-}
-/* ===== 整体折叠 ===== */
-.sidenav.collapsed {
-    flex-basis: 56px;
+    .sidenav { display: none; }
+    .entry { max-width: 100%; margin-left: 0; padding: 24px 20px; }
 }
 
-.sidenav.collapsed .sidenav-body {
-    display: none;
-}
-
-.sidenav.collapsed .sidenav-title {
-    display: none;
-}
-
-.sidenav.collapsed .sidenav-header {
-    justify-content: center;
-    padding: 12px 0;
-}
-
-/* ===== 大纲条目 ===== */
-.sidenav-body ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.sidenav-body li {
-    margin-bottom: 6px;
-    line-height: 1.6;
-    position: relative;
-}
-
-.sidenav-body ul ul {
-    margin-top: 6px;
-    margin-left: 16px;
-}
-
-.sidenav-body a {
-    color: #7A7A76;
-    font-size: 13px;
-    display: block;
-    text-decoration: none;
-    transition: color 0.2s ease;
-    padding-left: 18px;       /* 给折叠按钮留位置 */
-}
-
-.sidenav-body a:hover,
-.sidenav-body a.active {
-    color: #B8894A;
-}
-
-/* ===== 每级折叠按钮 ===== */
-.toc-toggle {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 16px;
-    height: 20px;
-    line-height: 18px;
-    text-align: center;
-    font-size: 12px;
-    color: #B5AF9F;
-    cursor: pointer;
-    user-select: none;
-    border-radius: 3px;
-    transition: all 0.15s ease;
-}
-
-.toc-toggle:hover {
-    color: #B8894A;
-    background: rgba(184, 137, 74, 0.08);
-}
-
-
-/* 折叠后隐藏子列表 */
-.sidenav-body li.collapsed > ul {
-    display: none;
-}
-
-/* ===== 锚点跳转补偿 ===== */
-:root {
-    --anchor-offset: 90px;
-}
-
-.entry h1,
-.entry h2,
-.entry h3,
-.entry h4,
-.entry h5,
-.entry h6 {
-    scroll-margin-top: var(--anchor-offset);
-}
-
-/* ===== 大纲自动编号 ===== */
-.sidenav-body {
-    counter-reset: toc-h2;
-}
-
-/* 一级 */
-.sidenav-body > ul > li {
-    counter-increment: toc-h2;
-    counter-reset: toc-h3;
-}
-
-.sidenav-body > ul > li > a::before {
-    content: counter(toc-h2) ". ";
-    color: #B8894A;
-    font-weight: 500;
-    margin-right: 2px;
-}
-
-/* 二级 */
-.sidenav-body > ul > li > ul > li {
-    counter-increment: toc-h3;
-    counter-reset: toc-h4;
-}
-
-.sidenav-body > ul > li > ul > li > a::before {
-    content: counter(toc-h2) "." counter(toc-h3) " ";
-    color: #B8894A;
-    margin-right: 2px;
-}
-
-/* 三级 */
-.sidenav-body > ul > li > ul > li > ul > li {
-    counter-increment: toc-h4;
-}
-
-.sidenav-body > ul > li > ul > li > ul > li > a::before {
-    content: counter(toc-h2) "." counter(toc-h3) "." counter(toc-h4) " ";
-    color: #B8894A;
-    margin-right: 2px;
+/* 暗色模式大纲 */
+@media (prefers-color-scheme: dark) {
+    .sidenav { background: #1c1c1c; border-color: #2e2e2e; }
+    .sidenav-header { border-bottom-color: #2e2e2e; }
+    .sidenav-title { color: #d0ccc4; }
+    .sidenav-toggle { color: #aaa; border-color: #3a3a3a; background: #252525; }
+    .sidenav-body a { color: #a09a8e; }
 }
