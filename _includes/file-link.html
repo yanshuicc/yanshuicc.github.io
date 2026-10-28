@@ -1,0 +1,22 @@
+<!-- file-link.html
+  在文章中引用 files/ 目录下的代码文件
+  用法：
+    (液体标签 include 文件名 path="相对 files/ 的路径")
+    (液体标签 include 文件名 path="xxx" label="可选显示名")
+-->
+{% assign _label = include.label | default: include.path | split: "/" | last %}
+{% assign _ext   = _label | split: "." | last | downcase %}
+{% assign _url   = "/files/" | append: include.path | relative_url %}
+{% assign _lang  = _ext | upcase | slice: 0, 3 %}
+
+<div class="file-card">
+    <div class="file-card-icon">{{ _lang }}</div>
+    <div class="file-card-info">
+        <div class="file-card-name">{{ _label }}</div>
+        <div class="file-card-meta">files/{{ include.path }}</div>
+    </div>
+    <div class="file-card-actions">
+        <a class="file-card-btn" href="{{ _url }}" data-action="view" data-path="{{ _url }}">查看</a>
+        <a class="file-card-btn" href="{{ _url }}" download="{{ _label }}">下载</a>
+    </div>
+</div>

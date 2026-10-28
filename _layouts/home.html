@@ -32,7 +32,7 @@
 </head>
 
 <body>
-    {% include header.html %} {{ content }} {% if page.features contains "math" %} {% include mathjax.html %} {% endif %}
+    {% include header.html %} {{ content }}{% if page.features contains "code-viewer" %}<script src="/js/code-viewer.js"></script>{% endif %} {% if page.features contains "math" %} {% include mathjax.html %} {% endif %}
 </body>
 
 </html>
