@@ -82,7 +82,7 @@ table.rouge-table td {
 }
 
 table.rouge-table td.rouge-gutter {
-    width: 1%;
+    width: 33px;
     white-space: nowrap;
     border-right: 1px solid #E5E5E5;
     background: #F0F0F0;         /* 行号列单独浅灰底 */

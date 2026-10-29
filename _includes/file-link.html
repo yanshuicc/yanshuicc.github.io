@@ -7,7 +7,7 @@
 {% assign _label = include.label | default: include.path | split: "/" | last %}
 {% assign _ext   = _label | split: "." | last | downcase %}
 {% assign _url   = "/files/" | append: include.path | relative_url %}
-{% assign _lang  = _ext | upcase | slice: 0, 3 %}
+{% assign _lang  = _ext | upcase | slice: 0, 4 %}
 
 <div class="file-card">
     <div class="file-card-icon">{{ _lang }}</div>

@@ -14,6 +14,8 @@
     
     <link rel="stylesheet" href="/css/article.css" />
         
+    <link rel="stylesheet" href="/css/outline.css" />
+        
     
     
     <link rel="stylesheet" href="/css/table.css" />
@@ -61,14 +63,33 @@
 
 
 <div id="content">
-<div class="entry">
-    <div class="entry-title"><a href="/Jekyll" title="Jekyll配置使用技巧">Jekyll配置使用技巧</a></div>
-    <div class="entry-date">2026-10-08</div>
-    <h1 id="引子">引子</h1>
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#引子">引子</a></li><li><a href="#多种文章风格">多种文章风格</a><ul><li><a href="#适配屏幕尺寸">适配屏幕尺寸</a><ul><li><a href="#硬件层面屏幕相关概念">硬件层面屏幕相关概念</a></li><li><a href="#windows层面屏幕相关概念">Windows层面屏幕相关概念</a></li><li><a href="#网页层面屏幕相关概念">网页层面屏幕相关概念</a></li><li><a href="#常见桌面分辨率">常见桌面分辨率</a></li><li><a href="#当前页面屏幕视口诊断">当前页面屏幕/视口诊断</a></li></ul></li></ul></li><li><a href="#文章特性">文章特性</a></li><li><a href="#代码样式">代码样式</a><ul><li><a href="#highlight和围栏代码块的区别">highlight和围栏代码块的区别</a></li><li><a href="#代码文件引用">代码文件引用</a></li></ul></li><li><a href="#数学公式">数学公式</a></li><li><a href="#公式绘图">公式绘图</a><ul><li><a href="#tikzpicture">tikzpicture</a></li><li><a href="#jsxgraph">JSXGraph</a></li></ul></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/Jekyll" title="Jekyll配置使用技巧">Jekyll配置使用技巧</a></div>
+        <div class="entry-date">2026-10-08</div>
+        <h1 id="引子">引子</h1>
 <p>我对Jekyll的基本样式、模板嵌套有一些修改，同时也记录自定义前端样式美化的配置。</p>
 
 <h1 id="多种文章风格">多种文章风格</h1>
 <p>对于博客的布局，分别设置了中篇文章、大纲文章、短篇文章3种布局，layout设定分别对应article、outlined、eassy。中篇文章一般是500-1000字左右，长篇文章一般采用大纲，短篇是100-500字的临时想法记录。3种布局共用同一套视觉语言，分别是灰白黄、浅灰卡片、细边框、赭黄点缀，只在宽度、留白、元素密度上区分。</p>
+
+<p>三种文章风格参考三篇测试文章：</p>
+
+<ul>
+  <li><a href="/%E5%A4%A7%E7%BA%B2%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95">大纲文章测试</a></li>
+  <li><a href="/%E6%95%B0%E5%AD%A6%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95">数学文章测试</a></li>
+  <li><a href="/%E6%96%87%E7%AB%A0%E9%A3%8E%E6%A0%BC%E6%B5%8B%E8%AF%95">文章风格测试</a></li>
+  <li><a href="/%E7%9F%AD%E6%96%87%E6%B5%8B%E8%AF%95">短文测试</a></li>
+</ul>
 
 <h2 id="适配屏幕尺寸">适配屏幕尺寸</h2>
 
@@ -195,9 +216,61 @@ CSS 宽度 = 物理分辨率 ÷ DPR
   </tbody>
 </table>
 
+<h3 id="当前页面屏幕视口诊断">当前页面屏幕/视口诊断</h3>
+
+<blockquote>
+  <p>以下数值由浏览器在页面加载时实时写入，打开本页即可看到你当前设备的实际值。</p>
+
+  <p><strong>注意</strong>：<code class="language-plaintext highlighter-rouge">screen.width</code> 返回的是<strong>逻辑分辨率（CSS 像素）</strong>，受系统缩放比影响。
+真实物理像素 = 逻辑分辨率 × <code class="language-plaintext highlighter-rouge">devicePixelRatio</code>。浏览器最大化时 <code class="language-plaintext highlighter-rouge">innerWidth</code> 才接近 CSS 宽度。</p>
+</blockquote>
+
+<div id="screen-diagnostics" style="margin: 2em 0; padding: 16px 20px; background: #F5F2EA; border: 1px solid #E8E3D8; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; color: #3A3A38; line-height: 1.8;"></div>
+<script>
+(function() {
+    var out = document.getElementById('screen-diagnostics');
+    if (!out) return;
+    var d = document.getElementById('content');
+    var dr = d ? d.getBoundingClientRect() : null;
+    var sx = screen.width, sy = screen.height, r = window.devicePixelRatio;
+    out.innerHTML =
+        '┌─ 物理像素（屏幕真实发光点） ────────────────<br>' +
+        '│  physical 宽  = ' + Math.round(sx * r) + ' px &nbsp;&nbsp;(' + sx + ' × DPR ' + r + ')<br>' +
+        '│  physical 高  = ' + Math.round(sy * r) + ' px &nbsp;&nbsp;(' + sy + ' × DPR ' + r + ')<br>' +
+        '├─ 系统逻辑分辨率（CSS 像素） ────────────────<br>' +
+        '│  screen.width  = ' + sx + ' px<br>' +
+        '│  screen.height = ' + sy + ' px<br>' +
+        '│  devicePixelRatio = ' + r + '<br>' +
+        '├─ 当前浏览器窗口 ────────────────────────────<br>' +
+        '│  innerWidth  (CSS 视口) = ' + window.innerWidth  + ' px<br>' +
+        '│  innerHeight            = ' + window.innerHeight + ' px<br>' +
+        '│  outerWidth  (含边框)   = ' + window.outerWidth  + ' px<br>' +
+        '│  html.clientWidth       = ' + document.documentElement.clientWidth + ' px<br>' +
+        '├─ 本页 #content 元素 ──────────────────────<br>' +
+        '│  渲染宽 = ' + (dr ? Math.round(dr.width) : 'N/A') + ' px<br>' +
+        '│  左偏距 = ' + (dr ? Math.round(dr.left)  : 'N/A') + ' px<br>' +
+        '│  body 宽 = ' + document.body.clientWidth + ' px<br>' +
+        '└─────────────────────────────────────────────';
+})();
+</script>
+
+<p><strong>换算公式回顾</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td><td class="rouge-code"><pre>物理分辨率 = screen.width × devicePixelRatio       ← 屏幕真实像素，4K屏会显示 3840×2160
+逻辑分辨率 = screen.width                          ← CSS 像素，受系统缩放影响（4K 150% 缩放 = 2560）
+CSS 视口宽 = window.innerWidth                     ← 当前浏览器窗口 CSS 宽（窗口非最大化时 ≠ 屏幕）
+DPR        = 浏览器缩放 × 系统缩放比
+内容最佳宽  ≈ 720 px（英文 ~80 词/行，中文 ~36 字/行）
+</pre></td></tr></tbody></table></code></pre></div></div>
+
 <h1 id="文章特性">文章特性</h1>
 
-<p>目前文章特性自定义设置了表格、latex、ai声明等特性，分别对应以下代码</p>
+<p>目前文章特性自定义设置了表格、latex、ai声明、代码查看、公式绘制等特性，分别对应以下代码</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -206,6 +279,7 @@ CSS 宽度 = 物理分辨率 ÷ DPR
 6
 7
 8
+9
 </pre></td><td class="rouge-code"><pre>---
 layout: article
 title: 某篇文章
@@ -213,6 +287,7 @@ features:
     table
     math
     ai-notice
+    code-viewer
 ---
 </pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -302,63 +377,166 @@ func main() {
 {% endhighlight %}
 </pre></td></tr></tbody></table></code></pre></div></div>
 
-<h1 id="当前页面屏幕视口诊断">当前页面屏幕/视口诊断</h1>
+<h2 id="代码文件引用">代码文件引用</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="rouge-code"><pre>#需要在文章开始处加载code-viewer的特性
+{% include file-link.html path="project/code.go" %}
+{% include file-link.html path="project/code.go" label="测试代码" %}
+</pre></td></tr></tbody></table></code></pre></div></div>
+<!-- file-link.html
+  在文章中引用 files/ 目录下的代码文件
+  用法：
+    (液体标签 include 文件名 path="相对 files/ 的路径")
+    (液体标签 include 文件名 path="xxx" label="可选显示名")
+-->
 
-<blockquote>
-  <p>以下数值由浏览器在页面加载时实时写入，打开本页即可看到你当前设备的实际值。</p>
+<div class="file-card">
+    <div class="file-card-icon">GO</div>
+    <div class="file-card-info">
+        <div class="file-card-name">code.go</div>
+        <div class="file-card-meta">files/project/code.go</div>
+    </div>
+    <div class="file-card-actions">
+        <a class="file-card-btn" href="/files/project/code.go" data-action="view" data-path="/files/project/code.go">查看</a>
+        <a class="file-card-btn" href="/files/project/code.go" download="code.go">下载</a>
+    </div>
+</div>
 
-  <p><strong>注意</strong>：<code class="language-plaintext highlighter-rouge">screen.width</code> 返回的是<strong>逻辑分辨率（CSS 像素）</strong>，受系统缩放比影响。
-真实物理像素 = 逻辑分辨率 × <code class="language-plaintext highlighter-rouge">devicePixelRatio</code>。浏览器最大化时 <code class="language-plaintext highlighter-rouge">innerWidth</code> 才接近 CSS 宽度。</p>
-</blockquote>
+<!-- file-link.html
+  在文章中引用 files/ 目录下的代码文件
+  用法：
+    (液体标签 include 文件名 path="相对 files/ 的路径")
+    (液体标签 include 文件名 path="xxx" label="可选显示名")
+-->
 
-<div id="screen-diagnostics" style="margin: 2em 0; padding: 16px 20px; background: #F5F2EA; border: 1px solid #E8E3D8; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; color: #3A3A38; line-height: 1.8;"></div>
-<script>
-(function() {
-    var out = document.getElementById('screen-diagnostics');
-    if (!out) return;
-    var d = document.getElementById('content');
-    var dr = d ? d.getBoundingClientRect() : null;
-    var sx = screen.width, sy = screen.height, r = window.devicePixelRatio;
-    out.innerHTML =
-        '┌─ 物理像素（屏幕真实发光点） ────────────────<br>' +
-        '│  physical 宽  = ' + Math.round(sx * r) + ' px &nbsp;&nbsp;(' + sx + ' × DPR ' + r + ')<br>' +
-        '│  physical 高  = ' + Math.round(sy * r) + ' px &nbsp;&nbsp;(' + sy + ' × DPR ' + r + ')<br>' +
-        '├─ 系统逻辑分辨率（CSS 像素） ────────────────<br>' +
-        '│  screen.width  = ' + sx + ' px<br>' +
-        '│  screen.height = ' + sy + ' px<br>' +
-        '│  devicePixelRatio = ' + r + '<br>' +
-        '├─ 当前浏览器窗口 ────────────────────────────<br>' +
-        '│  innerWidth  (CSS 视口) = ' + window.innerWidth  + ' px<br>' +
-        '│  innerHeight            = ' + window.innerHeight + ' px<br>' +
-        '│  outerWidth  (含边框)   = ' + window.outerWidth  + ' px<br>' +
-        '│  html.clientWidth       = ' + document.documentElement.clientWidth + ' px<br>' +
-        '├─ 本页 #content 元素 ──────────────────────<br>' +
-        '│  渲染宽 = ' + (dr ? Math.round(dr.width) : 'N/A') + ' px<br>' +
-        '│  左偏距 = ' + (dr ? Math.round(dr.left)  : 'N/A') + ' px<br>' +
-        '│  body 宽 = ' + document.body.clientWidth + ' px<br>' +
-        '└─────────────────────────────────────────────';
-})();
-</script>
+<div class="file-card">
+    <div class="file-card-icon">测试代码</div>
+    <div class="file-card-info">
+        <div class="file-card-name">测试代码</div>
+        <div class="file-card-meta">files/project/code.go</div>
+    </div>
+    <div class="file-card-actions">
+        <a class="file-card-btn" href="/files/project/code.go" data-action="view" data-path="/files/project/code.go">查看</a>
+        <a class="file-card-btn" href="/files/project/code.go" download="测试代码">下载</a>
+    </div>
+</div>
 
-<p><strong>换算公式回顾</strong></p>
+<h1 id="数学公式">数学公式</h1>
+<p>\$\$ 格式的数学公式，在 Jekyll 的默认解析器 Kramdown 中会被自动转换成 \\[…\\] 或 \\(…\) 再输出到 HTML。MathJax 3 默认支持识别 \\[…\\] 和 \\(…\\)，但是在Jekyll中需要增加额外的转义字符，需要额外的div包裹。对于$$，如果不换行则认为是行内公式。</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
 4
 5
-</pre></td><td class="rouge-code"><pre>物理分辨率 = screen.width × devicePixelRatio       ← 屏幕真实像素，4K屏会显示 3840×2160
-逻辑分辨率 = screen.width                          ← CSS 像素，受系统缩放影响（4K 150% 缩放 = 2560）
-CSS 视口宽 = window.innerWidth                     ← 当前浏览器窗口 CSS 宽（窗口非最大化时 ≠ 屏幕）
-DPR        = 浏览器缩放 × 系统缩放比
-内容最佳宽  ≈ 720 px（英文 ~80 词/行，中文 ~36 字/行）
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="rouge-code"><pre>$$
+\sigma(x)=\frac{1}{1+e^{-x}}
+$$
+
+&lt;div&gt;
+\[
+\sigma(x)=\frac{1}{1+e^{-x}}
+\]
+&lt;/div&gt;
+
+换行测试$\sigma(x)=\frac{1}{1+e^{-x}}$
+
 </pre></td></tr></tbody></table></code></pre></div></div>
 
+<p>几种写法对应的效果如下：</p>
+
+\[\sigma(x)=\frac{1}{1+e^{-x}}\]
+
+<div>
+\[
+\sigma(x)=\frac{1}{1+e^{-x}}
+\]
+</div>
+
+<p>换行测试$\sigma(x)=\frac{1}{1+e^{-x}}$</p>
+
+<h1 id="公式绘图">公式绘图</h1>
+
+<h2 id="tikzpicture">tikzpicture</h2>
+
+<p>画几何图、流程图、示意图</p>
+
+<h2 id="jsxgraph">JSXGraph</h2>
+
+<p>可拖拽、可交互的坐标系、函数图像、几何对象</p>
 
 
+        
+        <div class="ai-notice">本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。</div> 
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
     
-</div>
-</div>
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            $li.prepend($toggle);
+        });
+    
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+<script src="/js/code-viewer.js"></script>  
+<!--mathjax 用以支持latex数学公式-->
+<script>
+    window.MathJax = {
+      tex: {
+        // 行内公式：支持 \( ... \)
+        inlineMath: [['$', '$'],['\\(', '\\)']],
+        // 显示公式（居中）：支持 \[ ... \] 和 $$ ... $$
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      
+      options: {
+        // 避免在代码块中误渲染
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+-->
  
 </body>
 
