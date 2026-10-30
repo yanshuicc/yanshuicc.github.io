@@ -1,0 +1,63 @@
+<!-- mermaid.js — 流程图 / 状态图 / 时序图 / 架构图 / 类图
+     用法一：Markdown 里 ```mermaid ... ``` 围栏代码块，自动转 div.mermaid 再渲染
+     用法二：直接写 <div class="mermaid">...</div>
+     CDN：jsdelivr -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.mermaid) return;
+
+    // —— 桥接：把 kramdown / Rouge 渲染的代码块转成 mermaid 能识别的 div.mermaid ——
+    // 情况 A：Rouge 不认识 mermaid，直接输出 <pre><code class="language-mermaid">
+    document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
+      var div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      code.parentElement.replaceWith(div);
+    });
+    // 情况 B：其他 rouge 容器里恰好包含 mermaid 关键字（兜底）
+    var _mmdKeywords = /^(flowchart|graph|sequenceDiagram|stateDiagram|classDiagram|erDiagram|gantt|pie|timeline|journey|mindmap)/mi;
+    document.querySelectorAll('div.highlighter-rouge pre.highlight code').forEach(function (code) {
+      var text = code.textContent.trim();
+      if (_mmdKeywords.test(text) && !code.closest('.mermaid')) {
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = text;
+        var container = code.closest('div.highlighter-rouge');
+        (container || code).replaceWith(div);
+      }
+    });
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      securityLevel: 'loose',
+      flowchart: { htmlLabels: true, curve: 'basis' },
+      sequence: { actorMargin: 50 },
+      themeVariables: {
+        primaryColor: '#F5F2EA',
+        primaryTextColor: '#3A352B',
+        primaryBorderColor: '#D8CDB8',
+        lineColor: '#B8894A',
+        secondaryColor: '#FBF9F4',
+        tertiaryColor: '#F3EDE0',
+        fontSize: '15px',
+        fontFamily: '"Songti SC", "STSong", "PingFang SC", sans-serif'
+      }
+    });
+  });
+</script>
+<style>
+  /* mermaid 容器：和文章卡片风格统一 */
+  .mermaid {
+    margin: 1.4em auto;
+    max-width: 100%;
+    padding: 16px 12px;
+    background: #FBF9F4;
+    border: 1px solid #E8E3D8;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 14px;
+  }
+  .mermaid svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+</style>

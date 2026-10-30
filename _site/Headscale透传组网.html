@@ -836,7 +836,27 @@ Report:
 </script>
   
 <!--mathjax 用以支持latex数学公式-->
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+<script>
+    window.MathJax = {
+      tex: {
+        // 行内公式：支持 \( ... \)
+        inlineMath: [['$', '$'],['\\(', '\\)']],
+        // 显示公式（居中）：支持 \[ ... \] 和 $$ ... $$
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      
+      options: {
+        // 避免在代码块中误渲染
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+-->
+ 
 </body>
 
 </html>

@@ -4,7 +4,7 @@ layout:           home
 
 {% include background.html %}
 
-<div id="content">
+<div id="content"{% if page.cover or page.features contains "cover" %} class="has-cover"{% endif %}>
 <div class="entry">
     <div class="entry-title"><a href="{{ page.url }}" title="{{ page.title }}">{{ page.title }}</a></div>
     <div class="entry-date">{{ page.date|date:"%Y-%m-%d" }}</div>

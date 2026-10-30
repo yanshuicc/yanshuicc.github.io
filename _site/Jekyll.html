@@ -28,7 +28,71 @@
 </head>
 
 <body>
-    <!--导航栏-->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>  <!-- mermaid.js — 流程图 / 状态图 / 时序图 / 架构图 / 类图
+     用法一：Markdown 里 ```mermaid ... ``` 围栏代码块，自动转 div.mermaid 再渲染
+     用法二：直接写 <div class="mermaid">...</div>
+     CDN：jsdelivr -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.mermaid) return;
+
+    // —— 桥接：把 kramdown / Rouge 渲染的代码块转成 mermaid 能识别的 div.mermaid ——
+    // 情况 A：Rouge 不认识 mermaid，直接输出 <pre><code class="language-mermaid">
+    document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
+      var div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      code.parentElement.replaceWith(div);
+    });
+    // 情况 B：其他 rouge 容器里恰好包含 mermaid 关键字（兜底）
+    var _mmdKeywords = /^(flowchart|graph|sequenceDiagram|stateDiagram|classDiagram|erDiagram|gantt|pie|timeline|journey|mindmap)/mi;
+    document.querySelectorAll('div.highlighter-rouge pre.highlight code').forEach(function (code) {
+      var text = code.textContent.trim();
+      if (_mmdKeywords.test(text) && !code.closest('.mermaid')) {
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = text;
+        var container = code.closest('div.highlighter-rouge');
+        (container || code).replaceWith(div);
+      }
+    });
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      securityLevel: 'loose',
+      flowchart: { htmlLabels: true, curve: 'basis' },
+      sequence: { actorMargin: 50 },
+      themeVariables: {
+        primaryColor: '#F5F2EA',
+        primaryTextColor: '#3A352B',
+        primaryBorderColor: '#D8CDB8',
+        lineColor: '#B8894A',
+        secondaryColor: '#FBF9F4',
+        tertiaryColor: '#F3EDE0',
+        fontSize: '15px',
+        fontFamily: '"Songti SC", "STSong", "PingFang SC", sans-serif'
+      }
+    });
+  });
+</script>
+<style>
+  /* mermaid 容器：和文章卡片风格统一 */
+  .mermaid {
+    margin: 1.4em auto;
+    max-width: 100%;
+    padding: 16px 12px;
+    background: #FBF9F4;
+    border: 1px solid #E8E3D8;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 14px;
+  }
+  .mermaid svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+</style>
+ <!--导航栏-->
 <header class="site-header">
     <div class="header-inner">
         <div class="site-brand">
@@ -69,7 +133,7 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#引子">引子</a></li><li><a href="#多种文章风格">多种文章风格</a><ul><li><a href="#适配屏幕尺寸">适配屏幕尺寸</a><ul><li><a href="#硬件层面屏幕相关概念">硬件层面屏幕相关概念</a></li><li><a href="#windows层面屏幕相关概念">Windows层面屏幕相关概念</a></li><li><a href="#网页层面屏幕相关概念">网页层面屏幕相关概念</a></li><li><a href="#常见桌面分辨率">常见桌面分辨率</a></li><li><a href="#当前页面屏幕视口诊断">当前页面屏幕/视口诊断</a></li></ul></li></ul></li><li><a href="#文章特性">文章特性</a></li><li><a href="#代码样式">代码样式</a><ul><li><a href="#highlight和围栏代码块的区别">highlight和围栏代码块的区别</a></li><li><a href="#代码文件引用">代码文件引用</a></li></ul></li><li><a href="#数学公式">数学公式</a></li><li><a href="#公式绘图">公式绘图</a><ul><li><a href="#tikzpicture">tikzpicture</a></li><li><a href="#jsxgraph">JSXGraph</a></li></ul></li></ul>
+            <ul><li><a href="#引子">引子</a></li><li><a href="#多种文章风格">多种文章风格</a><ul><li><a href="#适配屏幕尺寸">适配屏幕尺寸</a><ul><li><a href="#硬件层面屏幕相关概念">硬件层面屏幕相关概念</a></li><li><a href="#windows层面屏幕相关概念">Windows层面屏幕相关概念</a></li><li><a href="#网页层面屏幕相关概念">网页层面屏幕相关概念</a></li><li><a href="#常见桌面分辨率">常见桌面分辨率</a></li><li><a href="#当前页面屏幕视口诊断">当前页面屏幕/视口诊断</a></li></ul></li></ul></li><li><a href="#文章特性">文章特性</a></li><li><a href="#代码样式">代码样式</a><ul><li><a href="#highlight和围栏代码块的区别">highlight和围栏代码块的区别</a></li><li><a href="#代码文件引用">代码文件引用</a></li></ul></li><li><a href="#数学公式">数学公式</a></li><li><a href="#jsxgraph公式绘图">JSXGraph公式绘图</a></li><li><a href="#mermain绘图">mermain绘图</a><ul><li><a href="#流程图flowchart">流程图（flowchart）</a></li><li><a href="#三层架构flowchart-subgraph">三层架构（flowchart subgraph）</a></li><li><a href="#状态图statediagram">状态图（stateDiagram）</a></li><li><a href="#时序图sequencediagram">时序图（sequenceDiagram）</a></li></ul></li></ul>
         </div>
     </aside>
 
@@ -270,7 +334,7 @@ DPR        = 浏览器缩放 × 系统缩放比
 
 <h1 id="文章特性">文章特性</h1>
 
-<p>目前文章特性自定义设置了表格、latex、ai声明、代码查看、公式绘制等特性，分别对应以下代码</p>
+<p>目前文章特性自定义设置了表格、latex、ai声明、代码查看、jsxgraph公式绘制、mermain示意图绘制等特性，对应以下代码</p>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
 2
 3
@@ -280,6 +344,8 @@ DPR        = 浏览器缩放 × 系统缩放比
 7
 8
 9
+10
+11
 </pre></td><td class="rouge-code"><pre>---
 layout: article
 title: 某篇文章
@@ -288,6 +354,39 @@ features:
     math
     ai-notice
     code-viewer
+    jsxgraph
+    mermain
+---
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<p>特性支持多种写法</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td><td class="rouge-code"><pre>---
+layout: article
+title: 某篇文章
+features:
+    - table
+    - code-viewer
+---
+
+
+---
+layout: article
+title: 某篇文章
+features: [table, code-viewer]
 ---
 </pre></td></tr></tbody></table></code></pre></div></div>
 
@@ -464,15 +563,69 @@ $$
 
 <p>换行测试$\sigma(x)=\frac{1}{1+e^{-x}}$</p>
 
-<h1 id="公式绘图">公式绘图</h1>
+<h1 id="jsxgraph公式绘图">JSXGraph公式绘图</h1>
 
-<h2 id="tikzpicture">tikzpicture</h2>
+<p>可拖拽、可交互的坐标系、函数图像、几何对象，JSXGraph需要shift鼠标拖动</p>
 
-<p>画几何图、流程图、示意图</p>
+<div id="jxgbox" class="jxgbox" style="width: 500px; height: 400px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('jxgbox', {
+    boundingbox: [-5, 5, 5, -5],
+    axis: true
+  });
+  board.create('functiongraph', [function(x) { return x*x; }]);
+</script>
 
-<h2 id="jsxgraph">JSXGraph</h2>
+<h1 id="mermain绘图">mermain绘图</h1>
+<h2 id="流程图flowchart">流程图（flowchart）</h2>
 
-<p>可拖拽、可交互的坐标系、函数图像、几何对象</p>
+<pre><code class="language-mermaid">flowchart TD
+    A([开始]) --&gt; B[加载配置]
+    B --&gt; C{配置有效？}
+    C -- 否 --&gt; D[修正配置]
+    D --&gt; B
+    C -- 是 --&gt; E[执行任务]
+    E --&gt; F([结束])
+</code></pre>
+
+<h2 id="三层架构flowchart-subgraph">三层架构（flowchart subgraph）</h2>
+
+<pre><code class="language-mermaid">flowchart LR
+    subgraph 用户接口
+        A[应用层&lt;br/&gt;&lt;small&gt;Web / API / CLI&lt;/small&gt;]
+    end
+    subgraph 核心逻辑
+        B[业务逻辑层&lt;br/&gt;&lt;small&gt;服务 / 调度 / 校验&lt;/small&gt;]
+    end
+    subgraph 持久化
+        C[数据层&lt;br/&gt;&lt;small&gt;存储 / 缓存 / 消息&lt;/small&gt;]
+    end
+    A --&gt; B --&gt; C
+</code></pre>
+
+<h2 id="状态图statediagram">状态图（stateDiagram）</h2>
+
+<pre><code class="language-mermaid">stateDiagram-v2
+    [*] --&gt; 空闲
+    空闲 --&gt; 运行: start
+    运行 --&gt; 暂停: pause
+    暂停 --&gt; 停止: resume
+    停止 --&gt; 空闲: reset
+    运行 --&gt; 停止: stop
+    停止 --&gt; [*]
+</code></pre>
+
+<h2 id="时序图sequencediagram">时序图（sequenceDiagram）</h2>
+
+<pre><code class="language-mermaid">sequenceDiagram
+    participant 用户
+    participant 服务端
+    participant 数据库
+    用户-&gt;&gt;服务端: 请求数据
+    服务端-&gt;&gt;数据库: 查询
+    数据库--&gt;&gt;服务端: 返回结果
+    服务端--&gt;&gt;用户: 响应
+</code></pre>
 
 
         

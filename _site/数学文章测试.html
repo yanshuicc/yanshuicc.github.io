@@ -61,7 +61,7 @@
 <div id="content">
 <div class="entry">
     <div class="entry-title"><a href="/%E6%95%B0%E5%AD%A6%E6%96%87%E7%AB%A0%E6%B5%8B%E8%AF%95" title="数学公式测试">数学公式测试</a></div>
-    <div class="entry-date">2015-09-22</div>
+    <div class="entry-date">2015-09-17</div>
     <h2 id="矩阵">矩阵</h2>
 
 \[\begin{align*}
@@ -86,7 +86,27 @@
 </div>
   
 <!--mathjax 用以支持latex数学公式-->
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+<script>
+    window.MathJax = {
+      tex: {
+        // 行内公式：支持 \( ... \)
+        inlineMath: [['$', '$'],['\\(', '\\)']],
+        // 显示公式（居中）：支持 \[ ... \] 和 $$ ... $$
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      
+      options: {
+        // 避免在代码块中误渲染
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+-->
+ 
 </body>
 
 </html>
