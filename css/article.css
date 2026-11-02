@@ -122,9 +122,9 @@ hr {
     break-after: avoid;
 }
 
-.entry h1 { font-size: 18px; margin: 16pt 0 8pt; counter-reset: h2; }
-.entry h2 { font-size: 17px; margin: 14pt 0 7pt; counter-reset: h3; }
-.entry h3 { font-size: 16px; margin: 12pt 0 6pt; counter-reset: h4; }
+.entry h1 { font-size: 18px; margin: 10pt 0 8pt; counter-reset: h2; }
+.entry h2 { font-size: 17px; margin: 9pt 0 7pt; counter-reset: h3; }
+.entry h3 { font-size: 16px; margin: 8pt 0 6pt; counter-reset: h4; }
 
 /* ---------- 正文段落 ---------- */
 .entry p {
@@ -190,7 +190,7 @@ hr {
     --ol-num: #8B6F3D;           /* 一级数字：深赭石 */
     --ol-num-sub: #A89C86;       /* 嵌套数字：更淡 */
 
-    margin: 1.2em 0 1.4em;
+    margin: 0.2em 0em;
     padding-left: 0;
     list-style: none;
     counter-reset: ol-counter;
@@ -200,7 +200,7 @@ hr {
     counter-increment: ol-counter;
     position: relative;
     padding-left: 2.2em;
-    margin-bottom: 0.6em;
+    margin-bottom: 0em;
     line-height: 1.8;
 }
 
