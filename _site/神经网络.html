@@ -27,7 +27,70 @@
 
 <body>
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
-<script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script> <!--导航栏-->
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>  <!-- mermaid.js — 流程图 / 状态图 / 时序图 / 架构图 / 类图
+     用法一：Markdown 里 ```mermaid ... ``` 围栏代码块，自动转 div.mermaid 再渲染
+     用法二：直接写 <div class="mermaid">...</div>
+     CDN：jsdelivr -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    if (!window.mermaid) return;
+
+    // —— 桥接：把 kramdown / Rouge 渲染的代码块转成 mermaid 能识别的 div.mermaid ——
+    // 情况 A：Rouge 不认识 mermaid，直接输出 <pre><code class="language-mermaid">
+    document.querySelectorAll('pre code.language-mermaid').forEach(function (code) {
+      var div = document.createElement('div');
+      div.className = 'mermaid';
+      div.textContent = code.textContent;
+      code.parentElement.replaceWith(div);
+    });
+    // 情况 B：其他 rouge 容器里恰好包含 mermaid 关键字（兜底）
+    var _mmdKeywords = /^(flowchart|graph|sequenceDiagram|stateDiagram|classDiagram|erDiagram|gantt|pie|timeline|journey|mindmap)/mi;
+    document.querySelectorAll('div.highlighter-rouge pre.highlight code').forEach(function (code) {
+      var text = code.textContent.trim();
+      if (_mmdKeywords.test(text) && !code.closest('.mermaid')) {
+        var div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = text;
+        var container = code.closest('div.highlighter-rouge');
+        (container || code).replaceWith(div);
+      }
+    });
+
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'base',
+      securityLevel: 'loose',
+      flowchart: { htmlLabels: true, curve: 'basis' },
+      sequence: { actorMargin: 50 },
+      themeVariables: {
+        primaryColor: '#F5F2EA',
+        primaryTextColor: '#3A352B',
+        primaryBorderColor: '#D8CDB8',
+        lineColor: '#B8894A',
+        secondaryColor: '#FBF9F4',
+        tertiaryColor: '#F3EDE0',
+        fontSize: '15px',
+        fontFamily: '"Songti SC", "STSong", "PingFang SC", sans-serif'
+      }
+    });
+  });
+</script>
+<style>
+  /* mermaid 容器：和文章卡片风格统一 */
+  .mermaid {
+    margin: 1.4em auto;
+    max-width: 100%;
+    padding: 16px 12px;
+    background: #FBF9F4;
+    border: 1px solid #E8E3D8;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 14px;
+  }
+  .mermaid svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+</style>
+ <!--导航栏-->
 <header class="site-header">
     <div class="header-inner">
         <div class="site-brand">
@@ -68,7 +131,7 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#生成数据集">生成数据集</a></li><li><a href="#逻辑回归">逻辑回归</a></li><li><a href="#训练一个神经网络">训练一个神经网络</a><ul><li><a href="#输出层的节点为什么选择2">输出层的节点为什么选择2</a></li><li><a href="#激活函数">激活函数</a><ul><li><a href="#如何进行预测">如何进行预测</a></li><li><a href="#学习参数">学习参数</a></li><li><a href="#实现">实现</a></li></ul></li></ul></li><li><a href="#隐藏层大小的影响">隐藏层大小的影响</a></li><li><a href="#练习">练习</a></li><li><a href="#杂项">杂项</a></li></ul>
+            <ul><li><a href="#生成数据集">生成数据集</a></li><li><a href="#逻辑回归">逻辑回归</a></li><li><a href="#训练一个神经网络">训练一个神经网络</a><ul><li><a href="#输出层的节点为什么选择2">输出层的节点为什么选择2</a></li><li><a href="#激活函数">激活函数</a></li><li><a href="#如何预测">如何预测</a></li><li><a href="#学习参数">学习参数</a><ul><li><a href="#实现">实现</a></li></ul></li></ul></li><li><a href="#隐藏层大小的影响">隐藏层大小的影响</a></li><li><a href="#练习">练习</a></li><li><a href="#杂项">杂项</a></li></ul></li></ul>
         </div>
     </aside>
 
@@ -79,7 +142,7 @@
 
 <p>需要注意的一点是，这里的代码不是非常高效。它们旨在易于理解。参考 <a href="https://dennybritz.com/posts/wildml/speeding-up-your-neural-network-with-theano-and-the-gpu/">Theano</a> 编写高效的神经网络实现。</p>
 
-<h2 id="生成数据集">生成数据集</h2>
+<h1 id="生成数据集">生成数据集</h1>
 
 <p>首先，生成一个可以使用的数据集。通过 <a href="http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html">make_moons</a> 函数构建数据集。</p>
 
@@ -115,7 +178,7 @@
 
 <p>生成的数据集有两个类别，分别用红色和蓝色点绘制。可以把蓝点看作男性患者，红点看作女性患者，x 轴和 y 轴是医学测量值。分类的目标是训练一个机器学习分类器，根据 x 和 y 坐标预测正确的类别（男性或女性）。请注意，数据不是线性可分的，即无法画一条直线将两个类别分开。这意味着线性分类器（如逻辑回归）无法拟合这些数据，除非手动设计适用于该数据集的非线性特征（如多项式）。这也是神经网络的主要优势之一，不需要担心<a href="http://machinelearningmastery.com/discover-feature-engineering-how-to-engineer-features-and-how-to-get-good-at-it/">特征工程</a>。神经网络的隐藏层会为你学习特征。</p>
 
-<h2 id="逻辑回归">逻辑回归</h2>
+<h1 id="逻辑回归">逻辑回归</h1>
 
 <p>为了说明这一点，让我们训练一个逻辑回归分类器。它的输入是 x 和 y 值，输出是预测的类别（0 或 1）。为了方便，这里直接使用 scikit-learn 中的 LogisticRegression 类。</p>
 
@@ -158,11 +221,15 @@
 
 <p>图中显示了逻辑回归分类器学习到的决策边界。它用一条直线尽可能好地分隔数据，但无法切分两类数据。</p>
 
-<h2 id="训练一个神经网络">训练一个神经网络</h2>
+<h1 id="训练一个神经网络">训练一个神经网络</h1>
 
 <p>现在让我们构建一个 3 层神经网络，包含一个输入层、一个隐藏层和一个输出层。输入层的节点数由数据的维度决定，输出层的节点数由类别数决定，都取 2。</p>
 
-<h3 id="输出层的节点为什么选择2">输出层的节点为什么选择2</h3>
+<p>这里需要注意各层的输入、输出是什么：<strong>输入层每个节点只承接一个特征，是一个标量。隐藏层单个节点的输入是向量，维度等同于数据维度；对于一个向量的输入，隐藏层单个节点的输出仍然是标量。输出层单个节点的输出也是标量，多个节点输出的对应着每个类别的概率</strong>。</p>
+
+<p><img src="images/nn-from-scratch-3-layer-network.png" alt="Alt text" /></p>
+
+<h2 id="输出层的节点为什么选择2">输出层的节点为什么选择2</h2>
 
 <p>这里因为例子中只有 2 个类别，实际上可以只用一个输出节点预测 0 或 1，但是单节点只能处理2分类问题，两个类别的概率分布只需一个自由度，对于多分类问题（比如分为N类），需要 N−1 个自由度，有一个约束是所有概率加起来为1。比如3分类需要3个概率，让单节点输出一个数，比如 \(s\in[0,2]\)，然后四舍五入成类别 0/1/2，那它做的是<strong>序数回归 或者 回归+取整</strong>，不是标准多分类：</p>
 
@@ -176,46 +243,48 @@
 
 <p>所以使用 2 个节点使得以后将网络扩展到更多类别更容易。</p>
 
-<h3 id="激活函数">激活函数</h3>
+<h2 id="激活函数">激活函数</h2>
 
 <p>网络的输入将是 x 和 y 坐标，输出将是两个概率，一个对应类别 0（“女性”），一个对应类别 1（“男性”）。它看起来大致是这样的：</p>
 
-<p>我们可以选择隐藏层的维度（节点数）。隐藏层中的节点越多，能拟合的函数就越复杂。但更高的维度是有代价的。首先，进行预测和学习网络参数需要更多的计算。参数数量越多也意味着更容易对数据过拟合。</p>
+<p>首先，需要可以选择隐藏层的维度（节点数）。隐藏层中的节点越多，能拟合的函数就越复杂。但更高的维度是有代价的，会导致进行预测和学习网络参数需要更多的计算，同时，参数数量越多也意味着更容易对数据过拟合。</p>
 
 <p>如何选择隐藏层的大小？虽然有一些通用指南和建议，但它总是取决于你的具体问题，更像是一门艺术而非科学。后面会尝试不同数量的隐藏层节点，看看它如何影响输出。</p>
 
-<p>我们还需要为隐藏层选择一个激活函数。激活函数相关的比较资料可以参考<a href="/%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0">这篇文章</a>。这里使用 tanh，它在许多场景下表现良好。这些函数的一个良好特性是它们的导数可以用原始函数值来计算。例如，\(\tanh x\) 的导数是 $1-\tanh^2 x$。这个特性使得它可以计算一次 \(\tanh x\) 后，复用该值得到导数。</p>
+<p>然后还需要为隐藏层选择一个激活函数。激活函数相关的比较资料可以参考<a href="/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86#激活函数">激活函数</a>。这里使用 tanh，它在许多场景下表现良好。这些函数的一个良好特性是它们的导数可以用原始函数值来计算。例如，\(\tanh x\) 的导数是 $1-\tanh^2 x$。这个特性使得它可以计算一次 \(\tanh x\) 后，复用该值得到导数。</p>
 
 <p>因为希望网络输出概率，所以输出层的激活函数使用 softmax，它将原始分数转换为概率的方法。softmax类似于逻辑函数（sigmoid）多类别的推广。</p>
 
-<h4 id="如何进行预测">如何进行预测</h4>
+<h2 id="如何预测">如何预测</h2>
 
-<p>网络使用前向传播进行预测，前向传播就是一堆矩阵乘法以及应用我们上面定义的激活函数。如果 $x$ 是网络的 2 维输入，那么我们如下计算预测（也是 2 维的）$\hat{y}$：</p>
+<p>网络使用前向传播预测，即前馈网络。前向传播通过多次矩阵乘法以及上面采用的激活函数进行。如下计算预测$\hat{y}$。</p>
 
 \[\begin{aligned}
-z_1 &amp; = xW_1 + b_1 \\
-a_1 &amp; = \tanh(z_1) \\
-z_2 &amp; = a_1W_2 + b_2 \\
-a_2 &amp; = \hat{y} = \mathrm{softmax}(z_2)
+step1: 1层神经元计算 z_1 &amp; = xW_1 + b_1 \\
+step2: 逐元素激活函数 a_1 &amp; = \tanh(z_1) \\
+step3: 2层神经元计算 z_2 &amp; = a_1W_2 + b_2 \\
+step4: 逐元素激活函数 a_2 &amp; = \hat{y} = \mathrm{softmax}(z_2)
 \end{aligned}\]
 
-<p>$z_i$ 是第 $i$ 层的输入，$a_i$ 是第 $i$ 层应用激活函数后的输出。$W_1, b_1, W_2, b_2$ 是我们网络的参数，我们需要从训练数据中学习它们。你可以看到，如果我们增加隐藏层的大小，我们会有更多的参数。</p>
+<p>$z_i$ 是第 $i$ 层的输入，$a_i$ 是第 $i$ 层应用激活函数后的输出。$W_1, b_1, W_2, b_2$ 是网络参数，需要从训练数据中学习它们。直观发现，如果增加隐藏层的大小，会有更多的参数。</p>
 
-<h4 id="学习参数">学习参数</h4>
+<h2 id="学习参数">学习参数</h2>
 
-<p>学习网络的参数意味着找到使训练数据上的误差最小化的参数（$W_1, b_1, W_2, b_2$）。但我们如何定义误差？我们称衡量误差的函数为损失函数。对于 softmax 输出，一个常见的选择是分类[交叉熵损失]（也称为负对数似然）。如果我们有 $N$ 个训练样本和 $C$ 个类别，那么我们的预测 $\hat{y}$ 相对于真实标签 $y$ 的损失为：</p>
+<p>学习网络的参数意味着找到使训练数据上的误差最小化的参数（$W_1, b_1, W_2, b_2$）。但如何定义误差？称衡量误差的函数称作损失函数，可以参考<a href="post_url _posts/memory/2026-10-30-损失函数">这里</a>。对于 softmax 输出，一个常见的选择是分类交叉熵损失（也叫负对数似然）。如果有 $N$ 个训练样本和 $C$ 个类别，那么预测 $\hat{y}$ 相对于真实标签 $y$ 的损失为：</p>
 
 \[\begin{aligned}
 L(y,\hat{y}) = - \frac{1}{N} \sum_{n \in N} \sum_{i \in C} y_{n,i} \log\hat{y}_{n,i}
 \end{aligned}\]
 
-<p>这个公式看起来很复杂，但它实际上所做的就是对我们所有的训练样本求和，如果我们预测了错误的类别，就增加损失。两个概率分布 $y$（正确标签）和 $\hat{y}$（我们的预测）相差越远，我们的损失就越大。通过找到使损失最小化的参数，我们最大化了训练数据的似然。</p>
+<p>这个公式看起来很复杂，但实际上就是对所有的训练样本求和，如果预测了错误的类别，就增加损失。两个概率分布 $y$（正确标签）和 $\hat{y}$（预测标签）相差越远，损失就越大。通过找到使损失最小化的参数，最大化了训练数据的似然。</p>
 
-<p>我们可以使用<a href="http://cs231n.github.io/optimization-1/">梯度下降</a>来找到这个最小值。我们将实现最原始的梯度下降版本，也称为固定学习率的批量梯度下降。SGD（随机梯度下降）或小批量梯度下降等变体在实践中通常表现更好。所以如果你是认真的，你会想要使用其中之一，理想情况下你还会<a href="http://cs231n.github.io/neural-networks-3/#anneal">随时间衰减学习率</a>。</p>
+<p>可以使用<strong>梯度下降</strong>来找到这个最小值。这里实现最原始的梯度下降版本，也称为<strong>固定学习率的批量梯度下降</strong>。<strong>SGD（随机梯度下降）</strong>或<strong>小批量梯度下降</strong>等变体在实践中通常表现更好，除此之外还有<a href="http://cs231n.github.io/neural-networks-3/#anneal">随时间衰减学习率</a>，后续测试对比更多版本。</p>
 
-<p>作为输入，梯度下降需要损失函数相对于我们参数的梯度（导数向量）：$\frac{\partial{L}}{\partial{W_1}}$、$\frac{\partial{L}}{\partial{b_1}}$、$\frac{\partial{L}}{\partial{W_2}}$、$\frac{\partial{L}}{\partial{b_2}}$。为了计算这些梯度，我们使用著名的反向传播算法，这是一种从输出开始高效计算梯度的方法。我不会详细介绍反向传播的工作原理，但网上有许多优秀的解释（<a href="http://colah.github.io/posts/2015-08-Backprop/">这里</a>或<a href="http://cs231n.github.io/optimization-2/">这里</a>）。</p>
+<p>梯度下降的输入包括当前的参数 $\theta$、当前的损失 $L(\theta)$ ,以及<strong>损失函数对参数的梯度 $\nabla_\theta L$</strong>，即损失函数对各个参数的偏导数组成向量（$\frac{\partial{L}}{\partial{W_1}}$、$\frac{\partial{L}}{\partial{b_1}}$、$\frac{\partial{L}}{\partial{W_2}}$、$\frac{\partial{L}}{\partial{b_2}}$）。梯度引导参数往哪个方向调，使得让损失下降最快，更多的信息参考<a href="/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86#梯度下降">梯度下降</a></p>
 
-<p>应用反向传播公式，我们得到以下结果（现在请先相信我）：</p>
+<p>为了计算这些梯度，我们使用著名的反向传播算法，这是一种从输出开始高效计算梯度的方法。我不会详细介绍反向传播的工作原理，但网上有许多优秀的解释（<a href="http://colah.github.io/posts/2015-08-Backprop/">这里</a>或<a href="http://cs231n.github.io/optimization-2/">这里</a>）。</p>
+
+<p>应用反向传播公式，得到以下结果：</p>
 
 \[\begin{aligned}
 &amp; \delta_3 = \hat{y} - y \\
@@ -225,6 +294,41 @@ L(y,\hat{y}) = - \frac{1}{N} \sum_{n \in N} \sum_{i \in C} y_{n,i} \log\hat{y}_{
 &amp; \frac{\partial{L}}{\partial{W_1}} = x^T \delta_2 \\
 &amp; \frac{\partial{L}}{\partial{b_1}} = \delta_2 \\
 \end{aligned}\]
+
+<pre><code class="language-mermaid">flowchart LR
+  subgraph IN["输入层 d=3"]
+    direction TB
+    x1["x₁&lt;br/&gt;(标量特征)"]
+    x2["x₂"]
+    x3["x₃"]
+  end
+
+  subgraph HID["隐藏层 h=3 · tanh"]
+    direction TB
+    h1["z₁⁽¹⁾ = Σᵢ xᵢW₁ᵢ₁ + b₁₁&lt;br/&gt;a₁⁽¹⁾ = tanh(z₁⁽¹⁾)&lt;br/&gt;δ₂⁽¹⁾ = (1−tanh²z₁⁽¹⁾)(δ₃W₂ᵀ)₁"]
+    h2["z₁⁽²⁾ = Σᵢ xᵢW₁ᵢ₂ + b₁₂&lt;br/&gt;a₁⁽²⁾ = tanh(z₁⁽²⁾)&lt;br/&gt;δ₂⁽²⁾ = (1−tanh²z₁⁽²⁾)(δ₃W₂ᵀ)₂"]
+    h3["z₁⁽³⁾ = Σᵢ xᵢW₁ᵢ₃ + b₁₃&lt;br/&gt;a₁⁽³⁾ = tanh(z₁⁽³⁾)&lt;br/&gt;δ₂⁽³⁾ = (1−tanh²z₁⁽³⁾)(δ₃W₂ᵀ)₃"]
+  end
+
+  subgraph OUT["输出层 C=2 · softmax"]
+    direction TB
+    o1["z₂⁽¹⁾ = Σⱼ a₁⁽ʲ⁾W₂ⱼ₁ + b₂₁&lt;br/&gt;ŷ₁ = softmax(z₂)₁&lt;br/&gt;δ₃⁽¹⁾ = ŷ₁ − y₁"]
+    o2["z₂⁽²⁾ = Σⱼ a₁⁽ʲ⁾W₂ⱼ₂ + b₂₂&lt;br/&gt;ŷ₂ = softmax(z₂)₂&lt;br/&gt;δ₃⁽²⁾ = ŷ₂ − y₂"]
+  end
+
+  x1 --&gt; h1 &amp; h2 &amp; h3
+  x2 --&gt; h1 &amp; h2 &amp; h3
+  x3 --&gt; h1 &amp; h2 &amp; h3
+  h1 --&gt; o1 &amp; o2
+  h2 --&gt; o1 &amp; o2
+  h3 --&gt; o1 &amp; o2
+
+  G1["参数梯度（第一层）&lt;br/&gt;∂L/∂W₁ = xᵀδ₂  (d×h)&lt;br/&gt;∂L/∂b₁ = δ₂  (1×h)"]
+  G2["参数梯度（第二层）&lt;br/&gt;∂L/∂W₂ = a₁ᵀδ₃  (h×C)&lt;br/&gt;∂L/∂b₂ = δ₃  (1×C)"]
+
+  HID -.-&gt; G1
+  OUT -.-&gt; G2
+</code></pre>
 
 <h4 id="实现">实现</h4>
 

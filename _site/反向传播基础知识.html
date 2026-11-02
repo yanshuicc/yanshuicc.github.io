@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>2017-05-15-反向传播基础知识 | 心物婉转</title>
+    <meta name="author" content="Mukosame" />
+    <meta name="renderer" content="webkit">
+    <meta name="description" content="Everything about xwwz" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="/css/default.css" type="text/css" />
+    <link rel="stylesheet" href="/css/header.css" type="text/css" />
+    <link rel="stylesheet" href="/css/search.css" type="text/css" />
+    
+    <link rel="stylesheet" href="/css/article.css" />
+        
+    <link rel="stylesheet" href="/css/outline.css" />
+        
+    
+    
+    
+    <link rel="stylesheet" href="/css/code.css" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="alternate" type="application/atom+xml" title="Recent Entries" href="/atom.xml" />
+    <script src="/js/jquery-1.7.1.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css">
+<script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script> <!--导航栏-->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="site-brand">
+            <a href="/" class="site-title">偶得集</a>
+            <div id="random-line" class="random-line"></div>
+        </div>
+
+        <nav class="site-nav">
+            <a href="/" >随笔</a>
+            <a href="/thinking/" >灵光</a>
+            <a href="/memory" >知识库</a>
+            <a href="/project" >项目</a>
+        </nav>
+    </div>
+</header>
+
+<!--动态加载随机名言-->
+<script src="/js/random-line.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+<script src="/js/code-tools.js"></script> <!--文章的灰色背景-->
+<link rel="stylesheet" href="/js/prettify/prettify.css" />
+<style type="text/css">
+    body { background:#e8e8e8; }
+    @media screen and (max-width: 750px){
+        body { background:#fff; }
+    }
+    @media screen and (max-width: 1020px){
+        body { background:#fff; }
+    }
+</style>
+
+
+<div id="content">
+    <aside class="sidenav" id="sidenav">
+        <div class="sidenav-header">
+            <span class="sidenav-title">目录</span>
+            <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
+        </div>
+        <div class="sidenav-body" id="sidenavBody">
+            <ul><li><a href="#梯度下降">梯度下降</a><ul><li><a href="#例子">例子</a></li><li><a href="#可微与梯度存在">可微与梯度存在</a></li></ul></li><li><a href="#梯度下降算法">梯度下降算法</a><ul><li><a href="#固定学习率梯度下降">固定学习率梯度下降</a></li><li><a href="#随机梯度下降">随机梯度下降</a></li><li><a href="#小批量梯度下降">小批量梯度下降</a></li><li><a href="#随时间衰减学习率">随时间衰减学习率</a></li><li><a href="#adam">ADAM</a></li></ul></li><li><a href="#损失函数">损失函数</a><ul><li><a href="#均方误差">均方误差</a></li><li><a href="#平均绝对误差">平均绝对误差</a></li><li><a href="#huber-损失">Huber 损失</a></li><li><a href="#交叉熵损失">交叉熵损失</a></li><li><a href="#focal-损失">Focal 损失</a></li><li><a href="#hinge-损失">Hinge 损失</a></li></ul></li><li><a href="#激活函数">激活函数</a><ul><li><a href="#sigmoid逻辑函数">Sigmoid逻辑函数</a></li><li><a href="#tanh">Tanh</a></li><li><a href="#relu">ReLU</a></li><li><a href="#prelu">PReLU</a></li><li><a href="#elu">ELU</a></li><li><a href="#selu">SELU</a></li><li><a href="#gelu">GELU</a></li></ul></li><li><a href="#反向传播的链式计算">反向传播的链式计算</a></li></ul>
+        </div>
+    </aside>
+
+    <div class="entry">
+        <div class="entry-title"><a href="/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" title="2017-05-15-反向传播基础知识">2017-05-15-反向传播基础知识</a></div>
+        <div class="entry-date">2017-05-15</div>
+        <h1 id="梯度下降">梯度下降</h1>
+
+<p><strong>梯度定义</strong>：梯度是一个函数中对各个参数的一阶偏导组成的向量。在某个点的取值，是这个点函数值上升快的方向。</p>
+
+<p>设函数：</p>
+
+\[L(\theta_1,\theta_2,\dots,\theta_m)\]
+
+<p>在点 \(\theta=(\theta_1,\dots,\theta_m)\) 处可微，则<strong>梯度</strong>是：</p>
+
+\[\nabla L(\theta)=
+\left(
+\frac{\partial L}{\partial \theta_1},
+\frac{\partial L}{\partial \theta_2},
+\dots,
+\frac{\partial L}{\partial \theta_m}
+\right)\]
+
+<h2 id="例子">例子</h2>
+
+\[L(w,b)=w^2+3b\]
+
+<p>其偏导为：</p>
+
+\[\frac{\partial L}{\partial w}=2w,\qquad
+\frac{\partial L}{\partial b}=3\]
+
+<p>梯度：</p>
+
+\[\nabla L(w,b)=(2w,3)\]
+
+<p>在点 \((w,b)=(1,2)\)：</p>
+
+\[\nabla L(1,2)=(2,3)\]
+
+<p>表示在（1，2），在\(w\) 方向稍微增加，损失约增加 2；在\(b\) 方向稍微增加，损失约增加 3，沿着（2，3）方向增加速度最快，即沿（2，3）的方向调整参数w和b，损失函数降低最快。</p>
+
+<div id="grad3d-box" class="jxgbox" style="width: 100%; max-width: 600px; height: 450px; margin: 0 auto;"></div>
+
+<script>
+  var board = JXG.JSXGraph.initBoard('grad3d-box', {
+    boundingbox: [-8, 8, 8, -8],
+    axis: false,
+    keepaspectratio: true,
+    pan: { enabled: false }
+  });
+
+  // 定义三维视口：三维坐标范围 w∈[-2,5], b∈[-1,6], L∈[-2,20]
+  var view = board.create('view3d', [
+    [-6, -3], [8, 8],
+    [[-2, 5], [-1, 6], [-2, 20]]
+  ], {
+    projection: 'central',
+    axesPosition: 'center'
+  });
+
+  // 1. 绘制损失曲面 L(w,b) = w^2 + 3b
+  var L = (w, b) => w * w + 3 * b;
+  view.create('functiongraph3d', [
+    L,
+    [-2, 5],   // w 的范围
+    [-1, 6]    // b 的范围
+  ], {
+    strokeColor: '#B8894A',
+    strokeWidth: 0.8,
+    stepsU: 40,
+    stepsV: 40,
+    type: 'wireframe'  // 线框模式，便于看清曲面形状；也可换成 'colormap' 或 'shader'
+  });
+
+  // 2. 点 P(1,2, L(1,2)=7)
+  view.create('point3d', [1, 2, L(1, 2)], {
+    name: 'P(1,2)',
+    size: 4,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38'
+  });
+
+  // 3. 梯度平面（切平面）：在 P 处，L 的线性近似
+  // L ≈ 7 + 2(w-1) + 3(b-2) = 2w + 3b - 1
+  var tangentPlane = (w, b) => 2 * w + 3 * b - 1;
+  view.create('functiongraph3d', [
+    tangentPlane,
+    [0, 2],    // w 的小范围，只画局部切平面
+    [1, 3]     // b 的小范围
+  ], {
+    strokeColor: '#8B6F3D',
+    strokeWidth: 1.2,
+    type: 'wireframe',
+    stepsU: 10,
+    stepsV: 10
+  });
+</script>
+
+<h2 id="可微与梯度存在">可微与梯度存在</h2>
+
+<p>这里简单回忆一些大学一年级的高数知识。可微等价于偏导数存在且连续，梯度存在等价于各个参数一阶偏导数存在。</p>
+
+<p><strong>可微</strong>：存在一个向量 \(g\)，使得$f(x_0+\Delta x)=f(x_0)+g^\top \Delta x+o(|\Delta x|)$，即函数 $f$ 在 \(x_0\) 附近能被一个<strong>线性函数</strong>很好地近似。这里的向量 \(g\) 即为梯度 \(\nabla f(x_0)\)。</p>
+
+<blockquote>
+  <p>中文数学教材中的可导是一个存在歧义的说法，，有时候指的多元函数处处可导，即可微；有时候又指代偏导数存在，属于经典的教材防自学。</p>
+</blockquote>
+
+<p>下面是一个经典的偏导数存在但是偏导数不连续的例子，鞍形曲面:$f(x,y)=\dfrac{xy}{\sqrt{x^2+y^2}}$</p>
+
+<div id="nondiff3d" class="jxgbox" style="width: 100%; max-width: 600px; height: 460px; margin: 0 auto;"></div>
+
+<script>
+  var board = JXG.JSXGraph.initBoard('nondiff3d', {
+    boundingbox: [-8, 8, 8, -8],
+    axis: false,
+    keepaspectratio: true,
+    pan: { enabled: false }
+  });
+
+  // 三维视口：x∈[-2,2], y∈[-2,2], z∈[-1.5,1.5]
+  var view = board.create('view3d', [
+    [-6, -3], [8, 8],
+    [[-2, 2], [-2, 2], [-1.5, 1.5]]
+  ], {
+    projection: 'central',
+    axesPosition: 'center'
+  });
+
+  // 注意原点要显式返回 0，否则 0*0/0 会得到 NaN
+  var F = function (x, y) {
+    var r = Math.sqrt(x * x + y * y);
+    return r < 1e-9 ? 0 : x * y / r;
+  };
+
+  view.create('functiongraph3d', [F, [-2, 2], [-2, 2]], {
+    strokeColor: '#B8894A',
+    strokeWidth: 0.7,
+    stepsU: 40,
+    stepsV: 40,
+    type: 'wireframe'
+  });
+</script>
+
+<p>偏导数连续需要函数在(0,0)点各个方向的偏导数都为0。函数沿 $x$ 轴算偏导，\(f(h,0)=0\)，在 \(h=0\) 处光滑，斜率 0；沿 $y$ 轴算偏导，$f(0,h)=0$，同样光滑，斜率 0；但是沿对角线 \(y=x\)，$f(h,h)=\dfrac{h^2}{\sqrt{2h^2}}=\dfrac{|h|}{\sqrt{2}}$，在 \(h=0\) 处有<strong>尖点</strong>，左右斜率分别为 $-\frac{1}{\sqrt2}$ 和 $+\frac{1}{\sqrt2}$。因此，在（0，0）处的偏导数存在，但是不可微。</p>
+
+<div id="nondiff2d" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  var board2 = JXG.JSXGraph.initBoard('nondiff2d', {
+    boundingbox: [-2.5, 2, 2.5, -0.5],
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // 沿对角线：f(h,h) = |h| / sqrt(2)，在 0 处有尖点
+  board2.create('functiongraph', [function (h) {
+    return Math.abs(h) / Math.SQRT2;
+  }, -2.5, 2.5], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'f(h,h)=|h|/√2',
+    withLabel: true
+  });
+
+  // 沿坐标轴：f(h,0)=f(0,h)=0，在 0 处光滑，斜率 0
+  board2.create('functiongraph', [function (h) {
+    return 0;
+  }, -2.5, 2.5], {
+    strokeColor: '#B5AF9F',
+    strokeWidth: 1.5,
+    name: 'f(h,0)=f(0,h)=0',
+    withLabel: true
+  });
+
+  // 原点：坐标轴方向可导，对角线方向不可导
+  board2.create('point', [0, 0], {
+    name: '(0,0)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, -14] }
+  });
+</script>
+
+<h1 id="梯度下降算法">梯度下降算法</h1>
+
+<h2 id="固定学习率梯度下降">固定学习率梯度下降</h2>
+
+<h2 id="随机梯度下降">随机梯度下降</h2>
+
+<h2 id="小批量梯度下降">小批量梯度下降</h2>
+
+<h2 id="随时间衰减学习率">随时间衰减学习率</h2>
+
+<h2 id="adam">ADAM</h2>
+
+<h1 id="损失函数">损失函数</h1>
+
+<p>常见的损失函数主要分为回归损失与分类损失两大类。以下列举核心函数，涵盖其特点、优缺点、适用场景、选择原因及公式。</p>
+
+<h2 id="均方误差">均方误差</h2>
+
+<p><strong>公式</strong>：\(MSE = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2\)</p>
+
+<p><strong>特点</strong>：预测值与真实值差值的平方均值。由于进行了平方运算，误差被放大，且函数处处可导（平滑）。</p>
+
+<p><strong>优点</strong>：收敛速度快（尤其在配合 Sigmoid 或线性输出时）；对大误差的惩罚极重，能迫使模型优先修正严重的预测偏差。
+<strong>缺点</strong>：对离群点极其敏感，一个极端的异常值会因平方效应主导整个损失函数，导致模型偏离正常数据分布。</p>
+
+<p><strong>适用场景</strong>：数据分布服从高斯分布且不存在严重离群点的回归任务（如房价预测、基础物理量回归）。</p>
+
+<p><strong>原因</strong>：当误差较小时，MSE 提供的梯度会随误差减小而减小，有利于模型在最优解附近稳定收敛。</p>
+
+<hr />
+
+<h2 id="平均绝对误差">平均绝对误差</h2>
+
+<p><strong>公式</strong>：\(MAE = \frac{1}{n}\sum_{i=1}^{n}\|y_i - \hat{y}_i\|\)</p>
+
+<p><strong>特点</strong>：预测值与真实值差值的绝对值均值。梯度恒定，不随误差大小变化。</p>
+
+<p><strong>优点</strong>：对离群点具有极强的鲁棒性。因为无论误差多大，梯度幅度保持不变，异常值不会像 MSE 那样产生爆炸性的梯度影响。
+<strong>缺点</strong>：在零点处不可导，导致优化困难；且对于小误差，其梯度与对大误差的梯度一样大，不利于模型在后期进行精细微调，收敛速度往往慢于 MSE。</p>
+
+<p><strong>适用场景</strong>：数据中存在大量噪声或异常值，且这些异常值仅代表数据损坏而非真实业务信号的回归任务。</p>
+
+<p><strong>原因</strong>：MAE 优化的是条件中位数，而 MSE 优化的是条件均值。当中位数比均值更能代表数据趋势时，MAE 更合适。</p>
+
+<hr />
+
+<h2 id="huber-损失">Huber 损失</h2>
+
+<p><strong>公式</strong>：\(L_\delta(y, \hat{y}) = \begin{cases} \frac{1}{2}(y - \hat{y})^2 &amp; \text{for } \|y - \hat{y}\| \le \delta \\ \delta \cdot (\|y - \hat{y}\| - \frac{1}{2}\delta) &amp; \text{otherwise} \end{cases}\)</p>
+
+<p><strong>特点</strong>：结合了 MSE 与 MAE 的特性。在误差小于阈值 \(\delta\) 时表现为 MSE（平滑可导），在误差大于 \(\delta\) 时表现为 MAE（线性惩罚）。</p>
+
+<p><strong>优点</strong>：兼具 MSE 的快速收敛特性与 MAE 的抗噪能力；通过调整 \(\delta\) 可以灵活控制对异常值的敏感度。
+<strong>缺点</strong>：引入了一个需要针对具体问题手动调优的超参数 \(\delta\)，增加了模型调参的负担。</p>
+
+<p><strong>适用场景</strong>：大多数现实世界的回归任务，尤其是当你既希望利用 MSE 的平滑梯度快速收敛，又担心数据中可能存在少量标注错误或异常值时。</p>
+
+<p><strong>原因</strong>：它避免了 MSE 在异常值处产生的巨大梯度导致梯度爆炸，同时又保留了 MSE 在接近最优解时的平滑梯度，优化过程更稳定。</p>
+
+<hr />
+
+<h2 id="交叉熵损失">交叉熵损失</h2>
+
+<p><strong>公式</strong>
+<strong>特点</strong>：衡量预测概率分布与真实分布之间的差异。</p>
+
+<p>二分类：\(BCE = -\frac{1}{n}\sum_{i=1}^{n} [y_i \log(\hat{y}_i) + (1-y_i)\log(1-\hat{y}_i)]\)</p>
+
+<p>多分类：\(L(y,\hat{y}) = - \frac{1}{N} \sum_{n \in N} \sum_{i \in C} y_{n,i} \log\hat{y}_{n,i}\)</p>
+<ul>
+  <li>\(y_{n,i}\)：第 \(n\) 个样本的真实标签。</li>
+  <li>\(\hat y_{n,i}\)：模型预测第 \(n\) 个样本属于第 \(i\) 类的概率，softmax 输出，\(\sum_i \hat y_{n,i}=1\)。</li>
+  <li>\(\log \hat y_{n,i}\)：预测概率取对数。预测越接近 1，\(\log\) 越接近 0；预测越接近 0，\(\log\) 越负。</li>
+  <li>前面的负号：把负的对数值翻成正的损失。</li>
+  <li>\(\frac1N\sum_n\)：对 \(N\) 个样本的损失取平均。</li>
+</ul>
+
+<p><strong>One-hot</strong>：样本类别唯一确定时，真实分布经常采用One-hot，即真实类别那一位是 1，其余是 0。优点包括：</p>
+<ul>
+  <li>编码无偏。类别距离相等，不引入虚假的序关系，用整数 0,1,2 编码会暗示类别间有大小和距离。</li>
+  <li>计算简洁。代入交叉熵，许多求和项直接取0。</li>
+  <li>等价于最大似然。</li>
+</ul>
+
+<p><strong>优点</strong>：配合 Softmax/Sigmoid 使用时，梯度形式非常简洁（\(\hat{y} - y\)），避免了 MSE 在分类任务中因饱和导致的梯度消失问题，收敛速度快。
+<strong>缺点</strong>：在处理极度不平衡的数据时，大量易分类的负样本会累积产生可观的损失，淹没少数正样本的信号，导致模型偏向多数类。</p>
+
+<p><strong>适用场景</strong>：标准的二分类与多分类任务；输出层通常配合 Sigmoid 或 Softmax 激活函数。</p>
+
+<p><strong>原因</strong>：它直接优化似然函数，符合最大似然估计原理，且其梯度性质天然适合概率输出的反向传播。</p>
+
+<hr />
+
+<h2 id="focal-损失">Focal 损失</h2>
+
+<p><strong>公式</strong>：\(FL(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)\)</p>
+
+<p><strong>特点</strong>：在交叉熵基础上引入调制因子 \((1-p_t)^\gamma\)。当样本被误分类或属于困难样本（\(p_t\) 小）时，调制因子接近 1；当样本被正确分类且置信度高（\(p_t \to 1\)）时，调制因子趋近于 0。</p>
+
+<p><strong>优点</strong>：有效解决了极端类别不平衡问题。它动态地降低了大量“简单负样本”的权重，使模型在训练时聚焦于稀疏但关键的“困难样本”（如医学影像中的病灶、欺诈交易）。
+<strong>缺点</strong>：由于过度关注困难样本，模型的输出概率不再是良好的校准概率（即输出值不能直接当作真实概率置信度使用）；引入了额外的超参数 \(\gamma\) 和 \(\alpha\)。</p>
+
+<p><strong>适用场景</strong>：目标检测（如单阶段检测器 RetinaNet）、医学图像分割、欺诈检测等<strong>类别极度不平衡</strong>且<strong>困难样本至关重要</strong>的场景。</p>
+
+<p><strong>原因</strong>：在密集预测任务中（如每张图有十万个候选框），绝大多数样本是易分类的背景。不加权重的交叉熵会让背景的损失总和淹没前景物体的损失，Focal Loss 能从数学上截断简单样本的贡献。</p>
+
+<hr />
+
+<h2 id="hinge-损失">Hinge 损失</h2>
+
+<p><strong>公式</strong>：\(L(y, f(x)) = \max(0, 1 - y \cdot f(x))\)</p>
+
+<p><strong>特点</strong>：不仅要求分类正确，还要求分类正确的置信度（间隔）足够大。只要 \(y \cdot f(x) \ge 1\)，损失即为 0。</p>
+
+<p><strong>优点</strong>：产出的模型具有“大间隔”特性，泛化能力往往较强；稀疏性好（仅由支持向量决定决策边界）。
+<strong>缺点</strong>：函数在 \(y \cdot f(x) = 1\) 处不可导，且对异常值敏感（因为间隔要求是硬性的）；主要针对二分类，扩展到多分类较为繁琐。</p>
+
+<p><strong>适用场景</strong>：支持向量机（SVM）；需要强泛化能力的二分类任务。</p>
+
+<p><strong>原因</strong>：它旨在寻找一个不仅分得开、而且分得足够“开”的决策边界，从而提高模型对未知数据的容忍度。</p>
+
+<h1 id="激活函数">激活函数</h1>
+
+<p>激活函数将层的输入转换为其输出，非线性激活函数是能够拟合非线性的最基本条件，否则多层网络叠起来仍然等价于一个线性变换，深度就失去意义。其次，希望激活函数处处可导或者大多数区域可导，因为反向传播过程依赖求导。这包含计算需求：</p>
+
+<ol>
+  <li>导数形式简单，<strong>计算快</strong>；</li>
+  <li>导数面不能你大面积趋近于0，否则反传时，多层网络梯度连乘导致<strong>梯度消失</strong>。ReLu正区间导数恒为1，可以缓解这个问题。</li>
+  <li>导数经常大于1，否则多层网络梯度连乘导致<strong>梯度爆炸</strong>。</li>
+  <li><strong>数值溢出</strong>问题，避免数本身超过了浮点数能表示的范围，如exp(1000)变为inf</li>
+</ol>
+
+<p>实际对激活函数选择时没有绝对最优，通常先用 ReLU 做基线，再根据任务尝试其他激活函数。</p>
+
+<h2 id="sigmoid逻辑函数">Sigmoid逻辑函数</h2>
+
+<p><strong>Sigmoid</strong>：输出范围是 \((0,1)\)，用来表示概率，导数能复用前向算出的 \(\sigma(x)\)，实现方便。缺点是非零中心，且两端饱和时导数趋近 0，深层网络容易梯度消失。现在较少用于深层隐藏层，更多用于二分类输出层、多标签分类的每个标签输出，以及门控结构。<br />
+\(\sigma(x)=\frac{1}{1+e^{-x}},\qquad \sigma'(x)=\sigma(x)(1-\sigma(x))\)</p>
+<div id="sigmoid-box" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  var board = JXG.JSXGraph.initBoard('sigmoid-box', {
+    boundingbox: [-6, 1.4, 6, -0.4],
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // sigmoid 曲线
+  board.create('functiongraph', [function (x) {
+    return 1 / (1 + Math.exp(-x));
+  }], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'σ(x)',
+    withLabel: true
+  });
+
+  // y = 0.5 水平虚线
+  board.create('line', [[-6, 0.5], [6, 0.5]], {
+    straightFirst: false,
+    straightLast: false,
+    dash: 2,
+    strokeColor: '#B5AF9F',
+    strokeWidth: 1
+  });
+
+  // 中点 (0, 0.5)
+  board.create('point', [0, 0.5], {
+    name: '(0, ½)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<h2 id="tanh">Tanh</h2>
+
+<p><strong>Tanh</strong>：输出范围是 \((-1,1)\)，是零中心的，通常比 Sigmoid 更容易优化，导数也可以用 \(1-\tanh^2 x\) 复用前向值。它仍然存在两端饱和和梯度消失问题，比 Sigmoid 稍好。常见于 RNN、小规模网络，以及需要零中心状态表示的场合。<br />
+\(\tanh x=\frac{e^x-e^{-x}}{e^x+e^{-x}}\)</p>
+<div id="tanh-box" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  var board = JXG.JSXGraph.initBoard('tanh-box', {
+    boundingbox: [-6, 1.4, 6, -1.4],
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // tanh 曲线
+  board.create('functiongraph', [function (x) {
+    return Math.tanh(x);
+    // 也可以写成：
+    // return (Math.exp(x) - Math.exp(-x)) / (Math.exp(x) + Math.exp(-x));
+  }], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'tanh x',
+    withLabel: true
+  });
+
+  // y = 1 水平渐近线
+  board.create('line', [[-6, 1], [6, 1]], {
+    straightFirst: false,
+    straightLast: false,
+    dash: 2,
+    strokeColor: '#B5AF9F',
+    strokeWidth: 1
+  });
+
+  // y = -1 水平渐近线
+  board.create('line', [[-6, -1], [6, -1]], {
+    straightFirst: false,
+    straightLast: false,
+    dash: 2,
+    strokeColor: '#B5AF9F',
+    strokeWidth: 1
+  });
+
+  // 中点 (0, 0)
+  board.create('point', [0, 0], {
+    name: '(0, 0)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<h2 id="relu">ReLU</h2>
+
+<p><strong>ReLU</strong>：正区间导数恒为 1，能缓解正区间梯度消失，计算极快，负区间输出 0 有一定稀疏性，这里的稀疏性指的是按样本的动态稀疏，即同一个神经元对部分输入恒为0，对另一部分为非零。缺点是负区间导数为 0，学习率过大时可能出现死神经元，即某些神经元长期不更新，对所有样本的输入都输出0。它是 CNN 和一般深层网络最常用的基线激活函数，适合大多数前馈网络和卷积网络。<br />
+\(\mathrm{ReLU}(x)=\max(0,x)\)</p>
+
+<blockquote>
+  <p>神经元的死亡条件是：\(\forall i,\quad z^{(i)}=w^\top x^{(i)}+b&lt;0\)也就是<strong>对训练集中所有样本</strong>，预激活都小于 0，即：\(b&lt;-\max_i \big(w^\top x^{(i)}\big)\)。只要存在至少一个样本使 \(z^{(i)}\ge 0\)，这个神经元就没有完全死，至少还能收到梯度。</p>
+</blockquote>
+
+<div id="relu-box" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  var board = JXG.JSXGraph.initBoard('relu-box', {
+    boundingbox: [-3, 3, 3, -1],
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // ReLU 曲线：负区间为 0，正区间为 x
+  board.create('functiongraph', [function (x) {
+    return Math.max(0, x);
+  }], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'ReLU(x)',
+    withLabel: true
+  });
+
+  // 原点 (0, 0)：拐点，也是负区间导数为 0 的分界
+  board.create('point', [0, 0], {
+    name: '(0, 0)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<ul>
+  <li><strong>Leaky ReLU</strong>：在负区间保留一个小斜率 \(\alpha\)，让负区间梯度不完全为 0，以缓解 ReLU 的死神经元问题。它计算仍然简单，但负区间不再稀疏，效果通常依赖 \(\alpha\) 的选取，默认0.01（防止神经元彻底死亡，同时尽量保持 ReLU 的稀疏特性），部分框架实现时取0.1~0.3，\(\alpha\) 是一个超参数，理论上存在针对特定数据和网络结构的最优值，但通常没必要花太多精力去精细调节它。适合作为 ReLU 的替代基线，尤其在训练中出现大量神经元死亡时尝试。
+\(\mathrm{LeakyReLU}(x)=
+\begin{cases}
+x, &amp; x&gt;0\\
+\alpha x, &amp; x\le 0
+\end{cases}\)</li>
+</ul>
+
+<div id="leakyrelu-box" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  var alpha = 0.1;  // 负区间斜率，常用 0.01 或 0.1
+
+  var board = JXG.JSXGraph.initBoard('leakyrelu-box', {
+    boundingbox: [-4, 4, 4, -1],  // [xmin, ymax, xmax, ymin]
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // LeakyReLU 曲线：正区间 y=x，负区间 y=alpha*x
+  board.create('functiongraph', [function (x) {
+    return x > 0 ? x : alpha * x;
+  }], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'LeakyReLU(x)',
+    withLabel: true
+  });
+
+  // 原点：两段的分界点，函数在 0 处连续
+  board.create('point', [0, 0], {
+    name: '(0, 0)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<h2 id="prelu">PReLU</h2>
+
+<p><strong>PReLU</strong>：负区间的斜率 \(\alpha\) 不是固定值，而是作为可学习参数，因此比 Leaky ReLU 更灵活。它能自适应数据调整负区间形状，但会增加少量参数，小数据集上可能更容易过拟合。常见于视觉任务和较深的卷积网络，适合在 ReLU/Leaky ReLU 基础上进一步调优。</p>
+
+<h2 id="elu">ELU</h2>
+
+<p><strong>ELU</strong>：正区间与 ReLU 相同，负区间用平滑的指数形式饱和，输出更接近零均值，可能帮助收敛。它的负区间比 ReLU 平滑，但包含指数运算，计算稍贵，负区间饱和仍可能带来梯度消失。适合中等深度网络，尤其是希望负区间平滑、接近零均值时使用。<br />
+\(\mathrm{ELU}(x)=
+\begin{cases}
+x, &amp; x&gt;0\\
+\alpha(e^x-1), &amp; x\le 0
+\end{cases}\)</p>
+
+<h2 id="selu">SELU</h2>
+
+<p><strong>SELU</strong>：设计目标是自归一化，在特定初始化、AlphaDropout 等配套条件下，让激活值分布保持稳定。它不是“随便替换”就有效的激活函数，使用时需要注意配套设置。适合特定全连接网络和需要自归一化效果的场景，通用性不如 ReLU 系列。<br />
+\(\mathrm{SELU}(x)=\lambda
+\begin{cases}
+x, &amp; x&gt;0\\
+\alpha(e^x-1), &amp; x\le 0
+\end{cases}\)</p>
+
+<h2 id="gelu">GELU</h2>
+
+<p><strong>GELU</strong>：平滑且非单调，在 0 附近有小负值区域，Transformer、BERT、GPT 等大模型常用。它通常比 ReLU 稍好，但计算更贵，常用 tanh 近似来加速。适合 Transformer、大语言模型和较深网络，尤其是对平滑激活有需求的场景。<br />
+\(\mathrm{GELU}(x)=x\Phi(x)\)</p>
+
+<ul>
+  <li>
+    <p><strong>SiLU / Swish</strong>：SiLU 是 \(x\sigma(x)\)，Swish 是 \(x\sigma(\beta x)\)，二者都是平滑、非单调激活，负区间有小的负输出。它们在现代 CNN 和部分大模型中表现不错，但计算比 ReLU 贵。适合较新的卷积网络和大模型，通常作为 ReLU/GELU 的替代候选。<br />
+\(\mathrm{SiLU}(x)=x\sigma(x),\qquad
+\mathrm{Swish}(x)=x\sigma(\beta x)\)</p>
+  </li>
+  <li>
+    <p><strong>Mish</strong>：Mish 平滑且非单调，经验上在部分视觉任务中表现较好，可能带来更稳定的梯度。它的计算比 ReLU、SiLU 更贵，部署时未必划算。适合对精度要求较高、计算资源相对充足的视觉模型。<br />
+\(\mathrm{Mish}(x)=x\tanh(\ln(1+e^x))\)</p>
+  </li>
+  <li>
+    <p><strong>Softplus</strong>：Softplus 是 ReLU 的平滑近似，处处可导，导数正好是 Sigmoid。它没有 ReLU 的稀疏性，计算包含 exp/log，通常不如 ReLU 常用。适合需要平滑输出、避免硬零导数的场景，或作为理论分析中的平滑替代。<br />
+\(\mathrm{Softplus}(x)=\ln(1+e^x)\)</p>
+  </li>
+  <li>
+    <p><strong>Maxout</strong>：Maxout 对多组线性变换取最大值，是分段线性函数，表达能力强，可以逼近较复杂的凸函数。它的参数和计算量会成倍增加，现代网络中不如 ReLU 系列常见。适合小规模研究、需要强表达能力的场景，但通常不是默认选择。<br />
+\(\mathrm{Maxout}(x)=\max_i(w_i x+b_i)\)</p>
+  </li>
+  <li>
+    <p><strong>Softmax</strong>：Softmax 把 C 个 logits 转成 C 个概率，输出和为 1，是多分类输出层的标准选择。它一般不作隐藏层激活，因为隐藏层通常需要逐元素的非线性变换。适合多分类输出层，二分类时也可用 2 个节点加 Softmax，或用 1 个 Sigmoid 节点替代。<br />
+\(\mathrm{softmax}(z_i)=\frac{e^{z_i}}{\sum_{j=1}^{C}e^{z_j}}\)</p>
+  </li>
+  <li>
+    <p><strong>线性激活</strong>：线性激活就是不做非线性变换，输出不饱和、计算简单，适合回归任务的输出层。它不能给隐藏层引入非线性，因此不适合作为隐藏层激活。适合回归预测、需要输出任意实数的最后一层。<br />
+\(\mathrm{Linear}(x)=x\)</p>
+  </li>
+</ul>
+
+<h1 id="反向传播的链式计算">反向传播的链式计算</h1>
+<p>https://colah.github.io/posts/2015-08-Backprop/</p>
+
+
+        
+        <div class="ai-notice">本文写作过程中使用了 AI 辅助整理，内容经作者核对与修改。</div> 
+    </div>
+</div>
+
+<script>
+    (function () {
+        var $side = $('#sidenav');
+        var $btn = $('#sidenavToggle');
+        var $body = $('#sidenavBody');
+    
+        /* ===== 1. 整体折叠 ===== */
+        $btn.on('click', function () {
+            $side.toggleClass('collapsed');
+            $btn.text($side.hasClass('collapsed') ? '+' : '−');
+        });
+    
+        /* ===== 2. 每级独立折叠 ===== */
+        $body.find('li').each(function () {
+            var $li = $(this);
+            var $sub = $li.children('ul');
+            if (!$sub.length) 
+            {
+                return;
+            }
+            $li.addClass('has-children');
+    
+            var $toggle = $('<span class="toc-toggle" aria-label="折叠该级">−</span>');
+            $li.prepend($toggle);
+        });
+    
+        $body.on('click', '.toc-toggle', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var $li = $(this).closest('li');
+            $li.toggleClass('collapsed');
+            $(this).text($li.hasClass('collapsed') ? '+' : '−');
+        });
+    })();
+</script>
+<script src="/js/code-viewer.js"></script>  
+<!--mathjax 用以支持latex数学公式-->
+<script>
+    window.MathJax = {
+      tex: {
+        // 行内公式：支持 \( ... \)
+        inlineMath: [['$', '$'],['\\(', '\\)']],
+        // 显示公式（居中）：支持 \[ ... \] 和 $$ ... $$
+        displayMath: [['\\[', '\\]'], ['$$', '$$']],
+        processEscapes: true
+      },
+      
+      options: {
+        // 避免在代码块中误渲染
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+</script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<!--
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+-->
+ 
+</body>
+
+</html>
