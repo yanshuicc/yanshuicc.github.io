@@ -10,6 +10,44 @@ code {
     word-wrap: break-word;
 }
 
+/* 带 .wrap 的代码块换行 */
+.entry .wrap pre,
+.entry .wrap pre code,
+.entry .wrap td.rouge-code pre,
+.entry pre.wrap,
+.entry pre.wrap code {
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+}
+
+/* 关键：表格固定布局，让代码列宽度受限，内容才能换行 */
+.entry .wrap table.rouge-table,
+.entry pre.wrap table.rouge-table {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* 换行时隐藏行号列 */
+.entry .wrap table.rouge-table td.rouge-gutter,
+.entry pre.wrap table.rouge-table td.rouge-gutter {
+    display: none;
+}
+
+/* 代码列独占整行 */
+.entry .wrap table.rouge-table td.rouge-code,
+.entry pre.wrap table.rouge-table td.rouge-code {
+    width: 100%;
+    padding-left: 8px;
+}
+
+/* 换行后不需要横向滚动 */
+.entry .wrap pre,
+.entry pre.wrap {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 /* ===== 代码块容器 ===== */
 /* Jekyll 的 {% highlight %} 会生成 <div class="highlight">，作为定位锚点 */
 div.highlight {

@@ -133,7 +133,7 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#引子">引子</a></li><li><a href="#多种文章风格">多种文章风格</a><ul><li><a href="#适配屏幕尺寸">适配屏幕尺寸</a><ul><li><a href="#硬件层面屏幕相关概念">硬件层面屏幕相关概念</a></li><li><a href="#windows层面屏幕相关概念">Windows层面屏幕相关概念</a></li><li><a href="#网页层面屏幕相关概念">网页层面屏幕相关概念</a></li><li><a href="#常见桌面分辨率">常见桌面分辨率</a></li><li><a href="#当前页面屏幕视口诊断">当前页面屏幕/视口诊断</a></li></ul></li></ul></li><li><a href="#文章特性">文章特性</a></li><li><a href="#代码样式">代码样式</a><ul><li><a href="#highlight和围栏代码块的区别">highlight和围栏代码块的区别</a></li><li><a href="#代码文件引用">代码文件引用</a></li></ul></li><li><a href="#数学公式">数学公式</a></li><li><a href="#jsxgraph公式绘图">JSXGraph公式绘图</a></li><li><a href="#mermain绘图">mermain绘图</a><ul><li><a href="#流程图flowchart">流程图（flowchart）</a></li><li><a href="#三层架构flowchart-subgraph">三层架构（flowchart subgraph）</a></li><li><a href="#状态图statediagram">状态图（stateDiagram）</a></li><li><a href="#时序图sequencediagram">时序图（sequenceDiagram）</a></li></ul></li></ul>
+            <ul><li><a href="#引子">引子</a></li><li><a href="#多种文章风格">多种文章风格</a><ul><li><a href="#适配屏幕尺寸">适配屏幕尺寸</a><ul><li><a href="#硬件层面屏幕相关概念">硬件层面屏幕相关概念</a></li><li><a href="#windows层面屏幕相关概念">Windows层面屏幕相关概念</a></li><li><a href="#网页层面屏幕相关概念">网页层面屏幕相关概念</a></li><li><a href="#常见桌面分辨率">常见桌面分辨率</a></li><li><a href="#当前页面屏幕视口诊断">当前页面屏幕/视口诊断</a></li></ul></li></ul></li><li><a href="#文章特性">文章特性</a></li><li><a href="#代码样式">代码样式</a><ul><li><a href="#highlight和围栏代码块的区别">highlight和围栏代码块的区别</a></li><li><a href="#代码文件引用">代码文件引用</a></li><li><a href="#代码换行">代码换行</a></li></ul></li><li><a href="#数学公式">数学公式</a></li><li><a href="#jsxgraph公式绘图">JSXGraph公式绘图</a></li><li><a href="#mermain绘图">mermain绘图</a><ul><li><a href="#流程图flowchart">流程图（flowchart）</a></li><li><a href="#三层架构flowchart-subgraph">三层架构（flowchart subgraph）</a></li><li><a href="#状态图statediagram">状态图（stateDiagram）</a></li><li><a href="#时序图sequencediagram">时序图（sequenceDiagram）</a></li></ul></li></ul>
         </div>
     </aside>
 
@@ -521,6 +521,23 @@ func main() {
         <a class="file-card-btn" href="/files/project/code.go" download="测试代码">下载</a>
     </div>
 </div>
+
+<h2 id="代码换行">代码换行</h2>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td><td class="rouge-code"><pre><span class="p">```</span><span class="nl">演示关闭自动换行
+</span><span class="sb">段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1</span>
+<span class="p">```</span>
+{: .wrap}
+</pre></td></tr></tbody></table></code></pre></div></div>
+
+<pre class="wrap"><code class="language-演示关闭自动换行">段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1段落1
+</code></pre>
+
+<p>对于代码可以通过{: .wrap}来控制，同时，换行后的行号比较麻烦，所以我在关闭自动换行后，也关闭了自动行号。</p>
 
 <h1 id="数学公式">数学公式</h1>
 <p>\$\$ 格式的数学公式，在 Jekyll 的默认解析器 Kramdown 中会被自动转换成 \\[…\\] 或 \\(…\) 再输出到 HTML。MathJax 3 默认支持识别 \\[…\\] 和 \\(…\\)，但是在Jekyll中需要增加额外的转义字符，需要额外的div包裹。对于$$，如果不换行则认为是行内公式。</p>
