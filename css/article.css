@@ -379,6 +379,11 @@ hr {
     margin: 10px auto;
 }
 
+.img-cap {
+    text-align: center;
+    font-weight: bold;
+  }
+
 /* ---------- 小标题自动编号 ---------- */
 .entry h1::before {
     counter-increment: h1;

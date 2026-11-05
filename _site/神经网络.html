@@ -295,39 +295,64 @@ L(y,\hat{y}) = - \frac{1}{N} \sum_{n \in N} \sum_{i \in C} y_{n,i} \log\hat{y}_{
 &amp; \frac{\partial{L}}{\partial{b_1}} = \delta_2 \\
 \end{aligned}\]
 
+<p>其中，$\delta$ 表示<strong>损失对某一层预激活 $z$ 的梯度</strong>，预激活是神经元在经过激活函数之前的 $z$ 值。</p>
+
 <pre><code class="language-mermaid">flowchart LR
-  subgraph IN["输入层 d=3"]
-    direction TB
-    x1["x₁&lt;br/&gt;(标量特征)"]
-    x2["x₂"]
-    x3["x₃"]
-  end
+    subgraph IL["① 输入层 (d=2)"]
+        direction TB
+        X1["&lt;b&gt;x₁&lt;/b&gt;&lt;br/&gt;标量特征 1"]
+        X2["&lt;b&gt;x₂&lt;/b&gt;&lt;br/&gt;标量特征 2"]
+    end
 
-  subgraph HID["隐藏层 h=3 · tanh"]
-    direction TB
-    h1["z₁⁽¹⁾ = Σᵢ xᵢW₁ᵢ₁ + b₁₁&lt;br/&gt;a₁⁽¹⁾ = tanh(z₁⁽¹⁾)&lt;br/&gt;δ₂⁽¹⁾ = (1−tanh²z₁⁽¹⁾)(δ₃W₂ᵀ)₁"]
-    h2["z₁⁽²⁾ = Σᵢ xᵢW₁ᵢ₂ + b₁₂&lt;br/&gt;a₁⁽²⁾ = tanh(z₁⁽²⁾)&lt;br/&gt;δ₂⁽²⁾ = (1−tanh²z₁⁽²⁾)(δ₃W₂ᵀ)₂"]
-    h3["z₁⁽³⁾ = Σᵢ xᵢW₁ᵢ₃ + b₁₃&lt;br/&gt;a₁⁽³⁾ = tanh(z₁⁽³⁾)&lt;br/&gt;δ₂⁽³⁾ = (1−tanh²z₁⁽³⁾)(δ₃W₂ᵀ)₃"]
-  end
+    subgraph HL["② 隐藏层 (h=4)&lt;br/&gt;z₁ = xW₁ + b₁,  a₁ = tanh(z₁)"]
+        direction TB
+        H1["&lt;b&gt;h₁&lt;/b&gt;&lt;br/&gt;参数: w₁₁, w₂₁, b₁₁&lt;br/&gt;z₁₁ = x₁w₁₁ + x₂w₂₁ + b₁₁&lt;br/&gt;a₁₁ = tanh(z₁₁)"]
+        H2["&lt;b&gt;h₂&lt;/b&gt;&lt;br/&gt;参数: w₁₂, w₂₂, b₁₂&lt;br/&gt;z₁₂ = x₁w₁₂ + x₂w₂₂ + b₁₂&lt;br/&gt;a₁₂ = tanh(z₁₂)"]
+        H3["&lt;b&gt;h₃&lt;/b&gt;&lt;br/&gt;参数: w₁₃, w₂₃, b₁₃&lt;br/&gt;z₁₃ = x₁w₁₃ + x₂w₂₃ + b₁₃&lt;br/&gt;a₁₃ = tanh(z₁₃)"]
+        H4["&lt;b&gt;h₄&lt;/b&gt;&lt;br/&gt;参数: w₁₄, w₂₄, b₁₄&lt;br/&gt;z₁₄ = x₁w₁₄ + x₂w₂₄ + b₁₄&lt;br/&gt;a₁₄ = tanh(z₁₄)"]
+    end
 
-  subgraph OUT["输出层 C=2 · softmax"]
-    direction TB
-    o1["z₂⁽¹⁾ = Σⱼ a₁⁽ʲ⁾W₂ⱼ₁ + b₂₁&lt;br/&gt;ŷ₁ = softmax(z₂)₁&lt;br/&gt;δ₃⁽¹⁾ = ŷ₁ − y₁"]
-    o2["z₂⁽²⁾ = Σⱼ a₁⁽ʲ⁾W₂ⱼ₂ + b₂₂&lt;br/&gt;ŷ₂ = softmax(z₂)₂&lt;br/&gt;δ₃⁽²⁾ = ŷ₂ − y₂"]
-  end
+    subgraph OL["③ 输出层 (C=2)&lt;br/&gt;z₂ = a₁W₂ + b₂,  ŷ = softmax(z₂)"]
+        direction TB
+        O1["&lt;b&gt;o₁（类 1）&lt;/b&gt;&lt;br/&gt;参数: v₁₁,v₂₁,v₃₁,v₄₁,b₂₁&lt;br/&gt;z₂₁ = a₁₁v₁₁ + a₁₂v₂₁ + a₁₃v₃₁ + a₁₄v₄₁ + b₂₁&lt;br/&gt;ŷ₁ = softmax(z₂)₁"]
+        O2["&lt;b&gt;o₂（类 2）&lt;/b&gt;&lt;br/&gt;参数: v₁₂,v₂₂,v₃₂,v₄₂,b₂₂&lt;br/&gt;z₂₂ = a₁₁v₁₂ + a₁₂v₂₂ + a₁₃v₃₂ + a₁₄v₄₂ + b₂₂&lt;br/&gt;ŷ₂ = softmax(z₂)₂"]
+    end
 
-  x1 --&gt; h1 &amp; h2 &amp; h3
-  x2 --&gt; h1 &amp; h2 &amp; h3
-  x3 --&gt; h1 &amp; h2 &amp; h3
-  h1 --&gt; o1 &amp; o2
-  h2 --&gt; o1 &amp; o2
-  h3 --&gt; o1 &amp; o2
+    X1 --&gt; H1
+    X1 --&gt; H2
+    X1 --&gt; H3
+    X1 --&gt; H4
+    X2 --&gt; H1
+    X2 --&gt; H2
+    X2 --&gt; H3
+    X2 --&gt; H4
 
-  G1["参数梯度（第一层）&lt;br/&gt;∂L/∂W₁ = xᵀδ₂  (d×h)&lt;br/&gt;∂L/∂b₁ = δ₂  (1×h)"]
-  G2["参数梯度（第二层）&lt;br/&gt;∂L/∂W₂ = a₁ᵀδ₃  (h×C)&lt;br/&gt;∂L/∂b₂ = δ₃  (1×C)"]
+    H1 --&gt; O1
+    H1 --&gt; O2
+    H2 --&gt; O1
+    H2 --&gt; O2
+    H3 --&gt; O1
+    H3 --&gt; O2
+    H4 --&gt; O1
+    H4 --&gt; O2
 
-  HID -.-&gt; G1
-  OUT -.-&gt; G2
+    O1 -.-&gt; BP
+    O2 -.-&gt; BP
+
+    BP["&lt;b&gt;反向传播（单样本，行向量约定）&lt;/b&gt;&lt;br/&gt;δ₃ = ∂L/∂z₂ = ŷ − y&lt;br/&gt;δ₂ = ∂L/∂z₁ = (1 − tanh²(z₁)) ∘ (δ₃W₂ᵀ)&lt;br/&gt;∂L/∂W₂ = a₁ᵀδ₃&amp;nbsp;&amp;nbsp;&amp;nbsp;∂L/∂b₂ = δ₃&lt;br/&gt;∂L/∂W₁ = xᵀδ₂&amp;nbsp;&amp;nbsp;&amp;nbsp;∂L/∂b₁ = δ₂"]
+
+    style IL fill:#FDFCF8,stroke:#B8894A,stroke-width:1.5px
+    style HL fill:#FDFCF8,stroke:#B8894A,stroke-width:1.5px
+    style OL fill:#FDFCF8,stroke:#B8894A,stroke-width:1.5px
+    style X1 fill:#F5F2EA,stroke:#8B6F3D
+    style X2 fill:#F5F2EA,stroke:#8B6F3D
+    style H1 fill:#FAFAFA,stroke:#B8894A
+    style H2 fill:#FAFAFA,stroke:#B8894A
+    style H3 fill:#FAFAFA,stroke:#B8894A
+    style H4 fill:#FAFAFA,stroke:#B8894A
+    style O1 fill:#FAFAFA,stroke:#B8894A
+    style O2 fill:#FAFAFA,stroke:#B8894A
+    style BP fill:#F5F2EA,stroke:#8B6F3D,stroke-width:2px
 </code></pre>
 
 <h4 id="实现">实现</h4>

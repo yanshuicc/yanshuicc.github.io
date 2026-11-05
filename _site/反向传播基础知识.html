@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>2017-05-15-反向传播基础知识 | 心物婉转</title>
+    <title>反向传播基础知识 | 心物婉转</title>
     <meta name="author" content="Mukosame" />
     <meta name="renderer" content="webkit">
     <meta name="description" content="Everything about xwwz" />
@@ -68,12 +68,12 @@
             <button class="sidenav-toggle" id="sidenavToggle" aria-label="折叠目录">−</button>
         </div>
         <div class="sidenav-body" id="sidenavBody">
-            <ul><li><a href="#梯度下降">梯度下降</a><ul><li><a href="#例子">例子</a></li><li><a href="#可微与梯度存在">可微与梯度存在</a></li></ul></li><li><a href="#梯度下降算法">梯度下降算法</a><ul><li><a href="#固定学习率梯度下降">固定学习率梯度下降</a></li><li><a href="#随机梯度下降">随机梯度下降</a></li><li><a href="#小批量梯度下降">小批量梯度下降</a></li><li><a href="#随时间衰减学习率">随时间衰减学习率</a></li><li><a href="#adam">ADAM</a></li></ul></li><li><a href="#损失函数">损失函数</a><ul><li><a href="#均方误差">均方误差</a></li><li><a href="#平均绝对误差">平均绝对误差</a></li><li><a href="#huber-损失">Huber 损失</a></li><li><a href="#交叉熵损失">交叉熵损失</a></li><li><a href="#focal-损失">Focal 损失</a></li><li><a href="#hinge-损失">Hinge 损失</a></li></ul></li><li><a href="#激活函数">激活函数</a><ul><li><a href="#sigmoid逻辑函数">Sigmoid逻辑函数</a></li><li><a href="#tanh">Tanh</a></li><li><a href="#relu">ReLU</a></li><li><a href="#prelu">PReLU</a></li><li><a href="#elu">ELU</a></li><li><a href="#selu">SELU</a></li><li><a href="#gelu">GELU</a></li></ul></li><li><a href="#反向传播的链式计算">反向传播的链式计算</a></li></ul>
+            <ul><li><a href="#梯度下降">梯度下降</a><ul><li><a href="#例子">例子</a></li><li><a href="#可微与梯度存在">可微与梯度存在</a></li></ul></li><li><a href="#梯度下降算法">梯度下降算法</a><ul><li><a href="#固定学习率梯度下降">固定学习率梯度下降</a></li><li><a href="#随机梯度下降">随机梯度下降</a></li><li><a href="#小批量梯度下降">小批量梯度下降</a></li><li><a href="#随时间衰减学习率">随时间衰减学习率</a></li><li><a href="#adam">ADAM</a></li></ul></li><li><a href="#损失函数">损失函数</a><ul><li><a href="#均方误差">均方误差</a></li><li><a href="#平均绝对误差">平均绝对误差</a></li><li><a href="#huber-损失">Huber 损失</a></li><li><a href="#交叉熵损失">交叉熵损失</a></li><li><a href="#focal-损失">Focal 损失</a></li><li><a href="#hinge-损失">Hinge 损失</a></li></ul></li><li><a href="#激活函数">激活函数</a><ul><li><a href="#sigmoid逻辑函数">Sigmoid逻辑函数</a></li><li><a href="#tanh">Tanh</a></li><li><a href="#relu">ReLU</a></li><li><a href="#prelu">PReLU</a></li><li><a href="#elu">ELU</a></li><li><a href="#selu">SELU</a></li><li><a href="#gelu">GELU</a></li><li><a href="#silu">SiLU</a></li><li><a href="#mish">Mish</a></li><li><a href="#softplus">Softplus</a></li><li><a href="#maxout">Maxout</a></li><li><a href="#softmax">Softmax</a><ul><li><a href="#softmax偏导计算">Softmax偏导计算</a></li></ul></li><li><a href="#线性激活">线性激活</a></li></ul></li><li><a href="#反向传播的链式计算">反向传播的链式计算</a></li></ul>
         </div>
     </aside>
 
     <div class="entry">
-        <div class="entry-title"><a href="/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" title="2017-05-15-反向传播基础知识">2017-05-15-反向传播基础知识</a></div>
+        <div class="entry-title"><a href="/%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86" title="反向传播基础知识">反向传播基础知识</a></div>
         <div class="entry-date">2017-05-15</div>
         <h1 id="梯度下降">梯度下降</h1>
 
@@ -333,6 +333,10 @@
   <li>前面的负号：把负的对数值翻成正的损失。</li>
   <li>\(\frac1N\sum_n\)：对 \(N\) 个样本的损失取平均。</li>
 </ul>
+
+<blockquote>
+  <p>在机器学习语境中，交叉熵等同于交叉熵损失。把信息论中交叉熵的概念拿来当损失函数使用。</p>
+</blockquote>
 
 <p><strong>One-hot</strong>：样本类别唯一确定时，真实分布经常采用One-hot，即真实类别那一位是 1，其余是 0。优点包括：</p>
 <ul>
@@ -595,33 +599,192 @@ x, &amp; x&gt;0\\
 <p><strong>GELU</strong>：平滑且非单调，在 0 附近有小负值区域，Transformer、BERT、GPT 等大模型常用。它通常比 ReLU 稍好，但计算更贵，常用 tanh 近似来加速。适合 Transformer、大语言模型和较深网络，尤其是对平滑激活有需求的场景。<br />
 \(\mathrm{GELU}(x)=x\Phi(x)\)</p>
 
-<ul>
-  <li>
-    <p><strong>SiLU / Swish</strong>：SiLU 是 \(x\sigma(x)\)，Swish 是 \(x\sigma(\beta x)\)，二者都是平滑、非单调激活，负区间有小的负输出。它们在现代 CNN 和部分大模型中表现不错，但计算比 ReLU 贵。适合较新的卷积网络和大模型，通常作为 ReLU/GELU 的替代候选。<br />
+<h2 id="silu">SiLU</h2>
+
+<p><strong>SiLU / Swish</strong>：SiLU 是 \(x\sigma(x)\)，Swish 是 \(x\sigma(\beta x)\)，二者都是平滑、非单调激活，负区间有小的负输出。它们在现代 CNN 和部分大模型中表现不错，但计算比 ReLU 贵。适合较新的卷积网络和大模型，通常作为 ReLU/GELU 的替代候选。<br />
 \(\mathrm{SiLU}(x)=x\sigma(x),\qquad
 \mathrm{Swish}(x)=x\sigma(\beta x)\)</p>
-  </li>
-  <li>
-    <p><strong>Mish</strong>：Mish 平滑且非单调，经验上在部分视觉任务中表现较好，可能带来更稳定的梯度。它的计算比 ReLU、SiLU 更贵，部署时未必划算。适合对精度要求较高、计算资源相对充足的视觉模型。<br />
+
+<h2 id="mish">Mish</h2>
+<p><strong>Mish</strong>：Mish 平滑且非单调，经验上在部分视觉任务中表现较好，可能带来更稳定的梯度。它的计算比 ReLU、SiLU 更贵，部署时未必划算。适合对精度要求较高、计算资源相对充足的视觉模型。<br />
 \(\mathrm{Mish}(x)=x\tanh(\ln(1+e^x))\)</p>
-  </li>
-  <li>
-    <p><strong>Softplus</strong>：Softplus 是 ReLU 的平滑近似，处处可导，导数正好是 Sigmoid。它没有 ReLU 的稀疏性，计算包含 exp/log，通常不如 ReLU 常用。适合需要平滑输出、避免硬零导数的场景，或作为理论分析中的平滑替代。<br />
+
+<h2 id="softplus">Softplus</h2>
+<p><strong>Softplus</strong>：Softplus 是 ReLU 的平滑近似，处处可导，导数正好是 Sigmoid。它没有 ReLU 的稀疏性，计算包含 exp/log，通常不如 ReLU 常用。适合需要平滑输出、避免硬零导数的场景，或作为理论分析中的平滑替代。<br />
 \(\mathrm{Softplus}(x)=\ln(1+e^x)\)</p>
-  </li>
-  <li>
-    <p><strong>Maxout</strong>：Maxout 对多组线性变换取最大值，是分段线性函数，表达能力强，可以逼近较复杂的凸函数。它的参数和计算量会成倍增加，现代网络中不如 ReLU 系列常见。适合小规模研究、需要强表达能力的场景，但通常不是默认选择。<br />
+
+<h2 id="maxout">Maxout</h2>
+<p><strong>Maxout</strong>：Maxout 对多组线性变换取最大值，是分段线性函数，表达能力强，可以逼近较复杂的凸函数。它的参数和计算量会成倍增加，现代网络中不如 ReLU 系列常见。适合小规模研究、需要强表达能力的场景，但通常不是默认选择。<br />
 \(\mathrm{Maxout}(x)=\max_i(w_i x+b_i)\)</p>
-  </li>
-  <li>
-    <p><strong>Softmax</strong>：Softmax 把 C 个 logits 转成 C 个概率，输出和为 1，是多分类输出层的标准选择。它一般不作隐藏层激活，因为隐藏层通常需要逐元素的非线性变换。适合多分类输出层，二分类时也可用 2 个节点加 Softmax，或用 1 个 Sigmoid 节点替代。<br />
-\(\mathrm{softmax}(z_i)=\frac{e^{z_i}}{\sum_{j=1}^{C}e^{z_j}}\)</p>
-  </li>
-  <li>
-    <p><strong>线性激活</strong>：线性激活就是不做非线性变换，输出不饱和、计算简单，适合回归任务的输出层。它不能给隐藏层引入非线性，因此不适合作为隐藏层激活。适合回归预测、需要输出任意实数的最后一层。<br />
+
+<h2 id="softmax">Softmax</h2>
+<p><strong>Softmax</strong>：Softmax 把 C 个 logits 转成 C 个概率，输出和为 1，是多分类输出层的标准选择。它一般不作隐藏层激活，因为隐藏层通常需要逐元素的非线性变换。适合多分类输出层，二分类时也可用 2 个节点加 Softmax，或用 1 个 Sigmoid 节点替代。这里的C是指的C个分类。</p>
+
+<blockquote>
+  <p>logits在深度学习里面指的 softmax/sigmoid  这类把实数映射为概率的函数的输入，softmax的是实数 → 概率的映射，在这里指的是输出层的实数输入。这种指代仅在深度学习成立，实际上数学上的logit是指 概率 → 实数 的映射函数。</p>
+</blockquote>
+
+<p>SoftMax的计算过程是对输入做指数变换和归一化处理。指数变换可以把任意实数的logits变成证书，并放大差值，归一化转换为概率分布。</p>
+
+\[\mathrm{softmax}(z_i)=\frac{e^{z_i}}{\sum_{j=1}^{C}e^{z_j}}\]
+
+<div class="img-cap">图中为二分类，$C=2$ 令 $z_1=x z_2=0$ </div>
+
+<div id="softmax-box" class="jxgbox" style="width: 100%; max-width: 520px; height: 320px; margin: 0 auto;"></div>
+
+<script>
+  // softmax: p_i = exp(z_i) / sum_j exp(z_j)
+  // 取 C=2, z1=x, z2=0
+  function softmax2(x) {
+    var e1 = Math.exp(x);
+    var e2 = Math.exp(0);
+    var s = e1 + e2;
+    return [e1 / s, e2 / s];
+  }
+
+  var board = JXG.JSXGraph.initBoard('softmax-box', {
+    boundingbox: [-4, 1.4, 4, -0.2],  // [xmin, ymax, xmax, ymin]
+    axis: true,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false
+  });
+
+  // p1(x) = sigmoid(x)
+  board.create('functiongraph', [function (x) {
+    return softmax2(x)[0];
+  }], {
+    strokeColor: '#B8894A',
+    strokeWidth: 2.5,
+    name: 'p₁ = eˣ/(eˣ+e⁰)',
+    withLabel: true
+  });
+
+  // p2(x) = 1 - sigmoid(x)
+  board.create('functiongraph', [function (x) {
+    return softmax2(x)[1];
+  }], {
+    strokeColor: '#5A7FA8',
+    strokeWidth: 2.5,
+    name: 'p₂ = e⁰/(eˣ+e⁰)',
+    withLabel: true
+  });
+
+  // 关键点：x=0 时 p1=p2=0.5
+  board.create('point', [0, 0.5], {
+    name: '(0, 0.5)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<div class="img-cap">图中为二分类，$C=2$ 令 $z_1=x z_2=y$ </div>
+
+<div id="softmax3d-box" class="jxgbox" style="width: 100%; max-width: 640px; height: 420px; margin: 0 auto;"></div>
+
+<script>
+  // C=2 softmax: p1 = e^z1/(e^z1+e^z2), p2 = e^z2/(e^z1+e^z2)
+  function softmax2_3d(z1, z2) {
+    var e1 = Math.exp(z1);
+    var e2 = Math.exp(z2);
+    var s = e1 + e2;
+    return [e1 / s, e2 / s];
+  }
+
+  var board = JXG.JSXGraph.initBoard('softmax3d-box', {
+    boundingbox: [-6, 6, 6, -6],
+    axis: false,
+    pan: { enabled: true, needShift: false },
+    showNavigation: false,
+    keepaspectratio: false
+  });
+
+  // 3D 视图：默认投影
+  var view = board.create('view3d', [
+    [-4, -4],
+    [8, 8],
+    [[-2, 2], [-2, 2], [0, 1]]
+  ], {
+    xPlaneRear: { visible: false },
+    yPlaneRear: { visible: false }
+  });
+
+  // 坐标轴
+  view.create('axis', [[0, 0, 0], [1, 0, 0]], {
+    name: 'z₁',
+    withLabel: true,
+    strokeColor: '#3A3A38',
+    label: { offset: [4, 4] }
+  });
+  view.create('axis', [[0, 0, 0], [0, 1, 0]], {
+    name: 'z₂',
+    withLabel: true,
+    strokeColor: '#3A3A38',
+    label: { offset: [4, 4] }
+  });
+  view.create('axis', [[0, 0, 0], [0, 0, 1]], {
+    name: 'p',
+    withLabel: true,
+    strokeColor: '#3A3A38',
+    label: { offset: [4, 4] }
+  });
+
+  // p1(z1,z2) 曲面
+  view.create('functiongraph3d', [
+    function (z1, z2) { return softmax2_3d(z1, z2)[0]; },
+    [-2, 2], [-2, 2]
+  ], {
+    strokeColor: '#B8894A',
+    strokeWidth: 1.5,
+    stepsU: 20,
+    stepsV: 20,
+    fillColor: '#B8894A',
+    fillOpacity: 0.25,
+    name: 'p₁',
+    withLabel: true
+  });
+
+  // p2(z1,z2) 曲面
+  view.create('functiongraph3d', [
+    function (z1, z2) { return softmax2_3d(z1, z2)[1]; },
+    [-2, 2], [-2, 2]
+  ], {
+    strokeColor: '#5A7FA8',
+    strokeWidth: 1.5,
+    stepsU: 20,
+    stepsV: 20,
+    fillColor: '#5A7FA8',
+    fillOpacity: 0.25,
+    name: 'p₂',
+    withLabel: true
+  });
+
+  // 关键点：z1=z2=0 时 p1=p2=0.5
+  view.create('point3d', [0, 0, 0.5], {
+    name: '(0,0,0.5)',
+    size: 3,
+    fillColor: '#3A3A38',
+    strokeColor: '#3A3A38',
+    label: { offset: [6, 6] }
+  });
+</script>
+
+<h3 id="softmax偏导计算">Softmax偏导计算</h3>
+
+<p>设神经网络中的输出层有 $C$ 个类别，Softmax的输入为 $z=(z_1,\dots,z_C)\in\mathbb{R}^C$，Softmax输出为 $p_i=\frac{e^{z_i}}{S}$。其中，$ S=\sum_{j=1}^C e^{z_j}$。满足 $p_i&gt;0,\ \sum_i p_i=1$。</p>
+
+<p>真实标签用分布 $y=(y_1,\dots,y_C)$ 表示，one-hot 时只有一个 $y_t=1$，其余为 0；软标签时 $y_i\ge0,\ \sum_i y_i=1$。</p>
+
+<p>交叉熵损失：</p>
+
+\[L=-\sum_{i=1}^C y_i\log p_i\]
+
+<p>目标：求 $\dfrac{\partial L}{\partial z_k}$，对每个 $k=1,\dots,C$。</p>
+
+<h2 id="线性激活">线性激活</h2>
+<p><strong>线性激活</strong>：线性激活就是不做非线性变换，输出不饱和、计算简单，适合回归任务的输出层。它不能给隐藏层引入非线性，因此不适合作为隐藏层激活。适合回归预测、需要输出任意实数的最后一层。<br />
 \(\mathrm{Linear}(x)=x\)</p>
-  </li>
-</ul>
 
 <h1 id="反向传播的链式计算">反向传播的链式计算</h1>
 <p>https://colah.github.io/posts/2015-08-Backprop/</p>
